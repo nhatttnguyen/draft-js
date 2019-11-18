@@ -133,6 +133,8 @@ export type DraftEditorProps = {
     eventTimeStamp: number,
   ) => DraftHandleValue,
 
+  handleBeforeReplaceText: (editorState: EditorState) => any,
+
   handlePastedText?: (
     text: string,
     html?: string,

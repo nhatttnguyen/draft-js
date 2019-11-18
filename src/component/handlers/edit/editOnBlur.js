@@ -30,7 +30,7 @@ function editOnBlur(editor: DraftEditor, e: SyntheticEvent<>): void {
   // However if users wish to override this behaviour they can provide
   // a prop preserveSelectionOnBlur of `true`.
   if (
-    !Boolean(editor.props.preserveSelectionOnBlur) &&
+    !editor.props.preserveSelectionOnBlur &&
     getActiveElement() === document.body
   ) {
     const selection = global.getSelection();

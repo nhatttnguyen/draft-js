@@ -38,7 +38,7 @@ const keyCommandPlainBackspace = require('keyCommandPlainBackspace');
  * leads to composed characters being resolved and re-render occurring
  * sooner than we want.
  */
-const RESOLVE_DELAY = 20;
+// const RESOLVE_DELAY = 20;
 
 /**
  * A handful of variables used to track the current composition and its
@@ -62,7 +62,7 @@ const DraftEditorCompositionHandler = {
    * A `compositionstart` event has fired while we're still in composition
    * mode. Continue the current composition session to prevent a re-render.
    */
-  onCompositionStart: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+  onCompositionStart: function(editor: DraftEditor, e: any): void {
     stillComposing = true;
     let editorState = editor._latestEditorState;
     editor.update(EditorState.set(editorState, {inCompositionMode: true}));
@@ -81,7 +81,7 @@ const DraftEditorCompositionHandler = {
    * A `compositionstart` event has fired while we're still in composition
    * mode. Continue the current composition session to prevent a re-render.
    */
-  onCompositionUpdate: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+  onCompositionUpdate: function(editor: DraftEditor, e: any): void {
     const editorState = editor._latestEditorState;
 
     editor.update(EditorState.set(editorState, {inCompositionMode: true}));
@@ -113,22 +113,22 @@ const DraftEditorCompositionHandler = {
    * twice could break the DOM, we only use the first event. Example: Arabic
    * Google Input Tools on Windows 8.1 fires `compositionend` three times.
    */
-  onCompositionEnd: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+  onCompositionEnd: function(editor: DraftEditor, e: any): void {
     resolved = false;
     stillComposing = false;
     e.persist();
     // setTimeout(() => {
-      if (!resolved) {
-        DraftEditorCompositionHandler.resolveComposition(editor, e);
-      }
+    if (!resolved) {
+      DraftEditorCompositionHandler.resolveComposition(editor, e);
+    }
     // }, RESOLVE_DELAY);
   },
 
   onSelect: editOnSelect,
 
-  onBeforeInput(editor, e) {
+  onBeforeInput(editor: DraftEditor, e: any) {
     // handle when user not typing IME
-    if(!domObserver && !editor._latestEditorState.isInCompositionMode()) {
+    if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
       editOnBeforeInput(editor, e);
     }
   },
@@ -138,7 +138,7 @@ const DraftEditorCompositionHandler = {
    * the arrow keys are used to commit, prevent default so that the cursor
    * doesn't move, otherwise it will jump back noticeably on re-render.
    */
-  onKeyDown: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+  onKeyDown: function(editor: DraftEditor, e: any): void {
     const editorState = editor._latestEditorState;
     if (
       e.key === 'Process' &&
@@ -148,7 +148,8 @@ const DraftEditorCompositionHandler = {
     ) {
       const timeStamp = e.timeStamp;
       setTimeout(() => {
-        editor.props.handleBeforeInput('　', editorState, timeStamp);
+        editor.props.handleBeforeInput &&
+          editor.props.handleBeforeInput('　', editorState, timeStamp);
       }, 0);
     }
     if (
@@ -194,7 +195,7 @@ const DraftEditorCompositionHandler = {
    * characters that we do not want. `preventDefault` allows the composition
    * to be committed while preventing the extra characters.
    */
-  onKeyPress: function(editor: DraftEditor, e: SyntheticKeyboardEvent<>): void {
+  onKeyPress: function(editor: DraftEditor, e: any): void {
     if (e.which === Keys.RETURN) {
       e.preventDefault();
     }
@@ -215,7 +216,7 @@ const DraftEditorCompositionHandler = {
    * Resetting innerHTML will move focus to the beginning of the editor,
    * so we update to force it back to the correct place.
    */
-  resolveComposition: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+  resolveComposition: function(editor: DraftEditor, e: any): void {
     if (stillComposing) {
       return;
     }
