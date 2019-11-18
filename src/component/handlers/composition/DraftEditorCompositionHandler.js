@@ -24,6 +24,9 @@ const getContentEditableContainer = require('getContentEditableContainer');
 const getDraftEditorSelection = require('getDraftEditorSelection');
 const getEntityKeyForSelection = require('getEntityKeyForSelection');
 const nullthrows = require('nullthrows');
+const editOnBeforeInput = require('editOnBeforeInput');
+const editOnKeyDown = require('editOnKeyDown');
+const keyCommandPlainBackspace = require('keyCommandPlainBackspace');
 
 /**
  * Millisecond delay to allow `compositionstart` to fire again upon
@@ -59,9 +62,41 @@ const DraftEditorCompositionHandler = {
    * A `compositionstart` event has fired while we're still in composition
    * mode. Continue the current composition session to prevent a re-render.
    */
-  onCompositionStart: function(editor: DraftEditor): void {
+  onCompositionStart: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
     stillComposing = true;
+    let editorState = editor._latestEditorState;
+    editor.update(EditorState.set(editorState, {inCompositionMode: true}));
+
+    // const selection = editorState.getSelection();
+    // const contentState = editorState.getCurrentContent();
+    // if (!selection.isCollapsed()) {
+    //   editor.props.handleBeforeReplaceText(editorState);
+    //   const updatedContentState = DraftModifier.removeRange(contentState, selection, 'forward');
+    //   EditorState.push(editorState, updatedContentState, 'remove-range');
+    // }
     startDOMObserver(editor);
+  },
+
+  /**
+   * A `compositionstart` event has fired while we're still in composition
+   * mode. Continue the current composition session to prevent a re-render.
+   */
+  onCompositionUpdate: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+    const editorState = editor._latestEditorState;
+
+    editor.update(EditorState.set(editorState, {inCompositionMode: true}));
+
+    const selection = editorState.getSelection();
+    const contentState = editorState.getCurrentContent();
+    if (!selection.isCollapsed()) {
+      editor.props.handleBeforeReplaceText(editorState);
+      const updatedContentState = DraftModifier.removeRange(
+        contentState,
+        selection,
+        'forward',
+      );
+      EditorState.push(editorState, updatedContentState, 'remove-range');
+    }
   },
 
   /**
@@ -78,31 +113,74 @@ const DraftEditorCompositionHandler = {
    * twice could break the DOM, we only use the first event. Example: Arabic
    * Google Input Tools on Windows 8.1 fires `compositionend` three times.
    */
-  onCompositionEnd: function(editor: DraftEditor): void {
+  onCompositionEnd: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
     resolved = false;
     stillComposing = false;
-    setTimeout(() => {
+    e.persist();
+    // setTimeout(() => {
       if (!resolved) {
-        DraftEditorCompositionHandler.resolveComposition(editor);
+        DraftEditorCompositionHandler.resolveComposition(editor, e);
       }
-    }, RESOLVE_DELAY);
+    // }, RESOLVE_DELAY);
   },
 
   onSelect: editOnSelect,
+
+  onBeforeInput(editor, e) {
+    // handle when user not typing IME
+    if(!domObserver && !editor._latestEditorState.isInCompositionMode()) {
+      editOnBeforeInput(editor, e);
+    }
+  },
 
   /**
    * In Safari, keydown events may fire when committing compositions. If
    * the arrow keys are used to commit, prevent default so that the cursor
    * doesn't move, otherwise it will jump back noticeably on re-render.
    */
-  onKeyDown: function(editor: DraftEditor, e: SyntheticKeyboardEvent<>): void {
-    if (!stillComposing) {
+  onKeyDown: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+    const editorState = editor._latestEditorState;
+    if (
+      e.key === 'Process' &&
+      e.nativeEvent &&
+      e.nativeEvent.code === 'Space' &&
+      !stillComposing
+    ) {
+      const timeStamp = e.timeStamp;
+      setTimeout(() => {
+        editor.props.handleBeforeInput('　', editorState, timeStamp);
+      }, 0);
+    }
+    if (
+      domObserver &&
+      !(
+        e.key === 'Process' &&
+        e.nativeEvent &&
+        (e.nativeEvent.code === 'Space' || e.nativeEvent.code === 'Enter') &&
+        stillComposing
+      )
+    ) {
+      editOnKeyDown(editor, e);
+
+      if (e.key === 'Backspace') {
+        keyCommandPlainBackspace(editorState);
+      }
+      // if (!stillComposing) {
       // If a keydown event is received after compositionend but before the
       // 20ms timer expires (ex: type option-E then backspace, or type A then
       // backspace in 2-Set Korean), we should immediately resolve the
       // composition and reinterpret the key press in edit mode.
-      DraftEditorCompositionHandler.resolveComposition(editor);
-      editor._onKeyDown(e);
+      // editor._onKeyDown(e);
+      //   return;
+      // }
+    } else {
+      if (e.key === 'Backspace') {
+        keyCommandPlainBackspace(editorState);
+      }
+
+      if (!stillComposing) {
+        editOnKeyDown(editor, e);
+      }
       return;
     }
     if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
@@ -137,8 +215,53 @@ const DraftEditorCompositionHandler = {
    * Resetting innerHTML will move focus to the beginning of the editor,
    * so we update to force it back to the correct place.
    */
-  resolveComposition: function(editor: DraftEditor): void {
+  resolveComposition: function(editor: DraftEditor, e: SyntheticInputEvent<>): void {
     if (stillComposing) {
+      return;
+    }
+    editor.update(
+      EditorState.set(editor._latestEditorState, {
+        inCompositionMode: false,
+      }),
+    );
+    if (
+      e.data ||
+      (e.key === 'Process' &&
+        e.nativeEvent &&
+        e.nativeEvent.code === 'Space') ||
+      !domObserver
+    ) {
+      let currentSelection = editor._latestEditorState.getSelection();
+
+      if (
+        !(
+          e.key === 'Process' &&
+          e.nativeEvent &&
+          e.nativeEvent.code === 'Space'
+        )
+      ) {
+        const focusOffset = currentSelection.getFocusOffset();
+        currentSelection = currentSelection.merge({
+          anchorOffset:
+            focusOffset - e.data.length < 0
+              ? focusOffset
+              : focusOffset - e.data.length,
+          focusOffset:
+            focusOffset - e.data.length < 0
+              ? focusOffset
+              : focusOffset - e.data.length,
+        });
+        const newEditorState = EditorState.forceSelection(
+          editor._latestEditorState,
+          currentSelection,
+        );
+        editor.update(newEditorState);
+      }
+
+      editOnBeforeInput(editor, e);
+      stillComposing = false;
+      domObserver = null;
+      resolved = true;
       return;
     }
 
@@ -173,6 +296,12 @@ const DraftEditorCompositionHandler = {
     // ) {
     //   return;
     // }
+
+    // editor.props.handleBeforeInput(
+    //         e.data,
+    //         editorState,
+    //         e.timeStamp,
+    //       );
 
     let contentState = editorState.getCurrentContent();
     mutations.forEach((composedChars, offsetKey) => {
@@ -222,7 +351,6 @@ const DraftEditorCompositionHandler = {
       getContentEditableContainer(editor),
     );
     const compositionEndSelectionState = documentSelection.selectionState;
-
     editor.restoreEditorDOM();
 
     const editorStateWithUpdatedSelection = EditorState.acceptSelection(
