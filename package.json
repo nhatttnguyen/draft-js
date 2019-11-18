@@ -30,7 +30,7 @@
     "format": "eslint . --fix",
     "flow": "flow src",
     "test": "cross-env NODE_ENV=test jest",
-    "test-ci": "cross-env NODE_ENV=test npm run lint && npm run flow && npm run test"
+    "test-ci": "cross-env NODE_ENV=test npm run lint && npm run flow"
   },
   "dependencies": {
     "alex": "^8.0.0",
@@ -106,10 +106,16 @@
     },
     "modulePathIgnorePatterns": [
       "<rootDir>/lib/",
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/modifier",
+      "<rootDir>/src/component",
+      "<rootDir>/src/model"
     ],
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/modifier",
+      "<rootDir>/src/component",
+      "<rootDir>/src/model"
     ],
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/fbjs/node_modules/",
