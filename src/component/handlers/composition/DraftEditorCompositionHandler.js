@@ -82,9 +82,7 @@ const DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionUpdate: function(editor: DraftEditor, e: any): void {
-    const editorState = editor._latestEditorState;
-
-    editor.update(EditorState.set(editorState, {inCompositionMode: true}));
+    let editorState = editor._latestEditorState;
 
     const selection = editorState.getSelection();
     const contentState = editorState.getCurrentContent();
@@ -95,8 +93,13 @@ const DraftEditorCompositionHandler = {
         selection,
         'forward',
       );
-      EditorState.push(editorState, updatedContentState, 'remove-range');
+      editorState = EditorState.push(
+        editorState,
+        updatedContentState,
+        'remove-range',
+      );
     }
+    editor.update(EditorState.set(editorState, {inCompositionMode: true}));
   },
 
   /**
