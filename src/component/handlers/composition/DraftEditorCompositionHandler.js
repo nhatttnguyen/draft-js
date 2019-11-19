@@ -67,13 +67,17 @@ const DraftEditorCompositionHandler = {
     let editorState = editor._latestEditorState;
     editor.update(EditorState.set(editorState, {inCompositionMode: true}));
 
-    // const selection = editorState.getSelection();
-    // const contentState = editorState.getCurrentContent();
-    // if (!selection.isCollapsed()) {
-    //   editor.props.handleBeforeReplaceText(editorState);
-    //   const updatedContentState = DraftModifier.removeRange(contentState, selection, 'forward');
-    //   EditorState.push(editorState, updatedContentState, 'remove-range');
-    // }
+    const selection = editorState.getSelection();
+    const contentState = editorState.getCurrentContent();
+    if (!selection.isCollapsed()) {
+      editor.props.handleBeforeReplaceText(editorState);
+      const updatedContentState = DraftModifier.removeRange(
+        contentState,
+        selection,
+        'forward',
+      );
+      EditorState.push(editorState, updatedContentState, 'remove-range');
+    }
     startDOMObserver(editor);
   },
 
@@ -86,20 +90,20 @@ const DraftEditorCompositionHandler = {
 
     const selection = editorState.getSelection();
     const contentState = editorState.getCurrentContent();
-    if (!selection.isCollapsed()) {
-      editor.props.handleBeforeReplaceText(editorState);
-      const updatedContentState = DraftModifier.removeRange(
-        contentState,
-        selection,
-        'forward',
-      );
-      editorState = EditorState.push(
-        editorState,
-        updatedContentState,
-        'remove-range',
-      );
-      editor.update(editorState);
-    }
+    // if (!selection.isCollapsed()) {
+    //   editor.props.handleBeforeReplaceText(editorState);
+    //   const updatedContentState = DraftModifier.removeRange(
+    //     contentState,
+    //     selection,
+    //     'forward',
+    //   );
+    //   editorState = EditorState.push(
+    //     editorState,
+    //     updatedContentState,
+    //     'remove-range',
+    //   );
+    //   editor.update(editorState);
+    // }
   },
 
   /**
