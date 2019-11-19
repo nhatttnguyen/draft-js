@@ -98,8 +98,8 @@ const DraftEditorCompositionHandler = {
         updatedContentState,
         'remove-range',
       );
+      editor.update(editorState);
     }
-    editor.update(EditorState.set(editorState, {inCompositionMode: true}));
   },
 
   /**

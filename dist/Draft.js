@@ -10444,11 +10444,8 @@ var DraftEditorCompositionHandler = {
       editor.props.handleBeforeReplaceText(editorState);
       var updatedContentState = DraftModifier.removeRange(contentState, selection, 'forward');
       editorState = EditorState.push(editorState, updatedContentState, 'remove-range');
+      editor.update(editorState);
     }
-
-    editor.update(EditorState.set(editorState, {
-      inCompositionMode: true
-    }));
   },
 
   /**
