@@ -176,6 +176,7 @@ function editOnKeyDown(editor: DraftEditor, e: SyntheticKeyboardEvent<>): void {
     // Since undo requires some special updating behavior to keep the editor
     // in sync, handle it separately.
     keyCommandUndo(e, editorState, editor.update);
+    e.preventDefault();
     return;
   }
 

@@ -5223,6 +5223,7 @@ function editOnKeyDown(editor, e) {
     // Since undo requires some special updating behavior to keep the editor
     // in sync, handle it separately.
     keyCommandUndo(e, editorState, editor.update);
+    e.preventDefault();
     return;
   } // At this point, we know that we're handling a command of some kind, so
   // we don't want to insert a character following the keydown.
@@ -8026,7 +8027,7 @@ var CharacterMetadata = __webpack_require__(5);
 function applyEntityToContentBlock(contentBlock, start, end, entityKey) {
   var characterList = contentBlock.getCharacterList();
 
-  while (start < end) {
+  while (start < end && characterList.size > start) {
     characterList = characterList.set(start, CharacterMetadata.applyEntity(characterList.get(start), entityKey));
     start++;
   }
