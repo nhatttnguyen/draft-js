@@ -10437,9 +10437,6 @@ var DraftEditorCompositionHandler = {
    */
   onCompositionUpdate: function onCompositionUpdate(editor, e) {
     var editorState = editor._latestEditorState;
-    editor.update(EditorState.set(editorState, {
-      inCompositionMode: true
-    }));
     var selection = editorState.getSelection();
     var contentState = editorState.getCurrentContent();
 
@@ -10448,6 +10445,10 @@ var DraftEditorCompositionHandler = {
       var updatedContentState = DraftModifier.removeRange(contentState, selection, 'forward');
       EditorState.push(editorState, updatedContentState, 'remove-range');
     }
+
+    editor.update(EditorState.set(editorState, {
+      inCompositionMode: true
+    }));
   },
 
   /**

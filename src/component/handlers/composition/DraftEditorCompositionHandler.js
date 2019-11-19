@@ -84,8 +84,6 @@ const DraftEditorCompositionHandler = {
   onCompositionUpdate: function(editor: DraftEditor, e: any): void {
     const editorState = editor._latestEditorState;
 
-    editor.update(EditorState.set(editorState, {inCompositionMode: true}));
-
     const selection = editorState.getSelection();
     const contentState = editorState.getCurrentContent();
     if (!selection.isCollapsed()) {
@@ -97,6 +95,7 @@ const DraftEditorCompositionHandler = {
       );
       EditorState.push(editorState, updatedContentState, 'remove-range');
     }
+    editor.update(EditorState.set(editorState, {inCompositionMode: true}));
   },
 
   /**
