@@ -10631,25 +10631,27 @@ var DraftEditorCompositionHandler = {
           decoratorKey = _DraftOffsetKey$decod.decoratorKey,
           leafKey = _DraftOffsetKey$decod.leafKey;
 
-      var _editorState$getBlock = editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey]),
-          start = _editorState$getBlock.start,
-          end = _editorState$getBlock.end;
+      if (editorState.getBlockTree(blockKey)) {
+        var _editorState$getBlock = editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey]),
+            start = _editorState$getBlock.start,
+            end = _editorState$getBlock.end;
 
-      var replacementRange = editorState.getSelection().merge({
-        anchorKey: blockKey,
-        focusKey: blockKey,
-        anchorOffset: start,
-        focusOffset: end,
-        isBackward: false
-      });
-      var entityKey = getEntityKeyForSelection(contentState, replacementRange);
-      var currentStyle = contentState.getBlockForKey(blockKey).getInlineStyleAt(start);
-      contentState = DraftModifier.replaceText(contentState, replacementRange, composedChars, currentStyle, entityKey); // We need to update the editorState so the leaf node ranges are properly
-      // updated and multiple mutations are correctly applied.
+        var replacementRange = editorState.getSelection().merge({
+          anchorKey: blockKey,
+          focusKey: blockKey,
+          anchorOffset: start,
+          focusOffset: end,
+          isBackward: false
+        });
+        var entityKey = getEntityKeyForSelection(contentState, replacementRange);
+        var currentStyle = contentState.getBlockForKey(blockKey).getInlineStyleAt(start);
+        contentState = DraftModifier.replaceText(contentState, replacementRange, composedChars, currentStyle, entityKey); // We need to update the editorState so the leaf node ranges are properly
+        // updated and multiple mutations are correctly applied.
 
-      editorState = EditorState.set(editorState, {
-        currentContent: contentState
-      });
+        editorState = EditorState.set(editorState, {
+          currentContent: contentState
+        });
+      }
     }); // When we apply the text changes to the ContentState, the selection always
     // goes to the end of the field, but it should just stay where it is
     // after compositionEnd.
