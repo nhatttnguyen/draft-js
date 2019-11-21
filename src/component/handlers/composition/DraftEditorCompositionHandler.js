@@ -317,7 +317,11 @@ const DraftEditorCompositionHandler = {
         offsetKey,
       );
 
-      if (editorState.getBlockTree(blockKey)) {
+      if (
+        editorState
+          .getBlockTree(blockKey)
+          .getIn([decoratorKey, 'leaves', leafKey])
+      ) {
         const {start, end} = editorState
           .getBlockTree(blockKey)
           .getIn([decoratorKey, 'leaves', leafKey]);
