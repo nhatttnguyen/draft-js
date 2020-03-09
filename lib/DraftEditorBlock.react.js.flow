@@ -10,6 +10,8 @@
  */
 'use strict';
 
+var Promise = require("fbjs/lib/Promise");
+
 import type { BlockNodeRecord } from "./BlockNodeRecord";
 import type ContentState from "./ContentState";
 import type { DraftDecoratorComponentProps } from "./DraftDecorator";
@@ -136,12 +138,116 @@ class DraftEditorBlock extends React.Component<Props> {
     }
   }
 
+  getSnippetsFromBlock = (): Array<any> => {
+    const content: ContentState = this.props.contentState;
+    const block: ContentBlock = this.props.block;
+    if (!block) return [];
+    const snippets = [];
+    block.findEntityRanges(char => char.entity !== null, (start, end) => {
+      const entityKey = block.getEntityAt(start);
+      const entity = content.getEntity(entityKey);
+
+      if (entity && entity.data && entity.data.snippet) {
+        const {
+          startTime,
+          endTime
+        } = entity.data.snippet;
+        snippets.push({
+          entityKey,
+          startTime: startTime,
+          endTime
+        });
+      }
+    });
+    return snippets;
+  };
+  getSnippetFromEntityKey = (entityKey: number, snippets: Array<any>) => {
+    if (!entityKey) return null;
+    return snippets.find(s => s.entityKey === entityKey);
+  };
+  handleRenderChildren = (leafSet, ii, text, blockKey, block, lastLeafSet, hasSelection, snippets) => {
+    return new Promise(resolve => {
+      const leavesForLeafSet = leafSet.get('leaves'); // T44088704
+
+      if (leavesForLeafSet.size === 0) {
+        return resolve(null);
+      }
+
+      const lastLeaf = leavesForLeafSet.size - 1;
+      const leaves = leavesForLeafSet.map((leaf, jj) => {
+        const offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
+        const start = leaf.get('start');
+        const end = leaf.get('end');
+        const entityKey = block.getEntityAt(leafSet.get('start'));
+        const snippet = this.getSnippetFromEntityKey(entityKey, snippets);
+        return <DraftEditorLeaf key={offsetKey} offsetKey={offsetKey} entityKey={entityKey} block={block} start={start} startTime={snippet ? snippet.startTime : null} endTime={snippet ? snippet.endTime : null} selection={hasSelection ? this.props.selection : null} forceSelection={this.props.forceSelection} text={text.slice(start, end)} styleSet={block.getInlineStyleAt(start)} customStyleMap={this.props.customStyleMap} customStyleFn={this.props.customStyleFn} isLast={ii === lastLeafSet && jj === lastLeaf} />;
+      }).toArray();
+      const decoratorKey = leafSet.get('decoratorKey');
+
+      if (decoratorKey == null) {
+        return resolve(leaves);
+      }
+
+      if (!this.props.decorator) {
+        return resolve(leaves);
+      }
+
+      const decorator = nullthrows(this.props.decorator);
+      const DecoratorComponent = decorator.getComponentForKey(decoratorKey);
+
+      if (!DecoratorComponent) {
+        return resolve(leaves);
+      }
+
+      const decoratorProps = decorator.getPropsForKey(decoratorKey);
+      const decoratorOffsetKey = DraftOffsetKey.encode(blockKey, ii, 0);
+      const start = leavesForLeafSet.first().get('start');
+      const end = leavesForLeafSet.last().get('end');
+      const decoratedText = text.slice(start, end);
+      const entityKey = block.getEntityAt(leafSet.get('start')); // Resetting dir to the same value on a child node makes Chrome/Firefox
+      // confused on cursor movement. See http://jsfiddle.net/d157kLck/3/
+
+      const dir = UnicodeBidiDirection.getHTMLDirIfDifferent(UnicodeBidi.getDirection(decoratedText), this.props.direction);
+      const commonProps: DraftDecoratorComponentProps = {
+        contentState: this.props.contentState,
+        decoratedText,
+        dir: dir,
+        key: decoratorOffsetKey,
+        start,
+        end,
+        blockKey,
+        entityKey,
+        offsetKey: decoratorOffsetKey
+      };
+      const result = <DecoratorComponent {...decoratorProps} {...commonProps}>
+          {leaves}
+        </DecoratorComponent>;
+      return resolve(result);
+    });
+  };
+
   _renderChildren(): Array<React.Node> {
     const block = this.props.block;
     const blockKey = block.getKey();
     const text = block.getText();
     const lastLeafSet = this.props.tree.size - 1;
     const hasSelection = isBlockOnSelectionEdge(this.props.selection, blockKey);
+    const snippets = this.getSnippetsFromBlock(); // const process = this.props.tree.map((leafSet, ii) => {
+    //   return this.handleRenderChildren(
+    //     leafSet,
+    //     ii,
+    //     text,
+    //     blockKey,
+    //     block,
+    //     lastLeafSet,
+    //     hasSelection,
+    //     snippets,
+    //   );
+    // });
+    // return Promise.all(process).then(response => {
+    //   return response.toArray();
+    // });
+
     return this.props.tree.map((leafSet, ii) => {
       const leavesForLeafSet = leafSet.get('leaves'); // T44088704
 
@@ -154,7 +260,9 @@ class DraftEditorBlock extends React.Component<Props> {
         const offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
         const start = leaf.get('start');
         const end = leaf.get('end');
-        return <DraftEditorLeaf key={offsetKey} offsetKey={offsetKey} block={block} start={start} selection={hasSelection ? this.props.selection : null} forceSelection={this.props.forceSelection} text={text.slice(start, end)} styleSet={block.getInlineStyleAt(start)} customStyleMap={this.props.customStyleMap} customStyleFn={this.props.customStyleFn} isLast={ii === lastLeafSet && jj === lastLeaf} />;
+        const entityKey = block.getEntityAt(leafSet.get('start'));
+        const snippet = this.getSnippetFromEntityKey(entityKey, snippets);
+        return <DraftEditorLeaf key={offsetKey} offsetKey={offsetKey} entityKey={entityKey} block={block} start={start} startTime={snippet ? snippet.startTime : null} endTime={snippet ? snippet.endTime : null} selection={hasSelection ? this.props.selection : null} forceSelection={this.props.forceSelection} text={text.slice(start, end)} styleSet={block.getInlineStyleAt(start)} customStyleMap={this.props.customStyleMap} customStyleFn={this.props.customStyleFn} isLast={ii === lastLeafSet && jj === lastLeaf} />;
       }).toArray();
       const decoratorKey = leafSet.get('decoratorKey');
 

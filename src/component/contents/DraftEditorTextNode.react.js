@@ -97,6 +97,14 @@ class DraftEditorTextNode extends React.Component<Props> {
   }
 
   render(): React.Node {
+    const {
+      offsetKey,
+      entityKey,
+      startTime,
+      endTime,
+      styleObj,
+      refNode,
+    } = this.props;
     if (this.props.children === '') {
       return this._forceFlag
         ? NEWLINE_A(ref => (this._node = ref))
@@ -104,9 +112,17 @@ class DraftEditorTextNode extends React.Component<Props> {
     }
     return (
       <span
+        data-offset-key={offsetKey}
+        data-entity-key={entityKey}
+        data-start-time={startTime}
+        data-end-time={endTime}
+        style={styleObj}
         key={this._forceFlag ? 'A' : 'B'}
         data-text="true"
-        ref={ref => (this._node = ref)}>
+        ref={ref => {
+          this._node = ref;
+          refNode(ref);
+        }}>
         {this.props.children}
       </span>
     );

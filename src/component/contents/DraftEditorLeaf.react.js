@@ -79,7 +79,7 @@ class DraftEditorLeaf extends React.Component<Props> {
     const {selection} = this.props;
 
     // If selection state is irrelevant to the parent block, no-op.
-    if (selection == null || !selection.getHasFocus()) {
+    if (selection == null || !selection.getHasFocus() || !this.leaf) {
       return;
     }
 
@@ -112,10 +112,10 @@ class DraftEditorLeaf extends React.Component<Props> {
   }
 
   shouldComponentUpdate(nextProps: Props): boolean {
-    const leafNode = this.leaf;
-    invariant(leafNode, 'Missing leafNode');
+    // const leafNode = this.leaf;
+    // invariant(leafNode, 'Missing leafNode');
     const shouldUpdate =
-      leafNode.textContent !== nextProps.text ||
+      this.props.textContent !== nextProps.text ||
       nextProps.styleSet !== this.props.styleSet ||
       nextProps.forceSelection;
     return shouldUpdate;
@@ -141,7 +141,15 @@ class DraftEditorLeaf extends React.Component<Props> {
       text += '\n';
     }
 
-    const {customStyleMap, customStyleFn, offsetKey, styleSet} = this.props;
+    const {
+      customStyleMap,
+      customStyleFn,
+      offsetKey,
+      styleSet,
+      entityKey,
+      startTime,
+      endTime,
+    } = this.props;
     let styleObj = styleSet.reduce((map, styleName) => {
       const mergedStyles = {};
       const style = customStyleMap[styleName];
@@ -162,12 +170,15 @@ class DraftEditorLeaf extends React.Component<Props> {
     }
 
     return (
-      <span
-        data-offset-key={offsetKey}
-        ref={ref => (this.leaf = ref)}
-        style={styleObj}>
-        <DraftEditorTextNode>{text}</DraftEditorTextNode>
-      </span>
+      <DraftEditorTextNode
+        offsetKey={offsetKey}
+        entityKey={entityKey}
+        startTime={startTime}
+        endTime={endTime}
+        styleObj={styleObj}
+        refNode={ref => (this.leaf = ref)}>
+        {text}
+      </DraftEditorTextNode>
     );
   }
 }
