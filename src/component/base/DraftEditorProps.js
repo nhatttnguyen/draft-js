@@ -133,6 +133,9 @@ export type DraftEditorProps = {
     eventTimeStamp: number,
   ) => DraftHandleValue,
 
+  // should call for IME
+  handleBeforeReplaceText?: (editorState: EditorState) => DraftHandleValue,
+
   // Handle intended text insertion before the insertion occurs. This may be
   // useful in cases where the user has entered characters that you would like
   // to trigger some special behavior. E.g. immediately converting `:)` to an

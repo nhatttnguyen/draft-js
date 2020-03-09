@@ -23,7 +23,7 @@ function applyEntityToContentBlock(
 ): BlockNodeRecord {
   let start = startArg;
   let characterList = contentBlock.getCharacterList();
-  while (start < end) {
+  while (start < end && characterList.size > start) {
     characterList = characterList.set(
       start,
       CharacterMetadata.applyEntity(characterList.get(start), entityKey),
