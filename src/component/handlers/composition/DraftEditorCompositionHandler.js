@@ -64,6 +64,7 @@ const DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionStart: function(editor: DraftEditor): void {
+    console.log('IME');
     stillComposing = true;
     let editorState = editor._latestEditorState;
     editor.update(EditorState.set(editorState, {inCompositionMode: true}));
