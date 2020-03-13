@@ -14,7 +14,9 @@ const React = require("react");
 
 const UserAgent = require("fbjs/lib/UserAgent");
 
-const invariant = require("fbjs/lib/invariant"); // In IE, spans with <br> tags render as two newlines. By rendering a span
+const invariant = require("fbjs/lib/invariant");
+
+const isElement = require("./isElement"); // In IE, spans with <br> tags render as two newlines. By rendering a span
 // with only a newline character, we can be sure to render a single line.
 
 
@@ -70,15 +72,16 @@ class DraftEditorTextNode extends React.Component<Props> {
   }
 
   shouldComponentUpdate(nextProps: Props): boolean {
-    const node = this._node;
+    const node: any = this._node;
     const shouldBeNewline = nextProps.children === '';
-    invariant(node instanceof Element, 'node is not an Element');
+    invariant(isElement(node), 'node is not an Element');
+    const elementNode: Element = node;
 
-    if (shouldBeNewline) {
-      return !isNewline(node);
+    if (shouldBeNewline && elementNode) {
+      return !isNewline(elementNode);
     }
 
-    return node.textContent !== nextProps.children;
+    return elementNode && this.props.textContent !== nextProps.children;
   }
 
   componentDidMount(): void {
