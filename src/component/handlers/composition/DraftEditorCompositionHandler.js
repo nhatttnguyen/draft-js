@@ -163,6 +163,7 @@ const DraftEditorCompositionHandler = {
   onSelect: editOnSelect,
 
   onBeforeInput(editor: DraftEditor, e: any) {
+    editOnBeforeInput(editor, e);
     // handle when user not typing IME
     if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
       editOnBeforeInput(editor, e);
