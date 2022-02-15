@@ -57,7 +57,6 @@ const getVisibleSelectionRect = require("./getVisibleSelectionRect");
 
 const convertFromHTML = require("./convertFromHTMLToContentBlocks");
 
-console.log('DraftPublic==========');
 const DraftPublic = {
   Editor: DraftEditor,
   EditorBlock: DraftEditorBlock,

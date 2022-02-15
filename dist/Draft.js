@@ -8325,7 +8325,6 @@ var getVisibleSelectionRect = __webpack_require__(175);
 
 var convertFromHTML = __webpack_require__(72);
 
-console.log('DraftPublic==========');
 var DraftPublic = {
   Editor: DraftEditor,
   EditorBlock: DraftEditorBlock,
@@ -11013,6 +11012,7 @@ var DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionStart: function onCompositionStart(editor, e) {
+    console.log('onCompositionStart======');
     stillComposing = true;
     var isMobile = checkDevice();
     var editorState = editor._latestEditorState;
@@ -11052,7 +11052,9 @@ var DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionUpdate: function onCompositionUpdate(editor, e) {
+    console.log('onCompositionUpdate======');
     var editorState = editor._latestEditorState;
+    editOnBeforeInput(editor, e);
     var selection = editorState.getSelection();
     var contentState = editorState.getCurrentContent(); // if (!selection.isCollapsed()) {
     //   editor.props.handleBeforeReplaceText(editorState);
@@ -11085,6 +11087,7 @@ var DraftEditorCompositionHandler = {
    * Google Input Tools on Windows 8.1 fires `compositionend` three times.
    */
   onCompositionEnd: function onCompositionEnd(editor, e) {
+    console.log('onCompositionEnd======');
     resolved = false;
     stillComposing = false;
     e.persist();

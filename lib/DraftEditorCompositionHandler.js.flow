@@ -79,6 +79,7 @@ const DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionStart: function (editor: DraftEditor, e: any): void {
+    console.log('onCompositionStart======');
     stillComposing = true;
     const isMobile = checkDevice();
     let editorState = editor._latestEditorState;
@@ -118,7 +119,9 @@ const DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionUpdate: function (editor: DraftEditor, e: any): void {
+    console.log('onCompositionUpdate======');
     let editorState = editor._latestEditorState;
+    editOnBeforeInput(editor, e);
     const selection = editorState.getSelection();
     const contentState = editorState.getCurrentContent(); // if (!selection.isCollapsed()) {
     //   editor.props.handleBeforeReplaceText(editorState);
@@ -151,6 +154,7 @@ const DraftEditorCompositionHandler = {
    * Google Input Tools on Windows 8.1 fires `compositionend` three times.
    */
   onCompositionEnd: function (editor: DraftEditor, e: any): void {
+    console.log('onCompositionEnd======');
     resolved = false;
     stillComposing = false;
     e.persist();
