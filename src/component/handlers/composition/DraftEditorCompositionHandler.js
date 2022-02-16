@@ -278,53 +278,53 @@ const DraftEditorCompositionHandler = {
       return;
     }
     const isMobile = checkDevice();
-    if (!isMobile) {
-      editor.update(
-        EditorState.set(editor._latestEditorState, {
-          inCompositionMode: false,
-        }),
-      );
-      if (
-        e.data ||
-        (e.key === 'Process' &&
-          e.nativeEvent &&
-          e.nativeEvent.code === 'Space') ||
-        !domObserver
-      ) {
-        let currentSelection = editor._latestEditorState.getSelection();
+    // if (!isMobile) {
+    //   editor.update(
+    //     EditorState.set(editor._latestEditorState, {
+    //       inCompositionMode: false,
+    //     }),
+    //   );
+    //   if (
+    //     e.data ||
+    //     (e.key === 'Process' &&
+    //       e.nativeEvent &&
+    //       e.nativeEvent.code === 'Space') ||
+    //     !domObserver
+    //   ) {
+    //     let currentSelection = editor._latestEditorState.getSelection();
 
-        if (
-          !(
-            e.key === 'Process' &&
-            e.nativeEvent &&
-            e.nativeEvent.code === 'Space'
-          )
-        ) {
-          const focusOffset = currentSelection.getFocusOffset();
-          currentSelection = currentSelection.merge({
-            anchorOffset:
-              focusOffset - e.data.length < 0
-                ? focusOffset
-                : focusOffset - e.data.length,
-            focusOffset:
-              focusOffset - e.data.length < 0
-                ? focusOffset
-                : focusOffset - e.data.length,
-          });
-          const newEditorState = EditorState.forceSelection(
-            editor._latestEditorState,
-            currentSelection,
-          );
-          editor.update(newEditorState);
-        }
+    //     if (
+    //       !(
+    //         e.key === 'Process' &&
+    //         e.nativeEvent &&
+    //         e.nativeEvent.code === 'Space'
+    //       )
+    //     ) {
+    //       const focusOffset = currentSelection.getFocusOffset();
+    //       currentSelection = currentSelection.merge({
+    //         anchorOffset:
+    //           focusOffset - e.data.length < 0
+    //             ? focusOffset
+    //             : focusOffset - e.data.length,
+    //         focusOffset:
+    //           focusOffset - e.data.length < 0
+    //             ? focusOffset
+    //             : focusOffset - e.data.length,
+    //       });
+    //       const newEditorState = EditorState.forceSelection(
+    //         editor._latestEditorState,
+    //         currentSelection,
+    //       );
+    //       editor.update(newEditorState);
+    //     }
 
-        editOnBeforeInput(editor, e);
-        stillComposing = false;
-        domObserver = null;
-        resolved = true;
-        return;
-      }
-    }
+    //     editOnBeforeInput(editor, e);
+    //     stillComposing = false;
+    //     domObserver = null;
+    //     resolved = true;
+    //     return;
+    //   }
+    // }
 
     const mutations = nullthrows(domObserver).stopAndFlushMutations();
     console.log('resolveComposition-mutations: ', mutations);
