@@ -11227,9 +11227,9 @@ var DraftEditorCompositionHandler = {
           });
           var newEditorState = EditorState.forceSelection(editor._latestEditorState, currentSelection);
           editor.update(newEditorState);
-        } // editOnBeforeInput(editor, e);
+        }
 
-
+        editOnBeforeInput(editor, e);
         stillComposing = false;
         domObserver = null;
         resolved = true;

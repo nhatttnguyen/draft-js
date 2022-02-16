@@ -323,7 +323,7 @@ const DraftEditorCompositionHandler = {
           editor.update(newEditorState);
         }
 
-        // editOnBeforeInput(editor, e);
+        editOnBeforeInput(editor, e);
         stillComposing = false;
         domObserver = null;
         resolved = true;
