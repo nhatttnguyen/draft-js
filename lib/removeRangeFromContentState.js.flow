@@ -26,7 +26,7 @@ const {
   Map
 } = Immutable;
 
-const transformBlock = (key: ?string, blockMap: BlockMap, func: (block: ContentBlockNode) => ContentBlockNode): void => {
+const transformBlock = (key: ?string, blockMap: BlockMap, func: ((block: ContentBlockNode) => ContentBlockNode)): void => {
   if (!key) {
     return;
   }

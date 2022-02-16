@@ -57,9 +57,9 @@ function editOnPaste(editor: DraftEditor, e: SyntheticClipboardEvent<>): void {
         return;
       }
 
-      getTextContentFromFiles(files,
+      getTextContentFromFiles(files, (
       /*string*/
-      fileText => {
+      fileText) => {
         fileText = fileText || defaultFileText;
 
         if (!fileText) {

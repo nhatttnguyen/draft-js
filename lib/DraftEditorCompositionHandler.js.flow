@@ -120,8 +120,8 @@ const DraftEditorCompositionHandler = {
    */
   onCompositionUpdate: function (editor: DraftEditor, e: any): void {
     console.log('onCompositionUpdate======');
-    let editorState = editor._latestEditorState;
-    editOnBeforeInput(editor, e);
+    let editorState = editor._latestEditorState; // editOnBeforeInput(editor, e);
+
     const selection = editorState.getSelection();
     const contentState = editorState.getCurrentContent(); // if (!selection.isCollapsed()) {
     //   editor.props.handleBeforeReplaceText(editorState);
@@ -167,6 +167,7 @@ const DraftEditorCompositionHandler = {
   onSelect: editOnSelect,
 
   onBeforeInput(editor: DraftEditor, e: any) {
+    console.log('onBeforeInput=================');
     editOnBeforeInput(editor, e); // handle when user not typing IME
 
     if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
@@ -263,6 +264,9 @@ const DraftEditorCompositionHandler = {
    * so we update to force it back to the correct place.
    */
   resolveComposition: function (editor: DraftEditor, e: any): void {
+    console.log('resolveComposition===========');
+    console.log('resolveComposition-stillComposing: ', stillComposing);
+
     if (stillComposing) {
       return;
     }
@@ -296,6 +300,7 @@ const DraftEditorCompositionHandler = {
     }
 
     const mutations = nullthrows(domObserver).stopAndFlushMutations();
+    console.log('resolveComposition-mutations: ', mutations);
     domObserver = null;
     resolved = true;
     let editorState = EditorState.set(editor._latestEditorState, {
@@ -351,7 +356,13 @@ const DraftEditorCompositionHandler = {
         });
         const entityKey = getEntityKeyForSelection(contentState, replacementRange);
         const currentStyle = contentState.getBlockForKey(blockKey).getInlineStyleAt(start);
-        contentState = DraftModifier.replaceText(contentState, replacementRange, composedChars, currentStyle, entityKey); // We need to update the editorState so the leaf node ranges are properly
+        contentState = DraftModifier.replaceText(contentState, replacementRange, composedChars, currentStyle, entityKey);
+        console.log('resolveComposition-contentState:', contentState);
+        const block = contentState.getBlockForKey(blockKey);
+        const blockText = block.getText();
+        const plainText = contentState.getPlainText();
+        console.log('resolveComposition-plainText:', plainText);
+        console.log('resolveComposition-blockText:', blockText); // We need to update the editorState so the leaf node ranges are properly
         // updated and multiple mutations are correctly applied.
 
         editorState = EditorState.set(editorState, {
@@ -363,6 +374,7 @@ const DraftEditorCompositionHandler = {
     // after compositionEnd.
 
     const documentSelection = getDraftEditorSelection(editorState, getContentEditableContainer(editor));
+    console.log('resolveComposition-documentSelection"', documentSelection);
     const compositionEndSelectionState = documentSelection.selectionState;
     editor.restoreEditorDOM();
     const editorStateWithUpdatedSelection = EditorState.acceptSelection(editorState, compositionEndSelectionState);
