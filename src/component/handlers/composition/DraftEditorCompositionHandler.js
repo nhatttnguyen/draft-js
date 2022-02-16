@@ -49,6 +49,7 @@ const RESOLVE_DELAY = 20;
 let resolved = false;
 let stillComposing = false;
 let domObserver = null;
+let isCompositionEnd = true;
 
 function startDOMObserver(editor: DraftEditor) {
   if (!domObserver) {
@@ -71,7 +72,7 @@ const DraftEditorCompositionHandler = {
    */
   onCompositionStart: function(editor: DraftEditor, e: any): void {
     console.log('onCompositionStart======');
-
+    isCompositionEnd = false;
     stillComposing = true;
     const isMobile = checkDevice();
     let editorState = editor._latestEditorState;
@@ -156,19 +157,21 @@ const DraftEditorCompositionHandler = {
     console.log('onCompositionEnd======');
     resolved = false;
     stillComposing = false;
+    console.log('onCompositionEnd-stillComposing', stillComposing);
+    isCompositionEnd = true;
     e.persist();
-    setTimeout(() => {
-      if (!resolved) {
-        DraftEditorCompositionHandler.resolveComposition(editor, e);
-      }
-    }, RESOLVE_DELAY);
+
+    if (!resolved) {
+      isCompositionEnd = true;
+      DraftEditorCompositionHandler.resolveComposition(editor, e);
+    }
   },
 
   onSelect: editOnSelect,
 
   onBeforeInput(editor: DraftEditor, e: any) {
     console.log('onBeforeInput=================');
-    editOnBeforeInput(editor, e);
+    // editOnBeforeInput(editor, e);
     // handle when user not typing IME
     if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
       editOnBeforeInput(editor, e);
@@ -181,6 +184,7 @@ const DraftEditorCompositionHandler = {
    * doesn't move, otherwise it will jump back noticeably on re-render.
    */
   onKeyDown: function(editor: DraftEditor, e: any): void {
+    console.log('onKeyDown==========');
     const editorState = editor._latestEditorState;
     const isMobile = checkDevice();
     if (!isMobile) {
@@ -274,7 +278,8 @@ const DraftEditorCompositionHandler = {
   resolveComposition: function(editor: DraftEditor, e: any): void {
     console.log('resolveComposition===========');
     console.log('resolveComposition-stillComposing: ', stillComposing);
-    if (stillComposing) {
+    console.log('isCompositionEnd-stillComposing:', isCompositionEnd);
+    if (stillComposing && !isCompositionEnd) {
       return;
     }
     const isMobile = checkDevice();
