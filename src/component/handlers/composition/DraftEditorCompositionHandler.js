@@ -279,7 +279,7 @@ const DraftEditorCompositionHandler = {
     console.log('resolveComposition===========');
     console.log('resolveComposition-stillComposing: ', stillComposing);
     console.log('isCompositionEnd-stillComposing:', isCompositionEnd);
-    if (stillComposing && !isCompositionEnd) {
+    if (stillComposing) {
       return;
     }
     const isMobile = checkDevice();

@@ -18,7 +18,7 @@ const generateRandomKey = require("./generateRandomKey");
 
 const invariant = require("fbjs/lib/invariant");
 
-const traverseInDepthOrder = (blocks: Array<RawDraftContentBlock>, fn: ((block: RawDraftContentBlock) => void)) => {
+const traverseInDepthOrder = (blocks: Array<RawDraftContentBlock>, fn: (block: RawDraftContentBlock) => void) => {
   let stack = [...blocks].reverse();
 
   while (stack.length) {

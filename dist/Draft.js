@@ -6,9 +6,18954 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t(require("immutable"),require("react"),require("react-dom")):"function"==typeof define&&define.amd?define(["immutable","react","react-dom"],t):"object"==typeof exports?exports.Draft=t(require("immutable"),require("react"),require("react-dom")):e.Draft=t(e.Immutable,e.React,e.ReactDOM)}(window,(function(e,t,n){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=77)}([function(t,n){t.exports=e},function(e,t,n){"use strict";var r=function(e){if(void 0===e)throw new Error("invariant(...): Second argument must be a string.")};e.exports=function(e,t){for(var n=arguments.length,o=new Array(n>2?n-2:0),i=2;i<n;i++)o[i-2]=arguments[i];if(r(t),!e){var a;if(void 0===t)a=new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else{var c=0;(a=new Error(t.replace(/%s/g,(function(){return String(o[c++])})))).name="Invariant Violation"}throw a.framesToPop=1,a}}},function(e,t,n){"use strict";function r(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function o(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?r(Object(n),!0).forEach((function(t){i(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):r(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function i(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(89),c=n(31),s=n(90),u=n(23),l=n(0),f=l.OrderedSet,p=l.Record,g=l.Stack,d=p({allowUndo:!0,currentContent:null,decorator:null,directionMap:null,forceSelection:!1,inCompositionMode:!1,inlineStyleOverride:null,lastChangeType:null,nativelyRenderedContent:null,redoStack:g(),selection:null,treeMap:null,undoStack:g()}),h=function(){t.createEmpty=function(e){return t.createWithContent(c.createFromText(""),e)},t.createWithContent=function(e,n){if(0===e.getBlockMap().count())return t.createEmpty(n);var r=e.getBlockMap().first().getKey();return t.create({currentContent:e,undoStack:g(),redoStack:g(),decorator:n||null,selection:u.createEmpty(r)})},t.create=function(e){var n=e.currentContent,r=e.decorator,i=o(o({},e),{},{treeMap:v(n,r),directionMap:s.getDirectionMap(n)});return new t(new d(i))},t.set=function(e,n){return new t(e.getImmutable().withMutations((function(t){var r=t.get("decorator"),o=r;null===n.decorator?o=null:n.decorator&&(o=n.decorator);var i=n.currentContent||e.getCurrentContent();if(o!==r){var c,s=t.get("treeMap");return c=o&&r?function(e,t,n,r,o){return n.merge(t.toSeq().filter((function(t){return r.getDecorations(t,e)!==o.getDecorations(t,e)})).map((function(t){return a.generate(e,t,r)})))}(i,i.getBlockMap(),s,o,r):v(i,o),void t.merge({decorator:o,treeMap:c,nativelyRenderedContent:null})}i!==e.getCurrentContent()&&t.set("treeMap",function(e,t,n,r){var o=e.getCurrentContent().set("entityMap",n),i=o.getBlockMap();return e.getImmutable().get("treeMap").merge(t.toSeq().filter((function(e,t){return e!==i.get(t)})).map((function(e){return a.generate(o,e,r)})))}(e,i.getBlockMap(),i.getEntityMap(),o)),t.merge(n)})))};var e=t.prototype;function t(e){i(this,"_immutable",void 0),this._immutable=e}return e.toJS=function(){return this.getImmutable().toJS()},e.getAllowUndo=function(){return this.getImmutable().get("allowUndo")},e.getCurrentContent=function(){return this.getImmutable().get("currentContent")},e.getUndoStack=function(){return this.getImmutable().get("undoStack")},e.getRedoStack=function(){return this.getImmutable().get("redoStack")},e.getSelection=function(){return this.getImmutable().get("selection")},e.getDecorator=function(){return this.getImmutable().get("decorator")},e.isInCompositionMode=function(){return this.getImmutable().get("inCompositionMode")},e.mustForceSelection=function(){return this.getImmutable().get("forceSelection")},e.getNativelyRenderedContent=function(){return this.getImmutable().get("nativelyRenderedContent")},e.getLastChangeType=function(){return this.getImmutable().get("lastChangeType")},e.getInlineStyleOverride=function(){return this.getImmutable().get("inlineStyleOverride")},t.setInlineStyleOverride=function(e,n){return t.set(e,{inlineStyleOverride:n})},e.getCurrentInlineStyle=function(){var e=this.getInlineStyleOverride();if(null!=e)return e;var t=this.getCurrentContent(),n=this.getSelection();return n.isCollapsed()?function(e,t){var n=t.getStartKey(),r=t.getStartOffset(),o=e.getBlockForKey(n);if(r>0)return o.getInlineStyleAt(r-1);if(o.getLength())return o.getInlineStyleAt(0);return b(e,n)}(t,n):function(e,t){var n=t.getStartKey(),r=t.getStartOffset(),o=e.getBlockForKey(n);if(r<o.getLength())return o.getInlineStyleAt(r);if(r>0)return o.getInlineStyleAt(r-1);return b(e,n)}(t,n)},e.getBlockTree=function(e){return this.getImmutable().getIn(["treeMap",e])},e.isSelectionAtStartOfContent=function(){var e=this.getCurrentContent().getBlockMap().first().getKey();return this.getSelection().hasEdgeWithin(e,0,0)},e.isSelectionAtEndOfContent=function(){var e=this.getCurrentContent().getBlockMap().last(),t=e.getLength();return this.getSelection().hasEdgeWithin(e.getKey(),t,t)},e.getDirectionMap=function(){return this.getImmutable().get("directionMap")},t.acceptSelection=function(e,t){return y(e,t,!1)},t.forceSelection=function(e,t){return t.getHasFocus()||(t=t.set("hasFocus",!0)),y(e,t,!0)},t.moveSelectionToEnd=function(e){var n=e.getCurrentContent().getLastBlock(),r=n.getKey(),o=n.getLength();return t.acceptSelection(e,new u({anchorKey:r,anchorOffset:o,focusKey:r,focusOffset:o,isBackward:!1}))},t.moveFocusToEnd=function(e){var n=t.moveSelectionToEnd(e);return t.forceSelection(n,n.getSelection())},t.push=function(e,n,r){var o=!(arguments.length>3&&void 0!==arguments[3])||arguments[3];if(e.getCurrentContent()===n)return e;var i=s.getDirectionMap(n,e.getDirectionMap());if(!e.getAllowUndo())return t.set(e,{currentContent:n,directionMap:i,lastChangeType:r,selection:n.getSelectionAfter(),forceSelection:o,inlineStyleOverride:null});var a=e.getSelection(),c=e.getCurrentContent(),u=e.getUndoStack(),l=n;a!==c.getSelectionAfter()||m(e,r)?(u=u.push(c),l=l.set("selectionBefore",a)):"insert-characters"!==r&&"backspace-character"!==r&&"delete-character"!==r||(l=l.set("selectionBefore",c.getSelectionBefore()));var f=e.getInlineStyleOverride(),p=["adjust-depth","change-block-type","split-block"];-1===p.indexOf(r)&&(f=null);var d={currentContent:l,directionMap:i,undoStack:u,redoStack:g(),lastChangeType:r,selection:n.getSelectionAfter(),forceSelection:o,inlineStyleOverride:f};return t.set(e,d)},t.undo=function(e){if(!e.getAllowUndo())return e;var n=e.getUndoStack(),r=n.peek();if(!r)return e;var o=e.getCurrentContent(),i=s.getDirectionMap(r,e.getDirectionMap());return t.set(e,{currentContent:r,directionMap:i,undoStack:n.shift(),redoStack:e.getRedoStack().push(o),forceSelection:!0,inlineStyleOverride:null,lastChangeType:"undo",nativelyRenderedContent:null,selection:o.getSelectionBefore()})},t.redo=function(e){if(!e.getAllowUndo())return e;var n=e.getRedoStack(),r=n.peek();if(!r)return e;var o=e.getCurrentContent(),i=s.getDirectionMap(r,e.getDirectionMap());return t.set(e,{currentContent:r,directionMap:i,undoStack:e.getUndoStack().push(o),redoStack:n.shift(),forceSelection:!0,inlineStyleOverride:null,lastChangeType:"redo",nativelyRenderedContent:null,selection:r.getSelectionAfter()})},e.getImmutable=function(){return this._immutable},t}();function y(e,t,n){return h.set(e,{selection:t,forceSelection:n,nativelyRenderedContent:null,inlineStyleOverride:null})}function v(e,t){return e.getBlockMap().map((function(n){return a.generate(e,n,t)})).toOrderedMap()}function m(e,t){return t!==e.getLastChangeType()||"insert-characters"!==t&&"backspace-character"!==t&&"delete-character"!==t}function b(e,t){var n=e.getBlockMap().reverse().skipUntil((function(e,n){return n===t})).skip(1).skipUntil((function(e,t){return e.getLength()})).first();return n?n.getInlineStyleAt(n.getLength()-1):f()}e.exports=h},function(e,t,n){"use strict";var r=n(5),o=n(79),i=n(80),a=n(82),c=n(21),s=n(0),u=n(85),l=n(86),f=n(1),p=n(44),g=n(42),d=n(87),h=n(88),y=s.OrderedSet,v={replaceText:function(e,t,n,o,i){var a=g(e,t),c=d(a,t),s=r.create({style:o||y(),entity:i||null});return l(c,c.getSelectionAfter(),n,s)},insertText:function(e,t,n,r,o){return t.isCollapsed()||f(!1,"Target range must be collapsed for `insertText`."),v.replaceText(e,t,n,r,o)},moveText:function(e,t,n){var r=c(e,t),o=v.removeRange(e,t,"backward");return v.replaceWithFragment(o,n,r)},replaceWithFragment:function(e,t,n){var r=arguments.length>3&&void 0!==arguments[3]?arguments[3]:"REPLACE_WITH_NEW_DATA",o=g(e,t),i=d(o,t);return u(i,i.getSelectionAfter(),n,r)},removeRange:function(e,t,n){var r,o,i,c;t.getIsBackward()&&(t=t.merge({anchorKey:t.getFocusKey(),anchorOffset:t.getFocusOffset(),focusKey:t.getAnchorKey(),focusOffset:t.getAnchorOffset(),isBackward:!1})),r=t.getAnchorKey(),o=t.getFocusKey(),i=e.getBlockForKey(r),c=e.getBlockForKey(o);var s=t.getStartOffset(),u=t.getEndOffset(),l=i.getEntityAt(s),f=c.getEntityAt(u-1);if(r===o&&l&&l===f){var p=a(e.getEntityMap(),i,c,t,n);return d(e,p)}var h=g(e,t);return d(h,t)},splitBlock:function(e,t){var n=g(e,t),r=d(n,t);return h(r,r.getSelectionAfter())},applyInlineStyle:function(e,t,n){return o.add(e,t,n)},removeInlineStyle:function(e,t,n){return o.remove(e,t,n)},setBlockType:function(e,t,n){return p(e,t,(function(e){return e.merge({type:n,depth:0})}))},setBlockData:function(e,t,n){return p(e,t,(function(e){return e.merge({data:n})}))},mergeBlockData:function(e,t,n){return p(e,t,(function(e){return e.merge({data:e.getData().merge(n)})}))},applyEntity:function(e,t,n){var r=g(e,t);return i(r,t,n)}};e.exports=v},function(e,t,n){"use strict";e.exports=function(e){if(null!=e)return e;throw new Error("Got unexpected null or undefined")}},function(e,t,n){"use strict";function r(e,t){return(r=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var o=n(0),i=o.Map,a=o.OrderedSet,c=o.Record,s=a(),u={style:s,entity:null},l=function(e){var t,n;function o(){return e.apply(this,arguments)||this}n=e,(t=o).prototype=Object.create(n.prototype),t.prototype.constructor=t,r(t,n);var a=o.prototype;return a.getStyle=function(){return this.get("style")},a.getEntity=function(){return this.get("entity")},a.hasStyle=function(e){return this.getStyle().includes(e)},o.applyStyle=function(e,t){var n=e.set("style",e.getStyle().add(t));return o.create(n)},o.removeStyle=function(e,t){var n=e.set("style",e.getStyle().remove(t));return o.create(n)},o.applyEntity=function(e,t){var n=e.getEntity()===t?e:e.set("entity",t);return o.create(n)},o.create=function(e){if(!e)return f;var t=i({style:s,entity:null}).merge(e),n=p.get(t);if(n)return n;var r=new o(t);return p=p.set(t,r),r},o}(c(u)),f=new l,p=i([[i(u),f]]);l.EMPTY=f,e.exports=l},function(e,t,n){"use strict";function r(e,t){return(r=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var o=n(5),i=n(19),a=n(0),c=a.List,s=a.Map,u=a.OrderedSet,l=a.Record,f=a.Repeat,p=u(),g={parent:null,characterList:c(),data:s(),depth:0,key:"",text:"",type:"unstyled",children:c(),prevSibling:null,nextSibling:null},d=function(e,t){return e.getStyle()===t.getStyle()},h=function(e,t){return e.getEntity()===t.getEntity()},y=function(e){if(!e)return e;var t=e.characterList,n=e.text;return n&&!t&&(e.characterList=c(f(o.EMPTY,n.length))),e},v=function(e){var t,n;function o(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:g;return e.call(this,y(t))||this}n=e,(t=o).prototype=Object.create(n.prototype),t.prototype.constructor=t,r(t,n);var a=o.prototype;return a.getKey=function(){return this.get("key")},a.getType=function(){return this.get("type")},a.getText=function(){return this.get("text")},a.getCharacterList=function(){return this.get("characterList")},a.getLength=function(){return this.getText().length},a.getDepth=function(){return this.get("depth")},a.getData=function(){return this.get("data")},a.getInlineStyleAt=function(e){var t=this.getCharacterList().get(e);return t?t.getStyle():p},a.getEntityAt=function(e){var t=this.getCharacterList().get(e);return t?t.getEntity():null},a.getChildKeys=function(){return this.get("children")},a.getParentKey=function(){return this.get("parent")},a.getPrevSiblingKey=function(){return this.get("prevSibling")},a.getNextSiblingKey=function(){return this.get("nextSibling")},a.findStyleRanges=function(e,t){i(this.getCharacterList(),d,e,t)},a.findEntityRanges=function(e,t){i(this.getCharacterList(),h,e,t)},o}(l(g));e.exports=v},function(e,t,n){"use strict";var r=n(97),o=n(100),i=n(101),a=n(102);function c(e,t,n,r){if(e===n)return!0;if(!n.startsWith(e))return!1;var i=n.slice(e.length);return!!t&&(i=r?r(i):i,o.contains(i,t))}function s(e){return"Windows"===r.platformName?e.replace(/^\s*NT/,""):e}var u={isBrowser:function(e){return c(r.browserName,r.browserFullVersion,e)},isBrowserArchitecture:function(e){return c(r.browserArchitecture,null,e)},isDevice:function(e){return c(r.deviceName,null,e)},isEngine:function(e){return c(r.engineName,r.engineVersion,e)},isPlatform:function(e){return c(r.platformName,r.platformFullVersion,e,s)},isPlatformArchitecture:function(e){return c(r.platformArchitecture,null,e)}};e.exports=i(u,a)},function(e,n){e.exports=t},function(e,t,n){"use strict";var r={},o=Math.pow(2,24);e.exports=function(){for(var e;void 0===e||r.hasOwnProperty(e)||!isNaN(+e);)e=Math.floor(Math.random()*o).toString(32);return r[e]=!0,e}},function(e,t){var n;n=function(){return this}();try{n=n||new Function("return this")()}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t,n){"use strict";var r={encode:function(e,t,n){return e+"-"+t+"-"+n},decode:function(e){var t=e.split("-").reverse(),n=t[0],r=t[1];return{blockKey:t.slice(2).reverse().join("-"),decoratorKey:parseInt(r,10),leafKey:parseInt(n,10)}}};e.exports=r},function(e,t,n){"use strict";e.exports=function(e){return!("undefined"==typeof window||!window.__DRAFT_GKX)&&!!window.__DRAFT_GKX[e]}},function(e,t,n){"use strict";function r(e,t){return(r=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var o=n(5),i=n(19),a=n(0),c=a.List,s=a.Map,u=a.OrderedSet,l=a.Record,f=a.Repeat,p=u(),g=l({key:"",type:"unstyled",text:"",characterList:c(),depth:0,data:s()}),d=function(e){var t,n;function a(t){return e.call(this,function(e){if(!e)return e;var t=e.characterList,n=e.text;return n&&!t&&(e.characterList=c(f(o.EMPTY,n.length))),e}(t))||this}n=e,(t=a).prototype=Object.create(n.prototype),t.prototype.constructor=t,r(t,n);var s=a.prototype;return s.getKey=function(){return this.get("key")},s.getType=function(){return this.get("type")},s.getText=function(){return this.get("text")},s.getCharacterList=function(){return this.get("characterList")},s.getLength=function(){return this.getText().length},s.getDepth=function(){return this.get("depth")},s.getData=function(){return this.get("data")},s.getInlineStyleAt=function(e){var t=this.getCharacterList().get(e);return t?t.getStyle():p},s.getEntityAt=function(e){var t=this.getCharacterList().get(e);return t?t.getEntity():null},s.findStyleRanges=function(e,t){i(this.getCharacterList(),h,e,t)},s.findEntityRanges=function(e,t){i(this.getCharacterList(),y,e,t)},a}(g);function h(e,t){return e.getStyle()===t.getStyle()}function y(e,t){return e.getEntity()===t.getEntity()}e.exports=d},function(e,t,n){"use strict";function r(e){return e.replace(/\//g,"-")}e.exports=function(e){return"object"==typeof e?Object.keys(e).filter((function(t){return e[t]})).map(r).join(" "):Array.prototype.map.call(arguments,r).join(" ")}},function(e,t,n){"use strict";
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("immutable"), require("react"), require("react-dom"));
+	else if(typeof define === 'function' && define.amd)
+		define(["immutable", "react", "react-dom"], factory);
+	else if(typeof exports === 'object')
+		exports["Draft"] = factory(require("immutable"), require("react"), require("react-dom"));
+	else
+		root["Draft"] = factory(root["Immutable"], root["React"], root["ReactDOM"]);
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_27__) {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 77);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+
+var validateFormat =  true ? function (format) {} : function (format) {
+  if (format === undefined) {
+    throw new Error('invariant(...): Second argument must be a string.');
+  }
+};
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments to provide
+ * information about what broke and what you were expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant will
+ * remain to ensure logic does not differ in production.
+ */
+
+function invariant(condition, format) {
+  for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+    args[_key - 2] = arguments[_key];
+  }
+
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return String(args[argIndex++]);
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // Skip invariant's own stack frame.
+
+    throw error;
+  }
+}
+
+module.exports = invariant;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var BlockTree = __webpack_require__(89);
+
+var ContentState = __webpack_require__(31);
+
+var EditorBidiService = __webpack_require__(90);
+
+var SelectionState = __webpack_require__(23);
+
+var Immutable = __webpack_require__(0);
+
+var OrderedSet = Immutable.OrderedSet,
+    Record = Immutable.Record,
+    Stack = Immutable.Stack;
+var defaultRecord = {
+  allowUndo: true,
+  currentContent: null,
+  decorator: null,
+  directionMap: null,
+  forceSelection: false,
+  inCompositionMode: false,
+  inlineStyleOverride: null,
+  lastChangeType: null,
+  nativelyRenderedContent: null,
+  redoStack: Stack(),
+  selection: null,
+  treeMap: null,
+  undoStack: Stack()
+};
+var EditorStateRecord = Record(defaultRecord);
+
+var EditorState =
+/*#__PURE__*/
+function () {
+  EditorState.createEmpty = function createEmpty(decorator) {
+    return EditorState.createWithContent(ContentState.createFromText(''), decorator);
+  };
+
+  EditorState.createWithContent = function createWithContent(contentState, decorator) {
+    if (contentState.getBlockMap().count() === 0) {
+      return EditorState.createEmpty(decorator);
+    }
+
+    var firstKey = contentState.getBlockMap().first().getKey();
+    return EditorState.create({
+      currentContent: contentState,
+      undoStack: Stack(),
+      redoStack: Stack(),
+      decorator: decorator || null,
+      selection: SelectionState.createEmpty(firstKey)
+    });
+  };
+
+  EditorState.create = function create(config) {
+    var currentContent = config.currentContent,
+        decorator = config.decorator;
+
+    var recordConfig = _objectSpread({}, config, {
+      treeMap: generateNewTreeMap(currentContent, decorator),
+      directionMap: EditorBidiService.getDirectionMap(currentContent)
+    });
+
+    return new EditorState(new EditorStateRecord(recordConfig));
+  };
+
+  EditorState.set = function set(editorState, put) {
+    var map = editorState.getImmutable().withMutations(function (state) {
+      var existingDecorator = state.get('decorator');
+      var decorator = existingDecorator;
+
+      if (put.decorator === null) {
+        decorator = null;
+      } else if (put.decorator) {
+        decorator = put.decorator;
+      }
+
+      var newContent = put.currentContent || editorState.getCurrentContent();
+
+      if (decorator !== existingDecorator) {
+        var treeMap = state.get('treeMap');
+        var newTreeMap;
+
+        if (decorator && existingDecorator) {
+          newTreeMap = regenerateTreeForNewDecorator(newContent, newContent.getBlockMap(), treeMap, decorator, existingDecorator);
+        } else {
+          newTreeMap = generateNewTreeMap(newContent, decorator);
+        }
+
+        state.merge({
+          decorator: decorator,
+          treeMap: newTreeMap,
+          nativelyRenderedContent: null
+        });
+        return;
+      }
+
+      var existingContent = editorState.getCurrentContent();
+
+      if (newContent !== existingContent) {
+        state.set('treeMap', regenerateTreeForNewBlocks(editorState, newContent.getBlockMap(), newContent.getEntityMap(), decorator));
+      }
+
+      state.merge(put);
+    });
+    return new EditorState(map);
+  };
+
+  var _proto = EditorState.prototype;
+
+  _proto.toJS = function toJS() {
+    return this.getImmutable().toJS();
+  };
+
+  _proto.getAllowUndo = function getAllowUndo() {
+    return this.getImmutable().get('allowUndo');
+  };
+
+  _proto.getCurrentContent = function getCurrentContent() {
+    return this.getImmutable().get('currentContent');
+  };
+
+  _proto.getUndoStack = function getUndoStack() {
+    return this.getImmutable().get('undoStack');
+  };
+
+  _proto.getRedoStack = function getRedoStack() {
+    return this.getImmutable().get('redoStack');
+  };
+
+  _proto.getSelection = function getSelection() {
+    return this.getImmutable().get('selection');
+  };
+
+  _proto.getDecorator = function getDecorator() {
+    return this.getImmutable().get('decorator');
+  };
+
+  _proto.isInCompositionMode = function isInCompositionMode() {
+    return this.getImmutable().get('inCompositionMode');
+  };
+
+  _proto.mustForceSelection = function mustForceSelection() {
+    return this.getImmutable().get('forceSelection');
+  };
+
+  _proto.getNativelyRenderedContent = function getNativelyRenderedContent() {
+    return this.getImmutable().get('nativelyRenderedContent');
+  };
+
+  _proto.getLastChangeType = function getLastChangeType() {
+    return this.getImmutable().get('lastChangeType');
+  }
+  /**
+   * While editing, the user may apply inline style commands with a collapsed
+   * cursor, intending to type text that adopts the specified style. In this
+   * case, we track the specified style as an "override" that takes precedence
+   * over the inline style of the text adjacent to the cursor.
+   *
+   * If null, there is no override in place.
+   */
+  ;
+
+  _proto.getInlineStyleOverride = function getInlineStyleOverride() {
+    return this.getImmutable().get('inlineStyleOverride');
+  };
+
+  EditorState.setInlineStyleOverride = function setInlineStyleOverride(editorState, inlineStyleOverride) {
+    return EditorState.set(editorState, {
+      inlineStyleOverride: inlineStyleOverride
+    });
+  }
+  /**
+   * Get the appropriate inline style for the editor state. If an
+   * override is in place, use it. Otherwise, the current style is
+   * based on the location of the selection state.
+   */
+  ;
+
+  _proto.getCurrentInlineStyle = function getCurrentInlineStyle() {
+    var override = this.getInlineStyleOverride();
+
+    if (override != null) {
+      return override;
+    }
+
+    var content = this.getCurrentContent();
+    var selection = this.getSelection();
+
+    if (selection.isCollapsed()) {
+      return getInlineStyleForCollapsedSelection(content, selection);
+    }
+
+    return getInlineStyleForNonCollapsedSelection(content, selection);
+  };
+
+  _proto.getBlockTree = function getBlockTree(blockKey) {
+    return this.getImmutable().getIn(['treeMap', blockKey]);
+  };
+
+  _proto.isSelectionAtStartOfContent = function isSelectionAtStartOfContent() {
+    var firstKey = this.getCurrentContent().getBlockMap().first().getKey();
+    return this.getSelection().hasEdgeWithin(firstKey, 0, 0);
+  };
+
+  _proto.isSelectionAtEndOfContent = function isSelectionAtEndOfContent() {
+    var content = this.getCurrentContent();
+    var blockMap = content.getBlockMap();
+    var last = blockMap.last();
+    var end = last.getLength();
+    return this.getSelection().hasEdgeWithin(last.getKey(), end, end);
+  };
+
+  _proto.getDirectionMap = function getDirectionMap() {
+    return this.getImmutable().get('directionMap');
+  }
+  /**
+   * Incorporate native DOM selection changes into the EditorState. This
+   * method can be used when we simply want to accept whatever the DOM
+   * has given us to represent selection, and we do not need to re-render
+   * the editor.
+   *
+   * To forcibly move the DOM selection, see `EditorState.forceSelection`.
+   */
+  ;
+
+  EditorState.acceptSelection = function acceptSelection(editorState, selection) {
+    return updateSelection(editorState, selection, false);
+  }
+  /**
+   * At times, we need to force the DOM selection to be where we
+   * need it to be. This can occur when the anchor or focus nodes
+   * are non-text nodes, for instance. In this case, we want to trigger
+   * a re-render of the editor, which in turn forces selection into
+   * the correct place in the DOM. The `forceSelection` method
+   * accomplishes this.
+   *
+   * This method should be used in cases where you need to explicitly
+   * move the DOM selection from one place to another without a change
+   * in ContentState.
+   */
+  ;
+
+  EditorState.forceSelection = function forceSelection(editorState, selection) {
+    if (!selection.getHasFocus()) {
+      selection = selection.set('hasFocus', true);
+    }
+
+    return updateSelection(editorState, selection, true);
+  }
+  /**
+   * Move selection to the end of the editor without forcing focus.
+   */
+  ;
+
+  EditorState.moveSelectionToEnd = function moveSelectionToEnd(editorState) {
+    var content = editorState.getCurrentContent();
+    var lastBlock = content.getLastBlock();
+    var lastKey = lastBlock.getKey();
+    var length = lastBlock.getLength();
+    return EditorState.acceptSelection(editorState, new SelectionState({
+      anchorKey: lastKey,
+      anchorOffset: length,
+      focusKey: lastKey,
+      focusOffset: length,
+      isBackward: false
+    }));
+  }
+  /**
+   * Force focus to the end of the editor. This is useful in scenarios
+   * where we want to programmatically focus the input and it makes sense
+   * to allow the user to continue working seamlessly.
+   */
+  ;
+
+  EditorState.moveFocusToEnd = function moveFocusToEnd(editorState) {
+    var afterSelectionMove = EditorState.moveSelectionToEnd(editorState);
+    return EditorState.forceSelection(afterSelectionMove, afterSelectionMove.getSelection());
+  }
+  /**
+   * Push the current ContentState onto the undo stack if it should be
+   * considered a boundary state, and set the provided ContentState as the
+   * new current content.
+   */
+  ;
+
+  EditorState.push = function push(editorState, contentState, changeType) {
+    var forceSelection = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+
+    if (editorState.getCurrentContent() === contentState) {
+      return editorState;
+    }
+
+    var directionMap = EditorBidiService.getDirectionMap(contentState, editorState.getDirectionMap());
+
+    if (!editorState.getAllowUndo()) {
+      return EditorState.set(editorState, {
+        currentContent: contentState,
+        directionMap: directionMap,
+        lastChangeType: changeType,
+        selection: contentState.getSelectionAfter(),
+        forceSelection: forceSelection,
+        inlineStyleOverride: null
+      });
+    }
+
+    var selection = editorState.getSelection();
+    var currentContent = editorState.getCurrentContent();
+    var undoStack = editorState.getUndoStack();
+    var newContent = contentState;
+
+    if (selection !== currentContent.getSelectionAfter() || mustBecomeBoundary(editorState, changeType)) {
+      undoStack = undoStack.push(currentContent);
+      newContent = newContent.set('selectionBefore', selection);
+    } else if (changeType === 'insert-characters' || changeType === 'backspace-character' || changeType === 'delete-character') {
+      // Preserve the previous selection.
+      newContent = newContent.set('selectionBefore', currentContent.getSelectionBefore());
+    }
+
+    var inlineStyleOverride = editorState.getInlineStyleOverride(); // Don't discard inline style overrides for the following change types:
+
+    var overrideChangeTypes = ['adjust-depth', 'change-block-type', 'split-block'];
+
+    if (overrideChangeTypes.indexOf(changeType) === -1) {
+      inlineStyleOverride = null;
+    }
+
+    var editorStateChanges = {
+      currentContent: newContent,
+      directionMap: directionMap,
+      undoStack: undoStack,
+      redoStack: Stack(),
+      lastChangeType: changeType,
+      selection: contentState.getSelectionAfter(),
+      forceSelection: forceSelection,
+      inlineStyleOverride: inlineStyleOverride
+    };
+    return EditorState.set(editorState, editorStateChanges);
+  }
+  /**
+   * Make the top ContentState in the undo stack the new current content and
+   * push the current content onto the redo stack.
+   */
+  ;
+
+  EditorState.undo = function undo(editorState) {
+    if (!editorState.getAllowUndo()) {
+      return editorState;
+    }
+
+    var undoStack = editorState.getUndoStack();
+    var newCurrentContent = undoStack.peek();
+
+    if (!newCurrentContent) {
+      return editorState;
+    }
+
+    var currentContent = editorState.getCurrentContent();
+    var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
+    return EditorState.set(editorState, {
+      currentContent: newCurrentContent,
+      directionMap: directionMap,
+      undoStack: undoStack.shift(),
+      redoStack: editorState.getRedoStack().push(currentContent),
+      forceSelection: true,
+      inlineStyleOverride: null,
+      lastChangeType: 'undo',
+      nativelyRenderedContent: null,
+      selection: currentContent.getSelectionBefore()
+    });
+  }
+  /**
+   * Make the top ContentState in the redo stack the new current content and
+   * push the current content onto the undo stack.
+   */
+  ;
+
+  EditorState.redo = function redo(editorState) {
+    if (!editorState.getAllowUndo()) {
+      return editorState;
+    }
+
+    var redoStack = editorState.getRedoStack();
+    var newCurrentContent = redoStack.peek();
+
+    if (!newCurrentContent) {
+      return editorState;
+    }
+
+    var currentContent = editorState.getCurrentContent();
+    var directionMap = EditorBidiService.getDirectionMap(newCurrentContent, editorState.getDirectionMap());
+    return EditorState.set(editorState, {
+      currentContent: newCurrentContent,
+      directionMap: directionMap,
+      undoStack: editorState.getUndoStack().push(currentContent),
+      redoStack: redoStack.shift(),
+      forceSelection: true,
+      inlineStyleOverride: null,
+      lastChangeType: 'redo',
+      nativelyRenderedContent: null,
+      selection: newCurrentContent.getSelectionAfter()
+    });
+  }
+  /**
+   * Not for public consumption.
+   */
+  ;
+
+  function EditorState(immutable) {
+    _defineProperty(this, "_immutable", void 0);
+
+    this._immutable = immutable;
+  }
+  /**
+   * Not for public consumption.
+   */
+
+
+  _proto.getImmutable = function getImmutable() {
+    return this._immutable;
+  };
+
+  return EditorState;
+}();
+/**
+ * Set the supplied SelectionState as the new current selection, and set
+ * the `force` flag to trigger manual selection placement by the view.
+ */
+
+
+function updateSelection(editorState, selection, forceSelection) {
+  return EditorState.set(editorState, {
+    selection: selection,
+    forceSelection: forceSelection,
+    nativelyRenderedContent: null,
+    inlineStyleOverride: null
+  });
+}
+/**
+ * Regenerate the entire tree map for a given ContentState and decorator.
+ * Returns an OrderedMap that maps all available ContentBlock objects.
+ */
+
+
+function generateNewTreeMap(contentState, decorator) {
+  return contentState.getBlockMap().map(function (block) {
+    return BlockTree.generate(contentState, block, decorator);
+  }).toOrderedMap();
+}
+/**
+ * Regenerate tree map objects for all ContentBlocks that have changed
+ * between the current editorState and newContent. Returns an OrderedMap
+ * with only changed regenerated tree map objects.
+ */
+
+
+function regenerateTreeForNewBlocks(editorState, newBlockMap, newEntityMap, decorator) {
+  var contentState = editorState.getCurrentContent().set('entityMap', newEntityMap);
+  var prevBlockMap = contentState.getBlockMap();
+  var prevTreeMap = editorState.getImmutable().get('treeMap');
+  return prevTreeMap.merge(newBlockMap.toSeq().filter(function (block, key) {
+    return block !== prevBlockMap.get(key);
+  }).map(function (block) {
+    return BlockTree.generate(contentState, block, decorator);
+  }));
+}
+/**
+ * Generate tree map objects for a new decorator object, preserving any
+ * decorations that are unchanged from the previous decorator.
+ *
+ * Note that in order for this to perform optimally, decoration Lists for
+ * decorators should be preserved when possible to allow for direct immutable
+ * List comparison.
+ */
+
+
+function regenerateTreeForNewDecorator(content, blockMap, previousTreeMap, decorator, existingDecorator) {
+  return previousTreeMap.merge(blockMap.toSeq().filter(function (block) {
+    return decorator.getDecorations(block, content) !== existingDecorator.getDecorations(block, content);
+  }).map(function (block) {
+    return BlockTree.generate(content, block, decorator);
+  }));
+}
+/**
+ * Return whether a change should be considered a boundary state, given
+ * the previous change type. Allows us to discard potential boundary states
+ * during standard typing or deletion behavior.
+ */
+
+
+function mustBecomeBoundary(editorState, changeType) {
+  var lastChangeType = editorState.getLastChangeType();
+  return changeType !== lastChangeType || changeType !== 'insert-characters' && changeType !== 'backspace-character' && changeType !== 'delete-character';
+}
+
+function getInlineStyleForCollapsedSelection(content, selection) {
+  var startKey = selection.getStartKey();
+  var startOffset = selection.getStartOffset();
+  var startBlock = content.getBlockForKey(startKey); // If the cursor is not at the start of the block, look backward to
+  // preserve the style of the preceding character.
+
+  if (startOffset > 0) {
+    return startBlock.getInlineStyleAt(startOffset - 1);
+  } // The caret is at position zero in this block. If the block has any
+  // text at all, use the style of the first character.
+
+
+  if (startBlock.getLength()) {
+    return startBlock.getInlineStyleAt(0);
+  } // Otherwise, look upward in the document to find the closest character.
+
+
+  return lookUpwardForInlineStyle(content, startKey);
+}
+
+function getInlineStyleForNonCollapsedSelection(content, selection) {
+  var startKey = selection.getStartKey();
+  var startOffset = selection.getStartOffset();
+  var startBlock = content.getBlockForKey(startKey); // If there is a character just inside the selection, use its style.
+
+  if (startOffset < startBlock.getLength()) {
+    return startBlock.getInlineStyleAt(startOffset);
+  } // Check if the selection at the end of a non-empty block. Use the last
+  // style in the block.
+
+
+  if (startOffset > 0) {
+    return startBlock.getInlineStyleAt(startOffset - 1);
+  } // Otherwise, look upward in the document to find the closest character.
+
+
+  return lookUpwardForInlineStyle(content, startKey);
+}
+
+function lookUpwardForInlineStyle(content, fromKey) {
+  var lastNonEmpty = content.getBlockMap().reverse().skipUntil(function (_, k) {
+    return k === fromKey;
+  }).skip(1).skipUntil(function (block, _) {
+    return block.getLength();
+  }).first();
+
+  if (lastNonEmpty) {
+    return lastNonEmpty.getInlineStyleAt(lastNonEmpty.getLength() - 1);
+  }
+
+  return OrderedSet();
+}
+
+module.exports = EditorState;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var CharacterMetadata = __webpack_require__(5);
+
+var ContentStateInlineStyle = __webpack_require__(79);
+
+var applyEntityToContentState = __webpack_require__(80);
+
+var getCharacterRemovalRange = __webpack_require__(82);
+
+var getContentStateFragment = __webpack_require__(21);
+
+var Immutable = __webpack_require__(0);
+
+var insertFragmentIntoContentState = __webpack_require__(85);
+
+var insertTextIntoContentState = __webpack_require__(86);
+
+var invariant = __webpack_require__(1);
+
+var modifyBlockForContentState = __webpack_require__(44);
+
+var removeEntitiesAtEdges = __webpack_require__(42);
+
+var removeRangeFromContentState = __webpack_require__(87);
+
+var splitBlockInContentState = __webpack_require__(88);
+
+var OrderedSet = Immutable.OrderedSet;
+/**
+ * `DraftModifier` provides a set of convenience methods that apply
+ * modifications to a `ContentState` object based on a target `SelectionState`.
+ *
+ * Any change to a `ContentState` should be decomposable into a series of
+ * transaction functions that apply the required changes and return output
+ * `ContentState` objects.
+ *
+ * These functions encapsulate some of the most common transaction sequences.
+ */
+
+var DraftModifier = {
+  replaceText: function replaceText(contentState, rangeToReplace, text, inlineStyle, entityKey) {
+    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToReplace);
+    var withoutText = removeRangeFromContentState(withoutEntities, rangeToReplace);
+    var character = CharacterMetadata.create({
+      style: inlineStyle || OrderedSet(),
+      entity: entityKey || null
+    });
+    return insertTextIntoContentState(withoutText, withoutText.getSelectionAfter(), text, character);
+  },
+  insertText: function insertText(contentState, targetRange, text, inlineStyle, entityKey) {
+    !targetRange.isCollapsed() ?  true ? invariant(false, 'Target range must be collapsed for `insertText`.') : invariant(false) : void 0;
+    return DraftModifier.replaceText(contentState, targetRange, text, inlineStyle, entityKey);
+  },
+  moveText: function moveText(contentState, removalRange, targetRange) {
+    var movedFragment = getContentStateFragment(contentState, removalRange);
+    var afterRemoval = DraftModifier.removeRange(contentState, removalRange, 'backward');
+    return DraftModifier.replaceWithFragment(afterRemoval, targetRange, movedFragment);
+  },
+  replaceWithFragment: function replaceWithFragment(contentState, targetRange, fragment) {
+    var mergeBlockData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'REPLACE_WITH_NEW_DATA';
+    var withoutEntities = removeEntitiesAtEdges(contentState, targetRange);
+    var withoutText = removeRangeFromContentState(withoutEntities, targetRange);
+    return insertFragmentIntoContentState(withoutText, withoutText.getSelectionAfter(), fragment, mergeBlockData);
+  },
+  removeRange: function removeRange(contentState, rangeToRemove, removalDirection) {
+    var startKey, endKey, startBlock, endBlock;
+
+    if (rangeToRemove.getIsBackward()) {
+      rangeToRemove = rangeToRemove.merge({
+        anchorKey: rangeToRemove.getFocusKey(),
+        anchorOffset: rangeToRemove.getFocusOffset(),
+        focusKey: rangeToRemove.getAnchorKey(),
+        focusOffset: rangeToRemove.getAnchorOffset(),
+        isBackward: false
+      });
+    }
+
+    startKey = rangeToRemove.getAnchorKey();
+    endKey = rangeToRemove.getFocusKey();
+    startBlock = contentState.getBlockForKey(startKey);
+    endBlock = contentState.getBlockForKey(endKey);
+    var startOffset = rangeToRemove.getStartOffset();
+    var endOffset = rangeToRemove.getEndOffset();
+    var startEntityKey = startBlock.getEntityAt(startOffset);
+    var endEntityKey = endBlock.getEntityAt(endOffset - 1); // Check whether the selection state overlaps with a single entity.
+    // If so, try to remove the appropriate substring of the entity text.
+
+    if (startKey === endKey) {
+      if (startEntityKey && startEntityKey === endEntityKey) {
+        var adjustedRemovalRange = getCharacterRemovalRange(contentState.getEntityMap(), startBlock, endBlock, rangeToRemove, removalDirection);
+        return removeRangeFromContentState(contentState, adjustedRemovalRange);
+      }
+    }
+
+    var withoutEntities = removeEntitiesAtEdges(contentState, rangeToRemove);
+    return removeRangeFromContentState(withoutEntities, rangeToRemove);
+  },
+  splitBlock: function splitBlock(contentState, selectionState) {
+    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
+    var withoutText = removeRangeFromContentState(withoutEntities, selectionState);
+    return splitBlockInContentState(withoutText, withoutText.getSelectionAfter());
+  },
+  applyInlineStyle: function applyInlineStyle(contentState, selectionState, inlineStyle) {
+    return ContentStateInlineStyle.add(contentState, selectionState, inlineStyle);
+  },
+  removeInlineStyle: function removeInlineStyle(contentState, selectionState, inlineStyle) {
+    return ContentStateInlineStyle.remove(contentState, selectionState, inlineStyle);
+  },
+  setBlockType: function setBlockType(contentState, selectionState, blockType) {
+    return modifyBlockForContentState(contentState, selectionState, function (block) {
+      return block.merge({
+        type: blockType,
+        depth: 0
+      });
+    });
+  },
+  setBlockData: function setBlockData(contentState, selectionState, blockData) {
+    return modifyBlockForContentState(contentState, selectionState, function (block) {
+      return block.merge({
+        data: blockData
+      });
+    });
+  },
+  mergeBlockData: function mergeBlockData(contentState, selectionState, blockData) {
+    return modifyBlockForContentState(contentState, selectionState, function (block) {
+      return block.merge({
+        data: block.getData().merge(blockData)
+      });
+    });
+  },
+  applyEntity: function applyEntity(contentState, selectionState, entityKey) {
+    var withoutEntities = removeEntitiesAtEdges(contentState, selectionState);
+    return applyEntityToContentState(withoutEntities, selectionState, entityKey);
+  }
+};
+module.exports = DraftModifier;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+var nullthrows = function nullthrows(x) {
+  if (x != null) {
+    return x;
+  }
+
+  throw new Error("Got unexpected null or undefined");
+};
+
+module.exports = nullthrows;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var _require = __webpack_require__(0),
+    Map = _require.Map,
+    OrderedSet = _require.OrderedSet,
+    Record = _require.Record; // Immutable.map is typed such that the value for every key in the map
+// must be the same type
+
+
+var EMPTY_SET = OrderedSet();
+var defaultRecord = {
+  style: EMPTY_SET,
+  entity: null
+};
+var CharacterMetadataRecord = Record(defaultRecord);
+
+var CharacterMetadata =
+/*#__PURE__*/
+function (_CharacterMetadataRec) {
+  _inheritsLoose(CharacterMetadata, _CharacterMetadataRec);
+
+  function CharacterMetadata() {
+    return _CharacterMetadataRec.apply(this, arguments) || this;
+  }
+
+  var _proto = CharacterMetadata.prototype;
+
+  _proto.getStyle = function getStyle() {
+    return this.get('style');
+  };
+
+  _proto.getEntity = function getEntity() {
+    return this.get('entity');
+  };
+
+  _proto.hasStyle = function hasStyle(style) {
+    return this.getStyle().includes(style);
+  };
+
+  CharacterMetadata.applyStyle = function applyStyle(record, style) {
+    var withStyle = record.set('style', record.getStyle().add(style));
+    return CharacterMetadata.create(withStyle);
+  };
+
+  CharacterMetadata.removeStyle = function removeStyle(record, style) {
+    var withoutStyle = record.set('style', record.getStyle().remove(style));
+    return CharacterMetadata.create(withoutStyle);
+  };
+
+  CharacterMetadata.applyEntity = function applyEntity(record, entityKey) {
+    var withEntity = record.getEntity() === entityKey ? record : record.set('entity', entityKey);
+    return CharacterMetadata.create(withEntity);
+  }
+  /**
+   * Use this function instead of the `CharacterMetadata` constructor.
+   * Since most content generally uses only a very small number of
+   * style/entity permutations, we can reuse these objects as often as
+   * possible.
+   */
+  ;
+
+  CharacterMetadata.create = function create(config) {
+    if (!config) {
+      return EMPTY;
+    }
+
+    var defaultConfig = {
+      style: EMPTY_SET,
+      entity: null
+    }; // Fill in unspecified properties, if necessary.
+
+    var configMap = Map(defaultConfig).merge(config);
+    var existing = pool.get(configMap);
+
+    if (existing) {
+      return existing;
+    }
+
+    var newCharacter = new CharacterMetadata(configMap);
+    pool = pool.set(configMap, newCharacter);
+    return newCharacter;
+  };
+
+  return CharacterMetadata;
+}(CharacterMetadataRecord);
+
+var EMPTY = new CharacterMetadata();
+var pool = Map([[Map(defaultRecord), EMPTY]]);
+CharacterMetadata.EMPTY = EMPTY;
+module.exports = CharacterMetadata;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ *
+ * This file is a fork of ContentBlock adding support for nesting references by
+ * providing links to children, parent, prevSibling, and nextSibling.
+ *
+ * This is unstable and not part of the public API and should not be used by
+ * production systems. This file may be update/removed without notice.
+ */
+
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var CharacterMetadata = __webpack_require__(5);
+
+var findRangesImmutable = __webpack_require__(19);
+
+var Immutable = __webpack_require__(0);
+
+var List = Immutable.List,
+    Map = Immutable.Map,
+    OrderedSet = Immutable.OrderedSet,
+    Record = Immutable.Record,
+    Repeat = Immutable.Repeat;
+var EMPTY_SET = OrderedSet();
+var defaultRecord = {
+  parent: null,
+  characterList: List(),
+  data: Map(),
+  depth: 0,
+  key: '',
+  text: '',
+  type: 'unstyled',
+  children: List(),
+  prevSibling: null,
+  nextSibling: null
+};
+
+var haveEqualStyle = function haveEqualStyle(charA, charB) {
+  return charA.getStyle() === charB.getStyle();
+};
+
+var haveEqualEntity = function haveEqualEntity(charA, charB) {
+  return charA.getEntity() === charB.getEntity();
+};
+
+var decorateCharacterList = function decorateCharacterList(config) {
+  if (!config) {
+    return config;
+  }
+
+  var characterList = config.characterList,
+      text = config.text;
+
+  if (text && !characterList) {
+    config.characterList = List(Repeat(CharacterMetadata.EMPTY, text.length));
+  }
+
+  return config;
+};
+
+var ContentBlockNode =
+/*#__PURE__*/
+function (_ref) {
+  _inheritsLoose(ContentBlockNode, _ref);
+
+  function ContentBlockNode() {
+    var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultRecord;
+
+    /* eslint-disable-next-line constructor-super */
+    return _ref.call(this, decorateCharacterList(props)) || this;
+  }
+
+  var _proto = ContentBlockNode.prototype;
+
+  _proto.getKey = function getKey() {
+    return this.get('key');
+  };
+
+  _proto.getType = function getType() {
+    return this.get('type');
+  };
+
+  _proto.getText = function getText() {
+    return this.get('text');
+  };
+
+  _proto.getCharacterList = function getCharacterList() {
+    return this.get('characterList');
+  };
+
+  _proto.getLength = function getLength() {
+    return this.getText().length;
+  };
+
+  _proto.getDepth = function getDepth() {
+    return this.get('depth');
+  };
+
+  _proto.getData = function getData() {
+    return this.get('data');
+  };
+
+  _proto.getInlineStyleAt = function getInlineStyleAt(offset) {
+    var character = this.getCharacterList().get(offset);
+    return character ? character.getStyle() : EMPTY_SET;
+  };
+
+  _proto.getEntityAt = function getEntityAt(offset) {
+    var character = this.getCharacterList().get(offset);
+    return character ? character.getEntity() : null;
+  };
+
+  _proto.getChildKeys = function getChildKeys() {
+    return this.get('children');
+  };
+
+  _proto.getParentKey = function getParentKey() {
+    return this.get('parent');
+  };
+
+  _proto.getPrevSiblingKey = function getPrevSiblingKey() {
+    return this.get('prevSibling');
+  };
+
+  _proto.getNextSiblingKey = function getNextSiblingKey() {
+    return this.get('nextSibling');
+  };
+
+  _proto.findStyleRanges = function findStyleRanges(filterFn, callback) {
+    findRangesImmutable(this.getCharacterList(), haveEqualStyle, filterFn, callback);
+  };
+
+  _proto.findEntityRanges = function findEntityRanges(filterFn, callback) {
+    findRangesImmutable(this.getCharacterList(), haveEqualEntity, filterFn, callback);
+  };
+
+  return ContentBlockNode;
+}(Record(defaultRecord));
+
+module.exports = ContentBlockNode;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+var UserAgentData = __webpack_require__(97);
+
+var VersionRange = __webpack_require__(99);
+
+var mapObject = __webpack_require__(100);
+
+var memoizeStringOnly = __webpack_require__(101);
+/**
+ * Checks to see whether `name` and `version` satisfy `query`.
+ *
+ * @param {string} name Name of the browser, device, engine or platform
+ * @param {?string} version Version of the browser, engine or platform
+ * @param {string} query Query of form "Name [range expression]"
+ * @param {?function} normalizer Optional pre-processor for range expression
+ * @return {boolean}
+ */
+
+
+function compare(name, version, query, normalizer) {
+  // check for exact match with no version
+  if (name === query) {
+    return true;
+  } // check for non-matching names
+
+
+  if (!query.startsWith(name)) {
+    return false;
+  } // full comparison with version
+
+
+  var range = query.slice(name.length);
+
+  if (version) {
+    range = normalizer ? normalizer(range) : range;
+    return VersionRange.contains(range, version);
+  }
+
+  return false;
+}
+/**
+ * Normalizes `version` by stripping any "NT" prefix, but only on the Windows
+ * platform.
+ *
+ * Mimics the stripping performed by the `UserAgentWindowsPlatform` PHP class.
+ *
+ * @param {string} version
+ * @return {string}
+ */
+
+
+function normalizePlatformVersion(version) {
+  if (UserAgentData.platformName === 'Windows') {
+    return version.replace(/^\s*NT/, '');
+  }
+
+  return version;
+}
+/**
+ * Provides client-side access to the authoritative PHP-generated User Agent
+ * information supplied by the server.
+ */
+
+
+var UserAgent = {
+  /**
+   * Check if the User Agent browser matches `query`.
+   *
+   * `query` should be a string like "Chrome" or "Chrome > 33".
+   *
+   * Valid browser names include:
+   *
+   * - ACCESS NetFront
+   * - AOL
+   * - Amazon Silk
+   * - Android
+   * - BlackBerry
+   * - BlackBerry PlayBook
+   * - Chrome
+   * - Chrome for iOS
+   * - Chrome frame
+   * - Facebook PHP SDK
+   * - Facebook for iOS
+   * - Firefox
+   * - IE
+   * - IE Mobile
+   * - Mobile Safari
+   * - Motorola Internet Browser
+   * - Nokia
+   * - Openwave Mobile Browser
+   * - Opera
+   * - Opera Mini
+   * - Opera Mobile
+   * - Safari
+   * - UIWebView
+   * - Unknown
+   * - webOS
+   * - etc...
+   *
+   * An authoritative list can be found in the PHP `BrowserDetector` class and
+   * related classes in the same file (see calls to `new UserAgentBrowser` here:
+   * https://fburl.com/50728104).
+   *
+   * @note Function results are memoized
+   *
+   * @param {string} query Query of the form "Name [range expression]"
+   * @return {boolean}
+   */
+  isBrowser: function isBrowser(query) {
+    return compare(UserAgentData.browserName, UserAgentData.browserFullVersion, query);
+  },
+
+  /**
+   * Check if the User Agent browser uses a 32 or 64 bit architecture.
+   *
+   * @note Function results are memoized
+   *
+   * @param {string} query Query of the form "32" or "64".
+   * @return {boolean}
+   */
+  isBrowserArchitecture: function isBrowserArchitecture(query) {
+    return compare(UserAgentData.browserArchitecture, null, query);
+  },
+
+  /**
+   * Check if the User Agent device matches `query`.
+   *
+   * `query` should be a string like "iPhone" or "iPad".
+   *
+   * Valid device names include:
+   *
+   * - Kindle
+   * - Kindle Fire
+   * - Unknown
+   * - iPad
+   * - iPhone
+   * - iPod
+   * - etc...
+   *
+   * An authoritative list can be found in the PHP `DeviceDetector` class and
+   * related classes in the same file (see calls to `new UserAgentDevice` here:
+   * https://fburl.com/50728332).
+   *
+   * @note Function results are memoized
+   *
+   * @param {string} query Query of the form "Name"
+   * @return {boolean}
+   */
+  isDevice: function isDevice(query) {
+    return compare(UserAgentData.deviceName, null, query);
+  },
+
+  /**
+   * Check if the User Agent rendering engine matches `query`.
+   *
+   * `query` should be a string like "WebKit" or "WebKit >= 537".
+   *
+   * Valid engine names include:
+   *
+   * - Gecko
+   * - Presto
+   * - Trident
+   * - WebKit
+   * - etc...
+   *
+   * An authoritative list can be found in the PHP `RenderingEngineDetector`
+   * class related classes in the same file (see calls to `new
+   * UserAgentRenderingEngine` here: https://fburl.com/50728617).
+   *
+   * @note Function results are memoized
+   *
+   * @param {string} query Query of the form "Name [range expression]"
+   * @return {boolean}
+   */
+  isEngine: function isEngine(query) {
+    return compare(UserAgentData.engineName, UserAgentData.engineVersion, query);
+  },
+
+  /**
+   * Check if the User Agent platform matches `query`.
+   *
+   * `query` should be a string like "Windows" or "iOS 5 - 6".
+   *
+   * Valid platform names include:
+   *
+   * - Android
+   * - BlackBerry OS
+   * - Java ME
+   * - Linux
+   * - Mac OS X
+   * - Mac OS X Calendar
+   * - Mac OS X Internet Account
+   * - Symbian
+   * - SymbianOS
+   * - Windows
+   * - Windows Mobile
+   * - Windows Phone
+   * - iOS
+   * - iOS Facebook Integration Account
+   * - iOS Facebook Social Sharing UI
+   * - webOS
+   * - Chrome OS
+   * - etc...
+   *
+   * An authoritative list can be found in the PHP `PlatformDetector` class and
+   * related classes in the same file (see calls to `new UserAgentPlatform`
+   * here: https://fburl.com/50729226).
+   *
+   * @note Function results are memoized
+   *
+   * @param {string} query Query of the form "Name [range expression]"
+   * @return {boolean}
+   */
+  isPlatform: function isPlatform(query) {
+    return compare(UserAgentData.platformName, UserAgentData.platformFullVersion, query, normalizePlatformVersion);
+  },
+
+  /**
+   * Check if the User Agent platform is a 32 or 64 bit architecture.
+   *
+   * @note Function results are memoized
+   *
+   * @param {string} query Query of the form "32" or "64".
+   * @return {boolean}
+   */
+  isPlatformArchitecture: function isPlatformArchitecture(query) {
+    return compare(UserAgentData.platformArchitecture, null, query);
+  }
+};
+module.exports = mapObject(UserAgent, memoizeStringOnly);
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var seenKeys = {};
+var MULTIPLIER = Math.pow(2, 24);
+
+function generateRandomKey() {
+  var key;
+
+  while (key === undefined || seenKeys.hasOwnProperty(key) || !isNaN(+key)) {
+    key = Math.floor(Math.random() * MULTIPLIER).toString(32);
+  }
+
+  seenKeys[key] = true;
+  return key;
+}
+
+module.exports = generateRandomKey;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var KEY_DELIMITER = '-';
+var DraftOffsetKey = {
+  encode: function encode(blockKey, decoratorKey, leafKey) {
+    return blockKey + KEY_DELIMITER + decoratorKey + KEY_DELIMITER + leafKey;
+  },
+  decode: function decode(offsetKey) {
+    // Extracts the last two parts of offsetKey and captures the rest in blockKeyParts
+    var _offsetKey$split$reve = offsetKey.split(KEY_DELIMITER).reverse(),
+        leafKey = _offsetKey$split$reve[0],
+        decoratorKey = _offsetKey$split$reve[1],
+        blockKeyParts = _offsetKey$split$reve.slice(2);
+
+    return {
+      // Recomposes the parts of blockKey after reversing them
+      blockKey: blockKeyParts.reverse().join(KEY_DELIMITER),
+      decoratorKey: parseInt(decoratorKey, 10),
+      leafKey: parseInt(leafKey, 10)
+    };
+  }
+};
+module.exports = DraftOffsetKey;
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ */
+
+
+module.exports = function (name) {
+  if (typeof window !== 'undefined' && window.__DRAFT_GKX) {
+    return !!window.__DRAFT_GKX[name];
+  }
+
+  return false;
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var CharacterMetadata = __webpack_require__(5);
+
+var findRangesImmutable = __webpack_require__(19);
+
+var Immutable = __webpack_require__(0);
+
+var List = Immutable.List,
+    Map = Immutable.Map,
+    OrderedSet = Immutable.OrderedSet,
+    Record = Immutable.Record,
+    Repeat = Immutable.Repeat;
+var EMPTY_SET = OrderedSet();
+var defaultRecord = {
+  key: '',
+  type: 'unstyled',
+  text: '',
+  characterList: List(),
+  depth: 0,
+  data: Map()
+};
+var ContentBlockRecord = Record(defaultRecord);
+
+var decorateCharacterList = function decorateCharacterList(config) {
+  if (!config) {
+    return config;
+  }
+
+  var characterList = config.characterList,
+      text = config.text;
+
+  if (text && !characterList) {
+    config.characterList = List(Repeat(CharacterMetadata.EMPTY, text.length));
+  }
+
+  return config;
+};
+
+var ContentBlock =
+/*#__PURE__*/
+function (_ContentBlockRecord) {
+  _inheritsLoose(ContentBlock, _ContentBlockRecord);
+
+  function ContentBlock(config) {
+    return _ContentBlockRecord.call(this, decorateCharacterList(config)) || this;
+  }
+
+  var _proto = ContentBlock.prototype;
+
+  _proto.getKey = function getKey() {
+    return this.get('key');
+  };
+
+  _proto.getType = function getType() {
+    return this.get('type');
+  };
+
+  _proto.getText = function getText() {
+    return this.get('text');
+  };
+
+  _proto.getCharacterList = function getCharacterList() {
+    return this.get('characterList');
+  };
+
+  _proto.getLength = function getLength() {
+    return this.getText().length;
+  };
+
+  _proto.getDepth = function getDepth() {
+    return this.get('depth');
+  };
+
+  _proto.getData = function getData() {
+    return this.get('data');
+  };
+
+  _proto.getInlineStyleAt = function getInlineStyleAt(offset) {
+    var character = this.getCharacterList().get(offset);
+    return character ? character.getStyle() : EMPTY_SET;
+  };
+
+  _proto.getEntityAt = function getEntityAt(offset) {
+    var character = this.getCharacterList().get(offset);
+    return character ? character.getEntity() : null;
+  }
+  /**
+   * Execute a callback for every contiguous range of styles within the block.
+   */
+  ;
+
+  _proto.findStyleRanges = function findStyleRanges(filterFn, callback) {
+    findRangesImmutable(this.getCharacterList(), haveEqualStyle, filterFn, callback);
+  }
+  /**
+   * Execute a callback for every contiguous range of entities within the block.
+   */
+  ;
+
+  _proto.findEntityRanges = function findEntityRanges(filterFn, callback) {
+    findRangesImmutable(this.getCharacterList(), haveEqualEntity, filterFn, callback);
+  };
+
+  return ContentBlock;
+}(ContentBlockRecord);
+
+function haveEqualStyle(charA, charB) {
+  return charA.getStyle() === charB.getStyle();
+}
+
+function haveEqualEntity(charA, charB) {
+  return charA.getEntity() === charB.getEntity();
+}
+
+module.exports = ContentBlock;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+/**
+ * This function is used to mark string literals representing CSS class names
+ * so that they can be transformed statically. This allows for modularization
+ * and minification of CSS class names.
+ *
+ * In static_upstream, this function is actually implemented, but it should
+ * eventually be replaced with something more descriptive, and the transform
+ * that is used in the main stack should be ported for use elsewhere.
+ *
+ * @param string|object className to modularize, or an object of key/values.
+ *                      In the object case, the values are conditions that
+ *                      determine if the className keys should be included.
+ * @param [string ...]  Variable list of classNames in the string case.
+ * @return string       Renderable space-separated CSS className.
+ */
+function cx(classNames) {
+  if (typeof classNames == 'object') {
+    return Object.keys(classNames).filter(function (className) {
+      return classNames[className];
+    }).map(replace).join(' ');
+  }
+
+  return Array.prototype.map.call(arguments, replace).join(' ');
+}
+
+function replace(str) {
+  return str.replace(/\//g, '-');
+}
+
+module.exports = cx;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /*
 object-assign
 (c) Sindre Sorhus
 @license MIT
-*/var r=Object.getOwnPropertySymbols,o=Object.prototype.hasOwnProperty,i=Object.prototype.propertyIsEnumerable;function a(e){if(null==e)throw new TypeError("Object.assign cannot be called with null or undefined");return Object(e)}e.exports=function(){try{if(!Object.assign)return!1;var e=new String("abc");if(e[5]="de","5"===Object.getOwnPropertyNames(e)[0])return!1;for(var t={},n=0;n<10;n++)t["_"+String.fromCharCode(n)]=n;if("0123456789"!==Object.getOwnPropertyNames(t).map((function(e){return t[e]})).join(""))return!1;var r={};return"abcdefghijklmnopqrst".split("").forEach((function(e){r[e]=e})),"abcdefghijklmnopqrst"===Object.keys(Object.assign({},r)).join("")}catch(e){return!1}}()?Object.assign:function(e,t){for(var n,c,s=a(e),u=1;u<arguments.length;u++){for(var l in n=Object(arguments[u]))o.call(n,l)&&(s[l]=n[l]);if(r){c=r(n);for(var f=0;f<c.length;f++)i.call(n,c[f])&&(s[c[f]]=n[c[f]])}}return s}},function(e,t,n){"use strict";var r=n(1),o=/[\uD800-\uDFFF]/;function i(e){return 55296<=e&&e<=57343}function a(e){return o.test(e)}function c(e,t){return 1+i(e.charCodeAt(t))}function s(e,t,n){if(t=t||0,n=void 0===n?1/0:n||0,!a(e))return e.substr(t,n);var r=e.length;if(r<=0||t>r||n<=0)return"";var o=0;if(t>0){for(;t>0&&o<r;t--)o+=c(e,o);if(o>=r)return""}else if(t<0){for(o=r;t<0&&0<o;t++)o-=c(e,o-1);o<0&&(o=0)}var i=r;if(n<r)for(i=o;n>0&&i<r;n--)i+=c(e,i);return e.substring(o,i)}var u={getCodePoints:function(e){for(var t=[],n=0;n<e.length;n+=c(e,n))t.push(e.codePointAt(n));return t},getUTF16Length:c,hasSurrogateUnit:a,isCodeUnitInSurrogateRange:i,isSurrogatePair:function(e,t){if(0<=t&&t<e.length||r(!1,"isSurrogatePair: Invalid index %s for string length %s.",t,e.length),t+1===e.length)return!1;var n=e.charCodeAt(t),o=e.charCodeAt(t+1);return 55296<=n&&n<=56319&&56320<=o&&o<=57343},strlen:function(e){if(!a(e))return e.length;for(var t=0,n=0;n<e.length;n+=c(e,n))t++;return t},substring:function(e,t,n){(t=t||0)<0&&(t=0),(n=void 0===n?1/0:n||0)<0&&(n=0);var r=Math.abs(n-t);return s(e,t=t<n?t:n,r)},substr:s};e.exports=u},function(e,t,n){"use strict";var r=n(68);function o(){}var i=null,a={};function c(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("Promise constructor's argument is not a function");this._40=0,this._65=0,this._55=null,this._72=null,e!==o&&g(e,this)}function s(e,t){for(;3===e._65;)e=e._55;if(c._37&&c._37(e),0===e._65)return 0===e._40?(e._40=1,void(e._72=t)):1===e._40?(e._40=2,void(e._72=[e._72,t])):void e._72.push(t);!function(e,t){r((function(){var n=1===e._65?t.onFulfilled:t.onRejected;if(null!==n){var r=function(e,t){try{return e(t)}catch(e){return i=e,a}}(n,e._55);r===a?l(t.promise,i):u(t.promise,r)}else 1===e._65?u(t.promise,e._55):l(t.promise,e._55)}))}(e,t)}function u(e,t){if(t===e)return l(e,new TypeError("A promise cannot be resolved with itself."));if(t&&("object"==typeof t||"function"==typeof t)){var n=function(e){try{return e.then}catch(e){return i=e,a}}(t);if(n===a)return l(e,i);if(n===e.then&&t instanceof c)return e._65=3,e._55=t,void f(e);if("function"==typeof n)return void g(n.bind(t),e)}e._65=1,e._55=t,f(e)}function l(e,t){e._65=2,e._55=t,c._87&&c._87(e,t),f(e)}function f(e){if(1===e._40&&(s(e,e._72),e._72=null),2===e._40){for(var t=0;t<e._72.length;t++)s(e,e._72[t]);e._72=null}}function p(e,t,n){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.promise=n}function g(e,t){var n=!1,r=function(e,t,n){try{e(t,n)}catch(e){return i=e,a}}(e,(function(e){n||(n=!0,u(t,e))}),(function(e){n||(n=!0,l(t,e))}));n||r!==a||(n=!0,l(t,i))}e.exports=c,c._37=null,c._87=null,c._61=o,c.prototype.then=function(e,t){if(this.constructor!==c)return function(e,t,n){return new e.constructor((function(r,i){var a=new c(o);a.then(r,i),s(e,new p(t,n,a))}))}(this,e,t);var n=new c(o);return s(this,new p(e,t,n)),n}},function(e,t,n){"use strict";var r=n(0).OrderedMap,o={createFromArray:function(e){return r(e.map((function(e){return[e.getKey(),e]})))}};e.exports=o},function(e,t,n){"use strict";e.exports=function(e,t,n,r){if(e.size){var o=0;e.reduce((function(e,i,a){return t(e,i)||(n(e)&&r(o,a),o=a),i})),n(e.last())&&r(o,e.count())}}},function(e,t,n){"use strict";var r=n(3),o=n(12)("draft_tree_data_support");e.exports=function(e,t,n){var i=e.getSelection(),a=e.getCurrentContent(),c=i,s=i.getAnchorKey(),u=i.getFocusKey(),l=a.getBlockForKey(s);if(o&&"forward"===n&&s!==u)return a;if(i.isCollapsed()){if("forward"===n){if(e.isSelectionAtEndOfContent())return a;if(o)if(i.getAnchorOffset()===a.getBlockForKey(s).getLength()){var f=a.getBlockForKey(l.nextSibling);if(!f||0===f.getLength())return a}}else if(e.isSelectionAtStartOfContent())return a;if((c=t(e))===i)return a}return r.removeRange(a,c,n)}},function(e,t,n){"use strict";var r=n(41),o=n(42);e.exports=function(e,t){var n=t.getStartKey(),i=t.getStartOffset(),a=t.getEndKey(),c=t.getEndOffset(),s=o(e,t).getBlockMap(),u=s.keySeq(),l=u.indexOf(n),f=u.indexOf(a)+1;return r(s.slice(l,f).map((function(e,t){var r=e.getText(),o=e.getCharacterList();return n===a?e.merge({text:r.slice(i,c),characterList:o.slice(i,c)}):t===n?e.merge({text:r.slice(i),characterList:o.slice(i)}):t===a?e.merge({text:r.slice(0,c),characterList:o.slice(0,c)}):e})))}},function(e,t,n){"use strict";function r(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function o(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?r(Object(n),!0).forEach((function(t){i(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):r(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function i(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(46),c=n(0),s=n(1),u=(0,c.Map)(),l=0;function f(e,t){console.warn("WARNING: "+e+' will be deprecated soon!\nPlease use "'+t+'" instead.')}var p={getLastCreatedEntityKey:function(){return f("DraftEntity.getLastCreatedEntityKey","contentState.getLastCreatedEntityKey"),p.__getLastCreatedEntityKey()},create:function(e,t,n){return f("DraftEntity.create","contentState.createEntity"),p.__create(e,t,n)},add:function(e){return f("DraftEntity.add","contentState.addEntity"),p.__add(e)},get:function(e){return f("DraftEntity.get","contentState.getEntity"),p.__get(e)},mergeData:function(e,t){return f("DraftEntity.mergeData","contentState.mergeEntityData"),p.__mergeData(e,t)},replaceData:function(e,t){return f("DraftEntity.replaceData","contentState.replaceEntityData"),p.__replaceData(e,t)},__getLastCreatedEntityKey:function(){return""+l},__create:function(e,t,n){return p.__add(new a({type:e,mutability:t,data:n||{}}))},__add:function(e){var t=""+ ++l;return u=u.set(t,e),t},__get:function(e){var t=u.get(e);return t||s(!1,"Unknown DraftEntity key: %s.",e),t},__mergeData:function(e,t){var n=p.__get(e),r=o(o({},n.getData()),t),i=n.set("data",r);return u=u.set(e,i),i},__replaceData:function(e,t){var n=p.__get(e).set("data",t);return u=u.set(e,n),n}};e.exports=p},function(e,t,n){"use strict";function r(e,t){return(r=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var o=function(e){var t,n;function o(){return e.apply(this,arguments)||this}n=e,(t=o).prototype=Object.create(n.prototype),t.prototype.constructor=t,r(t,n);var i=o.prototype;return i.serialize=function(){return"Anchor: "+this.getAnchorKey()+":"+this.getAnchorOffset()+", Focus: "+this.getFocusKey()+":"+this.getFocusOffset()+", Is Backward: "+String(this.getIsBackward())+", Has Focus: "+String(this.getHasFocus())},i.getAnchorKey=function(){return this.get("anchorKey")},i.getAnchorOffset=function(){return this.get("anchorOffset")},i.getFocusKey=function(){return this.get("focusKey")},i.getFocusOffset=function(){return this.get("focusOffset")},i.getIsBackward=function(){return this.get("isBackward")},i.getHasFocus=function(){return this.get("hasFocus")},i.hasEdgeWithin=function(e,t,n){var r=this.getAnchorKey(),o=this.getFocusKey();if(r===o&&r===e){var i=this.getStartOffset(),a=this.getEndOffset();return t<=i&&i<=n||t<=a&&a<=n}if(e!==r&&e!==o)return!1;var c=e===r?this.getAnchorOffset():this.getFocusOffset();return t<=c&&n>=c},i.isCollapsed=function(){return this.getAnchorKey()===this.getFocusKey()&&this.getAnchorOffset()===this.getFocusOffset()},i.getStartKey=function(){return this.getIsBackward()?this.getFocusKey():this.getAnchorKey()},i.getStartOffset=function(){return this.getIsBackward()?this.getFocusOffset():this.getAnchorOffset()},i.getEndKey=function(){return this.getIsBackward()?this.getAnchorKey():this.getFocusKey()},i.getEndOffset=function(){return this.getIsBackward()?this.getAnchorOffset():this.getFocusOffset()},o.createEmpty=function(e){return new o({anchorKey:e,anchorOffset:0,focusKey:e,focusOffset:0,isBackward:!1,hasFocus:!1})},o}((0,n(0).Record)({anchorKey:"",anchorOffset:0,focusKey:"",focusOffset:0,isBackward:!1,hasFocus:!1}));e.exports=o},function(e,t,n){"use strict";var r=n(1),o=null;function i(e){return"LTR"===e||"RTL"===e}function a(e){return i(e)||r(!1,"`dir` must be a strong direction to be converted to HTML Direction"),"LTR"===e?"ltr":"rtl"}function c(e){o=e}var s={NEUTRAL:"NEUTRAL",LTR:"LTR",RTL:"RTL",isStrong:i,getHTMLDir:a,getHTMLDirIfDifferent:function(e,t){return i(e)||r(!1,"`dir` must be a strong direction to be converted to HTML Direction"),i(t)||r(!1,"`otherDir` must be a strong direction to be converted to HTML Direction"),e===t?null:a(e)},setGlobalDir:c,initGlobalDir:function(){c("LTR")},getGlobalDir:function(){return o||this.initGlobalDir(),o||r(!1,"Global direction not set."),o}};e.exports=s},function(e,t,n){"use strict";var r=n(49);e.exports=function(e){for(var t=e;t&&t!==document.documentElement;){var n=r(t);if(null!=n)return n;t=t.parentNode}return null}},function(e,t,n){"use strict";e.exports={BACKSPACE:8,TAB:9,RETURN:13,ALT:18,ESC:27,SPACE:32,PAGE_UP:33,PAGE_DOWN:34,END:35,HOME:36,LEFT:37,UP:38,RIGHT:39,DOWN:40,DELETE:46,COMMA:188,PERIOD:190,A:65,Z:90,ZERO:48,NUMPAD_0:96,NUMPAD_9:105}},function(e,t){e.exports=n},function(e,t,n){"use strict";e.exports=function(e){return"handled"===e||!0===e}},function(e,t,n){"use strict";function r(e,t){var n=o.get(e,t);return"auto"===n||"scroll"===n}var o={get:n(130),getScrollParent:function(e){if(!e)return null;for(var t=e.ownerDocument;e&&e!==t.body;){if(r(e,"overflow")||r(e,"overflowY")||r(e,"overflowX"))return e;e=e.parentNode}return t.defaultView||t.parentWindow}};e.exports=o},function(e,t,n){"use strict";var r=n(134),o=n(135);e.exports=function(e){var t=r(e.ownerDocument||e.document);e.Window&&e instanceof e.Window&&(e=t);var n=o(e),i=e===t?e.ownerDocument.documentElement:e,a=e.scrollWidth-i.clientWidth,c=e.scrollHeight-i.clientHeight;return n.x=Math.max(0,Math.min(n.x,a)),n.y=Math.max(0,Math.min(n.y,c)),n}},function(e,t,n){"use strict";function r(e,t){return(r=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var o=n(18),i=n(5),a=n(13),c=n(6),s=n(22),u=n(23),l=n(9),f=n(12),p=n(0),g=n(47),d=p.List,h=p.Record,y=p.Repeat,v=function(e){var t,n;function p(){return e.apply(this,arguments)||this}n=e,(t=p).prototype=Object.create(n.prototype),t.prototype.constructor=t,r(t,n);var h=p.prototype;return h.getEntityMap=function(){return s},h.getBlockMap=function(){return this.get("blockMap")},h.getSelectionBefore=function(){return this.get("selectionBefore")},h.getSelectionAfter=function(){return this.get("selectionAfter")},h.getBlockForKey=function(e){return this.getBlockMap().get(e)},h.getKeyBefore=function(e){return this.getBlockMap().reverse().keySeq().skipUntil((function(t){return t===e})).skip(1).first()},h.getKeyAfter=function(e){return this.getBlockMap().keySeq().skipUntil((function(t){return t===e})).skip(1).first()},h.getBlockAfter=function(e){return this.getBlockMap().skipUntil((function(t,n){return n===e})).skip(1).first()},h.getBlockBefore=function(e){return this.getBlockMap().reverse().skipUntil((function(t,n){return n===e})).skip(1).first()},h.getBlocksAsArray=function(){return this.getBlockMap().toArray()},h.getFirstBlock=function(){return this.getBlockMap().first()},h.getLastBlock=function(){return this.getBlockMap().last()},h.getPlainText=function(e){return this.getBlockMap().map((function(e){return e?e.getText():""})).join(e||"\n")},h.getLastCreatedEntityKey=function(){return s.__getLastCreatedEntityKey()},h.hasText=function(){var e=this.getBlockMap();return e.size>1||escape(e.first().getText()).replace(/%u200B/g,"").length>0},h.createEntity=function(e,t,n){return s.__create(e,t,n),this},h.mergeEntityData=function(e,t){return s.__mergeData(e,t),this},h.replaceEntityData=function(e,t){return s.__replaceData(e,t),this},h.addEntity=function(e){return s.__add(e),this},h.getEntity=function(e){return s.__get(e)},p.createFromBlockArray=function(e,t){var n=Array.isArray(e)?e:e.contentBlocks,r=o.createFromArray(n),i=r.isEmpty()?new u:u.createEmpty(r.first().getKey());return new p({blockMap:r,entityMap:t||s,selectionBefore:i,selectionAfter:i})},p.createFromText=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:/\r\n?|\n/g,n=e.split(t),r=n.map((function(e){return e=g(e),new(f("draft_tree_data_support")?c:a)({key:l(),text:e,type:"unstyled",characterList:d(y(i.EMPTY,e.length))})}));return p.createFromBlockArray(r)},p}(h({entityMap:null,blockMap:null,selectionBefore:null,selectionAfter:null}));e.exports=v},function(e,t,n){"use strict";var r=n(24),o=n(1),i="֐־׀׃׆׈-׏א-ת׫-ׯװ-ײ׳-״׵-׿߀-߉ߊ-ߪߴ-ߵߺ߻-߿ࠀ-ࠕࠚࠤࠨ࠮-࠯࠰-࠾࠿ࡀ-ࡘ࡜-࡝࡞࡟-࢟‏יִײַ-ﬨשׁ-זּ﬷טּ-לּ﬽מּ﬿נּ-סּ﭂ףּ-פּ﭅צּ-ﭏ",a="؈؋؍؛؜؝؞-؟ؠ-ؿـف-ي٭ٮ-ٯٱ-ۓ۔ەۥ-ۦۮ-ۯۺ-ۼ۽-۾ۿ܀-܍܎܏ܐܒ-ܯ݋-݌ݍ-ޥޱ޲-޿ࢠ-ࢲࢳ-ࣣﭐ-ﮱ﮲-﯁﯂-﯒ﯓ-ﴽ﵀-﵏ﵐ-ﶏ﶐-﶑ﶒ-ﷇ﷈-﷏ﷰ-ﷻ﷼﷾-﷿ﹰ-ﹴ﹵ﹶ-ﻼ﻽-﻾",c=new RegExp("["+"A-Za-zªµºÀ-ÖØ-öø-ƺƻƼ-ƿǀ-ǃǄ-ʓʔʕ-ʯʰ-ʸʻ-ˁː-ˑˠ-ˤˮͰ-ͳͶ-ͷͺͻ-ͽͿΆΈ-ΊΌΎ-ΡΣ-ϵϷ-ҁ҂Ҋ-ԯԱ-Ֆՙ՚-՟ա-և։ःऄ-हऻऽा-ीॉ-ौॎ-ॏॐक़-ॡ।-॥०-९॰ॱॲ-ঀং-ঃঅ-ঌএ-ঐও-নপ-রলশ-হঽা-ীে-ৈো-ৌৎৗড়-ঢ়য়-ৡ০-৯ৰ-ৱ৴-৹৺ਃਅ-ਊਏ-ਐਓ-ਨਪ-ਰਲ-ਲ਼ਵ-ਸ਼ਸ-ਹਾ-ੀਖ਼-ੜਫ਼੦-੯ੲ-ੴઃઅ-ઍએ-ઑઓ-નપ-રલ-ળવ-હઽા-ીૉો-ૌૐૠ-ૡ૦-૯૰ଂ-ଃଅ-ଌଏ-ଐଓ-ନପ-ରଲ-ଳଵ-ହଽାୀେ-ୈୋ-ୌୗଡ଼-ଢ଼ୟ-ୡ୦-୯୰ୱ୲-୷ஃஅ-ஊஎ-ஐஒ-கங-சஜஞ-டண-தந-பம-ஹா-ிு-ூெ-ைொ-ௌௐௗ௦-௯௰-௲ఁ-ఃఅ-ఌఎ-ఐఒ-నప-హఽు-ౄౘ-ౙౠ-ౡ౦-౯౿ಂ-ಃಅ-ಌಎ-ಐಒ-ನಪ-ಳವ-ಹಽಾಿೀ-ೄೆೇ-ೈೊ-ೋೕ-ೖೞೠ-ೡ೦-೯ೱ-ೲം-ഃഅ-ഌഎ-ഐഒ-ഺഽാ-ീെ-ൈൊ-ൌൎൗൠ-ൡ൦-൯൰-൵൹ൺ-ൿං-ඃඅ-ඖක-නඳ-රලව-ෆා-ෑෘ-ෟ෦-෯ෲ-ෳ෴ก-ะา-ำเ-ๅๆ๏๐-๙๚-๛ກ-ຂຄງ-ຈຊຍດ-ທນ-ຟມ-ຣລວສ-ຫອ-ະາ-ຳຽເ-ໄໆ໐-໙ໜ-ໟༀ༁-༃༄-༒༓༔༕-༗༚-༟༠-༩༪-༳༴༶༸༾-༿ཀ-ཇཉ-ཬཿ྅ྈ-ྌ྾-࿅࿇-࿌࿎-࿏࿐-࿔࿕-࿘࿙-࿚က-ဪါ-ာေးျ-ြဿ၀-၉၊-၏ၐ-ၕၖ-ၗၚ-ၝၡၢ-ၤၥ-ၦၧ-ၭၮ-ၰၵ-ႁႃ-ႄႇ-ႌႎႏ႐-႙ႚ-ႜ႞-႟Ⴀ-ჅჇჍა-ჺ჻ჼჽ-ቈቊ-ቍቐ-ቖቘቚ-ቝበ-ኈኊ-ኍነ-ኰኲ-ኵኸ-ኾዀዂ-ዅወ-ዖዘ-ጐጒ-ጕጘ-ፚ፠-፨፩-፼ᎀ-ᎏᎠ-Ᏼᐁ-ᙬ᙭-᙮ᙯ-ᙿᚁ-ᚚᚠ-ᛪ᛫-᛭ᛮ-ᛰᛱ-ᛸᜀ-ᜌᜎ-ᜑᜠ-ᜱ᜵-᜶ᝀ-ᝑᝠ-ᝬᝮ-ᝰក-ឳាើ-ៅះ-ៈ។-៖ៗ៘-៚ៜ០-៩᠐-᠙ᠠ-ᡂᡃᡄ-ᡷᢀ-ᢨᢪᢰ-ᣵᤀ-ᤞᤣ-ᤦᤩ-ᤫᤰ-ᤱᤳ-ᤸ᥆-᥏ᥐ-ᥭᥰ-ᥴᦀ-ᦫᦰ-ᧀᧁ-ᧇᧈ-ᧉ᧐-᧙᧚ᨀ-ᨖᨙ-ᨚ᨞-᨟ᨠ-ᩔᩕᩗᩡᩣ-ᩤᩭ-ᩲ᪀-᪉᪐-᪙᪠-᪦ᪧ᪨-᪭ᬄᬅ-ᬳᬵᬻᬽ-ᭁᭃ-᭄ᭅ-ᭋ᭐-᭙᭚-᭠᭡-᭪᭴-᭼ᮂᮃ-ᮠᮡᮦ-ᮧ᮪ᮮ-ᮯ᮰-᮹ᮺ-ᯥᯧᯪ-ᯬᯮ᯲-᯳᯼-᯿ᰀ-ᰣᰤ-ᰫᰴ-ᰵ᰻-᰿᱀-᱉ᱍ-ᱏ᱐-᱙ᱚ-ᱷᱸ-ᱽ᱾-᱿᳀-᳇᳓᳡ᳩ-ᳬᳮ-ᳱᳲ-ᳳᳵ-ᳶᴀ-ᴫᴬ-ᵪᵫ-ᵷᵸᵹ-ᶚᶛ-ᶿḀ-ἕἘ-Ἕἠ-ὅὈ-Ὅὐ-ὗὙὛὝὟ-ώᾀ-ᾴᾶ-ᾼιῂ-ῄῆ-ῌῐ-ΐῖ-Ίῠ-Ῥῲ-ῴῶ-ῼ‎ⁱⁿₐ-ₜℂℇℊ-ℓℕℙ-ℝℤΩℨK-ℭℯ-ℴℵ-ℸℹℼ-ℿⅅ-ⅉⅎ⅏Ⅰ-ↂↃ-ↄↅ-ↈ⌶-⍺⎕⒜-ⓩ⚬⠀-⣿Ⰰ-Ⱞⰰ-ⱞⱠ-ⱻⱼ-ⱽⱾ-ⳤⳫ-ⳮⳲ-ⳳⴀ-ⴥⴧⴭⴰ-ⵧⵯ⵰ⶀ-ⶖⶠ-ⶦⶨ-ⶮⶰ-ⶶⶸ-ⶾⷀ-ⷆⷈ-ⷎⷐ-ⷖⷘ-ⷞ々〆〇〡-〩〮-〯〱-〵〸-〺〻〼ぁ-ゖゝ-ゞゟァ-ヺー-ヾヿㄅ-ㄭㄱ-ㆎ㆐-㆑㆒-㆕㆖-㆟ㆠ-ㆺㇰ-ㇿ㈀-㈜㈠-㈩㈪-㉇㉈-㉏㉠-㉻㉿㊀-㊉㊊-㊰㋀-㋋㋐-㋾㌀-㍶㍻-㏝㏠-㏾㐀-䶵一-鿌ꀀ-ꀔꀕꀖ-ꒌꓐ-ꓷꓸ-ꓽ꓾-꓿ꔀ-ꘋꘌꘐ-ꘟ꘠-꘩ꘪ-ꘫꙀ-ꙭꙮꚀ-ꚛꚜ-ꚝꚠ-ꛥꛦ-ꛯ꛲-꛷Ꜣ-ꝯꝰꝱ-ꞇ꞉-꞊Ꞌ-ꞎꞐ-ꞭꞰ-Ʇꟷꟸ-ꟹꟺꟻ-ꠁꠃ-ꠅꠇ-ꠊꠌ-ꠢꠣ-ꠤꠧ꠰-꠵꠶-꠷ꡀ-ꡳꢀ-ꢁꢂ-ꢳꢴ-ꣃ꣎-꣏꣐-꣙ꣲ-ꣷ꣸-꣺ꣻ꤀-꤉ꤊ-ꤥ꤮-꤯ꤰ-ꥆꥒ-꥓꥟ꥠ-ꥼꦃꦄ-ꦲꦴ-ꦵꦺ-ꦻꦽ-꧀꧁-꧍ꧏ꧐-꧙꧞-꧟ꧠ-ꧤꧦꧧ-ꧯ꧰-꧹ꧺ-ꧾꨀ-ꨨꨯ-ꨰꨳ-ꨴꩀ-ꩂꩄ-ꩋꩍ꩐-꩙꩜-꩟ꩠ-ꩯꩰꩱ-ꩶ꩷-꩹ꩺꩻꩽꩾ-ꪯꪱꪵ-ꪶꪹ-ꪽꫀꫂꫛ-ꫜꫝ꫞-꫟ꫠ-ꫪꫫꫮ-ꫯ꫰-꫱ꫲꫳ-ꫴꫵꬁ-ꬆꬉ-ꬎꬑ-ꬖꬠ-ꬦꬨ-ꬮꬰ-ꭚ꭛ꭜ-ꭟꭤ-ꭥꯀ-ꯢꯣ-ꯤꯦ-ꯧꯩ-ꯪ꯫꯬꯰-꯹가-힣ힰ-ퟆퟋ-ퟻ-豈-舘並-龎ﬀ-ﬆﬓ-ﬗＡ-Ｚａ-ｚｦ-ｯｰｱ-ﾝﾞ-ﾟﾠ-ﾾￂ-ￇￊ-ￏￒ-ￗￚ-ￜ"+i+a+"]"),s=new RegExp("["+i+a+"]");function u(e){var t=c.exec(e);return null==t?null:t[0]}function l(e){var t=u(e);return null==t?r.NEUTRAL:s.exec(t)?r.RTL:r.LTR}function f(e,t){if(t=t||r.NEUTRAL,!e.length)return t;var n=l(e);return n===r.NEUTRAL?t:n}function p(e,t){return t||(t=r.getGlobalDir()),r.isStrong(t)||o(!1,"Fallback direction must be a strong direction"),f(e,t)}var g={firstStrongChar:u,firstStrongCharDir:l,resolveBlockDir:f,getDirection:p,isDirectionLTR:function(e,t){return p(e,t)===r.LTR},isDirectionRTL:function(e,t){return p(e,t)===r.RTL}};e.exports=g},function(e,t,n){"use strict";var r=n(8),o=n(14),i=(0,n(0).Map)({"header-one":{element:"h1"},"header-two":{element:"h2"},"header-three":{element:"h3"},"header-four":{element:"h4"},"header-five":{element:"h5"},"header-six":{element:"h6"},"unordered-list-item":{element:"li",wrapper:r.createElement("ul",{className:o("public/DraftStyleDefault/ul")})},"ordered-list-item":{element:"li",wrapper:r.createElement("ol",{className:o("public/DraftStyleDefault/ol")})},blockquote:{element:"blockquote"},atomic:{element:"figure"},"code-block":{element:"pre",wrapper:r.createElement("pre",{className:o("public/DraftStyleDefault/pre")})},unstyled:{element:"div",aliasedElements:["p"]}});e.exports=i},function(e,t,n){"use strict";function r(e,t){return t&&"MUTABLE"===e.__get(t).getMutability()?t:null}e.exports=function(e,t){var n;if(t.isCollapsed()){var o=t.getAnchorKey(),i=t.getAnchorOffset();return i>0?(n=e.getBlockForKey(o).getEntityAt(i-1))!==e.getBlockForKey(o).getEntityAt(i)?null:r(e.getEntityMap(),n):null}var a=t.getStartKey(),c=t.getStartOffset(),s=e.getBlockForKey(a);return n=c===s.getLength()?null:s.getEntityAt(c),r(e.getEntityMap(),n)}},function(e,t,n){"use strict";var r=n(7),o=n(107),i=r.isPlatform("Mac OS X"),a={isCtrlKeyCommand:function(e){return!!e.ctrlKey&&!e.altKey},isOptionKeyCommand:function(e){return i&&e.altKey},usesMacOSHeuristics:function(){return i},hasCommandModifier:function(e){return i?!!e.metaKey&&!e.altKey:a.isCtrlKeyCommand(e)},isSoftNewlineEvent:o};e.exports=a},function(e,t,n){"use strict";var r=n(37);e.exports=function(e,t){var n=e.getSelection();r(n.isCollapsed(),"moveSelectionBackward should only be called with a collapsed SelectionState");var o=e.getCurrentContent(),i=n.getStartKey(),a=n.getStartOffset(),c=i,s=0;if(t>a){var u=o.getKeyBefore(i);if(null==u)c=i;else c=u,s=o.getBlockForKey(u).getText().length}else s=a-t;return n.merge({focusKey:c,focusOffset:s,isBackward:!0})}},function(e,t,n){"use strict";n(59);function r(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];var o=0,i="Warning: "+e.replace(/%s/g,(function(){return n[o++]}));"undefined"!=typeof console&&console.error(i);try{throw new Error(i)}catch(e){}}var o=function(e,t){if(void 0===t)throw new Error("`warning(condition, format, ...args)` requires a warning message argument");if(!e){for(var n=arguments.length,o=new Array(n>2?n-2:0),i=2;i<n;i++)o[i-2]=arguments[i];r.apply(void 0,[t].concat(o))}};e.exports=o},function(e,t,n){"use strict";var r=n(2),o=n(16),i=n(36),a=n(20);e.exports=function(e){var t=a(e,(function(e){var t=e.getSelection(),n=e.getCurrentContent(),r=t.getAnchorKey(),a=t.getAnchorOffset(),c=n.getBlockForKey(r).getText()[a-1];return i(e,c?o.getUTF16Length(c,0):1)}),"backward");if(t===e.getCurrentContent())return e;var n=e.getSelection();return r.push(e,t.set("selectionBefore",n),n.isCollapsed()?"backspace-character":"remove-range")}},function(e,t,n){"use strict";var r=n(128);e.exports=function e(t,n){return!(!t||!n)&&(t===n||!r(t)&&(r(n)?e(t,n.parentNode):"contains"in t?t.contains(n):!!t.compareDocumentPosition&&!!(16&t.compareDocumentPosition(n))))}},function(e,t,n){"use strict";function r(e,t){return!!t&&(e===t.documentElement||e===t.body)}var o={getTop:function(e){var t=e.ownerDocument;return r(e,t)?t.body.scrollTop||t.documentElement.scrollTop:e.scrollTop},setTop:function(e,t){var n=e.ownerDocument;r(e,n)?n.body.scrollTop=n.documentElement.scrollTop=t:e.scrollTop=t},getLeft:function(e){var t=e.ownerDocument;return r(e,t)?t.body.scrollLeft||t.documentElement.scrollLeft:e.scrollLeft},setLeft:function(e,t){var n=e.ownerDocument;r(e,n)?n.body.scrollLeft=n.documentElement.scrollLeft=t:e.scrollLeft=t}};e.exports=o},function(e,t,n){"use strict";var r=n(6),o=n(9),i=n(0).OrderedMap;e.exports=function(e){return e.first()instanceof r?function(e){var t,n={};return i(e.withMutations((function(e){e.forEach((function(r,i){var a=r.getKey(),c=r.getNextSiblingKey(),s=r.getPrevSiblingKey(),u=r.getChildKeys(),l=r.getParentKey(),f=o();(n[a]=f,c)&&(e.get(c)?e.setIn([c,"prevSibling"],f):e.setIn([a,"nextSibling"],null));s&&(e.get(s)?e.setIn([s,"nextSibling"],f):e.setIn([a,"prevSibling"],null));if(l&&e.get(l)){var p=e.get(l).getChildKeys();e.setIn([l,"children"],p.set(p.indexOf(r.getKey()),f))}else e.setIn([a,"parent"],null),t&&(e.setIn([t.getKey(),"nextSibling"],f),e.setIn([a,"prevSibling"],n[t.getKey()])),t=e.get(a);u.forEach((function(t){e.get(t)?e.setIn([t,"parent"],f):e.setIn([a,"children"],r.getChildKeys().filter((function(e){return e!==t})))}))}))})).toArray().map((function(e){return[n[e.getKey()],e.set("key",n[e.getKey()])]})))}(e):function(e){return i(e.toArray().map((function(e){var t=o();return[t,e.set("key",t)]})))}(e)}},function(e,t,n){"use strict";var r=n(5),o=n(19),i=n(1);function a(e,t,n){var a=t.getCharacterList(),c=n>0?a.get(n-1):void 0,s=n<a.count()?a.get(n):void 0,u=c?c.getEntity():void 0,l=s?s.getEntity():void 0;if(l&&l===u&&"MUTABLE"!==e.__get(l).getMutability()){for(var f,p=function(e,t,n){var r;return o(e,(function(e,t){return e.getEntity()===t.getEntity()}),(function(e){return e.getEntity()===t}),(function(e,t){e<=n&&t>=n&&(r={start:e,end:t})})),"object"!=typeof r&&i(!1,"Removal range must exist within character list."),r}(a,l,n),g=p.start,d=p.end;g<d;)f=a.get(g),a=a.set(g,r.applyEntity(f,null)),g++;return t.set("characterList",a)}return t}e.exports=function(e,t){var n=e.getBlockMap(),r=e.getEntityMap(),o={},i=t.getStartKey(),c=t.getStartOffset(),s=n.get(i),u=a(r,s,c);u!==s&&(o[i]=u);var l=t.getEndKey(),f=t.getEndOffset(),p=n.get(l);i===l&&(p=u);var g=a(r,p,f);return g!==p&&(o[l]=g),Object.keys(o).length?e.merge({blockMap:n.merge(o),selectionAfter:t}):e.set("selectionAfter",t)}},function(e,t,n){"use strict";e.exports=function(e,t,n){var r=e;if(n===r.count())t.forEach((function(e){r=r.push(e)}));else if(0===n)t.reverse().forEach((function(e){r=r.unshift(e)}));else{var o=r.slice(0,n),i=r.slice(n);r=o.concat(t,i).toList()}return r}},function(e,t,n){"use strict";var r=n(0).Map;e.exports=function(e,t,n){var o=t.getStartKey(),i=t.getEndKey(),a=e.getBlockMap(),c=a.toSeq().skipUntil((function(e,t){return t===o})).takeUntil((function(e,t){return t===i})).concat(r([[i,a.get(i)]])).map(n);return e.merge({blockMap:a.merge(c),selectionBefore:t,selectionAfter:t})}},function(e,t,n){"use strict";var r=n(6);e.exports=function(e,t){if(!(e instanceof r))return null;var n=e.getNextSiblingKey();if(n)return n;var o=e.getParentKey();if(!o)return null;for(var i=t.get(o);i&&!i.getNextSiblingKey();){var a=i.getParentKey();i=a?t.get(a):null}return i?i.getNextSiblingKey():null}},function(e,t,n){"use strict";function r(e,t){return(r=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var o=function(e){var t,n;function o(){return e.apply(this,arguments)||this}n=e,(t=o).prototype=Object.create(n.prototype),t.prototype.constructor=t,r(t,n);var i=o.prototype;return i.getType=function(){return this.get("type")},i.getMutability=function(){return this.get("mutability")},i.getData=function(){return this.get("data")},o}((0,n(0).Record)({type:"TOKEN",mutability:"IMMUTABLE",data:Object}));e.exports=o},function(e,t,n){"use strict";var r=new RegExp("\r","g");e.exports=function(e){return e.replace(r,"")}},function(e,t,n){"use strict";e.exports={BOLD:{fontWeight:"bold"},CODE:{fontFamily:"monospace",wordWrap:"break-word"},ITALIC:{fontStyle:"italic"},STRIKETHROUGH:{textDecoration:"line-through"},UNDERLINE:{textDecoration:"underline"}}},function(e,t,n){"use strict";e.exports=function e(t){if(t instanceof Element){var n=t.getAttribute("data-offset-key");if(n)return n;for(var r=0;r<t.childNodes.length;r++){var o=e(t.childNodes[r]);if(o)return o}}return null}},function(e,t,n){"use strict";var r=n(51),o=n(2),i=n(52),a=n(53);e.exports=function(e){if(e._blockSelectEvents||e._latestEditorState!==e.props.editorState){if(e._blockSelectEvents){var t=e.props.editorState.getSelection();r.logBlockedSelectionEvent({anonymizedDom:"N/A",extraParams:JSON.stringify({stacktrace:(new Error).stack}),selectionState:JSON.stringify(t.toJS())})}}else{var n=e.props.editorState,c=a(n,i(e)),s=c.selectionState;s!==n.getSelection()&&(n=c.needsRecovery?o.forceSelection(n,s):o.acceptSelection(n,s),e.update(n))}}},function(e,t,n){"use strict";e.exports={logBlockedSelectionEvent:function(){return null},logSelectionStateFailure:function(){return null}}},function(e,t,n){"use strict";var r=n(27),o=n(1);e.exports=function(e){var t=r.findDOMNode(e.editorContainer);return t||o(!1,"Missing editorNode"),t.firstChild instanceof HTMLElement||o(!1,"editorNode.firstChild is not an HTMLElement"),t.firstChild}},function(e,t,n){"use strict";(function(t){var r=n(54);e.exports=function(e,n){var o=t.getSelection();return 0===o.rangeCount?{selectionState:e.getSelection().set("hasFocus",!1),needsRecovery:!1}:r(e,n,o.anchorNode,o.anchorOffset,o.focusNode,o.focusOffset)}}).call(this,n(10))},function(e,t,n){"use strict";var r=n(25),o=n(49),i=n(55),a=n(1),c=n(4);function s(e,t,n){var i=t,s=r(i);if(null!=s||e&&(e===i||e.firstChild===i)||a(!1,"Unknown node in selection range."),e===i&&((i=i.firstChild)instanceof Element&&"true"===i.getAttribute("data-contents")||a(!1,"Invalid DraftEditorContents structure."),n>0&&(n=i.childNodes.length)),0===n){var l=null;if(null!=s)l=s;else{var f=function(e){for(;e.firstChild&&(e.firstChild instanceof Element&&"true"===e.firstChild.getAttribute("data-blocks")||o(e.firstChild));)e=e.firstChild;return e}(i);l=c(o(f))}return{key:l,offset:0}}var p=i.childNodes[n-1],g=null,d=null;if(o(p)){var h=function(e){for(;e.lastChild&&(e.lastChild instanceof Element&&"true"===e.lastChild.getAttribute("data-blocks")||o(e.lastChild));)e=e.lastChild;return e}(p);g=c(o(h)),d=u(h)}else g=c(s),d=u(p);return{key:g,offset:d}}function u(e){var t=e.textContent;return"\n"===t?0:t.length}e.exports=function(e,t,n,o,a,u){var l=n.nodeType===Node.TEXT_NODE,f=a.nodeType===Node.TEXT_NODE;if(l&&f)return{selectionState:i(e,c(r(n)),o,c(r(a)),u),needsRecovery:!1};var p=null,g=null,d=!0;return l?(p={key:c(r(n)),offset:o},g=s(t,a,u)):f?(g={key:c(r(a)),offset:u},p=s(t,n,o)):(p=s(t,n,o),g=s(t,a,u),n===a&&o===u&&(d=!!n.firstChild&&"BR"!==n.firstChild.nodeName)),{selectionState:i(e,p.key,p.offset,g.key,g.offset),needsRecovery:d}}},function(e,t,n){"use strict";var r=n(11),o=n(4);e.exports=function(e,t,n,i,a){var c=o(e.getSelection());if(!t||!i)return console.warn("Invalid selection state.",arguments,e.toJS()),c;var s=r.decode(t),u=s.blockKey,l=e.getBlockTree(u).getIn([s.decoratorKey,"leaves",s.leafKey]),f=r.decode(i),p=f.blockKey,g=e.getBlockTree(p).getIn([f.decoratorKey,"leaves",f.leafKey]);if(!l||!g)return console.warn("Invalid selection state.",arguments,e.toJS()),c;var d=l.get("start"),h=g.get("start"),y=l?d+n:null,v=g?h+a:null,m=c.getAnchorKey()===u&&c.getAnchorOffset()===y&&c.getFocusKey()===p&&c.getFocusOffset()===v;if(m)return c;var b=!1;if(u===p){var S=l.get("end"),w=g.get("end");b=h===d&&w===S?a<n:h<d}else{var k=e.getCurrentContent().getBlockMap().keySeq().skipUntil((function(e){return e===u||e===p})).first();b=k===p}return c.merge({anchorKey:u,anchorOffset:y,focusKey:p,focusOffset:v,isBackward:b})}},function(e,t,n){"use strict";(function(t){var r=n(3),o=n(2),i=n(7),a=n(34),c=n(28),s=n(103),u=n(4),l=n(104),f=i.isBrowser("Firefox");function p(e,t,n,i,a){var c=r.replaceText(e.getCurrentContent(),e.getSelection(),t,n,i);return o.push(e,c,"insert-characters",a)}e.exports=function(e,n){console.log("editOnBeforeInput"),void 0!==e._pendingStateFromBeforeInput&&(e.update(e._pendingStateFromBeforeInput),e._pendingStateFromBeforeInput=void 0);var r=e._latestEditorState,i=n.data;if(i)if(e.props.handleBeforeInput&&c(e.props.handleBeforeInput(i,r,n.timeStamp)))n.preventDefault();else{var g=r.getSelection(),d=g.getStartOffset(),h=g.getAnchorKey();if(!g.isCollapsed())return n.preventDefault(),void e.update(p(r,i,r.getCurrentInlineStyle(),a(r.getCurrentContent(),r.getSelection()),!0));var y,v=p(r,i,r.getCurrentInlineStyle(),a(r.getCurrentContent(),r.getSelection()),!1),m=!1;if(m||(m=s(e._latestCommittedEditorState)),!m){var b=t.getSelection();if(b.anchorNode&&b.anchorNode.nodeType===Node.TEXT_NODE){var S=b.anchorNode.parentNode;m="SPAN"===S.nodeName&&S.firstChild.nodeType===Node.TEXT_NODE&&-1!==S.firstChild.nodeValue.indexOf("\t")}}if(!m){var w=r.getBlockTree(h),k=v.getBlockTree(h);m=w.size!==k.size||w.zip(k).some((function(e){var t=e[0],n=e[1],r=t.get("start"),o=r+(r>=d?i.length:0),a=t.get("end"),c=a+(a>=d?i.length:0),s=n.get("start"),u=n.get("end"),l=n.get("decoratorKey");return t.get("decoratorKey")!==l||t.get("leaves").size!==n.get("leaves").size||o!==s||c!==u||null!=l&&u-s!=a-r}))}if(m||(y=i,m=f&&("'"==y||"/"==y)),m||(m=u(v.getDirectionMap()).get(h)!==u(r.getDirectionMap()).get(h)),m)return n.preventDefault(),v=o.set(v,{forceSelection:!0}),void e.update(v);v=o.set(v,{nativelyRenderedContent:v.getCurrentContent()}),e._pendingStateFromBeforeInput=v,l((function(){void 0!==e._pendingStateFromBeforeInput&&(e.update(e._pendingStateFromBeforeInput),e._pendingStateFromBeforeInput=void 0)}))}}}).call(this,n(10))},function(e,t,n){"use strict";var r=n(3),o=n(2),i=n(35),a=n(26),c=n(108),s=n(7),u=n(28),l=n(109),f=n(111),p=n(113),g=n(114),d=n(115),h=n(116),y=n(38),v=n(117),m=n(118),b=n(119),S=i.isOptionKeyCommand,w=s.isBrowser("Chrome");e.exports=function(e,t){var n=t.which,i=e._latestEditorState;function s(n){var r=e.props[n];return!!r&&(r(t),!0)}switch(n){case a.RETURN:if(t.preventDefault(),e.props.handleReturn&&u(e.props.handleReturn(t,i)))return;break;case a.ESC:if(t.preventDefault(),s("onEscape"))return;break;case a.TAB:if(s("onTab"))return;break;case a.UP:if(s("onUpArrow"))return;break;case a.RIGHT:if(s("onRightArrow"))return;break;case a.DOWN:if(s("onDownArrow"))return;break;case a.LEFT:if(s("onLeftArrow"))return;break;case a.SPACE:w&&S(t)&&t.preventDefault()}var k=e.props.keyBindingFn(t);if(null!=k&&""!==k){if("undo"===k)return b(t,i,e.update),void t.preventDefault();if(t.preventDefault(),!e.props.handleKeyCommand||!u(e.props.handleKeyCommand(k,i,t.timeStamp))){var C=function(e,t){switch(e){case"redo":return o.redo(t);case"delete":return v(t);case"delete-word":return p(t);case"backspace":return y(t);case"backspace-word":return f(t);case"backspace-to-start-of-line":return l(t);case"split-block":return g(t);case"transpose-characters":return m(t);case"move-selection-to-start-of-block":return h(t);case"move-selection-to-end-of-block":return d(t);case"secondary-cut":return c.cut(t);case"secondary-paste":return c.paste(t);default:return t}}(k,i);C!==i&&e.update(C)}}else if(n===a.SPACE&&w&&S(t)){var x=r.replaceText(i.getCurrentContent(),i.getSelection()," ");e.update(o.push(i,x,"insert-characters"))}}},function(e,t,n){"use strict";var r=n(7),o=n(1);var i=r.isBrowser("Chrome")?function(e){for(var t=e.cloneRange(),n=[],r=e.endContainer;null!=r;r=r.parentNode){var i=r===e.commonAncestorContainer;i?t.setStart(e.startContainer,e.startOffset):t.setStart(t.endContainer,0);var a,c=Array.from(t.getClientRects());if(n.push(c),i)return n.reverse(),(a=[]).concat.apply(a,n);t.setEndBefore(r)}o(!1,"Found an unexpected detached subtree when getting range client rects.")}:function(e){return Array.from(e.getClientRects())};e.exports=i},function(e,t,n){"use strict";function r(e){return function(){return e}}var o=function(){};o.thatReturns=r,o.thatReturnsFalse=r(!1),o.thatReturnsTrue=r(!0),o.thatReturnsNull=r(null),o.thatReturnsThis=function(){return this},o.thatReturnsArgument=function(e){return e},e.exports=o},function(e,t,n){"use strict";var r="\\s|(?![_])"+n(112).getPunctuation(),o=new RegExp("^(?:"+r+")*(?:['‘’]|(?!"+r+").)*(?:(?!"+r+").)"),i=new RegExp("(?:(?!"+r+").)(?:['‘’]|(?!"+r+").)*(?:"+r+")*$");function a(e,t){var n=t?i.exec(e):o.exec(e);return n?n[0]:e}var c={getBackward:function(e){return a(e,!0)},getForward:function(e){return a(e,!1)}};e.exports=c},function(e,t,n){"use strict";var r=n(37);e.exports=function(e,t){var n=e.getSelection();r(n.isCollapsed(),"moveSelectionForward should only be called with a collapsed SelectionState");var o,i=n.getStartKey(),a=n.getStartOffset(),c=e.getCurrentContent(),s=i;return t>c.getBlockForKey(i).getText().length-a?(s=c.getKeyAfter(i),o=0):o=a+t,n.merge({focusKey:s,focusOffset:o})}},function(e,t,n){"use strict";var r=n(15);function o(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}function i(e,t){return(i=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function a(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var c=n(125),s=n(8),u=n(1),l=n(127),f=function(e){var t,n;function f(){for(var t,n=arguments.length,r=new Array(n),i=0;i<n;i++)r[i]=arguments[i];return a(o(t=e.call.apply(e,[this].concat(r))||this),"leaf",void 0),t}n=e,(t=f).prototype=Object.create(n.prototype),t.prototype.constructor=t,i(t,n);var p=f.prototype;return p._setSelection=function(){var e=this.props.selection;if(null!=e&&e.getHasFocus()&&this.leaf){var t=this.props,n=t.block,r=t.start,o=t.text,i=n.getKey(),a=r+o.length;if(e.hasEdgeWithin(i,r,a)){var c=this.leaf;c||u(!1,"Missing node");var s,f=c.firstChild;f||u(!1,"Missing child"),f.nodeType===Node.TEXT_NODE?s=f:f instanceof Element&&"BR"===f.tagName?s=c:(s=f.firstChild)||u(!1,"Missing targetNode"),l(e,s,i,r,a)}}},p.shouldComponentUpdate=function(e){return this.props.textContent!==e.text||e.styleSet!==this.props.styleSet||e.forceSelection},p.componentDidUpdate=function(){this._setSelection()},p.componentDidMount=function(){this._setSelection()},p.render=function(){var e=this,t=this.props.block,n=this.props.text;n.endsWith("\n")&&this.props.isLast&&(n+="\n");var o=this.props,i=o.customStyleMap,a=o.customStyleFn,u=o.offsetKey,l=o.styleSet,f=o.entityKey,p=o.startTime,g=o.endTime,d=l.reduce((function(e,t){var n={},o=i[t];return void 0!==o&&e.textDecoration!==o.textDecoration&&(n.textDecoration=[e.textDecoration,o.textDecoration].join(" ").trim()),r(e,o,n)}),{});if(a){var h=a(l,t);d=r(d,h)}return s.createElement(c,{offsetKey:u,entityKey:f,startTime:p,endTime:g,styleObj:d,refNode:function(t){return e.leaf=t}},n)},f}(s.Component);e.exports=f},function(e,t,n){"use strict";e.exports={initODS:function(){},handleExtensionCausedError:function(){}}},function(e,t,n){"use strict";e.exports=function(e){if(void 0===(e=e||("undefined"!=typeof document?document:void 0)))return null;try{return e.activeElement||e.body}catch(t){return e.body}}},function(e,t,n){"use strict";var r=n(133);e.exports=function(e){var t=r(e);return{x:t.left,y:t.top,width:t.right-t.left,height:t.bottom-t.top}}},function(e,t,n){"use strict";function r(){var e;return document.documentElement&&(e=document.documentElement.clientWidth),!e&&document.body&&(e=document.body.clientWidth),e||0}function o(){var e;return document.documentElement&&(e=document.documentElement.clientHeight),!e&&document.body&&(e=document.body.clientHeight),e||0}function i(){return{width:window.innerWidth||r(),height:window.innerHeight||o()}}i.withoutScrollbars=function(){return{width:r(),height:o()}},e.exports=i},function(e,t,n){"use strict";var r=n(137),o=n(15);function i(){return(i=o||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function a(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}function c(e,t){return(c=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function s(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var u=n(62),l=n(11),f=n(8),p=n(40),g=n(29),d=n(32),h=n(24),y=n(14),v=n(65),m=n(30),b=n(66),S=n(1),w=n(4),k=function(e,t){return e.getAnchorKey()===t||e.getFocusKey()===t},C=function(e){var t,n;function o(){for(var t,n=arguments.length,o=new Array(n),c=0;c<n;c++)o[c]=arguments[c];return s(a(t=e.call.apply(e,[this].concat(o))||this),"_node",void 0),s(a(t),"getSnippetsFromBlock",(function(){var e=t.props.contentState,n=t.props.block;if(!n)return[];var r=[];return n.findEntityRanges((function(e){return null!==e.entity}),(function(t,o){var i=n.getEntityAt(t),a=e.getEntity(i);if(a&&a.data&&a.data.snippet){var c=a.data.snippet,s=c.startTime,u=c.endTime;r.push({entityKey:i,startTime:s,endTime:u})}})),r})),s(a(t),"getSnippetFromEntityKey",(function(e,t){return e?t.find((function(t){return t.entityKey===e})):null})),s(a(t),"handleRenderChildren",(function(e,n,o,a,c,s,p,g){return new r((function(r){var y=e.get("leaves");if(0===y.size)return r(null);var v=y.size-1,m=y.map((function(r,i){var d=l.encode(a,n,i),h=r.get("start"),y=r.get("end"),m=c.getEntityAt(e.get("start")),b=t.getSnippetFromEntityKey(m,g);return f.createElement(u,{key:d,offsetKey:d,entityKey:m,block:c,start:h,startTime:b?b.startTime:null,endTime:b?b.endTime:null,selection:p?t.props.selection:null,forceSelection:t.props.forceSelection,text:o.slice(h,y),styleSet:c.getInlineStyleAt(h),customStyleMap:t.props.customStyleMap,customStyleFn:t.props.customStyleFn,isLast:n===s&&i===v})})).toArray(),b=e.get("decoratorKey");if(null==b)return r(m);if(!t.props.decorator)return r(m);var S=w(t.props.decorator),k=S.getComponentForKey(b);if(!k)return r(m);var C=S.getPropsForKey(b),x=l.encode(a,n,0),O=y.first().get("start"),E=y.last().get("end"),_=o.slice(O,E),T=c.getEntityAt(e.get("start")),K=h.getHTMLDirIfDifferent(d.getDirection(_),t.props.direction),D={contentState:t.props.contentState,decoratedText:_,dir:K,key:x,start:O,end:E,blockKey:a,entityKey:T,offsetKey:x};return r(f.createElement(k,i({},C,D),m))}))})),t}n=e,(t=o).prototype=Object.create(n.prototype),t.prototype.constructor=t,c(t,n);var C=o.prototype;return C.shouldComponentUpdate=function(e){return this.props.block!==e.block||this.props.tree!==e.tree||this.props.direction!==e.direction||k(e.selection,e.block.getKey())&&e.forceSelection},C.componentDidMount=function(){var e=this.props.selection,t=e.getEndKey();if(e.getHasFocus()&&t===this.props.block.getKey()){var n=this._node;if(null!=n){var r,o=g.getScrollParent(n),i=m(o);if(o===window){var a=v(n);(r=a.y+a.height-b().height)>0&&window.scrollTo(i.x,i.y+r+10)}else{n instanceof HTMLElement||S(!1,"blockNode is not an HTMLElement"),(r=n.offsetHeight+n.offsetTop-(o.offsetTop+o.offsetHeight+i.y))>0&&p.setTop(o,p.getTop(o)+r+10)}}}},C._renderChildren=function(){var e=this,t=this.props.block,n=t.getKey(),r=t.getText(),o=this.props.tree.size-1,a=k(this.props.selection,n),c=this.getSnippetsFromBlock();return this.props.tree.map((function(s,p){var g=s.get("leaves");if(0===g.size)return null;var y=g.size-1,v=g.map((function(i,g){var d=l.encode(n,p,g),h=i.get("start"),v=i.get("end"),m=t.getEntityAt(s.get("start")),b=e.getSnippetFromEntityKey(m,c);return f.createElement(u,{key:d,offsetKey:d,entityKey:m,block:t,start:h,startTime:b?b.startTime:null,endTime:b?b.endTime:null,selection:a?e.props.selection:null,forceSelection:e.props.forceSelection,text:r.slice(h,v),styleSet:t.getInlineStyleAt(h),customStyleMap:e.props.customStyleMap,customStyleFn:e.props.customStyleFn,isLast:p===o&&g===y})})).toArray(),m=s.get("decoratorKey");if(null==m)return v;if(!e.props.decorator)return v;var b=w(e.props.decorator),S=b.getComponentForKey(m);if(!S)return v;var k=b.getPropsForKey(m),C=l.encode(n,p,0),x=g.first().get("start"),O=g.last().get("end"),E=r.slice(x,O),_=t.getEntityAt(s.get("start")),T=h.getHTMLDirIfDifferent(d.getDirection(E),e.props.direction),K={contentState:e.props.contentState,decoratedText:E,dir:T,key:C,start:x,end:O,blockKey:n,entityKey:_,offsetKey:C};return f.createElement(S,i({},k,K),v)})).toArray()},C.render=function(){var e=this,t=this.props,n=t.direction,r=t.offsetKey,o=y({"public/DraftStyleDefault/block":!0,"public/DraftStyleDefault/ltr":"LTR"===n,"public/DraftStyleDefault/rtl":"RTL"===n});return f.createElement("div",{"data-offset-key":r,className:o,ref:function(t){return e._node=t}},this._renderChildren())},o}(f.Component);e.exports=C},function(e,t,n){"use strict";(function(t){function n(e){o.length||(r(),!0),o[o.length]=e}e.exports=n;var r,o=[],i=0;function a(){for(;i<o.length;){var e=i;if(i+=1,o[e].call(),i>1024){for(var t=0,n=o.length-i;t<n;t++)o[t]=o[t+i];o.length-=i,i=0}}o.length=0,i=0,!1}var c,s,u,l=void 0!==t?t:self,f=l.MutationObserver||l.WebKitMutationObserver;function p(e){return function(){var t=setTimeout(r,0),n=setInterval(r,50);function r(){clearTimeout(t),clearInterval(n),e()}}}"function"==typeof f?(c=1,s=new f(a),u=document.createTextNode(""),s.observe(u,{characterData:!0}),r=function(){c=-c,u.data=c}):r=p(a),n.requestFlush=r,n.makeRequestCallFromTimer=p}).call(this,n(10))},function(e,t,n){"use strict";var r=n(148),o=n(149),i=n(59),a=new RegExp("\r\n","g"),c={"text/rtf":1,"text/html":1};function s(e){if("file"==e.kind)return e.getAsFile()}var u=function(){function e(e){this.data=e,this.types=e.types?o(e.types):[]}var t=e.prototype;return t.isRichText=function(){return!(!this.getHTML()||!this.getText())||!this.isImage()&&this.types.some((function(e){return c[e]}))},t.getText=function(){var e;return this.data.getData&&(this.types.length?-1!=this.types.indexOf("text/plain")&&(e=this.data.getData("text/plain")):e=this.data.getData("Text")),e?e.replace(a,"\n"):null},t.getHTML=function(){if(this.data.getData){if(!this.types.length)return this.data.getData("Text");if(-1!=this.types.indexOf("text/html"))return this.data.getData("text/html")}},t.isLink=function(){return this.types.some((function(e){return-1!=e.indexOf("Url")||-1!=e.indexOf("text/uri-list")||e.indexOf("text/x-moz-url")}))},t.getLink=function(){return this.data.getData?-1!=this.types.indexOf("text/x-moz-url")?this.data.getData("text/x-moz-url").split("\n")[0]:-1!=this.types.indexOf("text/uri-list")?this.data.getData("text/uri-list"):this.data.getData("url"):null},t.isImage=function(){var e=this.types.some((function(e){return-1!=e.indexOf("application/x-moz-file")}));if(e)return!0;for(var t=this.getFiles(),n=0;n<t.length;n++){var o=t[n].type;if(!r.isImage(o))return!1}return!0},t.getCount=function(){return this.data.hasOwnProperty("items")?this.data.items.length:this.data.hasOwnProperty("mozItemCount")?this.data.mozItemCount:this.data.files?this.data.files.length:null},t.getFiles=function(){return this.data.items?Array.prototype.slice.call(this.data.items).map(s).filter(i.thatReturnsArgument):this.data.files?Array.prototype.slice.call(this.data.files):[]},t.hasFiles=function(){return this.getFiles().length>0},e}();e.exports=u},function(e,t,n){"use strict";(function(t){var r=n(1),o=/\.textClipping$/,i={"text/plain":!0,"text/html":!0,"text/rtf":!0};e.exports=function(e,n){var a=0,c=[];e.forEach((function(s){!function(e,n){if(!t.FileReader||e.type&&!(e.type in i))return void n("");if(""===e.type){var a="";return o.test(e.name)&&(a=e.name.replace(o,"")),void n(a)}var c=new FileReader;c.onload=function(){var e=c.result;"string"!=typeof e&&r(!1,'We should be calling "FileReader.readAsText" which returns a string'),n(e)},c.onerror=function(){n("")},c.readAsText(e)}(s,(function(t){a++,t&&c.push(t.slice(0,5e3)),a==e.length&&n(c.join("\r"))}))}))}}).call(this,n(10))},function(e,t,n){"use strict";var r=n(21);e.exports=function(e){var t=e.getSelection();return t.isCollapsed()?null:r(e.getCurrentContent(),t)}},function(e,t,n){"use strict";var r;function o(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function i(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?o(Object(n),!0).forEach((function(t){a(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):o(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function a(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var c=n(5),s=n(13),u=n(6),l=n(33),f=n(22),p=n(162),g=n(14),d=n(9),h=n(73),y=n(12),v=n(0),m=v.List,b=v.Map,S=v.OrderedSet,w=y("draft_tree_data_support"),k=new RegExp("\r","g"),C=new RegExp("\n","g"),x=new RegExp("^\n","g"),O=new RegExp("&nbsp;","g"),E=new RegExp("&#13;?","g"),_=new RegExp("&#8203;?","g"),T=["bold","bolder","500","600","700","800","900"],K=["light","lighter","100","200","300","400"],D=["className","href","rel","target","title"],M=["alt","className","height","src","width"],A=(a(r={},g("public/DraftStyleDefault/depth0"),0),a(r,g("public/DraftStyleDefault/depth1"),1),a(r,g("public/DraftStyleDefault/depth2"),2),a(r,g("public/DraftStyleDefault/depth3"),3),a(r,g("public/DraftStyleDefault/depth4"),4),r),B=b({b:"BOLD",code:"CODE",del:"STRIKETHROUGH",em:"ITALIC",i:"ITALIC",s:"STRIKETHROUGH",strike:"STRIKETHROUGH",strong:"BOLD",u:"UNDERLINE",mark:"HIGHLIGHT"}),P=function(e){var t={};return e.mapKeys((function(e,n){var r=[n.element];void 0!==n.aliasedElements&&r.push.apply(r,n.aliasedElements),r.forEach((function(n){void 0===t[n]?t[n]=e:"string"==typeof t[n]?t[n]=[t[n],e]:t[n].push(e)}))})),b(t)},L=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:0;return Object.keys(A).some((function(n){e.classList.contains(n)&&(t=A[n])})),t},j=function(e){return!(!(e instanceof HTMLAnchorElement&&e.href)||"http:"!==e.protocol&&"https:"!==e.protocol&&"mailto:"!==e.protocol)},F=function(e){return!!(e instanceof HTMLImageElement&&e.attributes.getNamedItem("src")&&e.attributes.getNamedItem("src").value)},R=function(e){var t=S();if(!(e instanceof HTMLElement))return t;var n=e,r=n.style.fontWeight,o=n.style.fontStyle,i=n.style.textDecoration;return t.withMutations((function(e){T.indexOf(r)>=0?e.add("BOLD"):K.indexOf(r)>=0&&e.remove("BOLD"),"italic"===o?e.add("ITALIC"):"normal"===o&&e.remove("ITALIC"),"underline"===i&&e.add("UNDERLINE"),"line-through"===i&&e.add("STRIKETHROUGH"),"none"===i&&(e.remove("UNDERLINE"),e.remove("STRIKETHROUGH"))}))},N=function(e){return"ul"===e||"ol"===e},I=function(){function e(e,t){a(this,"characterList",m()),a(this,"currentBlockType","unstyled"),a(this,"currentDepth",0),a(this,"currentEntity",null),a(this,"currentStyle",S()),a(this,"currentText",""),a(this,"wrapper",null),a(this,"blockConfigs",[]),a(this,"contentBlocks",[]),a(this,"entityMap",f),a(this,"blockTypeMap",void 0),a(this,"disambiguate",void 0),this.clear(),this.blockTypeMap=e,this.disambiguate=t}var t=e.prototype;return t.clear=function(){this.characterList=m(),this.blockConfigs=[],this.currentBlockType="unstyled",this.currentDepth=0,this.currentEntity=null,this.currentStyle=S(),this.currentText="",this.entityMap=f,this.wrapper=null,this.contentBlocks=[]},t.addDOMNode=function(e){var t;return this.contentBlocks=[],this.currentDepth=0,(t=this.blockConfigs).push.apply(t,this._toBlockConfigs([e])),this._trimCurrentText(),""!==this.currentText&&this.blockConfigs.push(this._makeBlockConfig()),this},t.getContentBlocks=function(){return 0===this.contentBlocks.length&&(w?this._toContentBlocks(this.blockConfigs):this._toFlatContentBlocks(this.blockConfigs)),{contentBlocks:this.contentBlocks,entityMap:this.entityMap}},t.addStyle=function(e){this.currentStyle=this.currentStyle.union(e)},t.removeStyle=function(e){this.currentStyle=this.currentStyle.subtract(e)},t._makeBlockConfig=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=e.key||d(),n=i({key:t,type:this.currentBlockType,text:this.currentText,characterList:this.characterList,depth:this.currentDepth,parent:null,children:m(),prevSibling:null,nextSibling:null,childConfigs:[]},e);return this.characterList=m(),this.currentBlockType="unstyled",this.currentText="",n},t._toBlockConfigs=function(e){for(var t=[],n=0;n<e.length;n++){var r=e[n],o=r.nodeName.toLowerCase();if("body"===o||N(o)){this._trimCurrentText(),""!==this.currentText&&t.push(this._makeBlockConfig());var i=this.currentDepth,a=this.wrapper;N(o)&&(this.wrapper=o,N(a)&&this.currentDepth++),t.push.apply(t,this._toBlockConfigs(Array.from(r.childNodes))),this.currentDepth=i,this.wrapper=a}else{var c=this.blockTypeMap.get(o);if(void 0===c)if("#text"!==o)if("br"!==o)if(F(r))this._addImgNode(r);else if(j(r))this._addAnchorNode(r,t);else{var s=B.has(o)?S.of(B.get(o)):S(),u=R(r);this.addStyle(s),this.addStyle(u),t.push.apply(t,this._toBlockConfigs(Array.from(r.childNodes))),this.removeStyle(u),this.removeStyle(s)}else this._addBreakNode(r);else this._addTextNode(r);else{this._trimCurrentText(),""!==this.currentText&&t.push(this._makeBlockConfig());var l=this.currentDepth,f=this.wrapper;this.wrapper="pre"===o?"pre":this.wrapper,"string"!=typeof c&&(c=this.disambiguate(o,this.wrapper)||c[0]||"unstyled"),!w&&r instanceof HTMLElement&&("unordered-list-item"===c||"ordered-list-item"===c)&&(this.currentDepth=L(r,this.currentDepth));var p=d(),g=this._toBlockConfigs(Array.from(r.childNodes));this._trimCurrentText(),t.push(this._makeBlockConfig({key:p,childConfigs:g,type:c})),this.currentDepth=l,this.wrapper=f}}}return t},t._appendText=function(e){var t;this.currentText+=e;var n=c.create({style:this.currentStyle,entity:this.currentEntity});this.characterList=(t=this.characterList).push.apply(t,Array(e.length).fill(n))},t._trimCurrentText=function(){var e=this.currentText.length,t=e-this.currentText.trimLeft().length,n=this.currentText.trimRight().length,r=this.characterList.findEntry((function(e){return null!==e.getEntity()}));(t=void 0!==r?Math.min(t,r[0]):t)>(n=void 0!==(r=this.characterList.reverse().findEntry((function(e){return null!==e.getEntity()})))?Math.max(n,e-r[0]):n)?(this.currentText="",this.characterList=m()):(this.currentText=this.currentText.slice(t,n),this.characterList=this.characterList.slice(t,n))},t._addTextNode=function(e){var t=e.textContent;""===t.trim()&&"pre"!==this.wrapper&&(t=" "),"pre"!==this.wrapper&&(t=(t=t.replace(x,"")).replace(C," ")),this._appendText(t)},t._addBreakNode=function(e){e instanceof HTMLBRElement&&this._appendText("\n")},t._addImgNode=function(e){if(e instanceof HTMLImageElement){var t=e,n={};M.forEach((function(e){var r=t.getAttribute(e);r&&(n[e]=r)})),this.currentEntity=this.entityMap.__create("IMAGE","IMMUTABLE",n),y("draftjs_fix_paste_for_img")?"presentation"!==e.getAttribute("role")&&this._appendText("📷"):this._appendText("📷"),this.currentEntity=null}},t._addAnchorNode=function(e,t){if(e instanceof HTMLAnchorElement){var n=e,r={};D.forEach((function(e){var t=n.getAttribute(e);t&&(r[e]=t)})),r.url=new p(n.href).toString(),this.currentEntity=this.entityMap.__create("LINK","MUTABLE",r||{}),t.push.apply(t,this._toBlockConfigs(Array.from(e.childNodes))),this.currentEntity=null}},t._toContentBlocks=function(e){for(var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,n=e.length-1,r=0;r<=n;r++){var o=e[r];o.parent=t,o.prevSibling=r>0?e[r-1].key:null,o.nextSibling=r<n?e[r+1].key:null,o.children=m(o.childConfigs.map((function(e){return e.key}))),this.contentBlocks.push(new u(i({},o))),this._toContentBlocks(o.childConfigs,o.key)}},t._hoistContainersInBlockConfigs=function(e){var t=this;return m(e).flatMap((function(e){return"unstyled"!==e.type||""!==e.text?[e]:t._hoistContainersInBlockConfigs(e.childConfigs)}))},t._toFlatContentBlocks=function(e){var t=this;this._hoistContainersInBlockConfigs(e).forEach((function(e){var n=t._extractTextFromBlockConfigs(e.childConfigs),r=n.text,o=n.characterList;t.contentBlocks.push(new s(i(i({},e),{},{text:e.text+r,characterList:e.characterList.concat(o)})))}))},t._extractTextFromBlockConfigs=function(e){for(var t=e.length-1,n="",r=m(),o=0;o<=t;o++){var i=e[o];n+=i.text,r=r.concat(i.characterList),""!==n&&"unstyled"!==i.blockType&&(n+="\n",r=r.push(r.last()));var a=this._extractTextFromBlockConfigs(i.childConfigs);n+=a.text,r=r.concat(a.characterList)}return{text:n,characterList:r}},e}();e.exports=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:h,n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:l,r=t(e=e.trim().replace(k,"").replace(O," ").replace(E,"").replace(_,""));if(!r)return null;var o=P(n),i=function(e,t){return"li"===e?"ol"===t?"ordered-list-item":"unordered-list-item":null};return new I(o,i).addDOMNode(r).getContentBlocks()}},function(e,t,n){"use strict";var r=n(7),o=n(1),i=r.isBrowser("IE <= 9");e.exports=function(e){var t,n=null;return!i&&document.implementation&&document.implementation.createHTMLDocument&&((t=document.implementation.createHTMLDocument("foo")).documentElement||o(!1,"Missing doc.documentElement"),t.documentElement.innerHTML=e,n=t.getElementsByTagName("body")[0]),n}},function(e,t,n){"use strict";var r=n(3),o=n(2),i=n(163),a=n(4),c={currentBlockContainsLink:function(e){var t=e.getSelection(),n=e.getCurrentContent(),r=n.getEntityMap();return n.getBlockForKey(t.getAnchorKey()).getCharacterList().slice(t.getStartOffset(),t.getEndOffset()).some((function(e){var t=e.getEntity();return!!t&&"LINK"===r.__get(t).getType()}))},getCurrentBlockType:function(e){var t=e.getSelection();return e.getCurrentContent().getBlockForKey(t.getStartKey()).getType()},getDataObjectForLinkURL:function(e){return{url:e.toString()}},handleKeyCommand:function(e,t,n){switch(t){case"bold":return c.toggleInlineStyle(e,"BOLD");case"italic":return c.toggleInlineStyle(e,"ITALIC");case"underline":return c.toggleInlineStyle(e,"UNDERLINE");case"code":return c.toggleCode(e);case"backspace":case"backspace-word":case"backspace-to-start-of-line":return c.onBackspace(e);case"delete":case"delete-word":case"delete-to-end-of-block":return c.onDelete(e);default:return null}},insertSoftNewline:function(e){var t=r.insertText(e.getCurrentContent(),e.getSelection(),"\n",e.getCurrentInlineStyle(),null),n=o.push(e,t,"insert-characters");return o.forceSelection(n,t.getSelectionAfter())},onBackspace:function(e){var t=e.getSelection();if(!t.isCollapsed()||t.getAnchorOffset()||t.getFocusOffset())return null;var n=e.getCurrentContent(),r=t.getStartKey(),i=n.getBlockBefore(r);if(i&&"atomic"===i.getType()){var a=n.getBlockMap().delete(i.getKey()),s=n.merge({blockMap:a,selectionAfter:t});if(s!==n)return o.push(e,s,"remove-range")}var u=c.tryToRemoveBlockStyle(e);return u?o.push(e,u,"change-block-type"):null},onDelete:function(e){var t=e.getSelection();if(!t.isCollapsed())return null;var n=e.getCurrentContent(),i=t.getStartKey(),a=n.getBlockForKey(i).getLength();if(t.getStartOffset()<a)return null;var c=n.getBlockAfter(i);if(!c||"atomic"!==c.getType())return null;var s=t.merge({focusKey:c.getKey(),focusOffset:c.getLength()}),u=r.removeRange(n,s,"forward");return u!==n?o.push(e,u,"remove-range"):null},onTab:function(e,t,n){var r=t.getSelection(),a=r.getAnchorKey();if(a!==r.getFocusKey())return t;var c=t.getCurrentContent(),s=c.getBlockForKey(a),u=s.getType();if("unordered-list-item"!==u&&"ordered-list-item"!==u)return t;e.preventDefault();var l=s.getDepth();if(!e.shiftKey&&l===n)return t;var f=i(c,r,e.shiftKey?-1:1,n);return o.push(t,f,"adjust-depth")},toggleBlockType:function(e,t){var n=e.getSelection(),i=n.getStartKey(),c=n.getEndKey(),s=e.getCurrentContent(),u=n;if(i!==c&&0===n.getEndOffset()){var l=a(s.getBlockBefore(c));c=l.getKey(),u=u.merge({anchorKey:i,anchorOffset:n.getStartOffset(),focusKey:c,focusOffset:l.getLength(),isBackward:!1})}if(s.getBlockMap().skipWhile((function(e,t){return t!==i})).reverse().skipWhile((function(e,t){return t!==c})).some((function(e){return"atomic"===e.getType()})))return e;var f=s.getBlockForKey(i).getType()===t?"unstyled":t;return o.push(e,r.setBlockType(s,u,f),"change-block-type")},toggleCode:function(e){var t=e.getSelection(),n=t.getAnchorKey(),r=t.getFocusKey();return t.isCollapsed()||n!==r?c.toggleBlockType(e,"code-block"):c.toggleInlineStyle(e,"CODE")},toggleInlineStyle:function(e,t){var n=e.getSelection(),i=e.getCurrentInlineStyle();if(n.isCollapsed())return o.setInlineStyleOverride(e,i.has(t)?i.remove(t):i.add(t));var a,c=e.getCurrentContent();return a=i.has(t)?r.removeInlineStyle(c,n,t):r.applyInlineStyle(c,n,t),o.push(e,a,"change-inline-style")},toggleLink:function(e,t,n){var i=r.applyEntity(e.getCurrentContent(),t,n);return o.push(e,i,"apply-entity")},tryToRemoveBlockStyle:function(e){var t=e.getSelection(),n=t.getAnchorOffset();if(t.isCollapsed()&&0===n){var o=t.getAnchorKey(),i=e.getCurrentContent(),a=i.getBlockForKey(o).getType(),c=i.getBlockBefore(o);if("code-block"===a&&c&&"code-block"===c.getType()&&0!==c.getLength())return null;if("unstyled"!==a)return r.setBlockType(i,t,"unstyled")}return null}};e.exports=c},function(e,t,n){"use strict";var r=n(35),o=n(26),i=n(7),a=i.isPlatform("Mac OS X"),c=a&&i.isBrowser("Firefox < 29"),s=r.hasCommandModifier,u=r.isCtrlKeyCommand;function l(e){return a&&e.altKey||u(e)}e.exports=function(e){switch(e.keyCode){case 66:return s(e)?"bold":null;case 68:return u(e)?"delete":null;case 72:return u(e)?"backspace":null;case 73:return s(e)?"italic":null;case 74:return s(e)?"code":null;case 75:return a&&u(e)?"secondary-cut":null;case 77:case 79:return u(e)?"split-block":null;case 84:return a&&u(e)?"transpose-characters":null;case 85:return s(e)?"underline":null;case 87:return a&&u(e)?"backspace-word":null;case 89:return u(e)?a?"secondary-paste":"redo":null;case 90:return function(e){return s(e)?e.shiftKey?"redo":"undo":null}(e)||null;case o.RETURN:return"split-block";case o.DELETE:return function(e){return!a&&e.shiftKey?null:l(e)?"delete-word":"delete"}(e);case o.BACKSPACE:return function(e){return s(e)&&a?"backspace-to-start-of-line":l(e)?"backspace-word":"backspace"}(e);case o.LEFT:return c&&s(e)?"move-selection-to-start-of-block":null;case o.RIGHT:return c&&s(e)?"move-selection-to-end-of-block":null;default:return null}}},function(e,t,n){"use strict";var r={stringify:function(e){return"_"+String(e)},unstringify:function(e){return e.slice(1)}};e.exports=r},function(e,t,n){"use strict";var r=n(78),o=n(18),i=n(5),a=n(93),c=n(13),s=n(31),u=n(33),l=n(48),f=n(94),p=n(67),g=n(22),d=n(3),h=n(46),y=n(2),v=n(35),m=n(166),b=n(74),S=n(23),w=n(167),k=n(170),C=n(9),x=n(75),O=n(176),E={Editor:f,EditorBlock:p,EditorState:y,CompositeDecorator:a,Entity:g,EntityInstance:h,BlockMapBuilder:o,CharacterMetadata:i,ContentBlock:c,ContentState:s,RawDraftContentState:m,SelectionState:S,AtomicBlockUtils:r,KeyBindingUtil:v,Modifier:d,RichUtils:b,DefaultDraftBlockRenderMap:u,DefaultDraftInlineStyle:l,convertFromHTML:n(72),convertFromRaw:k,convertToRaw:w,genKey:C,getDefaultKeyBinding:x,getVisibleSelectionRect:O};e.exports=E},function(e,t,n){"use strict";function r(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function o(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?r(Object(n),!0).forEach((function(t){i(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):r(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function i(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(18),c=n(5),s=n(13),u=n(6),l=n(3),f=n(2),p=n(9),g=n(12),d=n(0),h=n(92),y=g("draft_tree_data_support"),v=y?u:s,m=d.List,b=d.Repeat,S={insertAtomicBlock:function(e,t,n){var r=e.getCurrentContent(),i=e.getSelection(),s=l.removeRange(r,i,"backward"),u=s.getSelectionAfter(),g=l.splitBlock(s,u),d=g.getSelectionAfter(),h=l.setBlockType(g,d,"atomic"),S=c.create({entity:t}),w={key:p(),type:"atomic",text:n,characterList:m(b(S,n.length))},k={key:p(),type:"unstyled"};y&&(w=o(o({},w),{},{nextSibling:k.key}),k=o(o({},k),{},{prevSibling:w.key}));var C=[new v(w),new v(k)],x=a.createFromArray(C),O=l.replaceWithFragment(h,d,x),E=O.merge({selectionBefore:i,selectionAfter:O.getSelectionAfter().set("hasFocus",!0)});return f.push(e,E,"insert-fragment")},moveAtomicBlock:function(e,t,n,r){var o,i=e.getCurrentContent(),a=e.getSelection();if("before"===r||"after"===r){var c=i.getBlockForKey("before"===r?n.getStartKey():n.getEndKey());o=h(i,t,c,r)}else{var s=l.removeRange(i,n,"backward"),u=s.getSelectionAfter(),p=s.getBlockForKey(u.getFocusKey());if(0===u.getStartOffset())o=h(s,t,p,"before");else if(u.getEndOffset()===p.getLength())o=h(s,t,p,"after");else{var g=l.splitBlock(s,u),d=g.getSelectionAfter(),y=g.getBlockForKey(d.getFocusKey());o=h(g,t,y,"before")}}var v=o.merge({selectionBefore:a,selectionAfter:o.getSelectionAfter().set("hasFocus",!0)});return f.push(e,v,"move-block")}};e.exports=S},function(e,t,n){"use strict";var r=n(5),o=n(0).Map,i={add:function(e,t,n){return a(e,t,n,!0)},remove:function(e,t,n){return a(e,t,n,!1)}};function a(e,t,n,i){var a=e.getBlockMap(),c=t.getStartKey(),s=t.getStartOffset(),u=t.getEndKey(),l=t.getEndOffset(),f=a.skipUntil((function(e,t){return t===c})).takeUntil((function(e,t){return t===u})).concat(o([[u,a.get(u)]])).map((function(e,t){var o,a;c===u?(o=s,a=l):(o=t===c?s:0,a=t===u?l:e.getLength());for(var f,p=e.getCharacterList();o<a;)f=p.get(o),p=p.set(o,i?r.applyStyle(f,n):r.removeStyle(f,n)),o++;return e.set("characterList",p)}));return e.merge({blockMap:a.merge(f),selectionBefore:t,selectionAfter:t})}e.exports=i},function(e,t,n){"use strict";var r=n(81),o=n(0);e.exports=function(e,t,n){var i=e.getBlockMap(),a=t.getStartKey(),c=t.getStartOffset(),s=t.getEndKey(),u=t.getEndOffset(),l=i.skipUntil((function(e,t){return t===a})).takeUntil((function(e,t){return t===s})).toOrderedMap().merge(o.OrderedMap([[s,i.get(s)]])).map((function(e,t){var o=t===a?c:0,i=t===s?u:e.getLength();return r(e,o,i,n)}));return e.merge({blockMap:i.merge(l),selectionBefore:t,selectionAfter:t})}},function(e,t,n){"use strict";var r=n(5);e.exports=function(e,t,n,o){for(var i=e.getCharacterList();t<n&&i.size>t;)i=i.set(t,r.applyEntity(i.get(t),o)),t++;return e.set("characterList",i)}},function(e,t,n){"use strict";var r=n(83),o=n(84),i=n(1);function a(e,t,n,a,c,s,u){var l=n.getStartOffset(),f=n.getEndOffset(),p=e.__get(c).getMutability(),g=u?l:f;if("MUTABLE"===p)return n;var d=o(t,c).filter((function(e){return g<=e.end&&g>=e.start}));1!=d.length&&i(!1,"There should only be one entity range within this removal range.");var h=d[0];if("IMMUTABLE"===p)return n.merge({anchorOffset:h.start,focusOffset:h.end,isBackward:!1});s||(u?f=h.end:l=h.start);var y=r.getRemovalRange(l,f,t.getText().slice(h.start,h.end),h.start,a);return n.merge({anchorOffset:y.start,focusOffset:y.end,isBackward:!1})}e.exports=function(e,t,n,r,o){var i=r.getStartOffset(),c=r.getEndOffset(),s=t.getEntityAt(i),u=n.getEntityAt(c-1);if(!s&&!u)return r;var l=r;if(s&&s===u)l=a(e,t,l,o,s,!0,!0);else if(s&&u){var f=a(e,t,l,o,s,!1,!0),p=a(e,n,l,o,u,!1,!1);l=l.merge({anchorOffset:f.getAnchorOffset(),focusOffset:p.getFocusOffset(),isBackward:!1})}else if(s){var g=a(e,t,l,o,s,!1,!0);l=l.merge({anchorOffset:g.getStartOffset(),isBackward:!1})}else if(u){var d=a(e,n,l,o,u,!1,!1);l=l.merge({focusOffset:d.getEndOffset(),isBackward:!1})}return l}},function(e,t,n){"use strict";e.exports={getRemovalRange:function(e,t,n,r,o){var i=n.split(" ");i=i.map((function(e,t){if("forward"===o){if(t>0)return" "+e}else if(t<i.length-1)return e+" ";return e}));for(var a,c=r,s=null,u=null,l=0;l<i.length;l++){if(e<(a=c+i[l].length)&&c<t)null!==s||(s=c),u=a;else if(null!==s)break;c=a}var f=r+n.length,p=s===r,g=u===f;return(!p&&g||p&&!g)&&("forward"===o?u!==f&&u++:s!==r&&s--),{start:s,end:u}}}},function(e,t,n){"use strict";var r=n(1);e.exports=function(e,t){var n=[];return e.findEntityRanges((function(e){return e.getEntity()===t}),(function(e,t){n.push({start:e,end:t})})),n.length||r(!1,"Entity key not found in this range."),n}},function(e,t,n){"use strict";var r=n(18),o=n(6),i=n(0),a=n(43),c=n(1),s=n(41),u=i.List,l=function(e,t,n,r,o,i){var c=arguments.length>6&&void 0!==arguments[6]?arguments[6]:"REPLACE_WITH_NEW_DATA",s=n.get(o),u=s.getText(),l=s.getCharacterList(),f=o,p=i+r.getText().length,g=null;switch(c){case"MERGE_OLD_DATA_TO_NEW_DATA":g=r.getData().merge(s.getData());break;case"REPLACE_WITH_NEW_DATA":g=r.getData()}var d=s.merge({text:u.slice(0,i)+r.getText()+u.slice(i),characterList:a(l,r.getCharacterList(),i),data:g});return e.merge({blockMap:n.set(o,d),selectionBefore:t,selectionAfter:t.merge({anchorKey:f,anchorOffset:p,focusKey:f,focusOffset:p,isBackward:!1})})},f=function(e,t,n,i,a,c){var s=n.first()instanceof o,l=[],f=i.size,p=n.get(a),g=i.first(),d=i.last(),h=d.getLength(),y=d.getKey(),v=s&&(!p.getChildKeys().isEmpty()||!g.getChildKeys().isEmpty());n.forEach((function(e,t){t===a?(v?l.push(e):l.push(function(e,t,n){var r=e.getText(),o=e.getCharacterList(),i=r.slice(0,t),a=o.slice(0,t),c=n.first();return e.merge({text:i+c.getText(),characterList:a.concat(c.getCharacterList()),type:i?e.getType():c.getType(),data:c.getData()})}(e,c,i)),i.slice(v?0:1,f-1).forEach((function(e){return l.push(e)})),l.push(function(e,t,n){var r=e.getText(),o=e.getCharacterList(),i=r.length,a=r.slice(t,i),c=o.slice(t,i),s=n.last();return s.merge({text:s.getText()+a,characterList:s.getCharacterList().concat(c),data:s.getData()})}(e,c,i))):l.push(e)}));var m=r.createFromArray(l);return s&&(m=function(e,t,n,r){return e.withMutations((function(t){var o=n.getKey(),i=r.getKey(),a=n.getNextSiblingKey(),c=n.getParentKey(),s=function(e,t){var n=e.getKey(),r=e,o=[];for(t.get(n)&&o.push(n);r&&r.getNextSiblingKey();){var i=r.getNextSiblingKey();if(!i)break;o.push(i),r=t.get(i)}return o}(r,e),l=s[s.length-1];if(t.get(i)?(t.setIn([o,"nextSibling"],i),t.setIn([i,"prevSibling"],o)):(t.setIn([o,"nextSibling"],r.getNextSiblingKey()),t.setIn([r.getNextSiblingKey(),"prevSibling"],o)),t.setIn([l,"nextSibling"],a),a&&t.setIn([a,"prevSibling"],l),s.forEach((function(e){return t.setIn([e,"parent"],c)})),c){var f=e.get(c).getChildKeys(),p=f.indexOf(o)+1,g=f.toArray();g.splice.apply(g,[p,0].concat(s)),t.setIn([c,"children"],u(g))}}))}(m,0,p,g)),e.merge({blockMap:m,selectionBefore:t,selectionAfter:t.merge({anchorKey:y,anchorOffset:h,focusKey:y,focusOffset:h,isBackward:!1})})};e.exports=function(e,t,n){var r=arguments.length>3&&void 0!==arguments[3]?arguments[3]:"REPLACE_WITH_NEW_DATA";t.isCollapsed()||c(!1,"`insertFragment` should only be called with a collapsed selection state.");var i=e.getBlockMap(),a=s(n),u=t.getStartKey(),p=t.getStartOffset(),g=i.get(u);return g instanceof o&&(g.getChildKeys().isEmpty()||c(!1,"`insertFragment` should not be called when a container node is selected.")),1===a.size?l(e,t,i,a.first(),u,p,r):f(e,t,i,a,u,p)}},function(e,t,n){"use strict";var r=n(0),o=n(43),i=n(1),a=r.Repeat;e.exports=function(e,t,n,r){t.isCollapsed()||i(!1,"`insertText` should only be called with a collapsed range.");var c=null;if(null!=n&&(c=n.length),null==c||0===c)return e;var s=e.getBlockMap(),u=t.getStartKey(),l=t.getStartOffset(),f=s.get(u),p=f.getText(),g=f.merge({text:p.slice(0,l)+n+p.slice(l,f.getLength()),characterList:o(f.getCharacterList(),a(r,c).toList(),l)}),d=l+c;return e.merge({blockMap:s.set(u,g),selectionAfter:t.merge({anchorOffset:d,focusOffset:d})})}},function(e,t,n){"use strict";var r=n(6),o=n(45),i=n(0),a=(i.List,i.Map),c=function(e,t,n){if(e){var r=t.get(e);r&&t.set(e,n(r))}},s=function(e,t){var n=[];if(!e)return n;for(var r=t.get(e);r&&r.getParentKey();){var o=r.getParentKey();o&&n.push(o),r=o?t.get(o):null}return n},u=function(e,t,n){if(!e)return null;for(var r=n.get(e.getKey()).getNextSiblingKey();r&&!t.get(r);)r=n.get(r).getNextSiblingKey()||null;return r},l=function(e,t,n){if(!e)return null;for(var r=n.get(e.getKey()).getPrevSiblingKey();r&&!t.get(r);)r=n.get(r).getPrevSiblingKey()||null;return r},f=function(e,t,n,r){return e.withMutations((function(i){if(c(t.getKey(),i,(function(e){return e.merge({nextSibling:u(e,i,r),prevSibling:l(e,i,r)})})),c(n.getKey(),i,(function(e){return e.merge({nextSibling:u(e,i,r),prevSibling:l(e,i,r)})})),s(t.getKey(),r).forEach((function(e){return c(e,i,(function(e){return e.merge({children:e.getChildKeys().filter((function(e){return i.get(e)})),nextSibling:u(e,i,r),prevSibling:l(e,i,r)})}))})),c(t.getNextSiblingKey(),i,(function(e){return e.merge({prevSibling:t.getPrevSiblingKey()})})),c(t.getPrevSiblingKey(),i,(function(e){return e.merge({nextSibling:u(e,i,r)})})),c(n.getNextSiblingKey(),i,(function(e){return e.merge({prevSibling:l(e,i,r)})})),c(n.getPrevSiblingKey(),i,(function(e){return e.merge({nextSibling:n.getNextSiblingKey()})})),s(n.getKey(),r).forEach((function(e){c(e,i,(function(e){return e.merge({children:e.getChildKeys().filter((function(e){return i.get(e)})),nextSibling:u(e,i,r),prevSibling:l(e,i,r)})}))})),function(e,t){var n=[];if(!e)return n;for(var r=o(e,t);r&&t.get(r);){var i=t.get(r);n.push(r),r=i.getParentKey()?o(i,t):null}return n}(n,r).forEach((function(e){return c(e,i,(function(e){return e.merge({nextSibling:u(e,i,r),prevSibling:l(e,i,r)})}))})),null==e.get(t.getKey())&&null!=e.get(n.getKey())&&n.getParentKey()===t.getKey()&&null==n.getPrevSiblingKey()){var a=t.getPrevSiblingKey();c(n.getKey(),i,(function(e){return e.merge({prevSibling:a})})),c(a,i,(function(e){return e.merge({nextSibling:n.getKey()})}));var f=a?e.get(a):null,p=f?f.getParentKey():null;if(t.getChildKeys().forEach((function(e){c(e,i,(function(e){return e.merge({parent:p})}))})),null!=p){var g=e.get(p);c(p,i,(function(e){return e.merge({children:g.getChildKeys().concat(t.getChildKeys())})}))}c(t.getChildKeys().find((function(t){return null===e.get(t).getNextSiblingKey()})),i,(function(e){return e.merge({nextSibling:t.getNextSiblingKey()})}))}}))},p=function(e,t,n){if(0===t)for(;t<n;)e=e.shift(),t++;else if(n===e.count())for(;n>t;)e=e.pop(),n--;else{var r=e.slice(0,t),o=e.slice(n);e=r.concat(o).toList()}return e};e.exports=function(e,t){if(t.isCollapsed())return e;var n,i=e.getBlockMap(),c=t.getStartKey(),u=t.getStartOffset(),l=t.getEndKey(),g=t.getEndOffset(),d=i.get(c),h=i.get(l),y=d instanceof r,v=[];if(y){var m=h.getChildKeys(),b=s(l,i);h.getNextSiblingKey()&&(v=v.concat(b)),m.isEmpty()||(v=v.concat(b.concat([l]))),v=v.concat(s(o(h,i),i))}n=d===h?p(d.getCharacterList(),u,g):d.getCharacterList().slice(0,u).concat(h.getCharacterList().slice(g));var S=d.merge({text:d.getText().slice(0,u)+h.getText().slice(g),characterList:n}),w=y&&0===u&&0===g&&h.getParentKey()===c&&null==h.getPrevSiblingKey()?a([[c,null]]):i.toSeq().skipUntil((function(e,t){return t===c})).takeUntil((function(e,t){return t===l})).filter((function(e,t){return-1===v.indexOf(t)})).concat(a([[l,null]])).map((function(e,t){return t===c?S:null})),k=i.merge(w).filter((function(e){return!!e}));return y&&d!==h&&(k=f(k,d,h,i)),e.merge({blockMap:k,selectionBefore:t,selectionAfter:t.merge({anchorKey:c,anchorOffset:u,focusKey:c,focusOffset:u,isBackward:!1})})}},function(e,t,n){"use strict";var r=n(6),o=n(9),i=n(0),a=n(1),c=n(44),s=i.List,u=i.Map,l=function(e,t,n){if(e){var r=t.get(e);r&&t.set(e,n(r))}};e.exports=function(e,t){t.isCollapsed()||a(!1,"Selection range must be collapsed.");var n=t.getAnchorKey(),i=e.getBlockMap(),f=i.get(n),p=f.getText();if(!p){var g=f.getType();if("unordered-list-item"===g||"ordered-list-item"===g)return c(e,t,(function(e){return e.merge({type:"unstyled",depth:0})}))}var d=t.getAnchorOffset(),h=f.getCharacterList(),y=o(),v=f instanceof r,m=f.merge({text:p.slice(0,d),characterList:h.slice(0,d)}),b=m.merge({key:y,text:p.slice(d),characterList:h.slice(d),data:u()}),S=i.toSeq().takeUntil((function(e){return e===f})),w=i.toSeq().skipUntil((function(e){return e===f})).rest(),k=S.concat([[n,m],[y,b]],w).toOrderedMap();return v&&(f.getChildKeys().isEmpty()||a(!1,"ContentBlockNode must not have children"),k=function(e,t,n){return e.withMutations((function(e){var r=t.getKey(),o=n.getKey();l(t.getParentKey(),e,(function(e){var t=e.getChildKeys(),n=t.indexOf(r)+1,i=t.toArray();return i.splice(n,0,o),e.merge({children:s(i)})})),l(t.getNextSiblingKey(),e,(function(e){return e.merge({prevSibling:o})})),l(r,e,(function(e){return e.merge({nextSibling:o})})),l(o,e,(function(e){return e.merge({prevSibling:r})}))}))}(k,m,b)),e.merge({blockMap:k,selectionBefore:t,selectionAfter:t.merge({anchorKey:y,anchorOffset:0,focusKey:y,focusOffset:0,isBackward:!1})})}},function(e,t,n){"use strict";var r=n(19),o=n(0),i=o.List,a=o.Repeat,c=o.Record,s=function(){return!0},u=c({start:null,end:null}),l=c({start:null,end:null,decoratorKey:null,leaves:null}),f={generate:function(e,t,n){var o=t.getLength();if(!o)return i.of(new l({start:0,end:0,decoratorKey:null,leaves:i.of(new u({start:0,end:0}))}));var c=[],f=n?n.getDecorations(t,e):i(a(null,o)),d=t.getCharacterList();return r(f,g,s,(function(e,t){c.push(new l({start:e,end:t,decoratorKey:f.get(e),leaves:p(d.slice(e,t).toList(),e)}))})),i(c)}};function p(e,t){var n=[],o=e.map((function(e){return e.getStyle()})).toList();return r(o,g,s,(function(e,r){n.push(new u({start:e+t,end:r+t}))})),i(n)}function g(e,t){return e===t}e.exports=f},function(e,t,n){"use strict";var r,o=n(91),i=n(0),a=n(4),c=i.OrderedMap,s={getDirectionMap:function(e,t){r?r.reset():r=new o;var n=e.getBlockMap(),s=n.valueSeq().map((function(e){return a(r).getDirection(e.getText())})),u=c(n.keySeq().zip(s));return null!=t&&i.is(t,u)?t:u}};e.exports=s},function(e,t,n){"use strict";function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var o=n(32),i=n(24),a=n(1),c=function(){function e(e){r(this,"_defaultDir",void 0),r(this,"_lastDir",void 0),e?i.isStrong(e)||a(!1,"Default direction must be a strong direction (LTR or RTL)"):e=i.getGlobalDir(),this._defaultDir=e,this.reset()}var t=e.prototype;return t.reset=function(){this._lastDir=this._defaultDir},t.getDirection=function(e){return this._lastDir=o.getDirection(e,this._lastDir),this._lastDir},e}();e.exports=c},function(e,t,n){"use strict";var r=n(6),o=n(45),i=n(0),a=n(1),c=i.OrderedMap,s=i.List,u=function(e,t,n){if(e){var r=t.get(e);r&&t.set(e,n(r))}},l=function(e,t,n,r,o){if(!o)return e;var i="after"===r,a=t.getKey(),c=n.getKey(),l=t.getParentKey(),f=t.getNextSiblingKey(),p=t.getPrevSiblingKey(),g=n.getParentKey(),d=i?n.getNextSiblingKey():c,h=i?c:n.getPrevSiblingKey();return e.withMutations((function(e){u(l,e,(function(e){var t=e.getChildKeys();return e.merge({children:t.delete(t.indexOf(a))})})),u(p,e,(function(e){return e.merge({nextSibling:f})})),u(f,e,(function(e){return e.merge({prevSibling:p})})),u(d,e,(function(e){return e.merge({prevSibling:a})})),u(h,e,(function(e){return e.merge({nextSibling:a})})),u(g,e,(function(e){var t=e.getChildKeys(),n=t.indexOf(c),r=i?n+1:0!==n?n-1:0,o=t.toArray();return o.splice(r,0,a),e.merge({children:s(o)})})),u(a,e,(function(e){return e.merge({nextSibling:d,prevSibling:h,parent:g})}))}))};e.exports=function(e,t,n,i){"replace"===i&&a(!1,"Replacing blocks is not supported.");var s=n.getKey(),u=t.getKey();u===s&&a(!1,"Block cannot be moved next to itself.");var f=e.getBlockMap(),p=t instanceof r,g=[t],d=f.delete(u);p&&(g=[],d=f.withMutations((function(e){var n=t.getNextSiblingKey(),r=o(t,e);e.toSeq().skipUntil((function(e){return e.getKey()===u})).takeWhile((function(e){var t=e.getKey(),o=t===u,i=n&&t!==n,a=!n&&e.getParentKey()&&(!r||t!==r);return!!(o||i||a)})).forEach((function(t){g.push(t),e.delete(t.getKey())}))})));var h=d.toSeq().takeUntil((function(e){return e===n})),y=d.toSeq().skipUntil((function(e){return e===n})).skip(1),v=g.map((function(e){return[e.getKey(),e]})),m=c();if("before"===i){var b=e.getBlockBefore(s);b&&b.getKey()===t.getKey()&&a(!1,"Block cannot be moved next to itself."),m=h.concat([].concat(v,[[s,n]]),y).toOrderedMap()}else if("after"===i){var S=e.getBlockAfter(s);S&&S.getKey()===u&&a(!1,"Block cannot be moved next to itself."),m=h.concat([[s,n]].concat(v),y).toOrderedMap()}return e.merge({blockMap:l(m,t,n,i,p),selectionBefore:e.getSelectionAfter(),selectionAfter:e.getSelectionAfter().merge({anchorKey:u,focusKey:u})})}},function(e,t,n){"use strict";var r=n(0).List,o=function(){function e(e){var t,n,r;r=void 0,(n="_decorators")in(t=this)?Object.defineProperty(t,n,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[n]=r,this._decorators=e.slice()}var t=e.prototype;return t.getDecorations=function(e,t){var n=Array(e.getText().length).fill(null);return this._decorators.forEach((function(r,o){var i=0;(0,r.strategy)(e,(function(e,t){(function(e,t,n){for(var r=t;r<n;r++)if(null!=e[r])return!1;return!0})(n,e,t)&&(!function(e,t,n,r){for(var o=t;o<n;o++)e[o]=r}(n,e,t,o+"."+i),i++)}),t)})),r(n)},t.getComponentForKey=function(e){var t=parseInt(e.split(".")[0],10);return this._decorators[t].component},t.getPropsForKey=function(e){var t=parseInt(e.split(".")[0],10);return this._decorators[t].props},e}();e.exports=o},function(e,t,n){"use strict";var r=n(15);function o(){return(o=r||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function i(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function a(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?i(Object(n),!0).forEach((function(t){s(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):i(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function c(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}function s(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function u(e,t){e.prototype=Object.create(t.prototype),e.prototype.constructor=e,l(e,t)}function l(e,t){return(l=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var f=n(33),p=n(48),g=n(95),d=n(120),h=n(147),y=n(150),v=n(165),m=n(63),b=n(2),S=n(8),w=n(27),k=n(40),C=n(29),x=n(7),O=n(14),E=n(9),_=n(75),T=n(30),K=n(12),D=n(1),M=n(4),A=x.isBrowser("IE"),B=!A,P={edit:y,composite:g,drag:h,cut:null,render:null},L=!1,j=function(e){function t(){return e.apply(this,arguments)||this}u(t,e);var n=t.prototype;return n.render=function(){return null},n.componentDidMount=function(){this._update()},n.componentDidUpdate=function(){this._update()},n._update=function(){var e=this.props.editor;e._latestEditorState=this.props.editorState,e._blockSelectEvents=!0},t}(S.Component),F=function(e){function t(t){var n;return s(c(n=e.call(this,t)||this),"_blockSelectEvents",void 0),s(c(n),"_clipboard",void 0),s(c(n),"_handler",void 0),s(c(n),"_dragCount",void 0),s(c(n),"_internalDrag",void 0),s(c(n),"_editorKey",void 0),s(c(n),"_placeholderAccessibilityID",void 0),s(c(n),"_latestEditorState",void 0),s(c(n),"_latestCommittedEditorState",void 0),s(c(n),"_pendingStateFromBeforeInput",void 0),s(c(n),"_onBeforeInput",void 0),s(c(n),"_onBlur",void 0),s(c(n),"_onCharacterData",void 0),s(c(n),"_onCompositionEnd",void 0),s(c(n),"_onCompositionStart",void 0),s(c(n),"_onCompositionUpdate",void 0),s(c(n),"_onCopy",void 0),s(c(n),"_onCut",void 0),s(c(n),"_onDragEnd",void 0),s(c(n),"_onDragOver",void 0),s(c(n),"_onDragStart",void 0),s(c(n),"_onDrop",void 0),s(c(n),"_onInput",void 0),s(c(n),"_onFocus",void 0),s(c(n),"_onKeyDown",void 0),s(c(n),"_onKeyPress",void 0),s(c(n),"_onKeyUp",void 0),s(c(n),"_onMouseDown",void 0),s(c(n),"_onMouseUp",void 0),s(c(n),"_onPaste",void 0),s(c(n),"_onSelect",void 0),s(c(n),"editor",void 0),s(c(n),"editorContainer",void 0),s(c(n),"focus",void 0),s(c(n),"blur",void 0),s(c(n),"setMode",void 0),s(c(n),"exitCurrentMode",void 0),s(c(n),"restoreEditorDOM",void 0),s(c(n),"setClipboard",void 0),s(c(n),"getClipboard",void 0),s(c(n),"getEditorKey",void 0),s(c(n),"update",void 0),s(c(n),"onDragEnter",void 0),s(c(n),"onDragLeave",void 0),s(c(n),"focus",(function(e){var t=n.props.editorState,r=t.getSelection().getHasFocus(),o=n.editor;if(o){var i=C.getScrollParent(o),a=e||T(i),c=a.x,s=a.y;o instanceof HTMLElement||D(!1,"editorNode is not an HTMLElement"),o.focus(),i===window?window.scrollTo(c,s):k.setTop(i,s),r||n.update(b.forceSelection(t,t.getSelection()))}})),s(c(n),"blur",(function(){var e=n.editor;e instanceof HTMLElement||D(!1,"editorNode is not an HTMLElement"),e.blur()})),s(c(n),"setMode",(function(e){var t=n.props,r=t.onPaste,o=t.onCut,i=t.onCopy,c=a({},P.edit);r&&(c.onPaste=r),o&&(c.onCut=o),i&&(c.onCopy=i);var s=a(a({},P),{},{edit:c});n._handler=s[e]})),s(c(n),"exitCurrentMode",(function(){n.setMode("edit")})),s(c(n),"restoreEditorDOM",(function(e){n.setState({contentsKey:n.state.contentsKey+1},(function(){n.focus(e)}))})),s(c(n),"setClipboard",(function(e){n._clipboard=e})),s(c(n),"getClipboard",(function(){return n._clipboard})),s(c(n),"update",(function(e){n._latestEditorState=e,n.props.onChange(e)})),s(c(n),"onDragEnter",(function(){n._dragCount++})),s(c(n),"onDragLeave",(function(){n._dragCount--,0===n._dragCount&&n.exitCurrentMode()})),n._blockSelectEvents=!1,n._clipboard=null,n._handler=null,n._dragCount=0,n._editorKey=t.editorKey||E(),n._placeholderAccessibilityID="placeholder-"+n._editorKey,n._latestEditorState=t.editorState,n._latestCommittedEditorState=t.editorState,n._onBeforeInput=n._buildHandler("onBeforeInput"),n._onBlur=n._buildHandler("onBlur"),n._onCharacterData=n._buildHandler("onCharacterData"),n._onCompositionEnd=n._buildHandler("onCompositionEnd"),n._onCompositionStart=n._buildHandler("onCompositionStart"),n._onCompositionUpdate=n._buildHandler("onCompositionUpdate"),n._onCopy=n._buildHandler("onCopy"),n._onCut=n._buildHandler("onCut"),n._onDragEnd=n._buildHandler("onDragEnd"),n._onDragOver=n._buildHandler("onDragOver"),n._onDragStart=n._buildHandler("onDragStart"),n._onDrop=n._buildHandler("onDrop"),n._onInput=n._buildHandler("onInput"),n._onFocus=n._buildHandler("onFocus"),n._onKeyDown=n._buildHandler("onKeyDown"),n._onKeyPress=n._buildHandler("onKeyPress"),n._onKeyUp=n._buildHandler("onKeyUp"),n._onMouseDown=n._buildHandler("onMouseDown"),n._onMouseUp=n._buildHandler("onMouseUp"),n._onPaste=n._buildHandler("onPaste"),n._onSelect=n._buildHandler("onSelect"),n.getEditorKey=function(){return n._editorKey},["onDownArrow","onEscape","onLeftArrow","onRightArrow","onTab","onUpArrow"].forEach((function(e){t.hasOwnProperty(e)&&console.warn("Supplying an `".concat(e,"` prop to `DraftEditor` has ")+"been deprecated. If your handler needs access to the keyboard event, supply a custom `keyBindingFn` prop that falls back to the default one (eg. https://is.gd/RG31RJ).")})),n.state={contentsKey:0},n}u(t,e);var n=t.prototype;return n._buildHandler=function(e){var t=this,n=w.unstable_flushControlled;return function(r){if(!t.props.readOnly){var o=t._handler&&t._handler[e];o&&(n?n((function(){return o(t,r)})):o(t,r))}}},n._showPlaceholder=function(){return!!this.props.placeholder&&!this.props.editorState.isInCompositionMode()&&!this.props.editorState.getCurrentContent().hasText()},n._renderPlaceholder=function(){if(this._showPlaceholder()){var e={text:M(this.props.placeholder),editorState:this.props.editorState,textAlignment:this.props.textAlignment,accessibilityID:this._placeholderAccessibilityID};return S.createElement(v,e)}return null},n.render=function(){var e=this,t=this.props,n=t.blockRenderMap,r=t.blockRendererFn,i=t.blockStyleFn,c=t.customStyleFn,s=t.customStyleMap,u=t.editorState,l=t.readOnly,f=t.textAlignment,g=t.textDirectionality,h=O({"DraftEditor/root":!0,"DraftEditor/alignLeft":"left"===f,"DraftEditor/alignRight":"right"===f,"DraftEditor/alignCenter":"center"===f}),y=this.props.role||"textbox",v="combobox"===y?!!this.props.ariaExpanded:null,m={blockRenderMap:n,blockRendererFn:r,blockStyleFn:i,customStyleMap:a(a({},p),s),customStyleFn:c,editorKey:this._editorKey,editorState:u,textDirectionality:g};return S.createElement("div",{className:h},this._renderPlaceholder(),S.createElement("div",{className:O("DraftEditor/editorContainer"),ref:function(t){return e.editorContainer=t}},S.createElement("div",{"aria-activedescendant":l?null:this.props.ariaActiveDescendantID,"aria-autocomplete":l?null:this.props.ariaAutoComplete,"aria-controls":l?null:this.props.ariaControls,"aria-describedby":this.props.ariaDescribedBy||this._placeholderAccessibilityID,"aria-expanded":l?null:v,"aria-label":this.props.ariaLabel,"aria-labelledby":this.props.ariaLabelledBy,"aria-multiline":this.props.ariaMultiline,"aria-owns":l?null:this.props.ariaOwneeID,autoCapitalize:this.props.autoCapitalize,autoComplete:this.props.autoComplete,autoCorrect:this.props.autoCorrect,className:O({notranslate:!l,"public/DraftEditor/content":!0}),contentEditable:!l,"data-testid":this.props.webDriverTestID,onBeforeInput:this._onBeforeInput,onBlur:this._onBlur,onCompositionEnd:this._onCompositionEnd,onCompositionStart:this._onCompositionStart,onCompositionUpdate:this._onCompositionUpdate,onCopy:this._onCopy,onCut:this._onCut,onDragEnd:this._onDragEnd,onDragEnter:this.onDragEnter,onDragLeave:this.onDragLeave,onDragOver:this._onDragOver,onDragStart:this._onDragStart,onDrop:this._onDrop,onFocus:this._onFocus,onInput:this._onInput,onKeyDown:this._onKeyDown,onKeyPress:this._onKeyPress,onKeyUp:this._onKeyUp,onMouseUp:this._onMouseUp,onPaste:this._onPaste,onSelect:this._onSelect,ref:function(t){return e.editor=t},role:l?null:y,spellCheck:B&&this.props.spellCheck,style:{outline:"none",userSelect:"text",WebkitUserSelect:"text",whiteSpace:"pre-wrap",wordWrap:"break-word"},suppressContentEditableWarning:!0,tabIndex:this.props.tabIndex},S.createElement(j,{editor:this,editorState:u}),S.createElement(d,o({},m,{key:"contents"+this.state.contentsKey})))))},n.componentDidMount=function(){this._blockSelectEvents=!1,!L&&K("draft_ods_enabled")&&(L=!0,m.initODS()),this.setMode("edit"),A&&document.execCommand("AutoUrlDetect",!1,!1)},n.componentDidUpdate=function(){this._blockSelectEvents=!1,this._latestEditorState=this.props.editorState,this._latestCommittedEditorState=this.props.editorState},t}(S.Component);s(F,"defaultProps",{blockRenderMap:f,blockRendererFn:function(){return null},blockStyleFn:function(){return""},keyBindingFn:_,readOnly:!1,spellCheck:!1,stripPastedStyles:!1}),e.exports=F},function(e,t,n){"use strict";var r=n(96),o=n(3),i=n(11),a=n(2),c=n(26),s=n(50),u=n(52),l=n(53),f=n(34),p=n(4),g=n(56),d=n(57),h=n(38),y=!1,v=!1,m=null,b=!0;function S(){return/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)}var w={onCompositionStart:function(e,t){console.log("onCompositionStart======"),b=!1,v=!0;var n=S(),i=e._latestEditorState,c=i.getSelection();if(n&&c.getFocusKey()!==c.getAnchorKey()||!n){e.update(a.set(i,{inCompositionMode:!0}));var s=i.getCurrentContent();if(!c.isCollapsed()){e.props.handleBeforeReplaceText(i);var l=o.removeRange(s,c,"forward");a.push(i,l,"remove-range")}}!function(e){m||(m=new r(u(e))).start()}(e)},onCompositionUpdate:function(e,t){console.log("onCompositionUpdate======");var n=e._latestEditorState;n.getSelection(),n.getCurrentContent()},onCompositionEnd:function(e,t){console.log("onCompositionEnd======"),y=!1,v=!1,console.log("onCompositionEnd-stillComposing",v),b=!0,t.persist(),y||(b=!0,w.resolveComposition(e,t))},onSelect:s,onBeforeInput:function(e,t){console.log("onBeforeInput================="),m||e._latestEditorState.isInCompositionMode()||g(e,t)},onKeyDown:function(e,t){console.log("onKeyDown==========");var n=e._latestEditorState;if(S()){if(!v)return w.resolveComposition(e),void e._onKeyDown(t)}else{if("Process"===t.key&&t.nativeEvent&&"Space"===t.nativeEvent.code&&!v){var r=t.timeStamp;setTimeout((function(){e.props.handleBeforeInput&&e.props.handleBeforeInput("　",n,r)}),0)}if(!m||"Process"===t.key&&t.nativeEvent&&("Space"===t.nativeEvent.code||"Enter"===t.nativeEvent.code)&&v)return"Backspace"===t.key&&h(n),void(v||d(e,t));d(e,t),"Backspace"===t.key&&h(n)}t.which!==c.RIGHT&&t.which!==c.LEFT||t.preventDefault()},onKeyPress:function(e,t){t.which===c.RETURN&&t.preventDefault()},resolveComposition:function(e,t){if(console.log("resolveComposition==========="),console.log("resolveComposition-stillComposing: ",v),console.log("isCompositionEnd-stillComposing:",b),!v||b){if(!S()&&(e.update(a.set(e._latestEditorState,{inCompositionMode:!1})),t.data||"Process"===t.key&&t.nativeEvent&&"Space"===t.nativeEvent.code||!m)){var n=e._latestEditorState.getSelection();if("Process"!==t.key||!t.nativeEvent||"Space"!==t.nativeEvent.code){var r=n.getFocusOffset();n=n.merge({anchorOffset:r-t.data.length<0?r:r-t.data.length,focusOffset:r-t.data.length<0?r:r-t.data.length});var c=a.forceSelection(e._latestEditorState,n);e.update(c)}return v=!1,m=null,void(y=!0)}var s=p(m).stopAndFlushMutations();console.log("resolveComposition-mutations: ",s),m=null,y=!0;var g=a.set(e._latestEditorState,{inCompositionMode:!1});if(e.exitCurrentMode(),s.size){var d=g.getCurrentContent();s.forEach((function(e,t){var n=i.decode(t),r=n.blockKey,c=n.decoratorKey,s=n.leafKey;if(g.getBlockTree(r).getIn([c,"leaves",s])){var u=g.getBlockTree(r).getIn([c,"leaves",s]),l=u.start,p=u.end,h=g.getSelection().merge({anchorKey:r,focusKey:r,anchorOffset:l,focusOffset:p,isBackward:!1}),y=f(d,h),v=d.getBlockForKey(r).getInlineStyleAt(l);d=o.replaceText(d,h,e,v,y),console.log("resolveComposition-contentState:",d);var m=d.getBlockForKey(r).getText(),b=d.getPlainText();console.log("resolveComposition-plainText:",b),console.log("resolveComposition-blockText:",m),g=a.set(g,{currentContent:d})}}));var h=l(g,u(e));console.log('resolveComposition-documentSelection"',h);var w=h.selectionState;e.restoreEditorDOM();var k=a.acceptSelection(g,w);e.update(a.push(k,d,"insert-characters"))}else e.update(g)}}};e.exports=w},function(e,t,n){"use strict";function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var o=n(7),i=n(25),a=n(0),c=n(1),s=n(4),u=a.Map,l={subtree:!0,characterData:!0,childList:!0,characterDataOldValue:!1,attributes:!1},f=o.isBrowser("IE <= 11"),p=function(){function e(e){var t=this;r(this,"observer",void 0),r(this,"container",void 0),r(this,"mutations",void 0),r(this,"onCharData",void 0),this.container=e,this.mutations=u(),window.MutationObserver&&!f?this.observer=new window.MutationObserver((function(e){return t.registerMutations(e)})):this.onCharData=function(e){e.target instanceof Node||c(!1,"Expected target to be an instance of Node"),t.registerMutation({type:"characterData",target:e.target})}}var t=e.prototype;return t.start=function(){this.observer?this.observer.observe(this.container,l):this.container.addEventListener("DOMCharacterDataModified",this.onCharData)},t.stopAndFlushMutations=function(){var e=this.observer;e?(this.registerMutations(e.takeRecords()),e.disconnect()):this.container.removeEventListener("DOMCharacterDataModified",this.onCharData);var t=this.mutations;return this.mutations=u(),t},t.registerMutations=function(e){for(var t=0;t<e.length;t++)this.registerMutation(e[t])},t.getMutationTextContent=function(e){var t=e.type,n=e.target,r=e.removedNodes;if("characterData"===t){if(""!==n.textContent)return n.textContent}else if("childList"===t&&r&&r.length)return"";return null},t.registerMutation=function(e){var t=this.getMutationTextContent(e);if(null!=t){var n=s(i(e.target));this.mutations=this.mutations.set(n,t)}},e}();e.exports=p},function(e,t,n){"use strict";var r=n(98),o="Unknown",i={"Mac OS":"Mac OS X"};var a,c=(new r).getResult(),s=function(e){if(!e)return{major:"",minor:""};var t=e.split(".");return{major:t[0],minor:t[1]}}(c.browser.version),u={browserArchitecture:c.cpu.architecture||o,browserFullVersion:c.browser.version||o,browserMinorVersion:s.minor||o,browserName:c.browser.name||o,browserVersion:c.browser.major||o,deviceName:c.device.model||o,engineName:c.engine.name||o,engineVersion:c.engine.version||o,platformArchitecture:c.cpu.architecture||o,platformName:(a=c.os.name,i[a]||a||o),platformVersion:c.os.version||o,platformFullVersion:c.os.version||o};e.exports=u},function(e,t,n){var r;!function(o,i){"use strict";var a="model",c="name",s="type",u="vendor",l="version",f="mobile",p="tablet",g="smarttv",d=function(e){for(var t={},n=0;n<e.length;n++)t[e[n].toUpperCase()]=e[n];return t},h=function(e,t){return"string"==typeof e&&-1!==y(t).indexOf(y(e))},y=function(e){return e.toLowerCase()},v=function(e,t){if("string"==typeof e)return e=e.replace(/^\s\s*/,"").replace(/\s\s*$/,""),void 0===t?e:e.substring(0,255)},m=function(e,t){for(var n,r,o,i,a,c,s=0;s<t.length&&!a;){var u=t[s],l=t[s+1];for(n=r=0;n<u.length&&!a;)if(a=u[n++].exec(e))for(o=0;o<l.length;o++)c=a[++r],"object"==typeof(i=l[o])&&i.length>0?2===i.length?"function"==typeof i[1]?this[i[0]]=i[1].call(this,c):this[i[0]]=i[1]:3===i.length?"function"!=typeof i[1]||i[1].exec&&i[1].test?this[i[0]]=c?c.replace(i[1],i[2]):void 0:this[i[0]]=c?i[1].call(this,c,i[2]):void 0:4===i.length&&(this[i[0]]=c?i[3].call(this,c.replace(i[1],i[2])):void 0):this[i]=c||void 0;s+=2}},b=function(e,t){for(var n in t)if("object"==typeof t[n]&&t[n].length>0){for(var r=0;r<t[n].length;r++)if(h(t[n][r],e))return"?"===n?void 0:n}else if(h(t[n],e))return"?"===n?void 0:n;return e},S={ME:"4.90","NT 3.11":"NT3.51","NT 4.0":"NT4.0",2e3:"NT 5.0",XP:["NT 5.1","NT 5.2"],Vista:"NT 6.0",7:"NT 6.1",8:"NT 6.2",8.1:"NT 6.3",10:["NT 6.4","NT 10.0"],RT:"ARM"},w={browser:[[/\b(?:crmo|crios)\/([\w\.]+)/i],[l,[c,"Chrome"]],[/edg(?:e|ios|a)?\/([\w\.]+)/i],[l,[c,"Edge"]],[/(opera mini)\/([-\w\.]+)/i,/(opera [mobiletab]{3,6})\b.+version\/([-\w\.]+)/i,/(opera)(?:.+version\/|[\/ ]+)([\w\.]+)/i],[c,l],[/opios[\/ ]+([\w\.]+)/i],[l,[c,"Opera Mini"]],[/\bopr\/([\w\.]+)/i],[l,[c,"Opera"]],[/(kindle)\/([\w\.]+)/i,/(lunascape|maxthon|netfront|jasmine|blazer)[\/ ]?([\w\.]*)/i,/(avant |iemobile|slim)(?:browser)?[\/ ]?([\w\.]*)/i,/(ba?idubrowser)[\/ ]?([\w\.]+)/i,/(?:ms|\()(ie) ([\w\.]+)/i,/(flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon|rekonq|puffin|brave|whale|qqbrowserlite|qq)\/([-\w\.]+)/i,/(weibo)__([\d\.]+)/i],[c,l],[/(?:\buc? ?browser|(?:juc.+)ucweb)[\/ ]?([\w\.]+)/i],[l,[c,"UCBrowser"]],[/\bqbcore\/([\w\.]+)/i],[l,[c,"WeChat(Win) Desktop"]],[/micromessenger\/([\w\.]+)/i],[l,[c,"WeChat"]],[/konqueror\/([\w\.]+)/i],[l,[c,"Konqueror"]],[/trident.+rv[: ]([\w\.]{1,9})\b.+like gecko/i],[l,[c,"IE"]],[/yabrowser\/([\w\.]+)/i],[l,[c,"Yandex"]],[/(avast|avg)\/([\w\.]+)/i],[[c,/(.+)/,"$1 Secure Browser"],l],[/\bfocus\/([\w\.]+)/i],[l,[c,"Firefox Focus"]],[/\bopt\/([\w\.]+)/i],[l,[c,"Opera Touch"]],[/coc_coc\w+\/([\w\.]+)/i],[l,[c,"Coc Coc"]],[/dolfin\/([\w\.]+)/i],[l,[c,"Dolphin"]],[/coast\/([\w\.]+)/i],[l,[c,"Opera Coast"]],[/miuibrowser\/([\w\.]+)/i],[l,[c,"MIUI Browser"]],[/fxios\/([-\w\.]+)/i],[l,[c,"Firefox"]],[/\bqihu|(qi?ho?o?|360)browser/i],[[c,"360 Browser"]],[/(oculus|samsung|sailfish)browser\/([\w\.]+)/i],[[c,/(.+)/,"$1 Browser"],l],[/(comodo_dragon)\/([\w\.]+)/i],[[c,/_/g," "],l],[/(electron)\/([\w\.]+) safari/i,/(tesla)(?: qtcarbrowser|\/(20\d\d\.[-\w\.]+))/i,/m?(qqbrowser|baiduboxapp|2345Explorer)[\/ ]?([\w\.]+)/i],[c,l],[/(metasr)[\/ ]?([\w\.]+)/i,/(lbbrowser)/i],[c],[/((?:fban\/fbios|fb_iab\/fb4a)(?!.+fbav)|;fbav\/([\w\.]+);)/i],[[c,"Facebook"],l],[/safari (line)\/([\w\.]+)/i,/\b(line)\/([\w\.]+)\/iab/i,/(chromium|instagram)[\/ ]([-\w\.]+)/i],[c,l],[/\bgsa\/([\w\.]+) .*safari\//i],[l,[c,"GSA"]],[/headlesschrome(?:\/([\w\.]+)| )/i],[l,[c,"Chrome Headless"]],[/ wv\).+(chrome)\/([\w\.]+)/i],[[c,"Chrome WebView"],l],[/droid.+ version\/([\w\.]+)\b.+(?:mobile safari|safari)/i],[l,[c,"Android Browser"]],[/(chrome|omniweb|arora|[tizenoka]{5} ?browser)\/v?([\w\.]+)/i],[c,l],[/version\/([\w\.]+) .*mobile\/\w+ (safari)/i],[l,[c,"Mobile Safari"]],[/version\/([\w\.]+) .*(mobile ?safari|safari)/i],[l,c],[/webkit.+?(mobile ?safari|safari)(\/[\w\.]+)/i],[c,[l,b,{"1.0":"/8",1.2:"/1",1.3:"/3","2.0":"/412","2.0.2":"/416","2.0.3":"/417","2.0.4":"/419","?":"/"}]],[/(webkit|khtml)\/([\w\.]+)/i],[c,l],[/(navigator|netscape\d?)\/([-\w\.]+)/i],[[c,"Netscape"],l],[/mobile vr; rv:([\w\.]+)\).+firefox/i],[l,[c,"Firefox Reality"]],[/ekiohf.+(flow)\/([\w\.]+)/i,/(swiftfox)/i,/(icedragon|iceweasel|camino|chimera|fennec|maemo browser|minimo|conkeror|klar)[\/ ]?([\w\.\+]+)/i,/(seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([-\w\.]+)$/i,/(firefox)\/([\w\.]+)/i,/(mozilla)\/([\w\.]+) .+rv\:.+gecko\/\d+/i,/(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir|obigo|mosaic|(?:go|ice|up)[\. ]?browser)[-\/ ]?v?([\w\.]+)/i,/(links) \(([\w\.]+)/i],[c,l]],cpu:[[/(?:(amd|x(?:(?:86|64)[-_])?|wow|win)64)[;\)]/i],[["architecture","amd64"]],[/(ia32(?=;))/i],[["architecture",y]],[/((?:i[346]|x)86)[;\)]/i],[["architecture","ia32"]],[/\b(aarch64|arm(v?8e?l?|_?64))\b/i],[["architecture","arm64"]],[/\b(arm(?:v[67])?ht?n?[fl]p?)\b/i],[["architecture","armhf"]],[/windows (ce|mobile); ppc;/i],[["architecture","arm"]],[/((?:ppc|powerpc)(?:64)?)(?: mac|;|\))/i],[["architecture",/ower/,"",y]],[/(sun4\w)[;\)]/i],[["architecture","sparc"]],[/((?:avr32|ia64(?=;))|68k(?=\))|\barm(?=v(?:[1-7]|[5-7]1)l?|;|eabi)|(?=atmel )avr|(?:irix|mips|sparc)(?:64)?\b|pa-risc)/i],[["architecture",y]]],device:[[/\b(sch-i[89]0\d|shw-m380s|sm-[pt]\w{2,4}|gt-[pn]\d{2,4}|sgh-t8[56]9|nexus 10)/i],[a,[u,"Samsung"],[s,p]],[/\b((?:s[cgp]h|gt|sm)-\w+|galaxy nexus)/i,/samsung[- ]([-\w]+)/i,/sec-(sgh\w+)/i],[a,[u,"Samsung"],[s,f]],[/\((ip(?:hone|od)[\w ]*);/i],[a,[u,"Apple"],[s,f]],[/\((ipad);[-\w\),; ]+apple/i,/applecoremedia\/[\w\.]+ \((ipad)/i,/\b(ipad)\d\d?,\d\d?[;\]].+ios/i],[a,[u,"Apple"],[s,p]],[/\b((?:ag[rs][23]?|bah2?|sht?|btv)-a?[lw]\d{2})\b(?!.+d\/s)/i],[a,[u,"Huawei"],[s,p]],[/(?:huawei|honor)([-\w ]+)[;\)]/i,/\b(nexus 6p|\w{2,4}-[atu]?[ln][01259x][012359][an]?)\b(?!.+d\/s)/i],[a,[u,"Huawei"],[s,f]],[/\b(poco[\w ]+)(?: bui|\))/i,/\b; (\w+) build\/hm\1/i,/\b(hm[-_ ]?note?[_ ]?(?:\d\w)?) bui/i,/\b(redmi[\-_ ]?(?:note|k)?[\w_ ]+)(?: bui|\))/i,/\b(mi[-_ ]?(?:a\d|one|one[_ ]plus|note lte|max)?[_ ]?(?:\d?\w?)[_ ]?(?:plus|se|lite)?)(?: bui|\))/i],[[a,/_/g," "],[u,"Xiaomi"],[s,f]],[/\b(mi[-_ ]?(?:pad)(?:[\w_ ]+))(?: bui|\))/i],[[a,/_/g," "],[u,"Xiaomi"],[s,p]],[/; (\w+) bui.+ oppo/i,/\b(cph[12]\d{3}|p(?:af|c[al]|d\w|e[ar])[mt]\d0|x9007|a101op)\b/i],[a,[u,"OPPO"],[s,f]],[/vivo (\w+)(?: bui|\))/i,/\b(v[12]\d{3}\w?[at])(?: bui|;)/i],[a,[u,"Vivo"],[s,f]],[/\b(rmx[12]\d{3})(?: bui|;|\))/i],[a,[u,"Realme"],[s,f]],[/\b(milestone|droid(?:[2-4x]| (?:bionic|x2|pro|razr))?:?( 4g)?)\b[\w ]+build\//i,/\bmot(?:orola)?[- ](\w*)/i,/((?:moto[\w\(\) ]+|xt\d{3,4}|nexus 6)(?= bui|\)))/i],[a,[u,"Motorola"],[s,f]],[/\b(mz60\d|xoom[2 ]{0,2}) build\//i],[a,[u,"Motorola"],[s,p]],[/((?=lg)?[vl]k\-?\d{3}) bui| 3\.[-\w; ]{10}lg?-([06cv9]{3,4})/i],[a,[u,"LG"],[s,p]],[/(lm(?:-?f100[nv]?|-[\w\.]+)(?= bui|\))|nexus [45])/i,/\blg[-e;\/ ]+((?!browser|netcast|android tv)\w+)/i,/\blg-?([\d\w]+) bui/i],[a,[u,"LG"],[s,f]],[/(ideatab[-\w ]+)/i,/lenovo ?(s[56]000[-\w]+|tab(?:[\w ]+)|yt[-\d\w]{6}|tb[-\d\w]{6})/i],[a,[u,"Lenovo"],[s,p]],[/(?:maemo|nokia).*(n900|lumia \d+)/i,/nokia[-_ ]?([-\w\.]*)/i],[[a,/_/g," "],[u,"Nokia"],[s,f]],[/(pixel c)\b/i],[a,[u,"Google"],[s,p]],[/droid.+; (pixel[\daxl ]{0,6})(?: bui|\))/i],[a,[u,"Google"],[s,f]],[/droid.+ ([c-g]\d{4}|so[-gl]\w+|xq-a\w[4-7][12])(?= bui|\).+chrome\/(?![1-6]{0,1}\d\.))/i],[a,[u,"Sony"],[s,f]],[/sony tablet [ps]/i,/\b(?:sony)?sgp\w+(?: bui|\))/i],[[a,"Xperia Tablet"],[u,"Sony"],[s,p]],[/ (kb2005|in20[12]5|be20[12][59])\b/i,/(?:one)?(?:plus)? (a\d0\d\d)(?: b|\))/i],[a,[u,"OnePlus"],[s,f]],[/(alexa)webm/i,/(kf[a-z]{2}wi)( bui|\))/i,/(kf[a-z]+)( bui|\)).+silk\//i],[a,[u,"Amazon"],[s,p]],[/((?:sd|kf)[0349hijorstuw]+)( bui|\)).+silk\//i],[[a,/(.+)/g,"Fire Phone $1"],[u,"Amazon"],[s,f]],[/(playbook);[-\w\),; ]+(rim)/i],[a,u,[s,p]],[/\b((?:bb[a-f]|st[hv])100-\d)/i,/\(bb10; (\w+)/i],[a,[u,"BlackBerry"],[s,f]],[/(?:\b|asus_)(transfo[prime ]{4,10} \w+|eeepc|slider \w+|nexus 7|padfone|p00[cj])/i],[a,[u,"ASUS"],[s,p]],[/ (z[bes]6[027][012][km][ls]|zenfone \d\w?)\b/i],[a,[u,"ASUS"],[s,f]],[/(nexus 9)/i],[a,[u,"HTC"],[s,p]],[/(htc)[-;_ ]{1,2}([\w ]+(?=\)| bui)|\w+)/i,/(zte)[- ]([\w ]+?)(?: bui|\/|\))/i,/(alcatel|geeksphone|nexian|panasonic|sony)[-_ ]?([-\w]*)/i],[u,[a,/_/g," "],[s,f]],[/droid.+; ([ab][1-7]-?[0178a]\d\d?)/i],[a,[u,"Acer"],[s,p]],[/droid.+; (m[1-5] note) bui/i,/\bmz-([-\w]{2,})/i],[a,[u,"Meizu"],[s,f]],[/\b(sh-?[altvz]?\d\d[a-ekm]?)/i],[a,[u,"Sharp"],[s,f]],[/(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[-_ ]?([-\w]*)/i,/(hp) ([\w ]+\w)/i,/(asus)-?(\w+)/i,/(microsoft); (lumia[\w ]+)/i,/(lenovo)[-_ ]?([-\w]+)/i,/(jolla)/i,/(oppo) ?([\w ]+) bui/i],[u,a,[s,f]],[/(archos) (gamepad2?)/i,/(hp).+(touchpad(?!.+tablet)|tablet)/i,/(kindle)\/([\w\.]+)/i,/(nook)[\w ]+build\/(\w+)/i,/(dell) (strea[kpr\d ]*[\dko])/i,/(le[- ]+pan)[- ]+(\w{1,9}) bui/i,/(trinity)[- ]*(t\d{3}) bui/i,/(gigaset)[- ]+(q\w{1,9}) bui/i,/(vodafone) ([\w ]+)(?:\)| bui)/i],[u,a,[s,p]],[/(surface duo)/i],[a,[u,"Microsoft"],[s,p]],[/droid [\d\.]+; (fp\du?)(?: b|\))/i],[a,[u,"Fairphone"],[s,f]],[/(u304aa)/i],[a,[u,"AT&T"],[s,f]],[/\bsie-(\w*)/i],[a,[u,"Siemens"],[s,f]],[/\b(rct\w+) b/i],[a,[u,"RCA"],[s,p]],[/\b(venue[\d ]{2,7}) b/i],[a,[u,"Dell"],[s,p]],[/\b(q(?:mv|ta)\w+) b/i],[a,[u,"Verizon"],[s,p]],[/\b(?:barnes[& ]+noble |bn[rt])([\w\+ ]*) b/i],[a,[u,"Barnes & Noble"],[s,p]],[/\b(tm\d{3}\w+) b/i],[a,[u,"NuVision"],[s,p]],[/\b(k88) b/i],[a,[u,"ZTE"],[s,p]],[/\b(nx\d{3}j) b/i],[a,[u,"ZTE"],[s,f]],[/\b(gen\d{3}) b.+49h/i],[a,[u,"Swiss"],[s,f]],[/\b(zur\d{3}) b/i],[a,[u,"Swiss"],[s,p]],[/\b((zeki)?tb.*\b) b/i],[a,[u,"Zeki"],[s,p]],[/\b([yr]\d{2}) b/i,/\b(dragon[- ]+touch |dt)(\w{5}) b/i],[[u,"Dragon Touch"],a,[s,p]],[/\b(ns-?\w{0,9}) b/i],[a,[u,"Insignia"],[s,p]],[/\b((nxa|next)-?\w{0,9}) b/i],[a,[u,"NextBook"],[s,p]],[/\b(xtreme\_)?(v(1[045]|2[015]|[3469]0|7[05])) b/i],[[u,"Voice"],a,[s,f]],[/\b(lvtel\-)?(v1[12]) b/i],[[u,"LvTel"],a,[s,f]],[/\b(ph-1) /i],[a,[u,"Essential"],[s,f]],[/\b(v(100md|700na|7011|917g).*\b) b/i],[a,[u,"Envizen"],[s,p]],[/\b(trio[-\w\. ]+) b/i],[a,[u,"MachSpeed"],[s,p]],[/\btu_(1491) b/i],[a,[u,"Rotor"],[s,p]],[/(shield[\w ]+) b/i],[a,[u,"Nvidia"],[s,p]],[/(sprint) (\w+)/i],[u,a,[s,f]],[/(kin\.[onetw]{3})/i],[[a,/\./g," "],[u,"Microsoft"],[s,f]],[/droid.+; (cc6666?|et5[16]|mc[239][23]x?|vc8[03]x?)\)/i],[a,[u,"Zebra"],[s,p]],[/droid.+; (ec30|ps20|tc[2-8]\d[kx])\)/i],[a,[u,"Zebra"],[s,f]],[/(ouya)/i,/(nintendo) ([wids3utch]+)/i],[u,a,[s,"console"]],[/droid.+; (shield) bui/i],[a,[u,"Nvidia"],[s,"console"]],[/(playstation [345portablevi]+)/i],[a,[u,"Sony"],[s,"console"]],[/\b(xbox(?: one)?(?!; xbox))[\); ]/i],[a,[u,"Microsoft"],[s,"console"]],[/smart-tv.+(samsung)/i],[u,[s,g]],[/hbbtv.+maple;(\d+)/i],[[a,/^/,"SmartTV"],[u,"Samsung"],[s,g]],[/(nux; netcast.+smarttv|lg (netcast\.tv-201\d|android tv))/i],[[u,"LG"],[s,g]],[/(apple) ?tv/i],[u,[a,"Apple TV"],[s,g]],[/crkey/i],[[a,"Chromecast"],[u,"Google"],[s,g]],[/droid.+aft(\w)( bui|\))/i],[a,[u,"Amazon"],[s,g]],[/\(dtv[\);].+(aquos)/i],[a,[u,"Sharp"],[s,g]],[/\b(roku)[\dx]*[\)\/]((?:dvp-)?[\d\.]*)/i,/hbbtv\/\d+\.\d+\.\d+ +\([\w ]*; *(\w[^;]*);([^;]*)/i],[[u,v],[a,v],[s,g]],[/\b(android tv|smart[- ]?tv|opera tv|tv; rv:)\b/i],[[s,g]],[/((pebble))app/i],[u,a,[s,"wearable"]],[/droid.+; (glass) \d/i],[a,[u,"Google"],[s,"wearable"]],[/droid.+; (wt63?0{2,3})\)/i],[a,[u,"Zebra"],[s,"wearable"]],[/(quest( 2)?)/i],[a,[u,"Facebook"],[s,"wearable"]],[/(tesla)(?: qtcarbrowser|\/[-\w\.]+)/i],[u,[s,"embedded"]],[/droid .+?; ([^;]+?)(?: bui|\) applew).+? mobile safari/i],[a,[s,f]],[/droid .+?; ([^;]+?)(?: bui|\) applew).+?(?! mobile) safari/i],[a,[s,p]],[/\b((tablet|tab)[;\/]|focus\/\d(?!.+mobile))/i],[[s,p]],[/(phone|mobile(?:[;\/]| safari)|pda(?=.+windows ce))/i],[[s,f]],[/(android[-\w\. ]{0,9});.+buil/i],[a,[u,"Generic"]]],engine:[[/windows.+ edge\/([\w\.]+)/i],[l,[c,"EdgeHTML"]],[/webkit\/537\.36.+chrome\/(?!27)([\w\.]+)/i],[l,[c,"Blink"]],[/(presto)\/([\w\.]+)/i,/(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i,/ekioh(flow)\/([\w\.]+)/i,/(khtml|tasman|links)[\/ ]\(?([\w\.]+)/i,/(icab)[\/ ]([23]\.[\d\.]+)/i],[c,l],[/rv\:([\w\.]{1,9})\b.+(gecko)/i],[l,c]],os:[[/microsoft (windows) (vista|xp)/i],[c,l],[/(windows) nt 6\.2; (arm)/i,/(windows (?:phone(?: os)?|mobile))[\/ ]?([\d\.\w ]*)/i,/(windows)[\/ ]?([ntce\d\. ]+\w)(?!.+xbox)/i],[c,[l,b,S]],[/(win(?=3|9|n)|win 9x )([nt\d\.]+)/i],[[c,"Windows"],[l,b,S]],[/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i,/cfnetwork\/.+darwin/i],[[l,/_/g,"."],[c,"iOS"]],[/(mac os x) ?([\w\. ]*)/i,/(macintosh|mac_powerpc\b)(?!.+haiku)/i],[[c,"Mac OS"],[l,/_/g,"."]],[/droid ([\w\.]+)\b.+(android[- ]x86)/i],[l,c],[/(android|webos|qnx|bada|rim tablet os|maemo|meego|sailfish)[-\/ ]?([\w\.]*)/i,/(blackberry)\w*\/([\w\.]*)/i,/(tizen|kaios)[\/ ]([\w\.]+)/i,/\((series40);/i],[c,l],[/\(bb(10);/i],[l,[c,"BlackBerry"]],[/(?:symbian ?os|symbos|s60(?=;)|series60)[-\/ ]?([\w\.]*)/i],[l,[c,"Symbian"]],[/mozilla\/[\d\.]+ \((?:mobile|tablet|tv|mobile; [\w ]+); rv:.+ gecko\/([\w\.]+)/i],[l,[c,"Firefox OS"]],[/web0s;.+rt(tv)/i,/\b(?:hp)?wos(?:browser)?\/([\w\.]+)/i],[l,[c,"webOS"]],[/crkey\/([\d\.]+)/i],[l,[c,"Chromecast"]],[/(cros) [\w]+ ([\w\.]+\w)/i],[[c,"Chromium OS"],l],[/(nintendo|playstation) ([wids345portablevuch]+)/i,/(xbox); +xbox ([^\);]+)/i,/\b(joli|palm)\b ?(?:os)?\/?([\w\.]*)/i,/(mint)[\/\(\) ]?(\w*)/i,/(mageia|vectorlinux)[; ]/i,/([kxln]?ubuntu|debian|suse|opensuse|gentoo|arch(?= linux)|slackware|fedora|mandriva|centos|pclinuxos|red ?hat|zenwalk|linpus|raspbian|plan 9|minix|risc os|contiki|deepin|manjaro|elementary os|sabayon|linspire)(?: gnu\/linux)?(?: enterprise)?(?:[- ]linux)?(?:-gnu)?[-\/ ]?(?!chrom|package)([-\w\.]*)/i,/(hurd|linux) ?([\w\.]*)/i,/(gnu) ?([\w\.]*)/i,/\b([-frentopcghs]{0,5}bsd|dragonfly)[\/ ]?(?!amd|[ix346]{1,2}86)([\w\.]*)/i,/(haiku) (\w+)/i],[c,l],[/(sunos) ?([\w\.\d]*)/i],[[c,"Solaris"],l],[/((?:open)?solaris)[-\/ ]?([\w\.]*)/i,/(aix) ((\d)(?=\.|\)| )[\w\.])*/i,/\b(beos|os\/2|amigaos|morphos|openvms|fuchsia|hp-ux)/i,/(unix) ?([\w\.]*)/i],[c,l]]},k=function(e,t){if("object"==typeof e&&(t=e,e=void 0),!(this instanceof k))return new k(e,t).getResult();var n=e||(void 0!==o&&o.navigator&&o.navigator.userAgent?o.navigator.userAgent:""),r=t?function(e,t){var n={};for(var r in e)t[r]&&t[r].length%2==0?n[r]=t[r].concat(e[r]):n[r]=e[r];return n}(w,t):w;return this.getBrowser=function(){var e,t={};return t[c]=void 0,t[l]=void 0,m.call(t,n,r.browser),t.major="string"==typeof(e=t.version)?e.replace(/[^\d\.]/g,"").split(".")[0]:void 0,t},this.getCPU=function(){var e={architecture:void 0};return m.call(e,n,r.cpu),e},this.getDevice=function(){var e={vendor:void 0,model:void 0,type:void 0};return m.call(e,n,r.device),e},this.getEngine=function(){var e={name:void 0,version:void 0};return m.call(e,n,r.engine),e},this.getOS=function(){var e={name:void 0,version:void 0};return m.call(e,n,r.os),e},this.getResult=function(){return{ua:this.getUA(),browser:this.getBrowser(),engine:this.getEngine(),os:this.getOS(),device:this.getDevice(),cpu:this.getCPU()}},this.getUA=function(){return n},this.setUA=function(e){return n="string"==typeof e&&e.length>255?v(e,255):e,this},this.setUA(n),this};k.VERSION="0.7.31",k.BROWSER=d([c,l,"major"]),k.CPU=d(["architecture"]),k.DEVICE=d([a,u,s,"console",f,g,p,"wearable","embedded"]),k.ENGINE=k.OS=d([c,l]),void 0!==t?(void 0!==e&&e.exports&&(t=e.exports=k),t.UAParser=k):n(99)?void 0===(r=function(){return k}.call(t,n,t,e))||(e.exports=r):void 0!==o&&(o.UAParser=k);var C=void 0!==o&&(o.jQuery||o.Zepto);if(C&&!C.ua){var x=new k;C.ua=x.getResult(),C.ua.get=function(){return x.getUA()},C.ua.set=function(e){x.setUA(e);var t=x.getResult();for(var n in t)C.ua[n]=t[n]}}}("object"==typeof window?window:this)},function(e,t){(function(t){e.exports=t}).call(this,{})},function(e,t,n){"use strict";var r=n(1),o=/\./,i=/\|\|/,a=/\s+\-\s+/,c=/^(<=|<|=|>=|~>|~|>|)?\s*(.+)/,s=/^(\d*)(.*)/;function u(e,t){var n=e.split(i);return n.length>1?n.some((function(e){return S.contains(e,t)})):function(e,t){var n=e.split(a);if(n.length>0&&n.length<=2||r(!1,'the "-" operator expects exactly 2 operands'),1===n.length)return l(n[0],t);var o=n[0],i=n[1];return h(o)&&h(i)||r(!1,'operands to the "-" operator must be simple (no modifiers)'),l(">="+o,t)&&l("<="+i,t)}(e=n[0].trim(),t)}function l(e,t){if(""===(e=e.trim()))return!0;var n,r=t.split(o),i=g(e),a=i.modifier,c=i.rangeComponents;switch(a){case"<":return f(r,c);case"<=":return-1===(n=b(r,c))||0===n;case">=":return p(r,c);case">":return function(e,t){return 1===b(e,t)}(r,c);case"~":case"~>":return function(e,t){var n=t.slice(),r=t.slice();r.length>1&&r.pop();var o=r.length-1,i=parseInt(r[o],10);d(i)&&(r[o]=i+1+"");return p(e,n)&&f(e,r)}(r,c);default:return function(e,t){return 0===b(e,t)}(r,c)}}function f(e,t){return-1===b(e,t)}function p(e,t){var n=b(e,t);return 1===n||0===n}function g(e){var t=e.split(o),n=t[0].match(c);return n||r(!1,"expected regex to match but it did not"),{modifier:n[1],rangeComponents:[n[2]].concat(t.slice(1))}}function d(e){return!isNaN(e)&&isFinite(e)}function h(e){return!g(e).modifier}function y(e,t){for(var n=e.length;n<t;n++)e[n]="0"}function v(e,t){var n=e.match(s)[1],r=t.match(s)[1],o=parseInt(n,10),i=parseInt(r,10);return d(o)&&d(i)&&o!==i?m(o,i):m(e,t)}function m(e,t){return typeof e!=typeof t&&r(!1,'"a" and "b" must be of the same type'),e>t?1:e<t?-1:0}function b(e,t){for(var n=function(e,t){y(e=e.slice(),(t=t.slice()).length);for(var n=0;n<t.length;n++){var r=t[n].match(/^[x*]$/i);if(r&&(t[n]=e[n]="0","*"===r[0]&&n===t.length-1))for(var o=n;o<e.length;o++)e[o]="0"}return y(t,e.length),[e,t]}(e,t),r=n[0],o=n[1],i=0;i<o.length;i++){var a=v(r[i],o[i]);if(a)return a}return 0}var S={contains:function(e,t){return u(e.trim(),t.trim())}};e.exports=S},function(e,t,n){"use strict";var r=Object.prototype.hasOwnProperty;e.exports=function(e,t,n){if(!e)return null;var o={};for(var i in e)r.call(e,i)&&(o[i]=t.call(n,e[i],i,e));return o}},function(e,t,n){"use strict";e.exports=function(e){var t={};return function(n){return t.hasOwnProperty(n)||(t[n]=e.call(this,n)),t[n]}}},function(e,t,n){"use strict";e.exports=function(e){var t=e.getSelection(),n=t.getAnchorKey(),r=e.getBlockTree(n),o=t.getStartOffset(),i=!1;return r.some((function(e){return o===e.get("start")?(i=!0,!0):o<e.get("end")&&e.get("leaves").some((function(e){var t=e.get("start");return o===t&&(i=!0,!0)}))})),i}},function(e,t,n){"use strict";(function(t){n(105),e.exports=t.setImmediate}).call(this,n(10))},function(e,t,n){(function(e,t){!function(e,n){"use strict";if(!e.setImmediate){var r,o,i,a,c,s=1,u={},l=!1,f=e.document,p=Object.getPrototypeOf&&Object.getPrototypeOf(e);p=p&&p.setTimeout?p:e,"[object process]"==={}.toString.call(e.process)?r=function(e){t.nextTick((function(){d(e)}))}:!function(){if(e.postMessage&&!e.importScripts){var t=!0,n=e.onmessage;return e.onmessage=function(){t=!1},e.postMessage("","*"),e.onmessage=n,t}}()?e.MessageChannel?((i=new MessageChannel).port1.onmessage=function(e){d(e.data)},r=function(e){i.port2.postMessage(e)}):f&&"onreadystatechange"in f.createElement("script")?(o=f.documentElement,r=function(e){var t=f.createElement("script");t.onreadystatechange=function(){d(e),t.onreadystatechange=null,o.removeChild(t),t=null},o.appendChild(t)}):r=function(e){setTimeout(d,0,e)}:(a="setImmediate$"+Math.random()+"$",c=function(t){t.source===e&&"string"==typeof t.data&&0===t.data.indexOf(a)&&d(+t.data.slice(a.length))},e.addEventListener?e.addEventListener("message",c,!1):e.attachEvent("onmessage",c),r=function(t){e.postMessage(a+t,"*")}),p.setImmediate=function(e){"function"!=typeof e&&(e=new Function(""+e));for(var t=new Array(arguments.length-1),n=0;n<t.length;n++)t[n]=arguments[n+1];var o={callback:e,args:t};return u[s]=o,r(s),s++},p.clearImmediate=g}function g(e){delete u[e]}function d(e){if(l)setTimeout(d,0,e);else{var t=u[e];if(t){l=!0;try{!function(e){var t=e.callback,n=e.args;switch(n.length){case 0:t();break;case 1:t(n[0]);break;case 2:t(n[0],n[1]);break;case 3:t(n[0],n[1],n[2]);break;default:t.apply(void 0,n)}}(t)}finally{g(e),l=!1}}}}}("undefined"==typeof self?void 0===e?this:e:self)}).call(this,n(10),n(106))},function(e,t){var n,r,o=e.exports={};function i(){throw new Error("setTimeout has not been defined")}function a(){throw new Error("clearTimeout has not been defined")}function c(e){if(n===setTimeout)return setTimeout(e,0);if((n===i||!n)&&setTimeout)return n=setTimeout,setTimeout(e,0);try{return n(e,0)}catch(t){try{return n.call(null,e,0)}catch(t){return n.call(this,e,0)}}}!function(){try{n="function"==typeof setTimeout?setTimeout:i}catch(e){n=i}try{r="function"==typeof clearTimeout?clearTimeout:a}catch(e){r=a}}();var s,u=[],l=!1,f=-1;function p(){l&&s&&(l=!1,s.length?u=s.concat(u):f=-1,u.length&&g())}function g(){if(!l){var e=c(p);l=!0;for(var t=u.length;t;){for(s=u,u=[];++f<t;)s&&s[f].run();f=-1,t=u.length}s=null,l=!1,function(e){if(r===clearTimeout)return clearTimeout(e);if((r===a||!r)&&clearTimeout)return r=clearTimeout,clearTimeout(e);try{r(e)}catch(t){try{return r.call(null,e)}catch(t){return r.call(this,e)}}}(e)}}function d(e,t){this.fun=e,this.array=t}function h(){}o.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];u.push(new d(e,t)),1!==u.length||l||c(g)},d.prototype.run=function(){this.fun.apply(null,this.array)},o.title="browser",o.browser=!0,o.env={},o.argv=[],o.version="",o.versions={},o.on=h,o.addListener=h,o.once=h,o.off=h,o.removeListener=h,o.removeAllListeners=h,o.emit=h,o.prependListener=h,o.prependOnceListener=h,o.listeners=function(e){return[]},o.binding=function(e){throw new Error("process.binding is not supported")},o.cwd=function(){return"/"},o.chdir=function(e){throw new Error("process.chdir is not supported")},o.umask=function(){return 0}},function(e,t,n){"use strict";var r=n(26);e.exports=function(e){return e.which===r.RETURN&&(e.getModifierState("Shift")||e.getModifierState("Alt")||e.getModifierState("Control"))}},function(e,t,n){"use strict";var r=n(3),o=n(2),i=n(21),a=n(4),c=null,s={cut:function(e){var t=e.getCurrentContent(),n=e.getSelection(),s=null;if(n.isCollapsed()){var u=n.getAnchorKey(),l=t.getBlockForKey(u).getLength();if(l===n.getAnchorOffset()){var f=t.getKeyAfter(u);if(null==f)return e;s=n.set("focusKey",f).set("focusOffset",0)}else s=n.set("focusOffset",l)}else s=n;s=a(s),c=i(t,s);var p=r.removeRange(t,s,"forward");return p===t?e:o.push(e,p,"remove-range")},paste:function(e){if(!c)return e;var t=r.replaceWithFragment(e.getCurrentContent(),e.getSelection(),c);return o.push(e,t,"insert-fragment")}};e.exports=s},function(e,t,n){"use strict";(function(t){var r=n(2),o=n(110),i=n(54),a=n(36),c=n(20);e.exports=function(e){var n=c(e,(function(e){var n=e.getSelection();if(n.isCollapsed()&&0===n.getAnchorOffset())return a(e,1);var r=t.getSelection().getRangeAt(0);return r=o(r),i(e,null,r.endContainer,r.endOffset,r.startContainer,r.startOffset).selectionState}),"backward");return n===e.getCurrentContent()?e:r.push(e,n,"remove-range")}}).call(this,n(10))},function(e,t,n){"use strict";var r=n(16),o=n(58),i=n(1);function a(e,t){for(var n=1/0,r=1/0,o=-1/0,i=-1/0,a=0;a<e.length;a++){var c=e[a];0!==c.width&&1!==c.width&&(n=Math.min(n,c.top),r=Math.min(r,c.bottom),o=Math.max(o,c.top),i=Math.max(i,c.bottom))}return o<=r&&o-n<t&&i-r<t}function c(e){switch(e.nodeType){case Node.DOCUMENT_TYPE_NODE:return 0;case Node.TEXT_NODE:case Node.PROCESSING_INSTRUCTION_NODE:case Node.COMMENT_NODE:return e.length;default:return e.childNodes.length}}e.exports=function(e){e.collapsed||i(!1,"expandRangeToStartOfLine: Provided range is not collapsed.");var t=(e=e.cloneRange()).startContainer;1!==t.nodeType&&(t=t.parentNode);var n=function(e){var t=getComputedStyle(e),n=document.createElement("div");n.style.fontFamily=t.fontFamily,n.style.fontSize=t.fontSize,n.style.fontStyle=t.fontStyle,n.style.fontWeight=t.fontWeight,n.style.lineHeight=t.lineHeight,n.style.position="absolute",n.textContent="M";var r=document.body;r||i(!1,"Missing document.body"),r.appendChild(n);var o=n.getBoundingClientRect();return r.removeChild(n),o.height}(t),s=e.endContainer,u=e.endOffset;for(e.setStart(e.startContainer,0);a(o(e),n)&&(s=e.startContainer,u=e.startOffset,s.parentNode||i(!1,"Found unexpected detached subtree when traversing."),e.setStartBefore(s),1!==s.nodeType||"inline"===getComputedStyle(s).display););for(var l=s,f=u-1;;){for(var p=l.nodeValue,g=f;g>=0;g--)if(!(null!=p&&g>0&&r.isSurrogatePair(p,g-1))){if(e.setStart(l,g),!a(o(e),n))break;s=l,u=g}if(-1===g||0===l.childNodes.length)break;f=c(l=l.childNodes[g])}return e.setStart(s,u),e}},function(e,t,n){"use strict";var r=n(60),o=n(2),i=n(36),a=n(20);e.exports=function(e){var t=a(e,(function(e){var t=e.getSelection(),n=t.getStartOffset();if(0===n)return i(e,1);var o=t.getStartKey(),a=e.getCurrentContent().getBlockForKey(o).getText().slice(0,n),c=r.getBackward(a);return i(e,c.length||1)}),"backward");return t===e.getCurrentContent()?e:o.push(e,t,"remove-range")}},function(e,t,n){"use strict";e.exports={getPunctuation:function(){return"[.,+*?$|#{}()'\\^\\-\\[\\]\\\\\\/!@%\"~=<>_:;・、。〈-】〔-〟：-？！-／［-｀｛-･⸮؟٪-٬؛،؍﴾﴿᠁।၊။‐-‧‰-⁞¡-±´-¸º»¿]"}}},function(e,t,n){"use strict";var r=n(60),o=n(2),i=n(61),a=n(20);e.exports=function(e){var t=a(e,(function(e){var t=e.getSelection(),n=t.getStartOffset(),o=t.getStartKey(),a=e.getCurrentContent().getBlockForKey(o).getText().slice(n),c=r.getForward(a);return i(e,c.length||1)}),"forward");return t===e.getCurrentContent()?e:o.push(e,t,"remove-range")}},function(e,t,n){"use strict";var r=n(3),o=n(2);e.exports=function(e){var t=r.splitBlock(e.getCurrentContent(),e.getSelection());return o.push(e,t,"split-block")}},function(e,t,n){"use strict";var r=n(2);e.exports=function(e){var t=e.getSelection(),n=t.getEndKey(),o=e.getCurrentContent().getBlockForKey(n).getLength();return r.set(e,{selection:t.merge({anchorKey:n,anchorOffset:o,focusKey:n,focusOffset:o,isBackward:!1}),forceSelection:!0})}},function(e,t,n){"use strict";var r=n(2);e.exports=function(e){var t=e.getSelection(),n=t.getStartKey();return r.set(e,{selection:t.merge({anchorKey:n,anchorOffset:0,focusKey:n,focusOffset:0,isBackward:!1}),forceSelection:!0})}},function(e,t,n){"use strict";var r=n(2),o=n(16),i=n(61),a=n(20);e.exports=function(e){var t=a(e,(function(e){var t=e.getSelection(),n=e.getCurrentContent(),r=t.getAnchorKey(),a=t.getAnchorOffset(),c=n.getBlockForKey(r).getText()[a];return i(e,c?o.getUTF16Length(c,0):1)}),"forward");if(t===e.getCurrentContent())return e;var n=e.getSelection();return r.push(e,t.set("selectionBefore",n),n.isCollapsed()?"delete-character":"remove-range")}},function(e,t,n){"use strict";var r=n(3),o=n(2),i=n(21);e.exports=function(e){var t=e.getSelection();if(!t.isCollapsed())return e;var n=t.getAnchorOffset();if(0===n)return e;var a,c,s=t.getAnchorKey(),u=e.getCurrentContent(),l=u.getBlockForKey(s).getLength();if(l<=1)return e;n===l?(a=t.set("anchorOffset",n-1),c=t):c=(a=t.set("focusOffset",n+1)).set("anchorOffset",n+1);var f=i(u,a),p=r.removeRange(u,a,"backward"),g=p.getSelectionAfter(),d=g.getAnchorOffset()-1,h=g.merge({anchorOffset:d,focusOffset:d}),y=r.replaceWithFragment(p,h,f),v=o.push(e,y,"insert-fragment");return o.acceptSelection(v,c)}},function(e,t,n){"use strict";var r=n(2);e.exports=function(e,t,n){var o=r.undo(t);if("spellcheck-change"!==t.getLastChangeType())e.preventDefault(),t.getNativelyRenderedContent()?(n(r.set(t,{nativelyRenderedContent:null})),setTimeout((function(){n(o)}),0)):n(o);else{var i=o.getCurrentContent();n(r.set(o,{nativelyRenderedContent:i}))}}},function(e,t,n){"use strict";var r=n(12)("draft_tree_data_support");e.exports=n(r?121:136)},function(e,t,n){"use strict";var r=n(15);function o(){return(o=r||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function i(e,t){return(i=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var a=n(122),c=n(11),s=n(8),u=n(4),l=function(e){var t,n;function r(){return e.apply(this,arguments)||this}n=e,(t=r).prototype=Object.create(n.prototype),t.prototype.constructor=t,i(t,n);var l=r.prototype;return l.shouldComponentUpdate=function(e){var t=this.props.editorState,n=e.editorState;if(t.getDirectionMap()!==n.getDirectionMap())return!0;if(t.getSelection().getHasFocus()!==n.getSelection().getHasFocus())return!0;var r=n.getNativelyRenderedContent(),o=t.isInCompositionMode(),i=n.isInCompositionMode();if(t===n||null!==r&&n.getCurrentContent()===r||o&&i)return!1;var a=t.getCurrentContent(),c=n.getCurrentContent(),s=t.getDecorator(),u=n.getDecorator();return o!==i||a!==c||s!==u||n.mustForceSelection()},l.render=function(){for(var e=this.props,t=e.blockRenderMap,n=e.blockRendererFn,r=e.blockStyleFn,i=e.customStyleMap,l=e.customStyleFn,f=e.editorState,p=e.editorKey,g=e.textDirectionality,d=f.getCurrentContent(),h=f.getSelection(),y=f.mustForceSelection(),v=f.getDecorator(),m=u(f.getDirectionMap()),b=[],S=d.getBlocksAsArray()[0];S;){var w=S.getKey(),k={blockRenderMap:t,blockRendererFn:n,blockStyleFn:r,contentState:d,customStyleFn:l,customStyleMap:i,decorator:v,editorKey:p,editorState:f,forceSelection:y,selection:h,block:S,direction:g||m.get(w),tree:f.getBlockTree(w)},C=(t.get(S.getType())||t.get("unstyled")).wrapper;b.push({block:s.createElement(a,o({key:w},k)),wrapperTemplate:C,key:w,offsetKey:c.encode(w,0,0)});var x=S.getNextSiblingKey();S=x?d.getBlockForKey(x):null}for(var O=[],E=0;E<b.length;){var _=b[E];if(_.wrapperTemplate){var T=[];do{T.push(b[E].block),E++}while(E<b.length&&b[E].wrapperTemplate===_.wrapperTemplate);var K=s.cloneElement(_.wrapperTemplate,{key:_.key+"-wrap","data-offset-key":_.offsetKey},T);O.push(K)}else O.push(_.block),E++}return s.createElement("div",{"data-contents":"true"},O)},r}(s.Component);e.exports=l},function(e,t,n){"use strict";var r=n(15);function o(){return(o=r||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function i(e,t){return(i=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function a(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function c(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?a(Object(n),!0).forEach((function(t){s(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):a(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function s(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function u(e,t){var n="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!n){if(Array.isArray(e)||(n=function(e,t){if(!e)return;if("string"==typeof e)return l(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);"Object"===n&&e.constructor&&(n=e.constructor.name);if("Map"===n||"Set"===n)return Array.from(e);if("Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return l(e,t)}(e))||t&&e&&"number"==typeof e.length){n&&(e=n);var r=0,o=function(){};return{s:o,n:function(){return r>=e.length?{done:!0}:{done:!1,value:e[r++]}},e:function(e){throw e},f:o}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,a=!0,c=!1;return{s:function(){n=n.call(e)},n:function(){var e=n.next();return a=e.done,e},e:function(e){c=!0,i=e},f:function(){try{a||null==n.return||n.return()}finally{if(c)throw i}}}}function l(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var f=n(123),p=n(11),g=n(8),d=n(27),h=n(40),y=n(29),v=n(65),m=n(30),b=n(66),S=n(0),w=n(1),k=(S.List,function(e,t){return e.getAnchorKey()===t||e.getFocusKey()===t}),C=function(e,t){var n=t.get(e.getType())||t.get("unstyled"),r=n.wrapper;return{Element:n.element||t.get("unstyled").element,wrapperTemplate:r}},x=function(e,t){var n=t(e);return n?{CustomComponent:n.component,customProps:n.props,customEditable:n.editable}:{}},O=function(e,t,n,r,o){var i={"data-block":!0,"data-editor":t,"data-offset-key":n,key:e.getKey()},a=r(e);return a&&(i.className=a),void 0!==o.customEditable&&(i=c(c({},i),{},{contentEditable:o.customEditable,suppressContentEditableWarning:!0})),i},E=function(e){var t,n;function r(){return e.apply(this,arguments)||this}n=e,(t=r).prototype=Object.create(n.prototype),t.prototype.constructor=t,i(t,n);var a=r.prototype;return a.shouldComponentUpdate=function(e){var t=this.props,n=t.block,r=t.direction,o=t.tree,i=!n.getChildKeys().isEmpty(),a=n!==e.block||o!==e.tree||r!==e.direction||k(e.selection,e.block.getKey())&&e.forceSelection;return i||a},a.componentDidMount=function(){var e=this.props.selection,t=e.getEndKey();if(e.getHasFocus()&&t===this.props.block.getKey()){var n,r=d.findDOMNode(this),o=y.getScrollParent(r),i=m(o);if(o===window){var a=v(r);(n=a.y+a.height-b().height)>0&&window.scrollTo(i.x,i.y+n+10)}else{r instanceof HTMLElement||w(!1,"blockNode is not an HTMLElement"),(n=r.offsetHeight+r.offsetTop-(o.offsetHeight+i.y))>0&&h.setTop(o,h.getTop(o)+n+10)}}},a.render=function(){var e=this,t=this.props,n=t.block,i=t.blockRenderMap,a=t.blockRendererFn,s=t.blockStyleFn,l=t.contentState,d=t.decorator,h=t.editorKey,y=t.editorState,v=t.customStyleFn,m=t.customStyleMap,b=t.direction,S=t.forceSelection,w=t.selection,E=t.tree,_=null;n.children.size&&(_=n.children.reduce((function(t,n){var o=p.encode(n,0,0),f=l.getBlockForKey(n),d=x(f,a),v=d.CustomComponent||r,m=C(f,i),b=m.Element,S=m.wrapperTemplate,w=O(f,h,o,s,d),k=c(c({},e.props),{},{tree:y.getBlockTree(n),blockProps:d.customProps,offsetKey:o,block:f});return t.push(g.createElement(b,w,g.createElement(v,k))),!S||function(e,t){var n=e.getNextSiblingKey();return!!n&&t.getBlockForKey(n).getType()===e.getType()}(f,l)||function(e,t,n){var r,o=[],i=u(n.reverse());try{for(i.s();!(r=i.n()).done;){var a=r.value;if(a.type!==t)break;o.push(a)}}catch(e){i.e(e)}finally{i.f()}n.splice(n.indexOf(o[0]),o.length+1);var c=o.reverse(),s=c[0].key;n.push(g.cloneElement(e,{key:"".concat(s,"-wrap"),"data-offset-key":p.encode(s,0,0)},c))}(S,b,t),t}),[]));var T=n.getKey(),K=p.encode(T,0,0),D=x(n,a),M=D.CustomComponent,A=null!=M?g.createElement(M,o({},this.props,{tree:y.getBlockTree(T),blockProps:D.customProps,offsetKey:K,block:n})):g.createElement(f,{block:n,children:_,contentState:l,customStyleFn:v,customStyleMap:m,decorator:d,direction:b,forceSelection:S,hasSelection:k(w,T),selection:w,tree:E});if(n.getParentKey())return A;var B=C(n,i).Element,P=O(n,h,K,s,D);return g.createElement(B,P,A)},r}(g.Component);e.exports=E},function(e,t,n){"use strict";function r(e,t){return(r=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var o=n(124),i=n(62),a=n(11),c=n(0),s=n(8),u=n(14),l=(c.List,function(e){var t,n;function c(){return e.apply(this,arguments)||this}return n=e,(t=c).prototype=Object.create(n.prototype),t.prototype.constructor=t,r(t,n),c.prototype.render=function(){var e=this.props,t=e.block,n=e.contentState,r=e.customStyleFn,c=e.customStyleMap,l=e.decorator,f=e.direction,p=e.forceSelection,g=e.hasSelection,d=e.selection,h=e.tree,y=t.getKey(),v=t.getText(),m=h.size-1,b=this.props.children||h.map((function(e,u){var h=e.get("decoratorKey"),b=e.get("leaves"),S=b.size-1,w=b.map((function(e,n){var o=a.encode(y,u,n),l=e.get("start"),f=e.get("end");return s.createElement(i,{key:o,offsetKey:o,block:t,start:l,selection:g?d:null,forceSelection:p,text:v.slice(l,f),styleSet:t.getInlineStyleAt(l),customStyleMap:c,customStyleFn:r,isLast:h===m&&n===S})})).toArray();return h&&l?s.createElement(o,{block:t,children:w,contentState:n,decorator:l,decoratorKey:h,direction:f,leafSet:e,text:v,key:u}):w})).toArray();return s.createElement("div",{"data-offset-key":a.encode(y,0,0),className:u({"public/DraftStyleDefault/block":!0,"public/DraftStyleDefault/ltr":"LTR"===f,"public/DraftStyleDefault/rtl":"RTL"===f})},b)},c}(s.Component));e.exports=l},function(e,t,n){"use strict";var r=n(15);function o(){return(o=r||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function i(e,t){return(i=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var a=n(11),c=n(8),s=n(32),u=n(24),l=function(e){var t,n;function r(){return e.apply(this,arguments)||this}return n=e,(t=r).prototype=Object.create(n.prototype),t.prototype.constructor=t,i(t,n),r.prototype.render=function(){var e=this.props,t=e.block,n=e.children,r=e.contentState,i=e.decorator,l=e.decoratorKey,f=e.direction,p=e.leafSet,g=e.text,d=t.getKey(),h=p.get("leaves"),y=i.getComponentForKey(l),v=i.getPropsForKey(l),m=a.encode(d,parseInt(l,10),0),b=g.slice(h.first().get("start"),h.last().get("end")),S=u.getHTMLDirIfDifferent(s.getDirection(b),f);return c.createElement(y,o({},v,{contentState:r,decoratedText:b,dir:S,key:m,entityKey:t.getEntityAt(p.get("start")),offsetKey:m}),n)},r}(c.Component);e.exports=l},function(e,t,n){"use strict";function r(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}function o(e,t){return(o=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function i(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(8),c=n(7),s=n(1),u=n(126),l=c.isBrowser("IE <= 11");var f=function(e){var t,n;function c(t){var n;return i(r(n=e.call(this,t)||this),"_forceFlag",void 0),i(r(n),"_node",void 0),n._forceFlag=!1,n}n=e,(t=c).prototype=Object.create(n.prototype),t.prototype.constructor=t,o(t,n);var f=c.prototype;return f.shouldComponentUpdate=function(e){var t=this._node,n=""===e.children;u(t)||s(!1,"node is not an Element");var r=t;return n&&r?!function(e){return l?"\n"===e.textContent:"BR"===e.tagName}(r):r&&this.props.textContent!==e.children},f.componentDidMount=function(){this._forceFlag=!this._forceFlag},f.componentDidUpdate=function(){this._forceFlag=!this._forceFlag},f.render=function(){var e=this,t=this.props,n=t.offsetKey,r=t.entityKey,o=t.startTime,i=t.endTime,c=t.styleObj,s=t.refNode;return""===this.props.children?this._forceFlag?function(e){return l?a.createElement("span",{key:"A","data-text":"true",ref:e},"\n"):a.createElement("br",{key:"A","data-text":"true",ref:e})}((function(t){return e._node=t})):function(e){return l?a.createElement("span",{key:"B","data-text":"true",ref:e},"\n"):a.createElement("br",{key:"B","data-text":"true",ref:e})}((function(t){return e._node=t})):a.createElement("span",{"data-offset-key":n,"data-entity-key":r,"data-start-time":o,"data-end-time":i,style:c,key:this._forceFlag?"A":"B","data-text":"true",ref:function(t){e._node=t,s(t)}},this.props.children)},c}(a.Component);e.exports=f},function(e,t,n){"use strict";e.exports=function(e){return!(!e||!e.ownerDocument)&&e.nodeType===Node.ELEMENT_NODE}},function(e,t,n){"use strict";(function(t){var r=n(63),o=n(51),i=n(39),a=n(64),c=n(1);function s(e,t){if(!e)return"[empty]";var n=function e(t,n){var r=void 0!==n?n(t):[];if(t.nodeType===Node.TEXT_NODE){var o=t.textContent.length;return document.createTextNode("[text "+o+(r.length?" | "+r.join(", "):"")+"]")}var i=t.cloneNode();1===i.nodeType&&r.length&&i.setAttribute("data-labels",r.join(", "));for(var a=t.childNodes,c=0;c<a.length;c++)i.appendChild(e(a[c],n));return i}(e,t);return n.nodeType===Node.TEXT_NODE?n.textContent:(n instanceof Element||c(!1,"Node must be an Element if it is not a text node."),n.outerHTML)}function u(e,t){for(var n=e;n;){if(n instanceof Element&&n.hasAttribute("contenteditable"))return s(n,t);n=n.parentNode}return"Could not find contentEditable parent of node"}function l(e){return null===e.nodeValue?e.childNodes.length:e.nodeValue.length}function f(e,t,n,r){var c=a();if(e.extend&&i(c,t)){n>l(t)&&o.logSelectionStateFailure({anonymizedDom:u(t),extraParams:JSON.stringify({offset:n}),selectionState:JSON.stringify(r.toJS())});var s=t===e.focusNode;try{e.extend(t,n)}catch(i){throw o.logSelectionStateFailure({anonymizedDom:u(t,(function(t){var n=[];return t===c&&n.push("active element"),t===e.anchorNode&&n.push("selection anchor node"),t===e.focusNode&&n.push("selection focus node"),n})),extraParams:JSON.stringify({activeElementName:c?c.nodeName:null,nodeIsFocus:t===e.focusNode,nodeWasFocus:s,selectionRangeCount:e.rangeCount,selectionAnchorNodeName:e.anchorNode?e.anchorNode.nodeName:null,selectionAnchorOffset:e.anchorOffset,selectionFocusNodeName:e.focusNode?e.focusNode.nodeName:null,selectionFocusOffset:e.focusOffset,message:i?""+i:null,offset:n},null,2),selectionState:JSON.stringify(r.toJS(),null,2)}),i}}else{var f=e.getRangeAt(0);f.setEnd(t,n),e.addRange(f.cloneRange())}}function p(e,t,n,i){var a=document.createRange();n>l(t)&&(o.logSelectionStateFailure({anonymizedDom:u(t),extraParams:JSON.stringify({offset:n}),selectionState:JSON.stringify(i.toJS())}),r.handleExtensionCausedError()),a.setStart(t,n),e.addRange(a)}e.exports=function(e,n,r,o,a){if(i(document.documentElement,n)){var c=t.getSelection(),s=e.getAnchorKey(),u=e.getAnchorOffset(),l=e.getFocusKey(),g=e.getFocusOffset(),d=e.getIsBackward();if(!c.extend&&d){var h=s,y=u;s=l,u=g,l=h,g=y,d=!1}var v=s===r&&o<=u&&a>=u,m=l===r&&o<=g&&a>=g;if(v&&m)return c.removeAllRanges(),p(c,n,u-o,e),void f(c,n,g-o,e);if(d){if(m&&(c.removeAllRanges(),p(c,n,g-o,e)),v){var b=c.focusNode,S=c.focusOffset;c.removeAllRanges(),p(c,n,u-o,e),f(c,b,S,e)}}else v&&(c.removeAllRanges(),p(c,n,u-o,e)),m&&f(c,n,g-o,e)}}}).call(this,n(10))},function(e,t,n){"use strict";var r=n(129);e.exports=function(e){return r(e)&&3==e.nodeType}},function(e,t,n){"use strict";e.exports=function(e){var t=(e?e.ownerDocument||e:document).defaultView||window;return!(!e||!("function"==typeof t.Node?e instanceof t.Node:"object"==typeof e&&"number"==typeof e.nodeType&&"string"==typeof e.nodeName))}},function(e,t,n){"use strict";var r=n(131),o=n(132);function i(e){return null==e?e:String(e)}e.exports=function(e,t){var n;if(window.getComputedStyle&&(n=window.getComputedStyle(e,null)))return i(n.getPropertyValue(o(t)));if(document.defaultView&&document.defaultView.getComputedStyle){if(n=document.defaultView.getComputedStyle(e,null))return i(n.getPropertyValue(o(t)));if("display"===t)return"none"}return e.currentStyle?i("float"===t?e.currentStyle.cssFloat||e.currentStyle.styleFloat:e.currentStyle[r(t)]):i(e.style&&e.style[r(t)])}},function(e,t,n){"use strict";var r=/-(.)/g;e.exports=function(e){return e.replace(r,(function(e,t){return t.toUpperCase()}))}},function(e,t,n){"use strict";var r=/([A-Z])/g;e.exports=function(e){return e.replace(r,"-$1").toLowerCase()}},function(e,t,n){"use strict";var r=n(39);e.exports=function(e){var t=e.ownerDocument.documentElement;if(!("getBoundingClientRect"in e)||!r(t,e))return{left:0,right:0,top:0,bottom:0};var n=e.getBoundingClientRect();return{left:Math.round(n.left)-t.clientLeft,right:Math.round(n.right)-t.clientLeft,top:Math.round(n.top)-t.clientTop,bottom:Math.round(n.bottom)-t.clientTop}}},function(e,t,n){"use strict";var r="undefined"!=typeof navigator&&navigator.userAgent.indexOf("AppleWebKit")>-1;e.exports=function(e){return(e=e||document).scrollingElement?e.scrollingElement:r||"CSS1Compat"!==e.compatMode?e.body:e.documentElement}},function(e,t,n){"use strict";e.exports=function(e){return e.Window&&e instanceof e.Window?{x:e.pageXOffset||e.document.documentElement.scrollLeft,y:e.pageYOffset||e.document.documentElement.scrollTop}:{x:e.scrollLeft,y:e.scrollTop}}},function(e,t,n){"use strict";var r=n(15);function o(){return(o=r||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function i(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function a(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?i(Object(n),!0).forEach((function(t){c(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):i(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function c(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function s(e,t){return(s=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var u=n(67),l=n(11),f=n(8),p=n(14),g=n(146),d=n(4),h=function(e,t,n,r){return p({"public/DraftStyleDefault/unorderedListItem":"unordered-list-item"===e,"public/DraftStyleDefault/orderedListItem":"ordered-list-item"===e,"public/DraftStyleDefault/reset":n,"public/DraftStyleDefault/depth0":0===t,"public/DraftStyleDefault/depth1":1===t,"public/DraftStyleDefault/depth2":2===t,"public/DraftStyleDefault/depth3":3===t,"public/DraftStyleDefault/depth4":t>=4,"public/DraftStyleDefault/listLTR":"LTR"===r,"public/DraftStyleDefault/listRTL":"RTL"===r})},y=function(e){var t,n;function r(){return e.apply(this,arguments)||this}n=e,(t=r).prototype=Object.create(n.prototype),t.prototype.constructor=t,s(t,n);var i=r.prototype;return i.shouldComponentUpdate=function(e){var t=this.props.editorState,n=e.editorState;if(t.getDirectionMap()!==n.getDirectionMap())return!0;if(t.getSelection().getHasFocus()!==n.getSelection().getHasFocus())return!0;var r=n.getNativelyRenderedContent(),o=t.isInCompositionMode(),i=n.isInCompositionMode();if(t===n||null!==r&&n.getCurrentContent()===r||o&&i)return!1;var a=t.getCurrentContent(),c=n.getCurrentContent(),s=t.getDecorator(),u=n.getDecorator();return o!==i||a!==c||s!==u||n.mustForceSelection()},i.render=function(){for(var e=this.props,t=e.blockRenderMap,n=e.blockRendererFn,r=e.blockStyleFn,i=e.customStyleMap,c=e.customStyleFn,s=e.editorState,p=e.editorKey,y=e.textDirectionality,v=s.getCurrentContent(),m=s.getSelection(),b=s.mustForceSelection(),S=s.getDecorator(),w=d(s.getDirectionMap()),k=v.getBlocksAsArray(),C=[],x=null,O=null,E=0;E<k.length;E++){var _=k[E],T=_.getKey(),K=_.getType(),D=n(_),M=void 0,A=void 0,B=void 0;D&&(M=D.component,A=D.props,B=D.editable);var P=y||w.get(T),L=l.encode(T,0,0),j={contentState:v,block:_,blockProps:A,blockStyleFn:r,customStyleMap:i,customStyleFn:c,decorator:S,direction:P,forceSelection:b,offsetKey:L,selection:m,tree:s.getBlockTree(T)},F=t.get(K)||t.get("unstyled"),R=F.wrapper,N=F.element||t.get("unstyled").element,I=_.getDepth(),U="";if(r&&(U=r(_)),"li"===N)U=g(U,h(K,I,O!==R||null===x||I>x,P));var H=M||u,z={className:U,"data-block":!0,"data-editor":p,"data-offset-key":L,key:T};void 0!==B&&(z=a(a({},z),{},{contentEditable:B,suppressContentEditableWarning:!0}));var W=f.createElement(N,z,f.createElement(H,o({},j,{key:T})));C.push({block:W,wrapperTemplate:R,key:T,offsetKey:L}),x=R?_.getDepth():null,O=R}for(var q=[],V=0;V<C.length;){var G=C[V];if(G.wrapperTemplate){var X=[];do{X.push(C[V].block),V++}while(V<C.length&&C[V].wrapperTemplate===G.wrapperTemplate);var J=f.cloneElement(G.wrapperTemplate,{key:G.key+"-wrap","data-offset-key":G.offsetKey},X);q.push(J)}else q.push(G.block),V++}return f.createElement("div",{"data-contents":"true"},q)},r}(f.Component);e.exports=y},function(e,t,n){"use strict";e.exports=n(138)},function(e,t,n){"use strict";e.exports=n(139)},function(e,t,n){"use strict";e.exports=n(17),n(140),n(141),n(142),n(143),n(145)},function(e,t,n){"use strict";var r=n(17);e.exports=r,r.prototype.done=function(e,t){var n=arguments.length?this.then.apply(this,arguments):this;n.then(null,(function(e){setTimeout((function(){throw e}),0)}))}},function(e,t,n){"use strict";var r=n(17);e.exports=r,r.prototype.finally=function(e){return this.then((function(t){return r.resolve(e()).then((function(){return t}))}),(function(t){return r.resolve(e()).then((function(){throw t}))}))}},function(e,t,n){"use strict";var r=n(17);e.exports=r;var o=l(!0),i=l(!1),a=l(null),c=l(void 0),s=l(0),u=l("");function l(e){var t=new r(r._61);return t._65=1,t._55=e,t}r.resolve=function(e){if(e instanceof r)return e;if(null===e)return a;if(void 0===e)return c;if(!0===e)return o;if(!1===e)return i;if(0===e)return s;if(""===e)return u;if("object"==typeof e||"function"==typeof e)try{var t=e.then;if("function"==typeof t)return new r(t.bind(e))}catch(e){return new r((function(t,n){n(e)}))}return l(e)},r.all=function(e){var t=Array.prototype.slice.call(e);return new r((function(e,n){if(0===t.length)return e([]);var o=t.length;function i(a,c){if(c&&("object"==typeof c||"function"==typeof c)){if(c instanceof r&&c.then===r.prototype.then){for(;3===c._65;)c=c._55;return 1===c._65?i(a,c._55):(2===c._65&&n(c._55),void c.then((function(e){i(a,e)}),n))}var s=c.then;if("function"==typeof s)return void new r(s.bind(c)).then((function(e){i(a,e)}),n)}t[a]=c,0==--o&&e(t)}for(var a=0;a<t.length;a++)i(a,t[a])}))},r.reject=function(e){return new r((function(t,n){n(e)}))},r.race=function(e){return new r((function(t,n){e.forEach((function(e){r.resolve(e).then(t,n)}))}))},r.prototype.catch=function(e){return this.then(null,e)}},function(e,t,n){"use strict";var r=n(17),o=n(144);e.exports=r,r.denodeify=function(e,t){return"number"==typeof t&&t!==1/0?function(e,t){for(var n=[],o=0;o<t;o++)n.push("a"+o);var a=["return function ("+n.join(",")+") {","var self = this;","return new Promise(function (rs, rj) {","var res = fn.call(",["self"].concat(n).concat([i]).join(","),");","if (res &&",'(typeof res === "object" || typeof res === "function") &&','typeof res.then === "function"',") {rs(res);}","});","};"].join("");return Function(["Promise","fn"],a)(r,e)}(e,t):function(e){for(var t=Math.max(e.length-1,3),n=[],o=0;o<t;o++)n.push("a"+o);var a=["return function ("+n.join(",")+") {","var self = this;","var args;","var argLength = arguments.length;","if (arguments.length > "+t+") {","args = new Array(arguments.length + 1);","for (var i = 0; i < arguments.length; i++) {","args[i] = arguments[i];","}","}","return new Promise(function (rs, rj) {","var cb = "+i+";","var res;","switch (argLength) {",n.concat(["extra"]).map((function(e,t){return"case "+t+":res = fn.call("+["self"].concat(n.slice(0,t)).concat("cb").join(",")+");break;"})).join(""),"default:","args[argLength] = cb;","res = fn.apply(self, args);","}","if (res &&",'(typeof res === "object" || typeof res === "function") &&','typeof res.then === "function"',") {rs(res);}","});","};"].join("");return Function(["Promise","fn"],a)(r,e)}(e)};var i="function (err, res) {if (err) { rj(err); } else { rs(res); }}";r.nodeify=function(e){return function(){var t=Array.prototype.slice.call(arguments),n="function"==typeof t[t.length-1]?t.pop():null,i=this;try{return e.apply(this,arguments).nodeify(n,i)}catch(e){if(null==n)return new r((function(t,n){n(e)}));o((function(){n.call(i,e)}))}}},r.prototype.nodeify=function(e,t){if("function"!=typeof e)return this;this.then((function(n){o((function(){e.call(t,null,n)}))}),(function(n){o((function(){e.call(t,n)}))}))}},function(e,t,n){"use strict";var r=n(68),o=[],i=[],a=r.makeRequestCallFromTimer((function(){if(i.length)throw i.shift()}));function c(e){var t;(t=o.length?o.pop():new s).task=e,r(t)}function s(){this.task=null}e.exports=c,s.prototype.call=function(){try{this.task.call()}catch(e){c.onerror?c.onerror(e):(i.push(e),a())}finally{this.task=null,o[o.length]=this}}},function(e,t,n){"use strict";var r=n(17);e.exports=r,r.enableSynchronous=function(){r.prototype.isPending=function(){return 0==this.getState()},r.prototype.isFulfilled=function(){return 1==this.getState()},r.prototype.isRejected=function(){return 2==this.getState()},r.prototype.getValue=function(){if(3===this._65)return this._55.getValue();if(!this.isFulfilled())throw new Error("Cannot get a value of an unfulfilled promise.");return this._55},r.prototype.getReason=function(){if(3===this._65)return this._55.getReason();if(!this.isRejected())throw new Error("Cannot get a rejection reason of a non-rejected promise.");return this._55},r.prototype.getState=function(){return 3===this._65?this._55.getState():-1===this._65||-2===this._65?0:this._65}},r.disableSynchronous=function(){r.prototype.isPending=void 0,r.prototype.isFulfilled=void 0,r.prototype.isRejected=void 0,r.prototype.getValue=void 0,r.prototype.getReason=void 0,r.prototype.getState=void 0}},function(e,t,n){"use strict";e.exports=function(e){var t=e||"",n=arguments.length;if(n>1)for(var r=1;r<n;r++){var o=arguments[r];o&&(t=(t?t+" ":"")+o)}return t}},function(e,t,n){"use strict";var r=n(69),o=n(3),i=n(2),a=n(27),c=n(25),s=n(70),u=n(55),l=n(28),f=n(4);var p={onDragEnd:function(e){e.exitCurrentMode(),g(e)},onDrop:function(e,t){var n=new r(t.nativeEvent.dataTransfer),a=e._latestEditorState,p=function(e,t){var n=null,r=null;if("function"==typeof document.caretRangeFromPoint){var o=document.caretRangeFromPoint(e.x,e.y);n=o.startContainer,r=o.startOffset}else{if(!e.rangeParent)return null;n=e.rangeParent,r=e.rangeOffset}n=f(n),r=f(r);var i=f(c(n));return u(t,i,r,i,r)}(t.nativeEvent,a);if(t.preventDefault(),e._dragCount=0,e.exitCurrentMode(),null!=p){var h=n.getFiles();if(h.length>0){if(e.props.handleDroppedFiles&&l(e.props.handleDroppedFiles(p,h)))return;s(h,(function(t){t&&e.update(d(a,p,t))}))}else{var y=e._internalDrag?"internal":"external";e.props.handleDrop&&l(e.props.handleDrop(p,n,y))||(e._internalDrag?e.update(function(e,t){var n=o.moveText(e.getCurrentContent(),e.getSelection(),t);return i.push(e,n,"insert-fragment")}(a,p)):e.update(d(a,p,n.getText()))),g(e)}}}};function g(e){e._internalDrag=!1;var t=a.findDOMNode(e);if(t){var n=new MouseEvent("mouseup",{view:window,bubbles:!0,cancelable:!0});t.dispatchEvent(n)}}function d(e,t,n){var r=o.insertText(e.getCurrentContent(),t,n,e.getCurrentInlineStyle());return i.push(e,r,"insert-fragment")}e.exports=p},function(e,t,n){"use strict";var r={isImage:function(e){return"image"===o(e)[0]},isJpeg:function(e){var t=o(e);return r.isImage(e)&&("jpeg"===t[1]||"pjpeg"===t[1])}};function o(e){return e.split("/")}e.exports=r},function(e,t,n){"use strict";var r=n(1);e.exports=function(e){return function(e){return!!e&&("object"==typeof e||"function"==typeof e)&&"length"in e&&!("setInterval"in e)&&"number"!=typeof e.nodeType&&(Array.isArray(e)||"callee"in e||"item"in e)}(e)?Array.isArray(e)?e.slice():function(e){var t=e.length;if((Array.isArray(e)||"object"!=typeof e&&"function"!=typeof e)&&r(!1,"toArray: Array-like object expected"),"number"!=typeof t&&r(!1,"toArray: Object needs a length property"),0===t||t-1 in e||r(!1,"toArray: Object should have keys for indices"),"function"==typeof e.callee&&r(!1,"toArray: Object can't be `arguments`. Use rest params (function(...args) {}) or Array.from() instead."),e.hasOwnProperty)try{return Array.prototype.slice.call(e)}catch(e){}for(var n=Array(t),o=0;o<t;o++)n[o]=e[o];return n}(e):[e]}},function(e,t,n){"use strict";var r=n(7),o=n(56),i=n(151),a=n(152),c=n(153),s=n(154),u=n(155),l=n(156),f=n(157),p=n(158),g=n(57),d=n(160),h=n(50),y=r.isBrowser("Chrome")?h:function(e){},v={onBeforeInput:o,onBlur:i,onCompositionStart:a,onCopy:c,onCut:s,onDragOver:u,onDragStart:l,onFocus:f,onInput:p,onKeyDown:g,onPaste:d,onSelect:h,onMouseUp:y,onKeyUp:y};e.exports=v},function(e,t,n){"use strict";(function(t){var r=n(2),o=n(39),i=n(64);e.exports=function(e,n){if(!e.props.preserveSelectionOnBlur&&i()===document.body){var a=t.getSelection(),c=e.editor;1===a.rangeCount&&o(c,a.anchorNode)&&o(c,a.focusNode)&&a.removeAllRanges()}var s=e._latestEditorState,u=s.getSelection();if(u.getHasFocus()){var l=u.set("hasFocus",!1);e.props.onBlur&&e.props.onBlur(n),e.update(r.acceptSelection(s,l))}}}).call(this,n(10))},function(e,t,n){"use strict";var r=n(2);e.exports=function(e,t){e.setMode("composite"),e.update(r.set(e._latestEditorState,{inCompositionMode:!0})),e._onCompositionStart(t)}},function(e,t,n){"use strict";var r=n(71);e.exports=function(e,t){e._latestEditorState.getSelection().isCollapsed()?t.preventDefault():e.setClipboard(r(e._latestEditorState))}},function(e,t,n){"use strict";var r=n(3),o=n(2),i=n(29),a=n(71),c=n(30);e.exports=function(e,t){var n,s=e._latestEditorState,u=s.getSelection(),l=t.target;if(u.isCollapsed())t.preventDefault();else{l instanceof Node&&(n=c(i.getScrollParent(l)));var f=a(s);e.setClipboard(f),e.setMode("cut"),setTimeout((function(){e.restoreEditorDOM(n),e.exitCurrentMode(),e.update(function(e){var t=r.removeRange(e.getCurrentContent(),e.getSelection(),"forward");return o.push(e,t,"remove-range")}(s))}),0)}}},function(e,t,n){"use strict";e.exports=function(e,t){e.setMode("drag"),t.preventDefault()}},function(e,t,n){"use strict";e.exports=function(e){e._internalDrag=!0,e.setMode("drag")}},function(e,t,n){"use strict";var r=n(2),o=n(7);e.exports=function(e,t){var n=e._latestEditorState,i=n.getSelection();if(!i.getHasFocus()){var a=i.set("hasFocus",!0);e.props.onFocus&&e.props.onFocus(t),o.isBrowser("Chrome < 60.0.3081.0")?e.update(r.forceSelection(n,a)):e.update(r.acceptSelection(n,a))}}},function(e,t,n){"use strict";(function(t){var r=n(3),o=n(11),i=n(2),a=n(7),c=n(159).notEmptyKey,s=n(25),u=n(38),l=n(4),f=a.isEngine("Gecko");e.exports=function(e,n){void 0!==e._pendingStateFromBeforeInput&&(e.update(e._pendingStateFromBeforeInput),e._pendingStateFromBeforeInput=void 0);var a=t.getSelection(),p=a.anchorNode,g=a.isCollapsed;if(!(p.nodeType!==Node.TEXT_NODE&&p.nodeType!==Node.ELEMENT_NODE)){if(p.nodeType===Node.TEXT_NODE&&(null!==p.previousSibling||null!==p.nextSibling)){var d=p.parentNode;p.nodeValue=d.textContent;for(var h=d.firstChild;null!==h;h=h.nextSibling)h!==p&&d.removeChild(h)}var y=p.textContent,v=e._latestEditorState,m=l(s(p)),b=o.decode(m),S=b.blockKey,w=b.decoratorKey,k=b.leafKey,C=v.getBlockTree(S).getIn([w,"leaves",k]),x=C.start,O=C.end,E=v.getCurrentContent(),_=E.getBlockForKey(S),T=_.getText().slice(x,O);if(y.endsWith("\n\n")&&(y=y.slice(0,-1)),y!==T){var K,D,M,A,B=v.getSelection(),P=B.merge({anchorOffset:x,focusOffset:O,isBackward:!1}),L=_.getEntityAt(x),j=c(L)?E.getEntity(L):null,F="MUTABLE"===(null!=j?j.getMutability():null),R=F?"spellcheck-change":"apply-entity",N=r.replaceText(E,P,y,_.getInlineStyleAt(x),F?_.getEntityAt(x):null);if(f)K=a.anchorOffset,D=a.focusOffset,A=(M=x+Math.min(K,D))+Math.abs(K-D),K=M,D=A;else{var I=y.length-T.length;M=B.getStartOffset(),A=B.getEndOffset(),K=g?A+I:M,D=A+I}var U=N.merge({selectionBefore:E.getSelectionAfter(),selectionAfter:B.merge({anchorOffset:K,focusOffset:D})});e.update(i.push(v,U,R))}else{var H=n.nativeEvent.inputType;if(H){var z=function(e,t){switch(e){case"deleteContentBackward":return u(t)}return t}(H,v);if(z!==v)return e.restoreEditorDOM(),void e.update(z)}}}}}).call(this,n(10))},function(e,t,n){"use strict";e.exports={notEmptyKey:function(e){return null!=e&&""!=e}}},function(e,t,n){"use strict";var r=n(18),o=n(5),i=n(69),a=n(3),c=n(161),s=n(2),u=n(74),l=n(34),f=n(70),p=n(28),g=n(164);function d(e,t,n){var r=a.replaceWithFragment(e.getCurrentContent(),e.getSelection(),t);return s.push(e,r.set("entityMap",n),"insert-fragment")}e.exports=function(e,t){t.preventDefault();var n=new i(t.clipboardData);if(!n.isRichText()){var h=n.getFiles(),y=n.getText();if(h.length>0){if(e.props.handlePastedFiles&&p(e.props.handlePastedFiles(h)))return;return void f(h,(function(t){if(t=t||y){var n=e._latestEditorState,i=g(t),f=o.create({style:n.getCurrentInlineStyle(),entity:l(n.getCurrentContent(),n.getSelection())}),p=u.getCurrentBlockType(n),d=c.processText(i,f,p),h=r.createFromArray(d),v=a.replaceWithFragment(n.getCurrentContent(),n.getSelection(),h);e.update(s.push(n,v,"insert-fragment"))}}))}}var v=[],m=n.getText(),b=n.getHTML(),S=e._latestEditorState;if(!e.props.handlePastedText||!p(e.props.handlePastedText(m,b,S))){if(m&&(v=g(m)),!e.props.stripPastedStyles){var w=e.getClipboard();if(n.isRichText()&&w){if(-1!==b.indexOf(e.getEditorKey())||1===v.length&&1===w.size&&w.first().getText()===m)return void e.update(d(e._latestEditorState,w))}else if(w&&n.types.includes("com.apple.webarchive")&&!n.types.includes("text/html")&&function(e,t){return e.length===t.size&&t.valueSeq().every((function(t,n){return t.getText()===e[n]}))}(v,w))return void e.update(d(e._latestEditorState,w));if(b){var k=c.processHTML(b,e.props.blockRenderMap);if(k){var C=k.contentBlocks,x=k.entityMap;if(C){var O=r.createFromArray(C);return void e.update(d(e._latestEditorState,O,x))}}}e.setClipboard(null)}if(v.length){var E=o.create({style:S.getCurrentInlineStyle(),entity:l(S.getCurrentContent(),S.getSelection())}),_=u.getCurrentBlockType(S),T=c.processText(v,E,_),K=r.createFromArray(T);e.update(d(e._latestEditorState,K))}}}},function(e,t,n){"use strict";function r(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function o(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?r(Object(n),!0).forEach((function(t){i(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):r(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function i(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(13),c=n(6),s=n(72),u=n(9),l=n(73),f=n(12),p=n(0),g=n(47),d=p.List,h=p.Repeat,y=f("draft_tree_data_support"),v=y?c:a,m={processHTML:function(e,t){return s(e,l,t)},processText:function(e,t,n){return e.reduce((function(e,r,i){r=g(r);var a=u(),c={key:a,type:n,text:r,characterList:d(h(t,r.length))};if(y&&0!==i){var s=i-1,l=e[s]=e[s].merge({nextSibling:a});c=o(o({},c),{},{prevSibling:l.getKey()})}return e.push(new v(c)),e}),[])}};e.exports=m},function(e,t,n){"use strict";var r=function(){function e(e){var t,n,r;r=void 0,(n="_uri")in(t=this)?Object.defineProperty(t,n,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[n]=r,this._uri=e}return e.prototype.toString=function(){return this._uri},e}();e.exports=r},function(e,t,n){"use strict";e.exports=function(e,t,n,r){var o=t.getStartKey(),i=t.getEndKey(),a=e.getBlockMap(),c=a.toSeq().skipUntil((function(e,t){return t===o})).takeUntil((function(e,t){return t===i})).concat([[i,a.get(i)]]).map((function(e){var t=e.getDepth()+n;return t=Math.max(0,Math.min(t,r)),e.set("depth",t)}));return a=a.merge(c),e.merge({blockMap:a,selectionBefore:t,selectionAfter:t})}},function(e,t,n){"use strict";var r=/\r\n?|\n/g;e.exports=function(e){return e.split(r)}},function(e,t,n){"use strict";function r(e,t){return(r=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var o=n(8),i=n(14),a=function(e){var t,n;function a(){return e.apply(this,arguments)||this}n=e,(t=a).prototype=Object.create(n.prototype),t.prototype.constructor=t,r(t,n);var c=a.prototype;return c.shouldComponentUpdate=function(e){return this.props.text!==e.text||this.props.editorState.getSelection().getHasFocus()!==e.editorState.getSelection().getHasFocus()},c.render=function(){var e=this.props.editorState.getSelection().getHasFocus(),t=i({"public/DraftEditorPlaceholder/root":!0,"public/DraftEditorPlaceholder/hasFocus":e});return o.createElement("div",{className:t},o.createElement("div",{className:i("public/DraftEditorPlaceholder/inner"),id:this.props.accessibilityID,style:{whiteSpace:"pre-wrap"}},this.props.text))},a}(o.Component);e.exports=a},function(e,t,n){},function(e,t,n){"use strict";function r(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function o(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?r(Object(n),!0).forEach((function(t){i(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):r(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function i(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(13),c=n(6),s=n(76),u=n(168),l=n(169),f=n(1),p=function(e,t){return{key:e.getKey(),text:e.getText(),type:e.getType(),depth:e.getDepth(),inlineStyleRanges:l(e),entityRanges:u(e,t),data:e.getData().toObject()}},g=function(e,t){var n=t.entityMap,r=[],i={},u={},l=0;return e.getBlockMap().forEach((function(e){e.findEntityRanges((function(e){return null!==e.getEntity()}),(function(t){var r=e.getEntityAt(t),o=s.stringify(r);u[o]||(u[o]=r,n[o]="".concat(l),l++)})),function(e,t,n,r){if(e instanceof a)n.push(p(e,t));else{e instanceof c||f(!1,"block is not a BlockNode");var i=e.getParentKey(),s=r[e.getKey()]=o(o({},p(e,t)),{},{children:[]});i?r[i].children.push(s):n.push(s)}}(e,n,r,i)})),{blocks:r,entityMap:n}};e.exports=function(e){var t={entityMap:{},blocks:[]};return t=function(e,t){var n=t.blocks,r=t.entityMap,o={};return Object.keys(r).forEach((function(t,n){var r=e.getEntity(s.unstringify(t));o[n]={type:r.getType(),mutability:r.getMutability(),data:r.getData()}})),{blocks:n,entityMap:o}}(e,t=g(e,t))}},function(e,t,n){"use strict";var r=n(76),o=n(16).strlen;e.exports=function(e,t){var n=[];return e.findEntityRanges((function(e){return!!e.getEntity()}),(function(i,a){var c=e.getText(),s=e.getEntityAt(i);n.push({offset:o(c.slice(0,i)),length:o(c.slice(i,a)),key:Number(t[r.stringify(s)])})})),n}},function(e,t,n){"use strict";var r=n(16),o=n(19),i=function(e,t){return e===t},a=function(e){return!!e},c=[];e.exports=function(e){var t=e.getCharacterList().map((function(e){return e.getStyle()})).toList(),n=t.flatten().toSet().map((function(n){return function(e,t,n){var c=[],s=t.map((function(e){return e.has(n)})).toList();return o(s,i,a,(function(t,o){var i=e.getText();c.push({offset:r.strlen(i.slice(0,t)),length:r.strlen(i.slice(t,o)),style:n})})),c}(e,t,n)}));return Array.prototype.concat.apply(c,n.toJS())}},function(e,t,n){"use strict";function r(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function o(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?r(Object(n),!0).forEach((function(t){i(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):r(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function i(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(13),c=n(6),s=n(31),u=n(22),l=n(171),f=n(172),p=n(23),g=n(173),d=n(174),h=n(175),y=n(9),v=n(12),m=n(0),b=n(1),S=v("draft_tree_data_support"),w=m.List,k=m.Map,C=m.OrderedMap,x=function(e,t){var n=e.key,r=e.type,o=e.data;return{text:e.text,depth:e.depth||0,type:r||"unstyled",key:n||y(),data:k(o),characterList:O(e,t)}},O=function(e,t){var n=e.text,r=e.entityRanges,i=e.inlineStyleRanges,a=r||[];return g(h(n,i||[]),d(n,a.filter((function(e){return t.hasOwnProperty(e.key)})).map((function(e){return o(o({},e),{},{key:t[e.key]})}))))},E=function(e){return o(o({},e),{},{key:e.key||y()})},_=function(e,t,n){var r=t.map((function(e){return o(o({},e),{},{parentRef:n})}));return e.concat(r.reverse())},T=function(e,t){var n=e.blocks.find((function(e){return Array.isArray(e.children)&&e.children.length>0})),r=S&&!n?l.fromRawStateToRawTreeState(e).blocks:e.blocks;if(!S)return function(e,t){return C(e.map((function(e){var n=new a(x(e,t));return[n.getKey(),n]})))}(n?l.fromRawTreeStateToRawState(e).blocks:r,t);var i=function(e,t){return e.map(E).reduce((function(n,r,i){Array.isArray(r.children)||b(!1,"invalid RawDraftContentBlock can not be converted to ContentBlockNode");var a=r.children.map(E),s=new c(o(o({},x(r,t)),{},{prevSibling:0===i?null:e[i-1].key,nextSibling:i===e.length-1?null:e[i+1].key,children:w(a.map((function(e){return e.key})))}));n=n.set(s.getKey(),s);for(var u=_([],a,s);u.length>0;){var l=u.pop(),f=l.parentRef,p=f.getChildKeys(),g=p.indexOf(l.key),d=Array.isArray(l.children);if(!d){d||b(!1,"invalid RawDraftContentBlock can not be converted to ContentBlockNode");break}var h=l.children.map(E),y=new c(o(o({},x(l,t)),{},{parent:f.getKey(),children:w(h.map((function(e){return e.key}))),prevSibling:0===g?null:p.get(g-1),nextSibling:g===p.size-1?null:p.get(g+1)}));n=n.set(y.getKey(),y),u=_(u,h,y)}return n}),C())}(r,t);return f.isValidTree(i)||b(!1,"Should be a valid tree"),i};e.exports=function(e){Array.isArray(e.blocks)||b(!1,"invalid RawDraftContentState");var t=function(e){var t=e.entityMap,n={};return Object.keys(t).forEach((function(e){var r=t[e],o=r.type,i=r.mutability,a=r.data;n[e]=u.__create(o,i,a||{})})),n}(e),n=T(e,t),r=n.isEmpty()?new p:p.createEmpty(n.first().getKey());return new s({blockMap:n,entityMap:t,selectionBefore:r,selectionAfter:r})}},function(e,t,n){"use strict";function r(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function o(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?r(Object(n),!0).forEach((function(t){i(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):r(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function i(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(9),c=n(1),s=function(e){if(!e||!e.type)return!1;var t=e.type;return"unordered-list-item"===t||"ordered-list-item"===t},u={fromRawTreeStateToRawState:function(e){var t=e.blocks,n=[];return Array.isArray(t)||c(!1,"Invalid raw state"),Array.isArray(t)&&t.length?(function(e,t){for(var n=[].concat(e).reverse();n.length;){var r=n.pop();t(r);var o=r.children;Array.isArray(o)||c(!1,"Invalid tree raw block"),n=n.concat([].concat(o.reverse()))}}(t,(function(e){var t=o({},e);s(e)&&(t.depth=t.depth||0,function(e){Array.isArray(e.children)&&(e.children=e.children.map((function(t){return t.type===e.type?o(o({},t),{},{depth:(e.depth||0)+1}):t})))}(e),null!=e.children&&e.children.length>0)||(delete t.children,n.push(t))})),e.blocks=n,o(o({},e),{},{blocks:n})):e},fromRawStateToRawTreeState:function(e){var t=[],n=[];return e.blocks.forEach((function(e){var r=s(e),i=e.depth||0,c=o(o({},e),{},{children:[]});if(r){var u=n[0];if(null==u&&0===i)t.push(c);else if(null==u||u.depth<i-1){var l={key:a(),text:"",depth:i-1,type:e.type,children:[],entityRanges:[],inlineStyleRanges:[]};n.unshift(l),1===i?t.push(l):null!=u&&u.children.push(l),l.children.push(c)}else if(u.depth===i-1)u.children.push(c);else{for(;null!=u&&u.depth>=i;)n.shift(),u=n[0];i>0?u.children.push(c):t.push(c)}}else t.push(c)})),o(o({},e),{},{blocks:t})}};e.exports=u},function(e,t,n){"use strict";var r=n(37),o={isValidBlock:function(e,t){var n=e.getKey(),o=e.getParentKey();if(null!=o&&!t.get(o).getChildKeys().includes(n))return r(!0,"Tree is missing parent -> child pointer on %s",n),!1;if(!e.getChildKeys().map((function(e){return t.get(e)})).every((function(e){return e.getParentKey()===n})))return r(!0,"Tree is missing child -> parent pointer on %s",n),!1;var i=e.getPrevSiblingKey();if(null!=i&&t.get(i).getNextSiblingKey()!==n)return r(!0,"Tree is missing nextSibling pointer on %s's prevSibling",n),!1;var a=e.getNextSiblingKey();if(null!=a&&t.get(a).getPrevSiblingKey()!==n)return r(!0,"Tree is missing prevSibling pointer on %s's nextSibling",n),!1;return null!==a&&null!==i&&i===a?(r(!0,"Tree has a two-node cycle at %s",n),!1):!(""!=e.text&&e.getChildKeys().size>0)||(r(!0,"Leaf node %s has children",n),!1)},isConnectedTree:function(e){var t=e.toArray().filter((function(e){return null==e.getParentKey()&&null==e.getPrevSiblingKey()}));if(1!==t.length)return r(!0,"Tree is not connected. More or less than one first node"),!1;for(var n=0,o=t.shift().getKey(),i=[];null!=o;){var a=e.get(o),c=a.getChildKeys(),s=a.getNextSiblingKey();if(c.size>0){null!=s&&i.unshift(s);var u=c.map((function(t){return e.get(t)})).find((function(e){return null==e.getPrevSiblingKey()}));if(null==u)return r(!0,"%s has no first child",o),!1;o=u.getKey()}else o=null!=a.getNextSiblingKey()?a.getNextSiblingKey():i.shift();n++}return n===e.size||(r(!0,"Tree is not connected. %s nodes were seen instead of %s",n,e.size),!1)},isValidTree:function(e){var t=this;return!!e.toArray().every((function(n){return t.isValidBlock(n,e)}))&&this.isConnectedTree(e)}};e.exports=o},function(e,t,n){"use strict";var r=n(5),o=n(0).List;e.exports=function(e,t){var n=e.map((function(e,n){var o=t[n];return r.create({style:e,entity:o})}));return o(n)}},function(e,t,n){"use strict";var r=n(16).substr;e.exports=function(e,t){var n=Array(e.length).fill(null);return t&&t.forEach((function(t){for(var o=r(e,0,t.offset).length,i=o+r(e,t.offset,t.length).length,a=o;a<i;a++)n[a]=t.key})),n}},function(e,t,n){"use strict";var r=n(16),o=n(0).OrderedSet,i=r.substr,a=o();e.exports=function(e,t){var n=Array(e.length).fill(a);return t&&t.forEach((function(t){for(var r=i(e,0,t.offset).length,o=r+i(e,t.offset,t.length).length;r<o;)n[r]=n[r].add(t.style),r++})),n}},function(e,t,n){"use strict";var r=n(177);e.exports=function(e){var t=e.getSelection();if(!t.rangeCount)return null;var n=t.getRangeAt(0),o=r(n),i=o.top,a=o.right,c=o.bottom,s=o.left;return 0===i&&0===a&&0===c&&0===s?null:o}},function(e,t,n){"use strict";var r=n(58);e.exports=function(e){var t=r(e),n=0,o=0,i=0,a=0;if(t.length){if(t.length>1&&0===t[0].width){var c=t[1];n=c.top,o=c.right,i=c.bottom,a=c.left}else{var s=t[0];n=s.top,o=s.right,i=s.bottom,a=s.left}for(var u=1;u<t.length;u++){var l=t[u];0!==l.height&&0!==l.width&&(n=Math.min(n,l.top),o=Math.max(o,l.right),i=Math.max(i,l.bottom),a=Math.min(a,l.left))}}return{top:n,right:o,bottom:i,left:a,width:o-a,height:i-n}}}])}));
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+/**
+ * Unicode-enabled replacesments for basic String functions.
+ *
+ * All the functions in this module assume that the input string is a valid
+ * UTF-16 encoding of a Unicode sequence. If it's not the case, the behavior
+ * will be undefined.
+ *
+ * WARNING: Since this module is typechecks-enforced, you may find new bugs
+ * when replacing normal String functions with ones provided here.
+ */
+
+
+var invariant = __webpack_require__(1); // These two ranges are consecutive so anything in [HIGH_START, LOW_END] is a
+// surrogate code unit.
+
+
+var SURROGATE_HIGH_START = 0xD800;
+var SURROGATE_HIGH_END = 0xDBFF;
+var SURROGATE_LOW_START = 0xDC00;
+var SURROGATE_LOW_END = 0xDFFF;
+var SURROGATE_UNITS_REGEX = /[\uD800-\uDFFF]/;
+/**
+ * @param {number} codeUnit   A Unicode code-unit, in range [0, 0x10FFFF]
+ * @return {boolean}          Whether code-unit is in a surrogate (hi/low) range
+ */
+
+function isCodeUnitInSurrogateRange(codeUnit) {
+  return SURROGATE_HIGH_START <= codeUnit && codeUnit <= SURROGATE_LOW_END;
+}
+/**
+ * Returns whether the two characters starting at `index` form a surrogate pair.
+ * For example, given the string s = "\uD83D\uDE0A", (s, 0) returns true and
+ * (s, 1) returns false.
+ *
+ * @param {string} str
+ * @param {number} index
+ * @return {boolean}
+ */
+
+
+function isSurrogatePair(str, index) {
+  !(0 <= index && index < str.length) ?  true ? invariant(false, 'isSurrogatePair: Invalid index %s for string length %s.', index, str.length) : invariant(false) : void 0;
+
+  if (index + 1 === str.length) {
+    return false;
+  }
+
+  var first = str.charCodeAt(index);
+  var second = str.charCodeAt(index + 1);
+  return SURROGATE_HIGH_START <= first && first <= SURROGATE_HIGH_END && SURROGATE_LOW_START <= second && second <= SURROGATE_LOW_END;
+}
+/**
+ * @param {string} str  Non-empty string
+ * @return {boolean}    True if the input includes any surrogate code units
+ */
+
+
+function hasSurrogateUnit(str) {
+  return SURROGATE_UNITS_REGEX.test(str);
+}
+/**
+ * Return the length of the original Unicode character at given position in the
+ * String by looking into the UTF-16 code unit; that is equal to 1 for any
+ * non-surrogate characters in BMP ([U+0000..U+D7FF] and [U+E000, U+FFFF]); and
+ * returns 2 for the hi/low surrogates ([U+D800..U+DFFF]), which are in fact
+ * representing non-BMP characters ([U+10000..U+10FFFF]).
+ *
+ * Examples:
+ * - '\u0020' => 1
+ * - '\u3020' => 1
+ * - '\uD835' => 2
+ * - '\uD835\uDDEF' => 2
+ * - '\uDDEF' => 2
+ *
+ * @param {string} str  Non-empty string
+ * @param {number} pos  Position in the string to look for one code unit
+ * @return {number}      Number 1 or 2
+ */
+
+
+function getUTF16Length(str, pos) {
+  return 1 + isCodeUnitInSurrogateRange(str.charCodeAt(pos));
+}
+/**
+ * Fully Unicode-enabled replacement for String#length
+ *
+ * @param {string} str  Valid Unicode string
+ * @return {number}     The number of Unicode characters in the string
+ */
+
+
+function strlen(str) {
+  // Call the native functions if there's no surrogate char
+  if (!hasSurrogateUnit(str)) {
+    return str.length;
+  }
+
+  var len = 0;
+
+  for (var pos = 0; pos < str.length; pos += getUTF16Length(str, pos)) {
+    len++;
+  }
+
+  return len;
+}
+/**
+ * Fully Unicode-enabled replacement for String#substr()
+ *
+ * @param {string} str      Valid Unicode string
+ * @param {number} start    Location in Unicode sequence to begin extracting
+ * @param {?number} length  The number of Unicode characters to extract
+ *                          (default: to the end of the string)
+ * @return {string}         Extracted sub-string
+ */
+
+
+function substr(str, start, length) {
+  start = start || 0;
+  length = length === undefined ? Infinity : length || 0; // Call the native functions if there's no surrogate char
+
+  if (!hasSurrogateUnit(str)) {
+    return str.substr(start, length);
+  } // Obvious cases
+
+
+  var size = str.length;
+
+  if (size <= 0 || start > size || length <= 0) {
+    return '';
+  } // Find the actual starting position
+
+
+  var posA = 0;
+
+  if (start > 0) {
+    for (; start > 0 && posA < size; start--) {
+      posA += getUTF16Length(str, posA);
+    }
+
+    if (posA >= size) {
+      return '';
+    }
+  } else if (start < 0) {
+    for (posA = size; start < 0 && 0 < posA; start++) {
+      posA -= getUTF16Length(str, posA - 1);
+    }
+
+    if (posA < 0) {
+      posA = 0;
+    }
+  } // Find the actual ending position
+
+
+  var posB = size;
+
+  if (length < size) {
+    for (posB = posA; length > 0 && posB < size; length--) {
+      posB += getUTF16Length(str, posB);
+    }
+  }
+
+  return str.substring(posA, posB);
+}
+/**
+ * Fully Unicode-enabled replacement for String#substring()
+ *
+ * @param {string} str    Valid Unicode string
+ * @param {number} start  Location in Unicode sequence to begin extracting
+ * @param {?number} end   Location in Unicode sequence to end extracting
+ *                        (default: end of the string)
+ * @return {string}       Extracted sub-string
+ */
+
+
+function substring(str, start, end) {
+  start = start || 0;
+  end = end === undefined ? Infinity : end || 0;
+
+  if (start < 0) {
+    start = 0;
+  }
+
+  if (end < 0) {
+    end = 0;
+  }
+
+  var length = Math.abs(end - start);
+  start = start < end ? start : end;
+  return substr(str, start, length);
+}
+/**
+ * Get a list of Unicode code-points from a String
+ *
+ * @param {string} str        Valid Unicode string
+ * @return {array<number>}    A list of code-points in [0..0x10FFFF]
+ */
+
+
+function getCodePoints(str) {
+  var codePoints = [];
+
+  for (var pos = 0; pos < str.length; pos += getUTF16Length(str, pos)) {
+    codePoints.push(str.codePointAt(pos));
+  }
+
+  return codePoints;
+}
+
+var UnicodeUtils = {
+  getCodePoints: getCodePoints,
+  getUTF16Length: getUTF16Length,
+  hasSurrogateUnit: hasSurrogateUnit,
+  isCodeUnitInSurrogateRange: isCodeUnitInSurrogateRange,
+  isSurrogatePair: isSurrogatePair,
+  strlen: strlen,
+  substring: substring,
+  substr: substr
+};
+module.exports = UnicodeUtils;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var asap = __webpack_require__(68);
+
+function noop() {}
+
+// States:
+//
+// 0 - pending
+// 1 - fulfilled with _value
+// 2 - rejected with _value
+// 3 - adopted the state of another promise, _value
+//
+// once the state is no longer pending (0) it is immutable
+
+// All `_` prefixed properties will be reduced to `_{random number}`
+// at build time to obfuscate them and discourage their use.
+// We don't use symbols or Object.defineProperty to fully hide them
+// because the performance isn't good enough.
+
+
+// to avoid using try/catch inside critical functions, we
+// extract them to here.
+var LAST_ERROR = null;
+var IS_ERROR = {};
+function getThen(obj) {
+  try {
+    return obj.then;
+  } catch (ex) {
+    LAST_ERROR = ex;
+    return IS_ERROR;
+  }
+}
+
+function tryCallOne(fn, a) {
+  try {
+    return fn(a);
+  } catch (ex) {
+    LAST_ERROR = ex;
+    return IS_ERROR;
+  }
+}
+function tryCallTwo(fn, a, b) {
+  try {
+    fn(a, b);
+  } catch (ex) {
+    LAST_ERROR = ex;
+    return IS_ERROR;
+  }
+}
+
+module.exports = Promise;
+
+function Promise(fn) {
+  if (typeof this !== 'object') {
+    throw new TypeError('Promises must be constructed via new');
+  }
+  if (typeof fn !== 'function') {
+    throw new TypeError('Promise constructor\'s argument is not a function');
+  }
+  this._40 = 0;
+  this._65 = 0;
+  this._55 = null;
+  this._72 = null;
+  if (fn === noop) return;
+  doResolve(fn, this);
+}
+Promise._37 = null;
+Promise._87 = null;
+Promise._61 = noop;
+
+Promise.prototype.then = function(onFulfilled, onRejected) {
+  if (this.constructor !== Promise) {
+    return safeThen(this, onFulfilled, onRejected);
+  }
+  var res = new Promise(noop);
+  handle(this, new Handler(onFulfilled, onRejected, res));
+  return res;
+};
+
+function safeThen(self, onFulfilled, onRejected) {
+  return new self.constructor(function (resolve, reject) {
+    var res = new Promise(noop);
+    res.then(resolve, reject);
+    handle(self, new Handler(onFulfilled, onRejected, res));
+  });
+}
+function handle(self, deferred) {
+  while (self._65 === 3) {
+    self = self._55;
+  }
+  if (Promise._37) {
+    Promise._37(self);
+  }
+  if (self._65 === 0) {
+    if (self._40 === 0) {
+      self._40 = 1;
+      self._72 = deferred;
+      return;
+    }
+    if (self._40 === 1) {
+      self._40 = 2;
+      self._72 = [self._72, deferred];
+      return;
+    }
+    self._72.push(deferred);
+    return;
+  }
+  handleResolved(self, deferred);
+}
+
+function handleResolved(self, deferred) {
+  asap(function() {
+    var cb = self._65 === 1 ? deferred.onFulfilled : deferred.onRejected;
+    if (cb === null) {
+      if (self._65 === 1) {
+        resolve(deferred.promise, self._55);
+      } else {
+        reject(deferred.promise, self._55);
+      }
+      return;
+    }
+    var ret = tryCallOne(cb, self._55);
+    if (ret === IS_ERROR) {
+      reject(deferred.promise, LAST_ERROR);
+    } else {
+      resolve(deferred.promise, ret);
+    }
+  });
+}
+function resolve(self, newValue) {
+  // Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
+  if (newValue === self) {
+    return reject(
+      self,
+      new TypeError('A promise cannot be resolved with itself.')
+    );
+  }
+  if (
+    newValue &&
+    (typeof newValue === 'object' || typeof newValue === 'function')
+  ) {
+    var then = getThen(newValue);
+    if (then === IS_ERROR) {
+      return reject(self, LAST_ERROR);
+    }
+    if (
+      then === self.then &&
+      newValue instanceof Promise
+    ) {
+      self._65 = 3;
+      self._55 = newValue;
+      finale(self);
+      return;
+    } else if (typeof then === 'function') {
+      doResolve(then.bind(newValue), self);
+      return;
+    }
+  }
+  self._65 = 1;
+  self._55 = newValue;
+  finale(self);
+}
+
+function reject(self, newValue) {
+  self._65 = 2;
+  self._55 = newValue;
+  if (Promise._87) {
+    Promise._87(self, newValue);
+  }
+  finale(self);
+}
+function finale(self) {
+  if (self._40 === 1) {
+    handle(self, self._72);
+    self._72 = null;
+  }
+  if (self._40 === 2) {
+    for (var i = 0; i < self._72.length; i++) {
+      handle(self, self._72[i]);
+    }
+    self._72 = null;
+  }
+}
+
+function Handler(onFulfilled, onRejected, promise){
+  this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
+  this.onRejected = typeof onRejected === 'function' ? onRejected : null;
+  this.promise = promise;
+}
+
+/**
+ * Take a potentially misbehaving resolver function and make sure
+ * onFulfilled and onRejected are only called once.
+ *
+ * Makes no guarantees about asynchrony.
+ */
+function doResolve(fn, promise) {
+  var done = false;
+  var res = tryCallTwo(fn, function (value) {
+    if (done) return;
+    done = true;
+    resolve(promise, value);
+  }, function (reason) {
+    if (done) return;
+    done = true;
+    reject(promise, reason);
+  });
+  if (!done && res === IS_ERROR) {
+    done = true;
+    reject(promise, LAST_ERROR);
+  }
+}
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var Immutable = __webpack_require__(0);
+
+var OrderedMap = Immutable.OrderedMap;
+var BlockMapBuilder = {
+  createFromArray: function createFromArray(blocks) {
+    return OrderedMap(blocks.map(function (block) {
+      return [block.getKey(), block];
+    }));
+  }
+};
+module.exports = BlockMapBuilder;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+/**
+ * Search through an array to find contiguous stretches of elements that
+ * match a specified filter function.
+ *
+ * When ranges are found, execute a specified `found` function to supply
+ * the values to the caller.
+ */
+function findRangesImmutable(haystack, areEqualFn, filterFn, foundFn) {
+  if (!haystack.size) {
+    return;
+  }
+
+  var cursor = 0;
+  haystack.reduce(function (value, nextValue, nextIndex) {
+    if (!areEqualFn(value, nextValue)) {
+      if (filterFn(value)) {
+        foundFn(cursor, nextIndex);
+      }
+
+      cursor = nextIndex;
+    }
+
+    return nextValue;
+  });
+  filterFn(haystack.last()) && foundFn(cursor, haystack.count());
+}
+
+module.exports = findRangesImmutable;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftModifier = __webpack_require__(3);
+
+var gkx = __webpack_require__(12);
+
+var experimentalTreeDataSupport = gkx('draft_tree_data_support');
+/**
+ * For a collapsed selection state, remove text based on the specified strategy.
+ * If the selection state is not collapsed, remove the entire selected range.
+ */
+
+function removeTextWithStrategy(editorState, strategy, direction) {
+  var selection = editorState.getSelection();
+  var content = editorState.getCurrentContent();
+  var target = selection;
+  var anchorKey = selection.getAnchorKey();
+  var focusKey = selection.getFocusKey();
+  var anchorBlock = content.getBlockForKey(anchorKey);
+
+  if (experimentalTreeDataSupport) {
+    if (direction === 'forward') {
+      if (anchorKey !== focusKey) {
+        // For now we ignore forward delete across blocks,
+        // if there is demand for this we will implement it.
+        return content;
+      }
+    }
+  }
+
+  if (selection.isCollapsed()) {
+    if (direction === 'forward') {
+      if (editorState.isSelectionAtEndOfContent()) {
+        return content;
+      }
+
+      if (experimentalTreeDataSupport) {
+        var isAtEndOfBlock = selection.getAnchorOffset() === content.getBlockForKey(anchorKey).getLength();
+
+        if (isAtEndOfBlock) {
+          var anchorBlockSibling = content.getBlockForKey(anchorBlock.nextSibling);
+
+          if (!anchorBlockSibling || anchorBlockSibling.getLength() === 0) {
+            // For now we ignore forward delete at the end of a block,
+            // if there is demand for this we will implement it.
+            return content;
+          }
+        }
+      }
+    } else if (editorState.isSelectionAtStartOfContent()) {
+      return content;
+    }
+
+    target = strategy(editorState);
+
+    if (target === selection) {
+      return content;
+    }
+  }
+
+  return DraftModifier.removeRange(content, target, direction);
+}
+
+module.exports = removeTextWithStrategy;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var randomizeBlockMapKeys = __webpack_require__(41);
+
+var removeEntitiesAtEdges = __webpack_require__(42);
+
+var getContentStateFragment = function getContentStateFragment(contentState, selectionState) {
+  var startKey = selectionState.getStartKey();
+  var startOffset = selectionState.getStartOffset();
+  var endKey = selectionState.getEndKey();
+  var endOffset = selectionState.getEndOffset(); // Edge entities should be stripped to ensure that we don't preserve
+  // invalid partial entities when the fragment is reused. We do, however,
+  // preserve entities that are entirely within the selection range.
+
+  var contentWithoutEdgeEntities = removeEntitiesAtEdges(contentState, selectionState);
+  var blockMap = contentWithoutEdgeEntities.getBlockMap();
+  var blockKeys = blockMap.keySeq();
+  var startIndex = blockKeys.indexOf(startKey);
+  var endIndex = blockKeys.indexOf(endKey) + 1;
+  return randomizeBlockMapKeys(blockMap.slice(startIndex, endIndex).map(function (block, blockKey) {
+    var text = block.getText();
+    var chars = block.getCharacterList();
+
+    if (startKey === endKey) {
+      return block.merge({
+        text: text.slice(startOffset, endOffset),
+        characterList: chars.slice(startOffset, endOffset)
+      });
+    }
+
+    if (blockKey === startKey) {
+      return block.merge({
+        text: text.slice(startOffset),
+        characterList: chars.slice(startOffset)
+      });
+    }
+
+    if (blockKey === endKey) {
+      return block.merge({
+        text: text.slice(0, endOffset),
+        characterList: chars.slice(0, endOffset)
+      });
+    }
+
+    return block;
+  }));
+};
+
+module.exports = getContentStateFragment;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+var DraftEntityInstance = __webpack_require__(46);
+
+var Immutable = __webpack_require__(0);
+
+var invariant = __webpack_require__(1);
+
+var Map = Immutable.Map;
+var instances = Map();
+var instanceKey = 0;
+/**
+ * Temporary utility for generating the warnings
+ */
+
+function logWarning(oldMethodCall, newMethodCall) {
+  console.warn('WARNING: ' + oldMethodCall + ' will be deprecated soon!\nPlease use "' + newMethodCall + '" instead.');
+}
+
+/**
+ * A "document entity" is an object containing metadata associated with a
+ * piece of text in a ContentBlock.
+ *
+ * For example, a `link` entity might include a `uri` property. When a
+ * ContentBlock is rendered in the browser, text that refers to that link
+ * entity may be rendered as an anchor, with the `uri` as the href value.
+ *
+ * In a ContentBlock, every position in the text may correspond to zero
+ * or one entities. This correspondence is tracked using a key string,
+ * generated via DraftEntity.create() and used to obtain entity metadata
+ * via DraftEntity.get().
+ */
+var DraftEntity = {
+  /**
+   * WARNING: This method will be deprecated soon!
+   * Please use 'contentState.getLastCreatedEntityKey' instead.
+   * ---
+   * Get the random key string from whatever entity was last created.
+   * We need this to support the new API, as part of transitioning to put Entity
+   * storage in contentState.
+   */
+  getLastCreatedEntityKey: function getLastCreatedEntityKey() {
+    logWarning('DraftEntity.getLastCreatedEntityKey', 'contentState.getLastCreatedEntityKey');
+    return DraftEntity.__getLastCreatedEntityKey();
+  },
+
+  /**
+   * WARNING: This method will be deprecated soon!
+   * Please use 'contentState.createEntity' instead.
+   * ---
+   * Create a DraftEntityInstance and store it for later retrieval.
+   *
+   * A random key string will be generated and returned. This key may
+   * be used to track the entity's usage in a ContentBlock, and for
+   * retrieving data about the entity at render time.
+   */
+  create: function create(type, mutability, data) {
+    logWarning('DraftEntity.create', 'contentState.createEntity');
+    return DraftEntity.__create(type, mutability, data);
+  },
+
+  /**
+   * WARNING: This method will be deprecated soon!
+   * Please use 'contentState.addEntity' instead.
+   * ---
+   * Add an existing DraftEntityInstance to the DraftEntity map. This is
+   * useful when restoring instances from the server.
+   */
+  add: function add(instance) {
+    logWarning('DraftEntity.add', 'contentState.addEntity');
+    return DraftEntity.__add(instance);
+  },
+
+  /**
+   * WARNING: This method will be deprecated soon!
+   * Please use 'contentState.getEntity' instead.
+   * ---
+   * Retrieve the entity corresponding to the supplied key string.
+   */
+  get: function get(key) {
+    logWarning('DraftEntity.get', 'contentState.getEntity');
+    return DraftEntity.__get(key);
+  },
+
+  /**
+   * WARNING: This method will be deprecated soon!
+   * Please use 'contentState.mergeEntityData' instead.
+   * ---
+   * Entity instances are immutable. If you need to update the data for an
+   * instance, this method will merge your data updates and return a new
+   * instance.
+   */
+  mergeData: function mergeData(key, toMerge) {
+    logWarning('DraftEntity.mergeData', 'contentState.mergeEntityData');
+    return DraftEntity.__mergeData(key, toMerge);
+  },
+
+  /**
+   * WARNING: This method will be deprecated soon!
+   * Please use 'contentState.replaceEntityData' instead.
+   * ---
+   * Completely replace the data for a given instance.
+   */
+  replaceData: function replaceData(key, newData) {
+    logWarning('DraftEntity.replaceData', 'contentState.replaceEntityData');
+    return DraftEntity.__replaceData(key, newData);
+  },
+  // ***********************************WARNING******************************
+  // --- the above public API will be deprecated in the next version of Draft!
+  // The methods below this line are private - don't call them directly.
+
+  /**
+   * Get the random key string from whatever entity was last created.
+   * We need this to support the new API, as part of transitioning to put Entity
+   * storage in contentState.
+   */
+  __getLastCreatedEntityKey: function __getLastCreatedEntityKey() {
+    return '' + instanceKey;
+  },
+
+  /**
+   * Create a DraftEntityInstance and store it for later retrieval.
+   *
+   * A random key string will be generated and returned. This key may
+   * be used to track the entity's usage in a ContentBlock, and for
+   * retrieving data about the entity at render time.
+   */
+  __create: function __create(type, mutability, data) {
+    return DraftEntity.__add(new DraftEntityInstance({
+      type: type,
+      mutability: mutability,
+      data: data || {}
+    }));
+  },
+
+  /**
+   * Add an existing DraftEntityInstance to the DraftEntity map. This is
+   * useful when restoring instances from the server.
+   */
+  __add: function __add(instance) {
+    var key = '' + ++instanceKey;
+    instances = instances.set(key, instance);
+    return key;
+  },
+
+  /**
+   * Retrieve the entity corresponding to the supplied key string.
+   */
+  __get: function __get(key) {
+    var instance = instances.get(key);
+    !!!instance ?  true ? invariant(false, 'Unknown DraftEntity key: %s.', key) : invariant(false) : void 0;
+    return instance;
+  },
+
+  /**
+   * Entity instances are immutable. If you need to update the data for an
+   * instance, this method will merge your data updates and return a new
+   * instance.
+   */
+  __mergeData: function __mergeData(key, toMerge) {
+    var instance = DraftEntity.__get(key);
+
+    var newData = _objectSpread({}, instance.getData(), {}, toMerge);
+
+    var newInstance = instance.set('data', newData);
+    instances = instances.set(key, newInstance);
+    return newInstance;
+  },
+
+  /**
+   * Completely replace the data for a given instance.
+   */
+  __replaceData: function __replaceData(key, newData) {
+    var instance = DraftEntity.__get(key);
+
+    var newInstance = instance.set('data', newData);
+    instances = instances.set(key, newInstance);
+    return newInstance;
+  }
+};
+module.exports = DraftEntity;
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var Immutable = __webpack_require__(0);
+
+var Record = Immutable.Record;
+var defaultRecord = {
+  anchorKey: '',
+  anchorOffset: 0,
+  focusKey: '',
+  focusOffset: 0,
+  isBackward: false,
+  hasFocus: false
+};
+/* $FlowFixMe This comment suppresses an error found when automatically adding
+ * a type annotation with the codemod Komodo/Annotate_exports. To see the error
+ * delete this comment and run Flow. */
+
+var SelectionStateRecord = Record(defaultRecord);
+
+var SelectionState =
+/*#__PURE__*/
+function (_SelectionStateRecord) {
+  _inheritsLoose(SelectionState, _SelectionStateRecord);
+
+  function SelectionState() {
+    return _SelectionStateRecord.apply(this, arguments) || this;
+  }
+
+  var _proto = SelectionState.prototype;
+
+  _proto.serialize = function serialize() {
+    return 'Anchor: ' + this.getAnchorKey() + ':' + this.getAnchorOffset() + ', ' + 'Focus: ' + this.getFocusKey() + ':' + this.getFocusOffset() + ', ' + 'Is Backward: ' + String(this.getIsBackward()) + ', ' + 'Has Focus: ' + String(this.getHasFocus());
+  };
+
+  _proto.getAnchorKey = function getAnchorKey() {
+    return this.get('anchorKey');
+  };
+
+  _proto.getAnchorOffset = function getAnchorOffset() {
+    return this.get('anchorOffset');
+  };
+
+  _proto.getFocusKey = function getFocusKey() {
+    return this.get('focusKey');
+  };
+
+  _proto.getFocusOffset = function getFocusOffset() {
+    return this.get('focusOffset');
+  };
+
+  _proto.getIsBackward = function getIsBackward() {
+    return this.get('isBackward');
+  };
+
+  _proto.getHasFocus = function getHasFocus() {
+    return this.get('hasFocus');
+  }
+  /**
+   * Return whether the specified range overlaps with an edge of the
+   * SelectionState.
+   */
+  ;
+
+  _proto.hasEdgeWithin = function hasEdgeWithin(blockKey, start, end) {
+    var anchorKey = this.getAnchorKey();
+    var focusKey = this.getFocusKey();
+
+    if (anchorKey === focusKey && anchorKey === blockKey) {
+      var selectionStart = this.getStartOffset();
+      var selectionEnd = this.getEndOffset();
+      return start <= selectionStart && selectionStart <= end || // selectionStart is between start and end, or
+      start <= selectionEnd && selectionEnd <= end // selectionEnd is between start and end
+      ;
+    }
+
+    if (blockKey !== anchorKey && blockKey !== focusKey) {
+      return false;
+    }
+
+    var offsetToCheck = blockKey === anchorKey ? this.getAnchorOffset() : this.getFocusOffset();
+    return start <= offsetToCheck && end >= offsetToCheck;
+  };
+
+  _proto.isCollapsed = function isCollapsed() {
+    return this.getAnchorKey() === this.getFocusKey() && this.getAnchorOffset() === this.getFocusOffset();
+  };
+
+  _proto.getStartKey = function getStartKey() {
+    return this.getIsBackward() ? this.getFocusKey() : this.getAnchorKey();
+  };
+
+  _proto.getStartOffset = function getStartOffset() {
+    return this.getIsBackward() ? this.getFocusOffset() : this.getAnchorOffset();
+  };
+
+  _proto.getEndKey = function getEndKey() {
+    return this.getIsBackward() ? this.getAnchorKey() : this.getFocusKey();
+  };
+
+  _proto.getEndOffset = function getEndOffset() {
+    return this.getIsBackward() ? this.getAnchorOffset() : this.getFocusOffset();
+  };
+
+  SelectionState.createEmpty = function createEmpty(key) {
+    return new SelectionState({
+      anchorKey: key,
+      anchorOffset: 0,
+      focusKey: key,
+      focusOffset: 0,
+      isBackward: false,
+      hasFocus: false
+    });
+  };
+
+  return SelectionState;
+}(SelectionStateRecord);
+
+module.exports = SelectionState;
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ * 
+ */
+
+/**
+ * Constants to represent text directionality
+ *
+ * Also defines a *global* direciton, to be used in bidi algorithms as a
+ * default fallback direciton, when no better direction is found or provided.
+ *
+ * NOTE: Use `setGlobalDir()`, or update `initGlobalDir()`, to set the initial
+ *       global direction value based on the application.
+ *
+ * Part of the implementation of Unicode Bidirectional Algorithm (UBA)
+ * Unicode Standard Annex #9 (UAX9)
+ * http://www.unicode.org/reports/tr9/
+ */
+
+
+var invariant = __webpack_require__(1);
+
+var NEUTRAL = 'NEUTRAL'; // No strong direction
+
+var LTR = 'LTR'; // Left-to-Right direction
+
+var RTL = 'RTL'; // Right-to-Left direction
+
+var globalDir = null; // == Helpers ==
+
+/**
+ * Check if a directionality value is a Strong one
+ */
+
+function isStrong(dir) {
+  return dir === LTR || dir === RTL;
+}
+/**
+ * Get string value to be used for `dir` HTML attribute or `direction` CSS
+ * property.
+ */
+
+
+function getHTMLDir(dir) {
+  !isStrong(dir) ?  true ? invariant(false, '`dir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
+  return dir === LTR ? 'ltr' : 'rtl';
+}
+/**
+ * Get string value to be used for `dir` HTML attribute or `direction` CSS
+ * property, but returns null if `dir` has same value as `otherDir`.
+ * `null`.
+ */
+
+
+function getHTMLDirIfDifferent(dir, otherDir) {
+  !isStrong(dir) ?  true ? invariant(false, '`dir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
+  !isStrong(otherDir) ?  true ? invariant(false, '`otherDir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
+  return dir === otherDir ? null : getHTMLDir(dir);
+} // == Global Direction ==
+
+/**
+ * Set the global direction.
+ */
+
+
+function setGlobalDir(dir) {
+  globalDir = dir;
+}
+/**
+ * Initialize the global direction
+ */
+
+
+function initGlobalDir() {
+  setGlobalDir(LTR);
+}
+/**
+ * Get the global direction
+ */
+
+
+function getGlobalDir() {
+  if (!globalDir) {
+    this.initGlobalDir();
+  }
+
+  !globalDir ?  true ? invariant(false, 'Global direction not set.') : invariant(false) : void 0;
+  return globalDir;
+}
+
+var UnicodeBidiDirection = {
+  // Values
+  NEUTRAL: NEUTRAL,
+  LTR: LTR,
+  RTL: RTL,
+  // Helpers
+  isStrong: isStrong,
+  getHTMLDir: getHTMLDir,
+  getHTMLDirIfDifferent: getHTMLDirIfDifferent,
+  // Global Direction
+  setGlobalDir: setGlobalDir,
+  initGlobalDir: initGlobalDir,
+  getGlobalDir: getGlobalDir
+};
+module.exports = UnicodeBidiDirection;
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var getSelectionOffsetKeyForNode = __webpack_require__(49);
+/**
+ * Get the key from the node's nearest offset-aware ancestor.
+ */
+
+
+function findAncestorOffsetKey(node) {
+  var searchNode = node;
+
+  while (searchNode && searchNode !== document.documentElement) {
+    var key = getSelectionOffsetKeyForNode(searchNode);
+
+    if (key != null) {
+      return key;
+    }
+
+    searchNode = searchNode.parentNode;
+  }
+
+  return null;
+}
+
+module.exports = findAncestorOffsetKey;
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+module.exports = {
+  BACKSPACE: 8,
+  TAB: 9,
+  RETURN: 13,
+  ALT: 18,
+  ESC: 27,
+  SPACE: 32,
+  PAGE_UP: 33,
+  PAGE_DOWN: 34,
+  END: 35,
+  HOME: 36,
+  LEFT: 37,
+  UP: 38,
+  RIGHT: 39,
+  DOWN: 40,
+  DELETE: 46,
+  COMMA: 188,
+  PERIOD: 190,
+  A: 65,
+  Z: 90,
+  ZERO: 48,
+  NUMPAD_0: 96,
+  NUMPAD_9: 105
+};
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_27__;
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+/**
+ * Utility method for determining whether or not the value returned
+ * from a handler indicates that it was handled.
+ */
+function isEventHandled(value) {
+  return value === 'handled' || value === true;
+}
+
+module.exports = isEventHandled;
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+var getStyleProperty = __webpack_require__(129);
+/**
+ * @param {DOMNode} element [description]
+ * @param {string} name Overflow style property name.
+ * @return {boolean} True if the supplied ndoe is scrollable.
+ */
+
+
+function _isNodeScrollable(element, name) {
+  var overflow = Style.get(element, name);
+  return overflow === 'auto' || overflow === 'scroll';
+}
+/**
+ * Utilities for querying and mutating style properties.
+ */
+
+
+var Style = {
+  /**
+   * Gets the style property for the supplied node. This will return either the
+   * computed style, if available, or the declared style.
+   *
+   * @param {DOMNode} node
+   * @param {string} name Style property name.
+   * @return {?string} Style property value.
+   */
+  get: getStyleProperty,
+
+  /**
+   * Determines the nearest ancestor of a node that is scrollable.
+   *
+   * NOTE: This can be expensive if used repeatedly or on a node nested deeply.
+   *
+   * @param {?DOMNode} node Node from which to start searching.
+   * @return {?DOMWindow|DOMElement} Scroll parent of the supplied node.
+   */
+  getScrollParent: function getScrollParent(node) {
+    if (!node) {
+      return null;
+    }
+
+    var ownerDocument = node.ownerDocument;
+
+    while (node && node !== ownerDocument.body) {
+      if (_isNodeScrollable(node, 'overflow') || _isNodeScrollable(node, 'overflowY') || _isNodeScrollable(node, 'overflowX')) {
+        return node;
+      }
+
+      node = node.parentNode;
+    }
+
+    return ownerDocument.defaultView || ownerDocument.parentWindow;
+  }
+};
+module.exports = Style;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+
+var getDocumentScrollElement = __webpack_require__(133);
+
+var getUnboundedScrollPosition = __webpack_require__(134);
+/**
+ * Gets the scroll position of the supplied element or window.
+ *
+ * The return values are bounded. This means that if the scroll position is
+ * negative or exceeds the element boundaries (which is possible using inertial
+ * scrolling), you will get zero or the maximum scroll position, respectively.
+ *
+ * If you need the unbound scroll position, use `getUnboundedScrollPosition`.
+ *
+ * @param {DOMWindow|DOMElement} scrollable
+ * @return {object} Map with `x` and `y` keys.
+ */
+
+
+function getScrollPosition(scrollable) {
+  var documentScrollElement = getDocumentScrollElement(scrollable.ownerDocument || scrollable.document);
+
+  if (scrollable.Window && scrollable instanceof scrollable.Window) {
+    scrollable = documentScrollElement;
+  }
+
+  var scrollPosition = getUnboundedScrollPosition(scrollable);
+  var viewport = scrollable === documentScrollElement ? scrollable.ownerDocument.documentElement : scrollable;
+  var xMax = scrollable.scrollWidth - viewport.clientWidth;
+  var yMax = scrollable.scrollHeight - viewport.clientHeight;
+  scrollPosition.x = Math.max(0, Math.min(scrollPosition.x, xMax));
+  scrollPosition.y = Math.max(0, Math.min(scrollPosition.y, yMax));
+  return scrollPosition;
+}
+
+module.exports = getScrollPosition;
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var BlockMapBuilder = __webpack_require__(18);
+
+var CharacterMetadata = __webpack_require__(5);
+
+var ContentBlock = __webpack_require__(13);
+
+var ContentBlockNode = __webpack_require__(6);
+
+var DraftEntity = __webpack_require__(22);
+
+var SelectionState = __webpack_require__(23);
+
+var generateRandomKey = __webpack_require__(9);
+
+var gkx = __webpack_require__(12);
+
+var Immutable = __webpack_require__(0);
+
+var sanitizeDraftText = __webpack_require__(47);
+
+var List = Immutable.List,
+    Record = Immutable.Record,
+    Repeat = Immutable.Repeat;
+var defaultRecord = {
+  entityMap: null,
+  blockMap: null,
+  selectionBefore: null,
+  selectionAfter: null
+};
+var ContentStateRecord = Record(defaultRecord);
+
+var ContentState =
+/*#__PURE__*/
+function (_ContentStateRecord) {
+  _inheritsLoose(ContentState, _ContentStateRecord);
+
+  function ContentState() {
+    return _ContentStateRecord.apply(this, arguments) || this;
+  }
+
+  var _proto = ContentState.prototype;
+
+  _proto.getEntityMap = function getEntityMap() {
+    // TODO: update this when we fully remove DraftEntity
+    return DraftEntity;
+  };
+
+  _proto.getBlockMap = function getBlockMap() {
+    return this.get('blockMap');
+  };
+
+  _proto.getSelectionBefore = function getSelectionBefore() {
+    return this.get('selectionBefore');
+  };
+
+  _proto.getSelectionAfter = function getSelectionAfter() {
+    return this.get('selectionAfter');
+  };
+
+  _proto.getBlockForKey = function getBlockForKey(key) {
+    var block = this.getBlockMap().get(key);
+    return block;
+  };
+
+  _proto.getKeyBefore = function getKeyBefore(key) {
+    return this.getBlockMap().reverse().keySeq().skipUntil(function (v) {
+      return v === key;
+    }).skip(1).first();
+  };
+
+  _proto.getKeyAfter = function getKeyAfter(key) {
+    return this.getBlockMap().keySeq().skipUntil(function (v) {
+      return v === key;
+    }).skip(1).first();
+  };
+
+  _proto.getBlockAfter = function getBlockAfter(key) {
+    return this.getBlockMap().skipUntil(function (_, k) {
+      return k === key;
+    }).skip(1).first();
+  };
+
+  _proto.getBlockBefore = function getBlockBefore(key) {
+    return this.getBlockMap().reverse().skipUntil(function (_, k) {
+      return k === key;
+    }).skip(1).first();
+  };
+
+  _proto.getBlocksAsArray = function getBlocksAsArray() {
+    return this.getBlockMap().toArray();
+  };
+
+  _proto.getFirstBlock = function getFirstBlock() {
+    return this.getBlockMap().first();
+  };
+
+  _proto.getLastBlock = function getLastBlock() {
+    return this.getBlockMap().last();
+  };
+
+  _proto.getPlainText = function getPlainText(delimiter) {
+    return this.getBlockMap().map(function (block) {
+      return block ? block.getText() : '';
+    }).join(delimiter || '\n');
+  };
+
+  _proto.getLastCreatedEntityKey = function getLastCreatedEntityKey() {
+    // TODO: update this when we fully remove DraftEntity
+    return DraftEntity.__getLastCreatedEntityKey();
+  };
+
+  _proto.hasText = function hasText() {
+    var blockMap = this.getBlockMap();
+    return blockMap.size > 1 || // make sure that there are no zero width space chars
+    escape(blockMap.first().getText()).replace(/%u200B/g, '').length > 0;
+  };
+
+  _proto.createEntity = function createEntity(type, mutability, data) {
+    // TODO: update this when we fully remove DraftEntity
+    DraftEntity.__create(type, mutability, data);
+
+    return this;
+  };
+
+  _proto.mergeEntityData = function mergeEntityData(key, toMerge) {
+    // TODO: update this when we fully remove DraftEntity
+    DraftEntity.__mergeData(key, toMerge);
+
+    return this;
+  };
+
+  _proto.replaceEntityData = function replaceEntityData(key, newData) {
+    // TODO: update this when we fully remove DraftEntity
+    DraftEntity.__replaceData(key, newData);
+
+    return this;
+  };
+
+  _proto.addEntity = function addEntity(instance) {
+    // TODO: update this when we fully remove DraftEntity
+    DraftEntity.__add(instance);
+
+    return this;
+  };
+
+  _proto.getEntity = function getEntity(key) {
+    // TODO: update this when we fully remove DraftEntity
+    return DraftEntity.__get(key);
+  };
+
+  ContentState.createFromBlockArray = function createFromBlockArray( // TODO: update flow type when we completely deprecate the old entity API
+  blocks, entityMap) {
+    // TODO: remove this when we completely deprecate the old entity API
+    var theBlocks = Array.isArray(blocks) ? blocks : blocks.contentBlocks;
+    var blockMap = BlockMapBuilder.createFromArray(theBlocks);
+    var selectionState = blockMap.isEmpty() ? new SelectionState() : SelectionState.createEmpty(blockMap.first().getKey());
+    return new ContentState({
+      blockMap: blockMap,
+      entityMap: entityMap || DraftEntity,
+      selectionBefore: selectionState,
+      selectionAfter: selectionState
+    });
+  };
+
+  ContentState.createFromText = function createFromText(text) {
+    var delimiter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : /\r\n?|\n/g;
+    var strings = text.split(delimiter);
+    var blocks = strings.map(function (block) {
+      block = sanitizeDraftText(block);
+      var ContentBlockNodeRecord = gkx('draft_tree_data_support') ? ContentBlockNode : ContentBlock;
+      return new ContentBlockNodeRecord({
+        key: generateRandomKey(),
+        text: block,
+        type: 'unstyled',
+        characterList: List(Repeat(CharacterMetadata.EMPTY, block.length))
+      });
+    });
+    return ContentState.createFromBlockArray(blocks);
+  };
+
+  return ContentState;
+}(ContentStateRecord);
+
+module.exports = ContentState;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ * 
+ */
+
+/**
+ * Basic (stateless) API for text direction detection
+ *
+ * Part of our implementation of Unicode Bidirectional Algorithm (UBA)
+ * Unicode Standard Annex #9 (UAX9)
+ * http://www.unicode.org/reports/tr9/
+ */
+
+
+var UnicodeBidiDirection = __webpack_require__(24);
+
+var invariant = __webpack_require__(1);
+
+/**
+ * RegExp ranges of characters with a *Strong* Bidi_Class value.
+ *
+ * Data is based on DerivedBidiClass.txt in UCD version 7.0.0.
+ *
+ * NOTE: For performance reasons, we only support Unicode's
+ *       Basic Multilingual Plane (BMP) for now.
+ */
+var RANGE_BY_BIDI_TYPE = {
+  L: "A-Za-z\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u01BA\u01BB" + "\u01BC-\u01BF\u01C0-\u01C3\u01C4-\u0293\u0294\u0295-\u02AF\u02B0-\u02B8" + "\u02BB-\u02C1\u02D0-\u02D1\u02E0-\u02E4\u02EE\u0370-\u0373\u0376-\u0377" + "\u037A\u037B-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1" + "\u03A3-\u03F5\u03F7-\u0481\u0482\u048A-\u052F\u0531-\u0556\u0559" + "\u055A-\u055F\u0561-\u0587\u0589\u0903\u0904-\u0939\u093B\u093D" + "\u093E-\u0940\u0949-\u094C\u094E-\u094F\u0950\u0958-\u0961\u0964-\u0965" + "\u0966-\u096F\u0970\u0971\u0972-\u0980\u0982-\u0983\u0985-\u098C" + "\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD" + "\u09BE-\u09C0\u09C7-\u09C8\u09CB-\u09CC\u09CE\u09D7\u09DC-\u09DD" + "\u09DF-\u09E1\u09E6-\u09EF\u09F0-\u09F1\u09F4-\u09F9\u09FA\u0A03" + "\u0A05-\u0A0A\u0A0F-\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32-\u0A33" + "\u0A35-\u0A36\u0A38-\u0A39\u0A3E-\u0A40\u0A59-\u0A5C\u0A5E\u0A66-\u0A6F" + "\u0A72-\u0A74\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0" + "\u0AB2-\u0AB3\u0AB5-\u0AB9\u0ABD\u0ABE-\u0AC0\u0AC9\u0ACB-\u0ACC\u0AD0" + "\u0AE0-\u0AE1\u0AE6-\u0AEF\u0AF0\u0B02-\u0B03\u0B05-\u0B0C\u0B0F-\u0B10" + "\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3D\u0B3E\u0B40" + "\u0B47-\u0B48\u0B4B-\u0B4C\u0B57\u0B5C-\u0B5D\u0B5F-\u0B61\u0B66-\u0B6F" + "\u0B70\u0B71\u0B72-\u0B77\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95" + "\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9" + "\u0BBE-\u0BBF\u0BC1-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCC\u0BD0\u0BD7" + "\u0BE6-\u0BEF\u0BF0-\u0BF2\u0C01-\u0C03\u0C05-\u0C0C\u0C0E-\u0C10" + "\u0C12-\u0C28\u0C2A-\u0C39\u0C3D\u0C41-\u0C44\u0C58-\u0C59\u0C60-\u0C61" + "\u0C66-\u0C6F\u0C7F\u0C82-\u0C83\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8" + "\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CBE\u0CBF\u0CC0-\u0CC4\u0CC6" + "\u0CC7-\u0CC8\u0CCA-\u0CCB\u0CD5-\u0CD6\u0CDE\u0CE0-\u0CE1\u0CE6-\u0CEF" + "\u0CF1-\u0CF2\u0D02-\u0D03\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D" + "\u0D3E-\u0D40\u0D46-\u0D48\u0D4A-\u0D4C\u0D4E\u0D57\u0D60-\u0D61" + "\u0D66-\u0D6F\u0D70-\u0D75\u0D79\u0D7A-\u0D7F\u0D82-\u0D83\u0D85-\u0D96" + "\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0DCF-\u0DD1\u0DD8-\u0DDF" + "\u0DE6-\u0DEF\u0DF2-\u0DF3\u0DF4\u0E01-\u0E30\u0E32-\u0E33\u0E40-\u0E45" + "\u0E46\u0E4F\u0E50-\u0E59\u0E5A-\u0E5B\u0E81-\u0E82\u0E84\u0E87-\u0E88" + "\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7" + "\u0EAA-\u0EAB\u0EAD-\u0EB0\u0EB2-\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6" + "\u0ED0-\u0ED9\u0EDC-\u0EDF\u0F00\u0F01-\u0F03\u0F04-\u0F12\u0F13\u0F14" + "\u0F15-\u0F17\u0F1A-\u0F1F\u0F20-\u0F29\u0F2A-\u0F33\u0F34\u0F36\u0F38" + "\u0F3E-\u0F3F\u0F40-\u0F47\u0F49-\u0F6C\u0F7F\u0F85\u0F88-\u0F8C" + "\u0FBE-\u0FC5\u0FC7-\u0FCC\u0FCE-\u0FCF\u0FD0-\u0FD4\u0FD5-\u0FD8" + "\u0FD9-\u0FDA\u1000-\u102A\u102B-\u102C\u1031\u1038\u103B-\u103C\u103F" + "\u1040-\u1049\u104A-\u104F\u1050-\u1055\u1056-\u1057\u105A-\u105D\u1061" + "\u1062-\u1064\u1065-\u1066\u1067-\u106D\u106E-\u1070\u1075-\u1081" + "\u1083-\u1084\u1087-\u108C\u108E\u108F\u1090-\u1099\u109A-\u109C" + "\u109E-\u109F\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FB\u10FC" + "\u10FD-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288" + "\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5" + "\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1360-\u1368" + "\u1369-\u137C\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166D-\u166E" + "\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EB-\u16ED\u16EE-\u16F0" + "\u16F1-\u16F8\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1735-\u1736" + "\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17B6\u17BE-\u17C5" + "\u17C7-\u17C8\u17D4-\u17D6\u17D7\u17D8-\u17DA\u17DC\u17E0-\u17E9" + "\u1810-\u1819\u1820-\u1842\u1843\u1844-\u1877\u1880-\u18A8\u18AA" + "\u18B0-\u18F5\u1900-\u191E\u1923-\u1926\u1929-\u192B\u1930-\u1931" + "\u1933-\u1938\u1946-\u194F\u1950-\u196D\u1970-\u1974\u1980-\u19AB" + "\u19B0-\u19C0\u19C1-\u19C7\u19C8-\u19C9\u19D0-\u19D9\u19DA\u1A00-\u1A16" + "\u1A19-\u1A1A\u1A1E-\u1A1F\u1A20-\u1A54\u1A55\u1A57\u1A61\u1A63-\u1A64" + "\u1A6D-\u1A72\u1A80-\u1A89\u1A90-\u1A99\u1AA0-\u1AA6\u1AA7\u1AA8-\u1AAD" + "\u1B04\u1B05-\u1B33\u1B35\u1B3B\u1B3D-\u1B41\u1B43-\u1B44\u1B45-\u1B4B" + "\u1B50-\u1B59\u1B5A-\u1B60\u1B61-\u1B6A\u1B74-\u1B7C\u1B82\u1B83-\u1BA0" + "\u1BA1\u1BA6-\u1BA7\u1BAA\u1BAE-\u1BAF\u1BB0-\u1BB9\u1BBA-\u1BE5\u1BE7" + "\u1BEA-\u1BEC\u1BEE\u1BF2-\u1BF3\u1BFC-\u1BFF\u1C00-\u1C23\u1C24-\u1C2B" + "\u1C34-\u1C35\u1C3B-\u1C3F\u1C40-\u1C49\u1C4D-\u1C4F\u1C50-\u1C59" + "\u1C5A-\u1C77\u1C78-\u1C7D\u1C7E-\u1C7F\u1CC0-\u1CC7\u1CD3\u1CE1" + "\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF2-\u1CF3\u1CF5-\u1CF6\u1D00-\u1D2B" + "\u1D2C-\u1D6A\u1D6B-\u1D77\u1D78\u1D79-\u1D9A\u1D9B-\u1DBF\u1E00-\u1F15" + "\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D" + "\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC" + "\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u200E" + "\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D" + "\u2124\u2126\u2128\u212A-\u212D\u212F-\u2134\u2135-\u2138\u2139" + "\u213C-\u213F\u2145-\u2149\u214E\u214F\u2160-\u2182\u2183-\u2184" + "\u2185-\u2188\u2336-\u237A\u2395\u249C-\u24E9\u26AC\u2800-\u28FF" + "\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2C7B\u2C7C-\u2C7D\u2C7E-\u2CE4" + "\u2CEB-\u2CEE\u2CF2-\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F" + "\u2D70\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE" + "\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u3005\u3006\u3007" + "\u3021-\u3029\u302E-\u302F\u3031-\u3035\u3038-\u303A\u303B\u303C" + "\u3041-\u3096\u309D-\u309E\u309F\u30A1-\u30FA\u30FC-\u30FE\u30FF" + "\u3105-\u312D\u3131-\u318E\u3190-\u3191\u3192-\u3195\u3196-\u319F" + "\u31A0-\u31BA\u31F0-\u31FF\u3200-\u321C\u3220-\u3229\u322A-\u3247" + "\u3248-\u324F\u3260-\u327B\u327F\u3280-\u3289\u328A-\u32B0\u32C0-\u32CB" + "\u32D0-\u32FE\u3300-\u3376\u337B-\u33DD\u33E0-\u33FE\u3400-\u4DB5" + "\u4E00-\u9FCC\uA000-\uA014\uA015\uA016-\uA48C\uA4D0-\uA4F7\uA4F8-\uA4FD" + "\uA4FE-\uA4FF\uA500-\uA60B\uA60C\uA610-\uA61F\uA620-\uA629\uA62A-\uA62B" + "\uA640-\uA66D\uA66E\uA680-\uA69B\uA69C-\uA69D\uA6A0-\uA6E5\uA6E6-\uA6EF" + "\uA6F2-\uA6F7\uA722-\uA76F\uA770\uA771-\uA787\uA789-\uA78A\uA78B-\uA78E" + "\uA790-\uA7AD\uA7B0-\uA7B1\uA7F7\uA7F8-\uA7F9\uA7FA\uA7FB-\uA801" + "\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA823-\uA824\uA827\uA830-\uA835" + "\uA836-\uA837\uA840-\uA873\uA880-\uA881\uA882-\uA8B3\uA8B4-\uA8C3" + "\uA8CE-\uA8CF\uA8D0-\uA8D9\uA8F2-\uA8F7\uA8F8-\uA8FA\uA8FB\uA900-\uA909" + "\uA90A-\uA925\uA92E-\uA92F\uA930-\uA946\uA952-\uA953\uA95F\uA960-\uA97C" + "\uA983\uA984-\uA9B2\uA9B4-\uA9B5\uA9BA-\uA9BB\uA9BD-\uA9C0\uA9C1-\uA9CD" + "\uA9CF\uA9D0-\uA9D9\uA9DE-\uA9DF\uA9E0-\uA9E4\uA9E6\uA9E7-\uA9EF" + "\uA9F0-\uA9F9\uA9FA-\uA9FE\uAA00-\uAA28\uAA2F-\uAA30\uAA33-\uAA34" + "\uAA40-\uAA42\uAA44-\uAA4B\uAA4D\uAA50-\uAA59\uAA5C-\uAA5F\uAA60-\uAA6F" + "\uAA70\uAA71-\uAA76\uAA77-\uAA79\uAA7A\uAA7B\uAA7D\uAA7E-\uAAAF\uAAB1" + "\uAAB5-\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADC\uAADD\uAADE-\uAADF" + "\uAAE0-\uAAEA\uAAEB\uAAEE-\uAAEF\uAAF0-\uAAF1\uAAF2\uAAF3-\uAAF4\uAAF5" + "\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E" + "\uAB30-\uAB5A\uAB5B\uAB5C-\uAB5F\uAB64-\uAB65\uABC0-\uABE2\uABE3-\uABE4" + "\uABE6-\uABE7\uABE9-\uABEA\uABEB\uABEC\uABF0-\uABF9\uAC00-\uD7A3" + "\uD7B0-\uD7C6\uD7CB-\uD7FB\uE000-\uF8FF\uF900-\uFA6D\uFA70-\uFAD9" + "\uFB00-\uFB06\uFB13-\uFB17\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFF6F\uFF70" + "\uFF71-\uFF9D\uFF9E-\uFF9F\uFFA0-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF" + "\uFFD2-\uFFD7\uFFDA-\uFFDC",
+  R: "\u0590\u05BE\u05C0\u05C3\u05C6\u05C8-\u05CF\u05D0-\u05EA\u05EB-\u05EF" + "\u05F0-\u05F2\u05F3-\u05F4\u05F5-\u05FF\u07C0-\u07C9\u07CA-\u07EA" + "\u07F4-\u07F5\u07FA\u07FB-\u07FF\u0800-\u0815\u081A\u0824\u0828" + "\u082E-\u082F\u0830-\u083E\u083F\u0840-\u0858\u085C-\u085D\u085E" + "\u085F-\u089F\u200F\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB37\uFB38-\uFB3C" + "\uFB3D\uFB3E\uFB3F\uFB40-\uFB41\uFB42\uFB43-\uFB44\uFB45\uFB46-\uFB4F",
+  AL: "\u0608\u060B\u060D\u061B\u061C\u061D\u061E-\u061F\u0620-\u063F\u0640" + "\u0641-\u064A\u066D\u066E-\u066F\u0671-\u06D3\u06D4\u06D5\u06E5-\u06E6" + "\u06EE-\u06EF\u06FA-\u06FC\u06FD-\u06FE\u06FF\u0700-\u070D\u070E\u070F" + "\u0710\u0712-\u072F\u074B-\u074C\u074D-\u07A5\u07B1\u07B2-\u07BF" + "\u08A0-\u08B2\u08B3-\u08E3\uFB50-\uFBB1\uFBB2-\uFBC1\uFBC2-\uFBD2" + "\uFBD3-\uFD3D\uFD40-\uFD4F\uFD50-\uFD8F\uFD90-\uFD91\uFD92-\uFDC7" + "\uFDC8-\uFDCF\uFDF0-\uFDFB\uFDFC\uFDFE-\uFDFF\uFE70-\uFE74\uFE75" + "\uFE76-\uFEFC\uFEFD-\uFEFE"
+};
+var REGEX_STRONG = new RegExp('[' + RANGE_BY_BIDI_TYPE.L + RANGE_BY_BIDI_TYPE.R + RANGE_BY_BIDI_TYPE.AL + ']');
+var REGEX_RTL = new RegExp('[' + RANGE_BY_BIDI_TYPE.R + RANGE_BY_BIDI_TYPE.AL + ']');
+/**
+ * Returns the first strong character (has Bidi_Class value of L, R, or AL).
+ *
+ * @param str  A text block; e.g. paragraph, table cell, tag
+ * @return     A character with strong bidi direction, or null if not found
+ */
+
+function firstStrongChar(str) {
+  var match = REGEX_STRONG.exec(str);
+  return match == null ? null : match[0];
+}
+/**
+ * Returns the direction of a block of text, based on the direction of its
+ * first strong character (has Bidi_Class value of L, R, or AL).
+ *
+ * @param str  A text block; e.g. paragraph, table cell, tag
+ * @return     The resolved direction
+ */
+
+
+function firstStrongCharDir(str) {
+  var strongChar = firstStrongChar(str);
+
+  if (strongChar == null) {
+    return UnicodeBidiDirection.NEUTRAL;
+  }
+
+  return REGEX_RTL.exec(strongChar) ? UnicodeBidiDirection.RTL : UnicodeBidiDirection.LTR;
+}
+/**
+ * Returns the direction of a block of text, based on the direction of its
+ * first strong character (has Bidi_Class value of L, R, or AL), or a fallback
+ * direction, if no strong character is found.
+ *
+ * This function is supposed to be used in respect to Higher-Level Protocol
+ * rule HL1. (http://www.unicode.org/reports/tr9/#HL1)
+ *
+ * @param str       A text block; e.g. paragraph, table cell, tag
+ * @param fallback  Fallback direction, used if no strong direction detected
+ *                  for the block (default = NEUTRAL)
+ * @return          The resolved direction
+ */
+
+
+function resolveBlockDir(str, fallback) {
+  fallback = fallback || UnicodeBidiDirection.NEUTRAL;
+
+  if (!str.length) {
+    return fallback;
+  }
+
+  var blockDir = firstStrongCharDir(str);
+  return blockDir === UnicodeBidiDirection.NEUTRAL ? fallback : blockDir;
+}
+/**
+ * Returns the direction of a block of text, based on the direction of its
+ * first strong character (has Bidi_Class value of L, R, or AL), or a fallback
+ * direction, if no strong character is found.
+ *
+ * NOTE: This function is similar to resolveBlockDir(), but uses the global
+ * direction as the fallback, so it *always* returns a Strong direction,
+ * making it useful for integration in places that you need to make the final
+ * decision, like setting some CSS class.
+ *
+ * This function is supposed to be used in respect to Higher-Level Protocol
+ * rule HL1. (http://www.unicode.org/reports/tr9/#HL1)
+ *
+ * @param str             A text block; e.g. paragraph, table cell
+ * @param strongFallback  Fallback direction, used if no strong direction
+ *                        detected for the block (default = global direction)
+ * @return                The resolved Strong direction
+ */
+
+
+function getDirection(str, strongFallback) {
+  if (!strongFallback) {
+    strongFallback = UnicodeBidiDirection.getGlobalDir();
+  }
+
+  !UnicodeBidiDirection.isStrong(strongFallback) ?  true ? invariant(false, 'Fallback direction must be a strong direction') : invariant(false) : void 0;
+  return resolveBlockDir(str, strongFallback);
+}
+/**
+ * Returns true if getDirection(arguments...) returns LTR.
+ *
+ * @param str             A text block; e.g. paragraph, table cell
+ * @param strongFallback  Fallback direction, used if no strong direction
+ *                        detected for the block (default = global direction)
+ * @return                True if the resolved direction is LTR
+ */
+
+
+function isDirectionLTR(str, strongFallback) {
+  return getDirection(str, strongFallback) === UnicodeBidiDirection.LTR;
+}
+/**
+ * Returns true if getDirection(arguments...) returns RTL.
+ *
+ * @param str             A text block; e.g. paragraph, table cell
+ * @param strongFallback  Fallback direction, used if no strong direction
+ *                        detected for the block (default = global direction)
+ * @return                True if the resolved direction is RTL
+ */
+
+
+function isDirectionRTL(str, strongFallback) {
+  return getDirection(str, strongFallback) === UnicodeBidiDirection.RTL;
+}
+
+var UnicodeBidi = {
+  firstStrongChar: firstStrongChar,
+  firstStrongCharDir: firstStrongCharDir,
+  resolveBlockDir: resolveBlockDir,
+  getDirection: getDirection,
+  isDirectionLTR: isDirectionLTR,
+  isDirectionRTL: isDirectionRTL
+};
+module.exports = UnicodeBidi;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var React = __webpack_require__(8);
+
+var cx = __webpack_require__(14);
+
+var _require = __webpack_require__(0),
+    Map = _require.Map;
+
+var UL_WRAP = React.createElement("ul", {
+  className: cx('public/DraftStyleDefault/ul')
+});
+var OL_WRAP = React.createElement("ol", {
+  className: cx('public/DraftStyleDefault/ol')
+});
+var PRE_WRAP = React.createElement("pre", {
+  className: cx('public/DraftStyleDefault/pre')
+});
+var DefaultDraftBlockRenderMap = Map({
+  'header-one': {
+    element: 'h1'
+  },
+  'header-two': {
+    element: 'h2'
+  },
+  'header-three': {
+    element: 'h3'
+  },
+  'header-four': {
+    element: 'h4'
+  },
+  'header-five': {
+    element: 'h5'
+  },
+  'header-six': {
+    element: 'h6'
+  },
+  'unordered-list-item': {
+    element: 'li',
+    wrapper: UL_WRAP
+  },
+  'ordered-list-item': {
+    element: 'li',
+    wrapper: OL_WRAP
+  },
+  blockquote: {
+    element: 'blockquote'
+  },
+  atomic: {
+    element: 'figure'
+  },
+  'code-block': {
+    element: 'pre',
+    wrapper: PRE_WRAP
+  },
+  unstyled: {
+    element: 'div',
+    aliasedElements: ['p']
+  }
+});
+module.exports = DefaultDraftBlockRenderMap;
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+/**
+ * Return the entity key that should be used when inserting text for the
+ * specified target selection, only if the entity is `MUTABLE`. `IMMUTABLE`
+ * and `SEGMENTED` entities should not be used for insertion behavior.
+ */
+function getEntityKeyForSelection(contentState, targetSelection) {
+  var entityKey;
+
+  if (targetSelection.isCollapsed()) {
+    var key = targetSelection.getAnchorKey();
+    var offset = targetSelection.getAnchorOffset();
+
+    if (offset > 0) {
+      entityKey = contentState.getBlockForKey(key).getEntityAt(offset - 1);
+
+      if (entityKey !== contentState.getBlockForKey(key).getEntityAt(offset)) {
+        return null;
+      }
+
+      return filterKey(contentState.getEntityMap(), entityKey);
+    }
+
+    return null;
+  }
+
+  var startKey = targetSelection.getStartKey();
+  var startOffset = targetSelection.getStartOffset();
+  var startBlock = contentState.getBlockForKey(startKey);
+  entityKey = startOffset === startBlock.getLength() ? null : startBlock.getEntityAt(startOffset);
+  return filterKey(contentState.getEntityMap(), entityKey);
+}
+/**
+ * Determine whether an entity key corresponds to a `MUTABLE` entity. If so,
+ * return it. If not, return null.
+ */
+
+
+function filterKey(entityMap, entityKey) {
+  if (entityKey) {
+    var entity = entityMap.__get(entityKey);
+
+    return entity.getMutability() === 'MUTABLE' ? entityKey : null;
+  }
+
+  return null;
+}
+
+module.exports = getEntityKeyForSelection;
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var UserAgent = __webpack_require__(7);
+
+var isSoftNewlineEvent = __webpack_require__(106);
+
+var isOSX = UserAgent.isPlatform('Mac OS X');
+var KeyBindingUtil = {
+  /**
+   * Check whether the ctrlKey modifier is *not* being used in conjunction with
+   * the altKey modifier. If they are combined, the result is an `altGraph`
+   * key modifier, which should not be handled by this set of key bindings.
+   */
+  isCtrlKeyCommand: function isCtrlKeyCommand(e) {
+    return !!e.ctrlKey && !e.altKey;
+  },
+  isOptionKeyCommand: function isOptionKeyCommand(e) {
+    return isOSX && e.altKey;
+  },
+  usesMacOSHeuristics: function usesMacOSHeuristics() {
+    return isOSX;
+  },
+  hasCommandModifier: function hasCommandModifier(e) {
+    return isOSX ? !!e.metaKey && !e.altKey : KeyBindingUtil.isCtrlKeyCommand(e);
+  },
+  isSoftNewlineEvent: isSoftNewlineEvent
+};
+module.exports = KeyBindingUtil;
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var warning = __webpack_require__(37);
+/**
+ * Given a collapsed selection, move the focus `maxDistance` backward within
+ * the selected block. If the selection will go beyond the start of the block,
+ * move focus to the end of the previous block, but no further.
+ *
+ * This function is not Unicode-aware, so surrogate pairs will be treated
+ * as having length 2.
+ */
+
+
+function moveSelectionBackward(editorState, maxDistance) {
+  var selection = editorState.getSelection(); // Should eventually make this an invariant
+
+   true ? warning(selection.isCollapsed(), 'moveSelectionBackward should only be called with a collapsed SelectionState') : void 0;
+  var content = editorState.getCurrentContent();
+  var key = selection.getStartKey();
+  var offset = selection.getStartOffset();
+  var focusKey = key;
+  var focusOffset = 0;
+
+  if (maxDistance > offset) {
+    var keyBefore = content.getKeyBefore(key);
+
+    if (keyBefore == null) {
+      focusKey = key;
+    } else {
+      focusKey = keyBefore;
+      var blockBefore = content.getBlockForKey(keyBefore);
+      focusOffset = blockBefore.getText().length;
+    }
+  } else {
+    focusOffset = offset - maxDistance;
+  }
+
+  return selection.merge({
+    focusKey: focusKey,
+    focusOffset: focusOffset,
+    isBackward: true
+  });
+}
+
+module.exports = moveSelectionBackward;
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+var emptyFunction = __webpack_require__(59);
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+
+function printWarning(format) {
+  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+
+  var argIndex = 0;
+  var message = 'Warning: ' + format.replace(/%s/g, function () {
+    return args[argIndex++];
+  });
+
+  if (typeof console !== 'undefined') {
+    console.error(message);
+  }
+
+  try {
+    // --- Welcome to debugging React ---
+    // This error was thrown as a convenience so that you can use this stack
+    // to find the callsite that caused this warning to fire.
+    throw new Error(message);
+  } catch (x) {}
+}
+
+var warning =  true ? function (condition, format) {
+  if (format === undefined) {
+    throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+  }
+
+  if (!condition) {
+    for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+      args[_key2 - 2] = arguments[_key2];
+    }
+
+    printWarning.apply(void 0, [format].concat(args));
+  }
+} : emptyFunction;
+module.exports = warning;
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var EditorState = __webpack_require__(2);
+
+var UnicodeUtils = __webpack_require__(16);
+
+var moveSelectionBackward = __webpack_require__(36);
+
+var removeTextWithStrategy = __webpack_require__(20);
+/**
+ * Remove the selected range. If the cursor is collapsed, remove the preceding
+ * character. This operation is Unicode-aware, so removing a single character
+ * will remove a surrogate pair properly as well.
+ */
+
+
+function keyCommandPlainBackspace(editorState) {
+  var afterRemoval = removeTextWithStrategy(editorState, function (strategyState) {
+    var selection = strategyState.getSelection();
+    var content = strategyState.getCurrentContent();
+    var key = selection.getAnchorKey();
+    var offset = selection.getAnchorOffset();
+    var charBehind = content.getBlockForKey(key).getText()[offset - 1];
+    return moveSelectionBackward(strategyState, charBehind ? UnicodeUtils.getUTF16Length(charBehind, 0) : 1);
+  }, 'backward');
+
+  if (afterRemoval === editorState.getCurrentContent()) {
+    return editorState;
+  }
+
+  var selection = editorState.getSelection();
+  return EditorState.push(editorState, afterRemoval.set('selectionBefore', selection), selection.isCollapsed() ? 'backspace-character' : 'remove-range');
+}
+
+module.exports = keyCommandPlainBackspace;
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+var isTextNode = __webpack_require__(127);
+/*eslint-disable no-bitwise */
+
+/**
+ * Checks if a given DOM node contains or is another DOM node.
+ */
+
+
+function containsNode(outerNode, innerNode) {
+  if (!outerNode || !innerNode) {
+    return false;
+  } else if (outerNode === innerNode) {
+    return true;
+  } else if (isTextNode(outerNode)) {
+    return false;
+  } else if (isTextNode(innerNode)) {
+    return containsNode(outerNode, innerNode.parentNode);
+  } else if ('contains' in outerNode) {
+    return outerNode.contains(innerNode);
+  } else if (outerNode.compareDocumentPosition) {
+    return !!(outerNode.compareDocumentPosition(innerNode) & 16);
+  } else {
+    return false;
+  }
+}
+
+module.exports = containsNode;
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+/**
+ * @param {DOMElement} element
+ * @param {DOMDocument} doc
+ * @return {boolean}
+ */
+function _isViewportScrollElement(element, doc) {
+  return !!doc && (element === doc.documentElement || element === doc.body);
+}
+/**
+ * Scroll Module. This class contains 4 simple static functions
+ * to be used to access Element.scrollTop/scrollLeft properties.
+ * To solve the inconsistencies between browsers when either
+ * document.body or document.documentElement is supplied,
+ * below logic will be used to alleviate the issue:
+ *
+ * 1. If 'element' is either 'document.body' or 'document.documentElement,
+ *    get whichever element's 'scroll{Top,Left}' is larger.
+ * 2. If 'element' is either 'document.body' or 'document.documentElement',
+ *    set the 'scroll{Top,Left}' on both elements.
+ */
+
+
+var Scroll = {
+  /**
+   * @param {DOMElement} element
+   * @return {number}
+   */
+  getTop: function getTop(element) {
+    var doc = element.ownerDocument;
+    return _isViewportScrollElement(element, doc) ? // In practice, they will either both have the same value,
+    // or one will be zero and the other will be the scroll position
+    // of the viewport. So we can use `X || Y` instead of `Math.max(X, Y)`
+    doc.body.scrollTop || doc.documentElement.scrollTop : element.scrollTop;
+  },
+
+  /**
+   * @param {DOMElement} element
+   * @param {number} newTop
+   */
+  setTop: function setTop(element, newTop) {
+    var doc = element.ownerDocument;
+
+    if (_isViewportScrollElement(element, doc)) {
+      doc.body.scrollTop = doc.documentElement.scrollTop = newTop;
+    } else {
+      element.scrollTop = newTop;
+    }
+  },
+
+  /**
+   * @param {DOMElement} element
+   * @return {number}
+   */
+  getLeft: function getLeft(element) {
+    var doc = element.ownerDocument;
+    return _isViewportScrollElement(element, doc) ? doc.body.scrollLeft || doc.documentElement.scrollLeft : element.scrollLeft;
+  },
+
+  /**
+   * @param {DOMElement} element
+   * @param {number} newLeft
+   */
+  setLeft: function setLeft(element, newLeft) {
+    var doc = element.ownerDocument;
+
+    if (_isViewportScrollElement(element, doc)) {
+      doc.body.scrollLeft = doc.documentElement.scrollLeft = newLeft;
+    } else {
+      element.scrollLeft = newLeft;
+    }
+  }
+};
+module.exports = Scroll;
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var ContentBlockNode = __webpack_require__(6);
+
+var generateRandomKey = __webpack_require__(9);
+
+var Immutable = __webpack_require__(0);
+
+var OrderedMap = Immutable.OrderedMap;
+
+var randomizeContentBlockNodeKeys = function randomizeContentBlockNodeKeys(blockMap) {
+  var newKeysRef = {}; // we keep track of root blocks in order to update subsequent sibling links
+
+  var lastRootBlock;
+  return OrderedMap(blockMap.withMutations(function (blockMapState) {
+    blockMapState.forEach(function (block, index) {
+      var oldKey = block.getKey();
+      var nextKey = block.getNextSiblingKey();
+      var prevKey = block.getPrevSiblingKey();
+      var childrenKeys = block.getChildKeys();
+      var parentKey = block.getParentKey(); // new key that we will use to build linking
+
+      var key = generateRandomKey(); // we will add it here to re-use it later
+
+      newKeysRef[oldKey] = key;
+
+      if (nextKey) {
+        var nextBlock = blockMapState.get(nextKey);
+
+        if (nextBlock) {
+          blockMapState.setIn([nextKey, 'prevSibling'], key);
+        } else {
+          // this can happen when generating random keys for fragments
+          blockMapState.setIn([oldKey, 'nextSibling'], null);
+        }
+      }
+
+      if (prevKey) {
+        var prevBlock = blockMapState.get(prevKey);
+
+        if (prevBlock) {
+          blockMapState.setIn([prevKey, 'nextSibling'], key);
+        } else {
+          // this can happen when generating random keys for fragments
+          blockMapState.setIn([oldKey, 'prevSibling'], null);
+        }
+      }
+
+      if (parentKey && blockMapState.get(parentKey)) {
+        var parentBlock = blockMapState.get(parentKey);
+        var parentChildrenList = parentBlock.getChildKeys();
+        blockMapState.setIn([parentKey, 'children'], parentChildrenList.set(parentChildrenList.indexOf(block.getKey()), key));
+      } else {
+        // blocks will then be treated as root block nodes
+        blockMapState.setIn([oldKey, 'parent'], null);
+
+        if (lastRootBlock) {
+          blockMapState.setIn([lastRootBlock.getKey(), 'nextSibling'], key);
+          blockMapState.setIn([oldKey, 'prevSibling'], newKeysRef[lastRootBlock.getKey()]);
+        }
+
+        lastRootBlock = blockMapState.get(oldKey);
+      }
+
+      childrenKeys.forEach(function (childKey) {
+        var childBlock = blockMapState.get(childKey);
+
+        if (childBlock) {
+          blockMapState.setIn([childKey, 'parent'], key);
+        } else {
+          blockMapState.setIn([oldKey, 'children'], block.getChildKeys().filter(function (child) {
+            return child !== childKey;
+          }));
+        }
+      });
+    });
+  }).toArray().map(function (block) {
+    return [newKeysRef[block.getKey()], block.set('key', newKeysRef[block.getKey()])];
+  }));
+};
+
+var randomizeContentBlockKeys = function randomizeContentBlockKeys(blockMap) {
+  return OrderedMap(blockMap.toArray().map(function (block) {
+    var key = generateRandomKey();
+    return [key, block.set('key', key)];
+  }));
+};
+
+var randomizeBlockMapKeys = function randomizeBlockMapKeys(blockMap) {
+  var isTreeBasedBlockMap = blockMap.first() instanceof ContentBlockNode;
+
+  if (!isTreeBasedBlockMap) {
+    return randomizeContentBlockKeys(blockMap);
+  }
+
+  return randomizeContentBlockNodeKeys(blockMap);
+};
+
+module.exports = randomizeBlockMapKeys;
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var CharacterMetadata = __webpack_require__(5);
+
+var findRangesImmutable = __webpack_require__(19);
+
+var invariant = __webpack_require__(1);
+
+function removeEntitiesAtEdges(contentState, selectionState) {
+  var blockMap = contentState.getBlockMap();
+  var entityMap = contentState.getEntityMap();
+  var updatedBlocks = {};
+  var startKey = selectionState.getStartKey();
+  var startOffset = selectionState.getStartOffset();
+  var startBlock = blockMap.get(startKey);
+  var updatedStart = removeForBlock(entityMap, startBlock, startOffset);
+
+  if (updatedStart !== startBlock) {
+    updatedBlocks[startKey] = updatedStart;
+  }
+
+  var endKey = selectionState.getEndKey();
+  var endOffset = selectionState.getEndOffset();
+  var endBlock = blockMap.get(endKey);
+
+  if (startKey === endKey) {
+    endBlock = updatedStart;
+  }
+
+  var updatedEnd = removeForBlock(entityMap, endBlock, endOffset);
+
+  if (updatedEnd !== endBlock) {
+    updatedBlocks[endKey] = updatedEnd;
+  }
+
+  if (!Object.keys(updatedBlocks).length) {
+    return contentState.set('selectionAfter', selectionState);
+  }
+
+  return contentState.merge({
+    blockMap: blockMap.merge(updatedBlocks),
+    selectionAfter: selectionState
+  });
+}
+/**
+ * Given a list of characters and an offset that is in the middle of an entity,
+ * returns the start and end of the entity that is overlapping the offset.
+ * Note: This method requires that the offset be in an entity range.
+ */
+
+
+function getRemovalRange(characters, entityKey, offset) {
+  var removalRange; // Iterates through a list looking for ranges of matching items
+  // based on the 'isEqual' callback.
+  // Then instead of returning the result, call the 'found' callback
+  // with each range.
+  // Then filters those ranges based on the 'filter' callback
+  //
+  // Here we use it to find ranges of characters with the same entity key.
+
+  findRangesImmutable(characters, // the list to iterate through
+  function (a, b) {
+    return a.getEntity() === b.getEntity();
+  }, // 'isEqual' callback
+  function (element) {
+    return element.getEntity() === entityKey;
+  }, // 'filter' callback
+  function (start, end) {
+    // 'found' callback
+    if (start <= offset && end >= offset) {
+      // this entity overlaps the offset index
+      removalRange = {
+        start: start,
+        end: end
+      };
+    }
+  });
+  !(typeof removalRange === 'object') ?  true ? invariant(false, 'Removal range must exist within character list.') : invariant(false) : void 0;
+  return removalRange;
+}
+
+function removeForBlock(entityMap, block, offset) {
+  var chars = block.getCharacterList();
+  var charBefore = offset > 0 ? chars.get(offset - 1) : undefined;
+  var charAfter = offset < chars.count() ? chars.get(offset) : undefined;
+  var entityBeforeCursor = charBefore ? charBefore.getEntity() : undefined;
+  var entityAfterCursor = charAfter ? charAfter.getEntity() : undefined;
+
+  if (entityAfterCursor && entityAfterCursor === entityBeforeCursor) {
+    var entity = entityMap.__get(entityAfterCursor);
+
+    if (entity.getMutability() !== 'MUTABLE') {
+      var _getRemovalRange = getRemovalRange(chars, entityAfterCursor, offset),
+          start = _getRemovalRange.start,
+          end = _getRemovalRange.end;
+
+      var current;
+
+      while (start < end) {
+        current = chars.get(start);
+        chars = chars.set(start, CharacterMetadata.applyEntity(current, null));
+        start++;
+      }
+
+      return block.set('characterList', chars);
+    }
+  }
+
+  return block;
+}
+
+module.exports = removeEntitiesAtEdges;
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+/**
+ * Maintain persistence for target list when appending and prepending.
+ */
+function insertIntoList(targetListArg, toInsert, offset) {
+  var targetList = targetListArg;
+
+  if (offset === targetList.count()) {
+    toInsert.forEach(function (c) {
+      targetList = targetList.push(c);
+    });
+  } else if (offset === 0) {
+    toInsert.reverse().forEach(function (c) {
+      targetList = targetList.unshift(c);
+    });
+  } else {
+    var head = targetList.slice(0, offset);
+    var tail = targetList.slice(offset);
+    targetList = head.concat(toInsert, tail).toList();
+  }
+
+  return targetList;
+}
+
+module.exports = insertIntoList;
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var Immutable = __webpack_require__(0);
+
+var Map = Immutable.Map;
+
+function modifyBlockForContentState(contentState, selectionState, operation) {
+  var startKey = selectionState.getStartKey();
+  var endKey = selectionState.getEndKey();
+  var blockMap = contentState.getBlockMap();
+  var newBlocks = blockMap.toSeq().skipUntil(function (_, k) {
+    return k === startKey;
+  }).takeUntil(function (_, k) {
+    return k === endKey;
+  }).concat(Map([[endKey, blockMap.get(endKey)]])).map(operation);
+  return contentState.merge({
+    blockMap: blockMap.merge(newBlocks),
+    selectionBefore: selectionState,
+    selectionAfter: selectionState
+  });
+}
+
+module.exports = modifyBlockForContentState;
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ *
+ * This is unstable and not part of the public API and should not be used by
+ * production systems. This file may be update/removed without notice.
+ */
+var ContentBlockNode = __webpack_require__(6);
+
+var getNextDelimiterBlockKey = function getNextDelimiterBlockKey(block, blockMap) {
+  var isExperimentalTreeBlock = block instanceof ContentBlockNode;
+
+  if (!isExperimentalTreeBlock) {
+    return null;
+  }
+
+  var nextSiblingKey = block.getNextSiblingKey();
+
+  if (nextSiblingKey) {
+    return nextSiblingKey;
+  }
+
+  var parent = block.getParentKey();
+
+  if (!parent) {
+    return null;
+  }
+
+  var nextNonDescendantBlock = blockMap.get(parent);
+
+  while (nextNonDescendantBlock && !nextNonDescendantBlock.getNextSiblingKey()) {
+    var parentKey = nextNonDescendantBlock.getParentKey();
+    nextNonDescendantBlock = parentKey ? blockMap.get(parentKey) : null;
+  }
+
+  if (!nextNonDescendantBlock) {
+    return null;
+  }
+
+  return nextNonDescendantBlock.getNextSiblingKey();
+};
+
+module.exports = getNextDelimiterBlockKey;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @legacyServerCallableInstance
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var Immutable = __webpack_require__(0);
+
+var Record = Immutable.Record;
+var DraftEntityInstanceRecord = Record({
+  type: 'TOKEN',
+  mutability: 'IMMUTABLE',
+  data: Object
+});
+/**
+ * An instance of a document entity, consisting of a `type` and relevant
+ * `data`, metadata about the entity.
+ *
+ * For instance, a "link" entity might provide a URI, and a "mention"
+ * entity might provide the mentioned user's ID. These pieces of data
+ * may be used when rendering the entity as part of a ContentBlock DOM
+ * representation. For a link, the data would be used as an href for
+ * the rendered anchor. For a mention, the ID could be used to retrieve
+ * a hovercard.
+ */
+
+var DraftEntityInstance =
+/*#__PURE__*/
+function (_DraftEntityInstanceR) {
+  _inheritsLoose(DraftEntityInstance, _DraftEntityInstanceR);
+
+  function DraftEntityInstance() {
+    return _DraftEntityInstanceR.apply(this, arguments) || this;
+  }
+
+  var _proto = DraftEntityInstance.prototype;
+
+  _proto.getType = function getType() {
+    return this.get('type');
+  };
+
+  _proto.getMutability = function getMutability() {
+    return this.get('mutability');
+  };
+
+  _proto.getData = function getData() {
+    return this.get('data');
+  };
+
+  return DraftEntityInstance;
+}(DraftEntityInstanceRecord);
+
+module.exports = DraftEntityInstance;
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var REGEX_BLOCK_DELIMITER = new RegExp('\r', 'g');
+
+function sanitizeDraftText(input) {
+  return input.replace(REGEX_BLOCK_DELIMITER, '');
+}
+
+module.exports = sanitizeDraftText;
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+module.exports = {
+  BOLD: {
+    fontWeight: 'bold'
+  },
+  CODE: {
+    fontFamily: 'monospace',
+    wordWrap: 'break-word'
+  },
+  ITALIC: {
+    fontStyle: 'italic'
+  },
+  STRIKETHROUGH: {
+    textDecoration: 'line-through'
+  },
+  UNDERLINE: {
+    textDecoration: 'underline'
+  }
+};
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+/**
+ * Get offset key from a node or it's child nodes. Return the first offset key
+ * found on the DOM tree of given node.
+ */
+
+function getSelectionOffsetKeyForNode(node) {
+  if (node instanceof Element) {
+    var offsetKey = node.getAttribute('data-offset-key');
+
+    if (offsetKey) {
+      return offsetKey;
+    }
+
+    for (var ii = 0; ii < node.childNodes.length; ii++) {
+      var childOffsetKey = getSelectionOffsetKeyForNode(node.childNodes[ii]);
+
+      if (childOffsetKey) {
+        return childOffsetKey;
+      }
+    }
+  }
+
+  return null;
+}
+
+module.exports = getSelectionOffsetKeyForNode;
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftJsDebugLogging = __webpack_require__(51);
+
+var EditorState = __webpack_require__(2);
+
+var getContentEditableContainer = __webpack_require__(52);
+
+var getDraftEditorSelection = __webpack_require__(53);
+
+function editOnSelect(editor) {
+  if (editor._blockSelectEvents || editor._latestEditorState !== editor.props.editorState) {
+    if (editor._blockSelectEvents) {
+      var _editorState = editor.props.editorState;
+
+      var selectionState = _editorState.getSelection();
+
+      DraftJsDebugLogging.logBlockedSelectionEvent({
+        // For now I don't think we need any other info
+        anonymizedDom: 'N/A',
+        extraParams: JSON.stringify({
+          stacktrace: new Error().stack
+        }),
+        selectionState: JSON.stringify(selectionState.toJS())
+      });
+    }
+
+    return;
+  }
+
+  var editorState = editor.props.editorState;
+  var documentSelection = getDraftEditorSelection(editorState, getContentEditableContainer(editor));
+  var updatedSelectionState = documentSelection.selectionState;
+
+  if (updatedSelectionState !== editorState.getSelection()) {
+    if (documentSelection.needsRecovery) {
+      editorState = EditorState.forceSelection(editorState, updatedSelectionState);
+    } else {
+      editorState = EditorState.acceptSelection(editorState, updatedSelectionState);
+    }
+
+    editor.update(editorState);
+  }
+}
+
+module.exports = editOnSelect;
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+module.exports = {
+  logBlockedSelectionEvent: function logBlockedSelectionEvent() {
+    return null;
+  },
+  logSelectionStateFailure: function logSelectionStateFailure() {
+    return null;
+  }
+};
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var ReactDOM = __webpack_require__(27);
+
+var invariant = __webpack_require__(1);
+
+function getContentEditableContainer(editor) {
+  var editorNode = ReactDOM.findDOMNode(editor.editorContainer);
+  !editorNode ?  true ? invariant(false, 'Missing editorNode') : invariant(false) : void 0;
+  !(editorNode.firstChild instanceof HTMLElement) ?  true ? invariant(false, 'editorNode.firstChild is not an HTMLElement') : invariant(false) : void 0;
+  return editorNode.firstChild;
+}
+
+module.exports = getContentEditableContainer;
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var getDraftEditorSelectionWithNodes = __webpack_require__(54);
+/**
+ * Convert the current selection range to an anchor/focus pair of offset keys
+ * and values that can be interpreted by components.
+ */
+
+
+function getDraftEditorSelection(editorState, root) {
+  var selection = global.getSelection(); // No active selection.
+
+  if (selection.rangeCount === 0) {
+    return {
+      selectionState: editorState.getSelection().set('hasFocus', false),
+      needsRecovery: false
+    };
+  }
+
+  return getDraftEditorSelectionWithNodes(editorState, root, selection.anchorNode, selection.anchorOffset, selection.focusNode, selection.focusOffset);
+}
+
+module.exports = getDraftEditorSelection;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var findAncestorOffsetKey = __webpack_require__(25);
+
+var getSelectionOffsetKeyForNode = __webpack_require__(49);
+
+var getUpdatedSelectionState = __webpack_require__(55);
+
+var invariant = __webpack_require__(1);
+
+var nullthrows = __webpack_require__(4);
+
+/**
+ * Convert the current selection range to an anchor/focus pair of offset keys
+ * and values that can be interpreted by components.
+ */
+function getDraftEditorSelectionWithNodes(editorState, root, anchorNode, anchorOffset, focusNode, focusOffset) {
+  var anchorIsTextNode = anchorNode.nodeType === Node.TEXT_NODE;
+  var focusIsTextNode = focusNode.nodeType === Node.TEXT_NODE; // If the selection range lies only on text nodes, the task is simple.
+  // Find the nearest offset-aware elements and use the
+  // offset values supplied by the selection range.
+
+  if (anchorIsTextNode && focusIsTextNode) {
+    return {
+      selectionState: getUpdatedSelectionState(editorState, nullthrows(findAncestorOffsetKey(anchorNode)), anchorOffset, nullthrows(findAncestorOffsetKey(focusNode)), focusOffset),
+      needsRecovery: false
+    };
+  }
+
+  var anchorPoint = null;
+  var focusPoint = null;
+  var needsRecovery = true; // An element is selected. Convert this selection range into leaf offset
+  // keys and offset values for consumption at the component level. This
+  // is common in Firefox, where select-all and triple click behavior leads
+  // to entire elements being selected.
+  //
+  // Note that we use the `needsRecovery` parameter in the callback here. This
+  // is because when certain elements are selected, the behavior for subsequent
+  // cursor movement (e.g. via arrow keys) is uncertain and may not match
+  // expectations at the component level. For example, if an entire <div> is
+  // selected and the user presses the right arrow, Firefox keeps the selection
+  // on the <div>. If we allow subsequent keypresses to insert characters
+  // natively, they will be inserted into a browser-created text node to the
+  // right of that <div>. This is obviously undesirable.
+  //
+  // With the `needsRecovery` flag, we inform the caller that it is responsible
+  // for manually setting the selection state on the rendered document to
+  // ensure proper selection state maintenance.
+
+  if (anchorIsTextNode) {
+    anchorPoint = {
+      key: nullthrows(findAncestorOffsetKey(anchorNode)),
+      offset: anchorOffset
+    };
+    focusPoint = getPointForNonTextNode(root, focusNode, focusOffset);
+  } else if (focusIsTextNode) {
+    focusPoint = {
+      key: nullthrows(findAncestorOffsetKey(focusNode)),
+      offset: focusOffset
+    };
+    anchorPoint = getPointForNonTextNode(root, anchorNode, anchorOffset);
+  } else {
+    anchorPoint = getPointForNonTextNode(root, anchorNode, anchorOffset);
+    focusPoint = getPointForNonTextNode(root, focusNode, focusOffset); // If the selection is collapsed on an empty block, don't force recovery.
+    // This way, on arrow key selection changes, the browser can move the
+    // cursor from a non-zero offset on one block, through empty blocks,
+    // to a matching non-zero offset on other text blocks.
+
+    if (anchorNode === focusNode && anchorOffset === focusOffset) {
+      needsRecovery = !!anchorNode.firstChild && anchorNode.firstChild.nodeName !== 'BR';
+    }
+  }
+
+  return {
+    selectionState: getUpdatedSelectionState(editorState, anchorPoint.key, anchorPoint.offset, focusPoint.key, focusPoint.offset),
+    needsRecovery: needsRecovery
+  };
+}
+/**
+ * Identify the first leaf descendant for the given node.
+ */
+
+
+function getFirstLeaf(node) {
+  while (node.firstChild && ( // data-blocks has no offset
+  node.firstChild instanceof Element && node.firstChild.getAttribute('data-blocks') === 'true' || getSelectionOffsetKeyForNode(node.firstChild))) {
+    node = node.firstChild;
+  }
+
+  return node;
+}
+/**
+ * Identify the last leaf descendant for the given node.
+ */
+
+
+function getLastLeaf(node) {
+  while (node.lastChild && ( // data-blocks has no offset
+  node.lastChild instanceof Element && node.lastChild.getAttribute('data-blocks') === 'true' || getSelectionOffsetKeyForNode(node.lastChild))) {
+    node = node.lastChild;
+  }
+
+  return node;
+}
+
+function getPointForNonTextNode(editorRoot, startNode, childOffset) {
+  var node = startNode;
+  var offsetKey = findAncestorOffsetKey(node);
+  !(offsetKey != null || editorRoot && (editorRoot === node || editorRoot.firstChild === node)) ?  true ? invariant(false, 'Unknown node in selection range.') : invariant(false) : void 0; // If the editorRoot is the selection, step downward into the content
+  // wrapper.
+
+  if (editorRoot === node) {
+    node = node.firstChild;
+    !(node instanceof Element && node.getAttribute('data-contents') === 'true') ?  true ? invariant(false, 'Invalid DraftEditorContents structure.') : invariant(false) : void 0;
+
+    if (childOffset > 0) {
+      childOffset = node.childNodes.length;
+    }
+  } // If the child offset is zero and we have an offset key, we're done.
+  // If there's no offset key because the entire editor is selected,
+  // find the leftmost ("first") leaf in the tree and use that as the offset
+  // key.
+
+
+  if (childOffset === 0) {
+    var key = null;
+
+    if (offsetKey != null) {
+      key = offsetKey;
+    } else {
+      var firstLeaf = getFirstLeaf(node);
+      key = nullthrows(getSelectionOffsetKeyForNode(firstLeaf));
+    }
+
+    return {
+      key: key,
+      offset: 0
+    };
+  }
+
+  var nodeBeforeCursor = node.childNodes[childOffset - 1];
+  var leafKey = null;
+  var textLength = null;
+
+  if (!getSelectionOffsetKeyForNode(nodeBeforeCursor)) {
+    // Our target node may be a leaf or a text node, in which case we're
+    // already where we want to be and can just use the child's length as
+    // our offset.
+    leafKey = nullthrows(offsetKey);
+    textLength = getTextContentLength(nodeBeforeCursor);
+  } else {
+    // Otherwise, we'll look at the child to the left of the cursor and find
+    // the last leaf node in its subtree.
+    var lastLeaf = getLastLeaf(nodeBeforeCursor);
+    leafKey = nullthrows(getSelectionOffsetKeyForNode(lastLeaf));
+    textLength = getTextContentLength(lastLeaf);
+  }
+
+  return {
+    key: leafKey,
+    offset: textLength
+  };
+}
+/**
+ * Return the length of a node's textContent, regarding single newline
+ * characters as zero-length. This allows us to avoid problems with identifying
+ * the correct selection offset for empty blocks in IE, in which we
+ * render newlines instead of break tags.
+ */
+
+
+function getTextContentLength(node) {
+  var textContent = node.textContent;
+  return textContent === '\n' ? 0 : textContent.length;
+}
+
+module.exports = getDraftEditorSelectionWithNodes;
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var nullthrows = __webpack_require__(4);
+
+function getUpdatedSelectionState(editorState, anchorKey, anchorOffset, focusKey, focusOffset) {
+  var selection = nullthrows(editorState.getSelection());
+
+  if (true) {
+    if (!anchorKey || !focusKey) {
+      /* eslint-disable-next-line */
+      console.warn('Invalid selection state.', arguments, editorState.toJS());
+      return selection;
+    }
+  }
+
+  var anchorPath = DraftOffsetKey.decode(anchorKey);
+  var anchorBlockKey = anchorPath.blockKey;
+  var anchorLeaf = editorState.getBlockTree(anchorBlockKey).getIn([anchorPath.decoratorKey, 'leaves', anchorPath.leafKey]);
+  var focusPath = DraftOffsetKey.decode(focusKey);
+  var focusBlockKey = focusPath.blockKey;
+  var focusLeaf = editorState.getBlockTree(focusBlockKey).getIn([focusPath.decoratorKey, 'leaves', focusPath.leafKey]);
+
+  if (!anchorLeaf || !focusLeaf) {
+    // If we cannot make sense of the updated selection state, stick to the current one.
+    if (true) {
+      /* eslint-disable-next-line */
+      console.warn('Invalid selection state.', arguments, editorState.toJS());
+    }
+
+    return selection;
+  }
+
+  var anchorLeafStart = anchorLeaf.get('start');
+  var focusLeafStart = focusLeaf.get('start');
+  var anchorBlockOffset = anchorLeaf ? anchorLeafStart + anchorOffset : null;
+  var focusBlockOffset = focusLeaf ? focusLeafStart + focusOffset : null;
+  var areEqual = selection.getAnchorKey() === anchorBlockKey && selection.getAnchorOffset() === anchorBlockOffset && selection.getFocusKey() === focusBlockKey && selection.getFocusOffset() === focusBlockOffset;
+
+  if (areEqual) {
+    return selection;
+  }
+
+  var isBackward = false;
+
+  if (anchorBlockKey === focusBlockKey) {
+    var anchorLeafEnd = anchorLeaf.get('end');
+    var focusLeafEnd = focusLeaf.get('end');
+
+    if (focusLeafStart === anchorLeafStart && focusLeafEnd === anchorLeafEnd) {
+      isBackward = focusOffset < anchorOffset;
+    } else {
+      isBackward = focusLeafStart < anchorLeafStart;
+    }
+  } else {
+    var startKey = editorState.getCurrentContent().getBlockMap().keySeq().skipUntil(function (v) {
+      return v === anchorBlockKey || v === focusBlockKey;
+    }).first();
+    isBackward = startKey === focusBlockKey;
+  }
+
+  return selection.merge({
+    anchorKey: anchorBlockKey,
+    anchorOffset: anchorBlockOffset,
+    focusKey: focusBlockKey,
+    focusOffset: focusBlockOffset,
+    isBackward: isBackward
+  });
+}
+
+module.exports = getUpdatedSelectionState;
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftModifier = __webpack_require__(3);
+
+var EditorState = __webpack_require__(2);
+
+var UserAgent = __webpack_require__(7);
+
+var getEntityKeyForSelection = __webpack_require__(34);
+
+var isEventHandled = __webpack_require__(28);
+
+var isSelectionAtLeafStart = __webpack_require__(102);
+
+var nullthrows = __webpack_require__(4);
+
+var setImmediate = __webpack_require__(103); // When nothing is focused, Firefox regards two characters, `'` and `/`, as
+// commands that should open and focus the "quickfind" search bar. This should
+// *never* happen while a contenteditable is focused, but as of v28, it
+// sometimes does, even when the keypress event target is the contenteditable.
+// This breaks the input. Special case these characters to ensure that when
+// they are typed, we prevent default on the event to make sure not to
+// trigger quickfind.
+
+
+var FF_QUICKFIND_CHAR = "'";
+var FF_QUICKFIND_LINK_CHAR = '/';
+var isFirefox = UserAgent.isBrowser('Firefox');
+
+function mustPreventDefaultForCharacter(character) {
+  return isFirefox && (character == FF_QUICKFIND_CHAR || character == FF_QUICKFIND_LINK_CHAR);
+}
+/**
+ * Replace the current selection with the specified text string, with the
+ * inline style and entity key applied to the newly inserted text.
+ */
+
+
+function replaceText(editorState, text, inlineStyle, entityKey, forceSelection) {
+  var contentState = DraftModifier.replaceText(editorState.getCurrentContent(), editorState.getSelection(), text, inlineStyle, entityKey);
+  return EditorState.push(editorState, contentState, 'insert-characters', forceSelection);
+}
+/**
+ * When `onBeforeInput` executes, the browser is attempting to insert a
+ * character into the editor. Apply this character data to the document,
+ * allowing native insertion if possible.
+ *
+ * Native insertion is encouraged in order to limit re-rendering and to
+ * preserve spellcheck highlighting, which disappears or flashes if re-render
+ * occurs on the relevant text nodes.
+ */
+
+
+function editOnBeforeInput(editor, e) {
+  console.log('editOnBeforeInput');
+
+  if (editor._pendingStateFromBeforeInput !== undefined) {
+    editor.update(editor._pendingStateFromBeforeInput);
+    editor._pendingStateFromBeforeInput = undefined;
+  }
+
+  var editorState = editor._latestEditorState;
+  var chars = e.data; // In some cases (ex: IE ideographic space insertion) no character data
+  // is provided. There's nothing to do when this happens.
+
+  if (!chars) {
+    return;
+  } // Allow the top-level component to handle the insertion manually. This is
+  // useful when triggering interesting behaviors for a character insertion,
+  // Simple examples: replacing a raw text ':)' with a smile emoji or image
+  // decorator, or setting a block to be a list item after typing '- ' at the
+  // start of the block.
+
+
+  if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e.timeStamp))) {
+    e.preventDefault();
+    return;
+  } // If selection is collapsed, conditionally allow native behavior. This
+  // reduces re-renders and preserves spellcheck highlighting. If the selection
+  // is not collapsed, we will re-render.
+
+
+  var selection = editorState.getSelection();
+  var selectionStart = selection.getStartOffset();
+  var anchorKey = selection.getAnchorKey();
+
+  if (!selection.isCollapsed()) {
+    e.preventDefault();
+    editor.update(replaceText(editorState, chars, editorState.getCurrentInlineStyle(), getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection()), true));
+    return;
+  }
+
+  var newEditorState = replaceText(editorState, chars, editorState.getCurrentInlineStyle(), getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection()), false); // Bunch of different cases follow where we need to prevent native insertion.
+
+  var mustPreventNative = false;
+
+  if (!mustPreventNative) {
+    // Browsers tend to insert text in weird places in the DOM when typing at
+    // the start of a leaf, so we'll handle it ourselves.
+    mustPreventNative = isSelectionAtLeafStart(editor._latestCommittedEditorState);
+  }
+
+  if (!mustPreventNative) {
+    // Chrome will also split up a node into two pieces if it contains a Tab
+    // char, for no explicable reason. Seemingly caused by this commit:
+    // https://chromium.googlesource.com/chromium/src/+/013ac5eaf3%5E%21/
+    var nativeSelection = global.getSelection(); // Selection is necessarily collapsed at this point due to earlier check.
+
+    if (nativeSelection.anchorNode && nativeSelection.anchorNode.nodeType === Node.TEXT_NODE) {
+      // See isTabHTMLSpanElement in chromium EditingUtilities.cpp.
+      var parentNode = nativeSelection.anchorNode.parentNode;
+      mustPreventNative = parentNode.nodeName === 'SPAN' && parentNode.firstChild.nodeType === Node.TEXT_NODE && parentNode.firstChild.nodeValue.indexOf('\t') !== -1;
+    }
+  }
+
+  if (!mustPreventNative) {
+    // Let's say we have a decorator that highlights hashtags. In many cases
+    // we need to prevent native behavior and rerender ourselves --
+    // particularly, any case *except* where the inserted characters end up
+    // anywhere except exactly where you put them.
+    //
+    // Using [] to denote a decorated leaf, some examples:
+    //
+    // 1. 'hi #' and append 'f'
+    // desired rendering: 'hi [#f]'
+    // native rendering would be: 'hi #f' (incorrect)
+    //
+    // 2. 'x [#foo]' and insert '#' before 'f'
+    // desired rendering: 'x #[#foo]'
+    // native rendering would be: 'x [##foo]' (incorrect)
+    //
+    // 3. '[#foobar]' and insert ' ' between 'foo' and 'bar'
+    // desired rendering: '[#foo] bar'
+    // native rendering would be: '[#foo bar]' (incorrect)
+    //
+    // 4. '[#foo]' and delete '#' [won't use this beforeinput codepath though]
+    // desired rendering: 'foo'
+    // native rendering would be: '[foo]' (incorrect)
+    //
+    // 5. '[#foo]' and append 'b'
+    // desired rendering: '[#foob]'
+    // native rendering would be: '[#foob]'
+    // (native insertion here would be ok for decorators like simple spans,
+    // but not more complex decorators. To be safe, we need to prevent it.)
+    //
+    // It is safe to allow native insertion if and only if the full list of
+    // decorator ranges matches what we expect native insertion to give, and
+    // the range lengths have not changed. We don't need to compare the content
+    // because the only possible mutation to consider here is inserting plain
+    // text and decorators can't affect text content.
+    var oldBlockTree = editorState.getBlockTree(anchorKey);
+    var newBlockTree = newEditorState.getBlockTree(anchorKey);
+    mustPreventNative = oldBlockTree.size !== newBlockTree.size || oldBlockTree.zip(newBlockTree).some(function (_ref) {
+      var oldLeafSet = _ref[0],
+          newLeafSet = _ref[1];
+      // selectionStart is guaranteed to be selectionEnd here
+      var oldStart = oldLeafSet.get('start');
+      var adjustedStart = oldStart + (oldStart >= selectionStart ? chars.length : 0);
+      var oldEnd = oldLeafSet.get('end');
+      var adjustedEnd = oldEnd + (oldEnd >= selectionStart ? chars.length : 0);
+      var newStart = newLeafSet.get('start');
+      var newEnd = newLeafSet.get('end');
+      var newDecoratorKey = newLeafSet.get('decoratorKey');
+      return (// Different decorators
+        oldLeafSet.get('decoratorKey') !== newDecoratorKey || // Different number of inline styles
+        oldLeafSet.get('leaves').size !== newLeafSet.get('leaves').size || // Different effective decorator position
+        adjustedStart !== newStart || adjustedEnd !== newEnd || // Decorator already existed and its length changed
+        newDecoratorKey != null && newEnd - newStart !== oldEnd - oldStart
+      );
+    });
+  }
+
+  if (!mustPreventNative) {
+    mustPreventNative = mustPreventDefaultForCharacter(chars);
+  }
+
+  if (!mustPreventNative) {
+    mustPreventNative = nullthrows(newEditorState.getDirectionMap()).get(anchorKey) !== nullthrows(editorState.getDirectionMap()).get(anchorKey);
+  }
+
+  if (mustPreventNative) {
+    e.preventDefault();
+    newEditorState = EditorState.set(newEditorState, {
+      forceSelection: true
+    });
+    editor.update(newEditorState);
+    return;
+  } // We made it all the way! Let the browser do its thing and insert the char.
+
+
+  newEditorState = EditorState.set(newEditorState, {
+    nativelyRenderedContent: newEditorState.getCurrentContent()
+  }); // The native event is allowed to occur. To allow user onChange handlers to
+  // change the inserted text, we wait until the text is actually inserted
+  // before we actually update our state. That way when we rerender, the text
+  // we see in the DOM will already have been inserted properly.
+
+  editor._pendingStateFromBeforeInput = newEditorState;
+  setImmediate(function () {
+    if (editor._pendingStateFromBeforeInput !== undefined) {
+      editor.update(editor._pendingStateFromBeforeInput);
+      editor._pendingStateFromBeforeInput = undefined;
+    }
+  });
+}
+
+module.exports = editOnBeforeInput;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftModifier = __webpack_require__(3);
+
+var EditorState = __webpack_require__(2);
+
+var KeyBindingUtil = __webpack_require__(35);
+
+var Keys = __webpack_require__(26);
+
+var SecondaryClipboard = __webpack_require__(107);
+
+var UserAgent = __webpack_require__(7);
+
+var isEventHandled = __webpack_require__(28);
+
+var keyCommandBackspaceToStartOfLine = __webpack_require__(108);
+
+var keyCommandBackspaceWord = __webpack_require__(110);
+
+var keyCommandDeleteWord = __webpack_require__(112);
+
+var keyCommandInsertNewline = __webpack_require__(113);
+
+var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(114);
+
+var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(115);
+
+var keyCommandPlainBackspace = __webpack_require__(38);
+
+var keyCommandPlainDelete = __webpack_require__(116);
+
+var keyCommandTransposeCharacters = __webpack_require__(117);
+
+var keyCommandUndo = __webpack_require__(118);
+
+var isOptionKeyCommand = KeyBindingUtil.isOptionKeyCommand;
+var isChrome = UserAgent.isBrowser('Chrome');
+/**
+ * Map a `DraftEditorCommand` command value to a corresponding function.
+ */
+
+function onKeyCommand(command, editorState) {
+  switch (command) {
+    case 'redo':
+      return EditorState.redo(editorState);
+
+    case 'delete':
+      return keyCommandPlainDelete(editorState);
+
+    case 'delete-word':
+      return keyCommandDeleteWord(editorState);
+
+    case 'backspace':
+      return keyCommandPlainBackspace(editorState);
+
+    case 'backspace-word':
+      return keyCommandBackspaceWord(editorState);
+
+    case 'backspace-to-start-of-line':
+      return keyCommandBackspaceToStartOfLine(editorState);
+
+    case 'split-block':
+      return keyCommandInsertNewline(editorState);
+
+    case 'transpose-characters':
+      return keyCommandTransposeCharacters(editorState);
+
+    case 'move-selection-to-start-of-block':
+      return keyCommandMoveSelectionToStartOfBlock(editorState);
+
+    case 'move-selection-to-end-of-block':
+      return keyCommandMoveSelectionToEndOfBlock(editorState);
+
+    case 'secondary-cut':
+      return SecondaryClipboard.cut(editorState);
+
+    case 'secondary-paste':
+      return SecondaryClipboard.paste(editorState);
+
+    default:
+      return editorState;
+  }
+}
+/**
+ * Intercept keydown behavior to handle keys and commands manually, if desired.
+ *
+ * Keydown combinations may be mapped to `DraftCommand` values, which may
+ * correspond to command functions that modify the editor or its contents.
+ *
+ * See `getDefaultKeyBinding` for defaults. Alternatively, the top-level
+ * component may provide a custom mapping via the `keyBindingFn` prop.
+ */
+
+
+function editOnKeyDown(editor, e) {
+  var keyCode = e.which;
+  var editorState = editor._latestEditorState;
+
+  function callDeprecatedHandler(handlerName) {
+    var deprecatedHandler = editor.props[handlerName];
+
+    if (deprecatedHandler) {
+      deprecatedHandler(e);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  switch (keyCode) {
+    case Keys.RETURN:
+      e.preventDefault(); // The top-level component may manually handle newline insertion. If
+      // no special handling is performed, fall through to command handling.
+
+      if (editor.props.handleReturn && isEventHandled(editor.props.handleReturn(e, editorState))) {
+        return;
+      }
+
+      break;
+
+    case Keys.ESC:
+      e.preventDefault();
+
+      if (callDeprecatedHandler('onEscape')) {
+        return;
+      }
+
+      break;
+
+    case Keys.TAB:
+      if (callDeprecatedHandler('onTab')) {
+        return;
+      }
+
+      break;
+
+    case Keys.UP:
+      if (callDeprecatedHandler('onUpArrow')) {
+        return;
+      }
+
+      break;
+
+    case Keys.RIGHT:
+      if (callDeprecatedHandler('onRightArrow')) {
+        return;
+      }
+
+      break;
+
+    case Keys.DOWN:
+      if (callDeprecatedHandler('onDownArrow')) {
+        return;
+      }
+
+      break;
+
+    case Keys.LEFT:
+      if (callDeprecatedHandler('onLeftArrow')) {
+        return;
+      }
+
+      break;
+
+    case Keys.SPACE:
+      // Prevent Chrome on OSX behavior where option + space scrolls.
+      if (isChrome && isOptionKeyCommand(e)) {
+        e.preventDefault();
+      }
+
+  }
+
+  var command = editor.props.keyBindingFn(e); // If no command is specified, allow keydown event to continue.
+
+  if (command == null || command === '') {
+    if (keyCode === Keys.SPACE && isChrome && isOptionKeyCommand(e)) {
+      // The default keydown event has already been prevented in order to stop
+      // Chrome from scrolling. Insert a nbsp into the editor as OSX would for
+      // other browsers.
+      var contentState = DraftModifier.replaceText(editorState.getCurrentContent(), editorState.getSelection(), "\xA0");
+      editor.update(EditorState.push(editorState, contentState, 'insert-characters'));
+    }
+
+    return;
+  }
+
+  if (command === 'undo') {
+    // Since undo requires some special updating behavior to keep the editor
+    // in sync, handle it separately.
+    keyCommandUndo(e, editorState, editor.update);
+    e.preventDefault();
+    return;
+  } // At this point, we know that we're handling a command of some kind, so
+  // we don't want to insert a character following the keydown.
+
+
+  e.preventDefault(); // Allow components higher up the tree to handle the command first.
+
+  if (editor.props.handleKeyCommand && isEventHandled(editor.props.handleKeyCommand(command, editorState, e.timeStamp))) {
+    return;
+  }
+
+  var newState = onKeyCommand(command, editorState);
+
+  if (newState !== editorState) {
+    editor.update(newState);
+  }
+}
+
+module.exports = editOnKeyDown;
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var UserAgent = __webpack_require__(7);
+
+var invariant = __webpack_require__(1);
+
+var isChrome = UserAgent.isBrowser('Chrome'); // In Chrome, the client rects will include the entire bounds of all nodes that
+// begin (have a start tag) within the selection, even if the selection does
+// not overlap the entire node. To resolve this, we split the range at each
+// start tag and join the client rects together.
+// https://code.google.com/p/chromium/issues/detail?id=324437
+
+/* eslint-disable consistent-return */
+
+function getRangeClientRectsChrome(range) {
+  var tempRange = range.cloneRange();
+  var clientRects = [];
+
+  for (var ancestor = range.endContainer; ancestor != null; ancestor = ancestor.parentNode) {
+    // If we've climbed up to the common ancestor, we can now use the
+    // original start point and stop climbing the tree.
+    var atCommonAncestor = ancestor === range.commonAncestorContainer;
+
+    if (atCommonAncestor) {
+      tempRange.setStart(range.startContainer, range.startOffset);
+    } else {
+      tempRange.setStart(tempRange.endContainer, 0);
+    }
+
+    var rects = Array.from(tempRange.getClientRects());
+    clientRects.push(rects);
+
+    if (atCommonAncestor) {
+      var _ref;
+
+      clientRects.reverse();
+      return (_ref = []).concat.apply(_ref, clientRects);
+    }
+
+    tempRange.setEndBefore(ancestor);
+  }
+
+   true ?  true ? invariant(false, 'Found an unexpected detached subtree when getting range client rects.') : invariant(false) : void 0;
+}
+/* eslint-enable consistent-return */
+
+/**
+ * Like range.getClientRects() but normalizes for browser bugs.
+ */
+
+
+var getRangeClientRects = isChrome ? getRangeClientRectsChrome : function (range) {
+  return Array.from(range.getClientRects());
+};
+module.exports = getRangeClientRects;
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+
+
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var TokenizeUtil = __webpack_require__(111);
+
+var punctuation = TokenizeUtil.getPunctuation(); // The apostrophe and curly single quotes behave in a curious way: when
+// surrounded on both sides by word characters, they behave as word chars; when
+// either neighbor is punctuation or an end of the string, they behave as
+// punctuation.
+
+var CHAMELEON_CHARS = "['\u2018\u2019]"; // Remove the underscore, which should count as part of the removable word. The
+// "chameleon chars" also count as punctuation in this regex.
+
+var WHITESPACE_AND_PUNCTUATION = '\\s|(?![_])' + punctuation;
+var DELETE_STRING = '^' + '(?:' + WHITESPACE_AND_PUNCTUATION + ')*' + '(?:' + CHAMELEON_CHARS + '|(?!' + WHITESPACE_AND_PUNCTUATION + ').)*' + '(?:(?!' + WHITESPACE_AND_PUNCTUATION + ').)';
+var DELETE_REGEX = new RegExp(DELETE_STRING);
+var BACKSPACE_STRING = '(?:(?!' + WHITESPACE_AND_PUNCTUATION + ').)' + '(?:' + CHAMELEON_CHARS + '|(?!' + WHITESPACE_AND_PUNCTUATION + ').)*' + '(?:' + WHITESPACE_AND_PUNCTUATION + ')*' + '$';
+var BACKSPACE_REGEX = new RegExp(BACKSPACE_STRING);
+
+function getRemovableWord(text, isBackward) {
+  var matches = isBackward ? BACKSPACE_REGEX.exec(text) : DELETE_REGEX.exec(text);
+  return matches ? matches[0] : text;
+}
+
+var DraftRemovableWord = {
+  getBackward: function getBackward(text) {
+    return getRemovableWord(text, true);
+  },
+  getForward: function getForward(text) {
+    return getRemovableWord(text, false);
+  }
+};
+module.exports = DraftRemovableWord;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var warning = __webpack_require__(37);
+/**
+ * Given a collapsed selection, move the focus `maxDistance` forward within
+ * the selected block. If the selection will go beyond the end of the block,
+ * move focus to the start of the next block, but no further.
+ *
+ * This function is not Unicode-aware, so surrogate pairs will be treated
+ * as having length 2.
+ */
+
+
+function moveSelectionForward(editorState, maxDistance) {
+  var selection = editorState.getSelection(); // Should eventually make this an invariant
+
+   true ? warning(selection.isCollapsed(), 'moveSelectionForward should only be called with a collapsed SelectionState') : void 0;
+  var key = selection.getStartKey();
+  var offset = selection.getStartOffset();
+  var content = editorState.getCurrentContent();
+  var focusKey = key;
+  var focusOffset;
+  var block = content.getBlockForKey(key);
+
+  if (maxDistance > block.getText().length - offset) {
+    focusKey = content.getKeyAfter(key);
+    focusOffset = 0;
+  } else {
+    focusOffset = offset + maxDistance;
+  }
+
+  return selection.merge({
+    focusKey: focusKey,
+    focusOffset: focusOffset
+  });
+}
+
+module.exports = moveSelectionForward;
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var _assign = __webpack_require__(15);
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var DraftEditorTextNode = __webpack_require__(124);
+
+var React = __webpack_require__(8);
+
+var invariant = __webpack_require__(1);
+
+var setDraftEditorSelection = __webpack_require__(126);
+
+/**
+ * All leaf nodes in the editor are spans with single text nodes. Leaf
+ * elements are styled based on the merging of an optional custom style map
+ * and a default style map.
+ *
+ * `DraftEditorLeaf` also provides a wrapper for calling into the imperative
+ * DOM Selection API. In this way, top-level components can declaratively
+ * maintain the selection state.
+ */
+var DraftEditorLeaf =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(DraftEditorLeaf, _React$Component);
+
+  function DraftEditorLeaf() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+
+    _defineProperty(_assertThisInitialized(_this), "leaf", void 0);
+
+    return _this;
+  }
+
+  var _proto = DraftEditorLeaf.prototype;
+
+  _proto._setSelection = function _setSelection() {
+    var selection = this.props.selection; // If selection state is irrelevant to the parent block, no-op.
+
+    if (selection == null || !selection.getHasFocus() || !this.leaf) {
+      return;
+    }
+
+    var _this$props = this.props,
+        block = _this$props.block,
+        start = _this$props.start,
+        text = _this$props.text;
+    var blockKey = block.getKey();
+    var end = start + text.length;
+
+    if (!selection.hasEdgeWithin(blockKey, start, end)) {
+      return;
+    } // Determine the appropriate target node for selection. If the child
+    // is not a text node, it is a <br /> spacer. In this case, use the
+    // <span> itself as the selection target.
+
+
+    var node = this.leaf;
+    !node ?  true ? invariant(false, 'Missing node') : invariant(false) : void 0;
+    var child = node.firstChild;
+    !child ?  true ? invariant(false, 'Missing child') : invariant(false) : void 0;
+    var targetNode;
+
+    if (child.nodeType === Node.TEXT_NODE) {
+      targetNode = child;
+    } else if (child instanceof Element && child.tagName === 'BR') {
+      targetNode = node;
+    } else {
+      targetNode = child.firstChild;
+      !targetNode ?  true ? invariant(false, 'Missing targetNode') : invariant(false) : void 0;
+    }
+
+    setDraftEditorSelection(selection, targetNode, blockKey, start, end);
+  };
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+    // const leafNode = this.leaf;
+    // invariant(leafNode, 'Missing leafNode');
+    var shouldUpdate = this.props.textContent !== nextProps.text || nextProps.styleSet !== this.props.styleSet || nextProps.forceSelection;
+    return shouldUpdate;
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    this._setSelection();
+  };
+
+  _proto.componentDidMount = function componentDidMount() {
+    this._setSelection();
+  };
+
+  _proto.render = function render() {
+    var _this2 = this;
+
+    var block = this.props.block;
+    var text = this.props.text; // If the leaf is at the end of its block and ends in a soft newline, append
+    // an extra line feed character. Browsers collapse trailing newline
+    // characters, which leaves the cursor in the wrong place after a
+    // shift+enter. The extra character repairs this.
+
+    if (text.endsWith('\n') && this.props.isLast) {
+      text += '\n';
+    }
+
+    var _this$props2 = this.props,
+        customStyleMap = _this$props2.customStyleMap,
+        customStyleFn = _this$props2.customStyleFn,
+        offsetKey = _this$props2.offsetKey,
+        styleSet = _this$props2.styleSet,
+        entityKey = _this$props2.entityKey,
+        startTime = _this$props2.startTime,
+        endTime = _this$props2.endTime;
+    var styleObj = styleSet.reduce(function (map, styleName) {
+      var mergedStyles = {};
+      var style = customStyleMap[styleName];
+
+      if (style !== undefined && map.textDecoration !== style.textDecoration) {
+        // .trim() is necessary for IE9/10/11 and Edge
+        mergedStyles.textDecoration = [map.textDecoration, style.textDecoration].join(' ').trim();
+      }
+
+      return _assign(map, style, mergedStyles);
+    }, {});
+
+    if (customStyleFn) {
+      var newStyles = customStyleFn(styleSet, block);
+      styleObj = _assign(styleObj, newStyles);
+    }
+
+    return React.createElement(DraftEditorTextNode, {
+      offsetKey: offsetKey,
+      entityKey: entityKey,
+      startTime: startTime,
+      endTime: endTime,
+      styleObj: styleObj,
+      refNode: function refNode(ref) {
+        return _this2.leaf = ref;
+      }
+    }, text);
+  };
+
+  return DraftEditorLeaf;
+}(React.Component);
+
+module.exports = DraftEditorLeaf;
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+module.exports = {
+  initODS: function initODS() {},
+  handleExtensionCausedError: function handleExtensionCausedError() {}
+};
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+/* eslint-disable fb-www/typeof-undefined */
+
+/**
+ * Same as document.activeElement but wraps in a try-catch block. In IE it is
+ * not safe to call document.activeElement if there is nothing focused.
+ *
+ * The activeElement will be null only if the document or document body is not
+ * yet defined.
+ *
+ * @param {?DOMDocument} doc Defaults to current document.
+ * @return {?DOMElement}
+ */
+function getActiveElement(doc)
+/*?DOMElement*/
+{
+  doc = doc || (typeof document !== 'undefined' ? document : undefined);
+
+  if (typeof doc === 'undefined') {
+    return null;
+  }
+
+  try {
+    return doc.activeElement || doc.body;
+  } catch (e) {
+    return doc.body;
+  }
+}
+
+module.exports = getActiveElement;
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+var getElementRect = __webpack_require__(132);
+/**
+ * Gets an element's position in pixels relative to the viewport. The returned
+ * object represents the position of the element's top left corner.
+ *
+ * @param {DOMElement} element
+ * @return {object}
+ */
+
+
+function getElementPosition(element) {
+  var rect = getElementRect(element);
+  return {
+    x: rect.left,
+    y: rect.top,
+    width: rect.right - rect.left,
+    height: rect.bottom - rect.top
+  };
+}
+
+module.exports = getElementPosition;
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ * @typechecks
+ */
+function getViewportWidth() {
+  var width;
+
+  if (document.documentElement) {
+    width = document.documentElement.clientWidth;
+  }
+
+  if (!width && document.body) {
+    width = document.body.clientWidth;
+  }
+
+  return width || 0;
+}
+
+function getViewportHeight() {
+  var height;
+
+  if (document.documentElement) {
+    height = document.documentElement.clientHeight;
+  }
+
+  if (!height && document.body) {
+    height = document.body.clientHeight;
+  }
+
+  return height || 0;
+}
+/**
+ * Gets the viewport dimensions including any scrollbars.
+ */
+
+
+function getViewportDimensions() {
+  return {
+    width: window.innerWidth || getViewportWidth(),
+    height: window.innerHeight || getViewportHeight()
+  };
+}
+/**
+ * Gets the viewport dimensions excluding any scrollbars.
+ */
+
+
+getViewportDimensions.withoutScrollbars = function () {
+  return {
+    width: getViewportWidth(),
+    height: getViewportHeight()
+  };
+};
+
+module.exports = getViewportDimensions;
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var Promise = __webpack_require__(136),
+    _assign = __webpack_require__(15);
+
+function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var DraftEditorLeaf = __webpack_require__(62);
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var React = __webpack_require__(8);
+
+var Scroll = __webpack_require__(40);
+
+var Style = __webpack_require__(29);
+
+var UnicodeBidi = __webpack_require__(32);
+
+var UnicodeBidiDirection = __webpack_require__(24);
+
+var cx = __webpack_require__(14);
+
+var getElementPosition = __webpack_require__(65);
+
+var getScrollPosition = __webpack_require__(30);
+
+var getViewportDimensions = __webpack_require__(66);
+
+var invariant = __webpack_require__(1);
+
+var nullthrows = __webpack_require__(4);
+
+var SCROLL_BUFFER = 10;
+
+/**
+ * Return whether a block overlaps with either edge of the `SelectionState`.
+ */
+var isBlockOnSelectionEdge = function isBlockOnSelectionEdge(selection, key) {
+  return selection.getAnchorKey() === key || selection.getFocusKey() === key;
+};
+/**
+ * The default block renderer for a `DraftEditor` component.
+ *
+ * A `DraftEditorBlock` is able to render a given `ContentBlock` to its
+ * appropriate decorator and inline style components.
+ */
+
+
+var DraftEditorBlock =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(DraftEditorBlock, _React$Component);
+
+  function DraftEditorBlock() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+
+    _defineProperty(_assertThisInitialized(_this), "_node", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "getSnippetsFromBlock", function () {
+      var content = _this.props.contentState;
+      var block = _this.props.block;
+      if (!block) return [];
+      var snippets = [];
+      block.findEntityRanges(function (char) {
+        return char.entity !== null;
+      }, function (start, end) {
+        var entityKey = block.getEntityAt(start);
+        var entity = content.getEntity(entityKey);
+
+        if (entity && entity.data && entity.data.snippet) {
+          var _entity$data$snippet = entity.data.snippet,
+              startTime = _entity$data$snippet.startTime,
+              endTime = _entity$data$snippet.endTime;
+          snippets.push({
+            entityKey: entityKey,
+            startTime: startTime,
+            endTime: endTime
+          });
+        }
+      });
+      return snippets;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getSnippetFromEntityKey", function (entityKey, snippets) {
+      if (!entityKey) return null;
+      return snippets.find(function (s) {
+        return s.entityKey === entityKey;
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleRenderChildren", function (leafSet, ii, text, blockKey, block, lastLeafSet, hasSelection, snippets) {
+      return new Promise(function (resolve) {
+        var leavesForLeafSet = leafSet.get('leaves'); // T44088704
+
+        if (leavesForLeafSet.size === 0) {
+          return resolve(null);
+        }
+
+        var lastLeaf = leavesForLeafSet.size - 1;
+        var leaves = leavesForLeafSet.map(function (leaf, jj) {
+          var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
+          var start = leaf.get('start');
+          var end = leaf.get('end');
+          var entityKey = block.getEntityAt(leafSet.get('start'));
+
+          var snippet = _this.getSnippetFromEntityKey(entityKey, snippets);
+
+          return React.createElement(DraftEditorLeaf, {
+            key: offsetKey,
+            offsetKey: offsetKey,
+            entityKey: entityKey,
+            block: block,
+            start: start,
+            startTime: snippet ? snippet.startTime : null,
+            endTime: snippet ? snippet.endTime : null,
+            selection: hasSelection ? _this.props.selection : null,
+            forceSelection: _this.props.forceSelection,
+            text: text.slice(start, end),
+            styleSet: block.getInlineStyleAt(start),
+            customStyleMap: _this.props.customStyleMap,
+            customStyleFn: _this.props.customStyleFn,
+            isLast: ii === lastLeafSet && jj === lastLeaf
+          });
+        }).toArray();
+        var decoratorKey = leafSet.get('decoratorKey');
+
+        if (decoratorKey == null) {
+          return resolve(leaves);
+        }
+
+        if (!_this.props.decorator) {
+          return resolve(leaves);
+        }
+
+        var decorator = nullthrows(_this.props.decorator);
+        var DecoratorComponent = decorator.getComponentForKey(decoratorKey);
+
+        if (!DecoratorComponent) {
+          return resolve(leaves);
+        }
+
+        var decoratorProps = decorator.getPropsForKey(decoratorKey);
+        var decoratorOffsetKey = DraftOffsetKey.encode(blockKey, ii, 0);
+        var start = leavesForLeafSet.first().get('start');
+        var end = leavesForLeafSet.last().get('end');
+        var decoratedText = text.slice(start, end);
+        var entityKey = block.getEntityAt(leafSet.get('start')); // Resetting dir to the same value on a child node makes Chrome/Firefox
+        // confused on cursor movement. See http://jsfiddle.net/d157kLck/3/
+
+        var dir = UnicodeBidiDirection.getHTMLDirIfDifferent(UnicodeBidi.getDirection(decoratedText), _this.props.direction);
+        var commonProps = {
+          contentState: _this.props.contentState,
+          decoratedText: decoratedText,
+          dir: dir,
+          key: decoratorOffsetKey,
+          start: start,
+          end: end,
+          blockKey: blockKey,
+          entityKey: entityKey,
+          offsetKey: decoratorOffsetKey
+        };
+        var result = React.createElement(DecoratorComponent, _extends({}, decoratorProps, commonProps), leaves);
+        return resolve(result);
+      });
+    });
+
+    return _this;
+  }
+
+  var _proto = DraftEditorBlock.prototype;
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+    return this.props.block !== nextProps.block || this.props.tree !== nextProps.tree || this.props.direction !== nextProps.direction || isBlockOnSelectionEdge(nextProps.selection, nextProps.block.getKey()) && nextProps.forceSelection;
+  }
+  /**
+   * When a block is mounted and overlaps the selection state, we need to make
+   * sure that the cursor is visible to match native behavior. This may not
+   * be the case if the user has pressed `RETURN` or pasted some content, since
+   * programmatically creating these new blocks and setting the DOM selection
+   * will miss out on the browser natively scrolling to that position.
+   *
+   * To replicate native behavior, if the block overlaps the selection state
+   * on mount, force the scroll position. Check the scroll state of the scroll
+   * parent, and adjust it to align the entire block to the bottom of the
+   * scroll parent.
+   */
+  ;
+
+  _proto.componentDidMount = function componentDidMount() {
+    var selection = this.props.selection;
+    var endKey = selection.getEndKey();
+
+    if (!selection.getHasFocus() || endKey !== this.props.block.getKey()) {
+      return;
+    }
+
+    var blockNode = this._node;
+
+    if (blockNode == null) {
+      return;
+    }
+
+    var scrollParent = Style.getScrollParent(blockNode);
+    var scrollPosition = getScrollPosition(scrollParent);
+    var scrollDelta;
+
+    if (scrollParent === window) {
+      var nodePosition = getElementPosition(blockNode);
+      var nodeBottom = nodePosition.y + nodePosition.height;
+      var viewportHeight = getViewportDimensions().height;
+      scrollDelta = nodeBottom - viewportHeight;
+
+      if (scrollDelta > 0) {
+        window.scrollTo(scrollPosition.x, scrollPosition.y + scrollDelta + SCROLL_BUFFER);
+      }
+    } else {
+      !(blockNode instanceof HTMLElement) ?  true ? invariant(false, 'blockNode is not an HTMLElement') : invariant(false) : void 0;
+      var blockBottom = blockNode.offsetHeight + blockNode.offsetTop;
+      var pOffset = scrollParent.offsetTop + scrollParent.offsetHeight;
+      var scrollBottom = pOffset + scrollPosition.y;
+      scrollDelta = blockBottom - scrollBottom;
+
+      if (scrollDelta > 0) {
+        Scroll.setTop(scrollParent, Scroll.getTop(scrollParent) + scrollDelta + SCROLL_BUFFER);
+      }
+    }
+  };
+
+  _proto._renderChildren = function _renderChildren() {
+    var _this2 = this;
+
+    var block = this.props.block;
+    var blockKey = block.getKey();
+    var text = block.getText();
+    var lastLeafSet = this.props.tree.size - 1;
+    var hasSelection = isBlockOnSelectionEdge(this.props.selection, blockKey);
+    var snippets = this.getSnippetsFromBlock(); // const process = this.props.tree.map((leafSet, ii) => {
+    //   return this.handleRenderChildren(
+    //     leafSet,
+    //     ii,
+    //     text,
+    //     blockKey,
+    //     block,
+    //     lastLeafSet,
+    //     hasSelection,
+    //     snippets,
+    //   );
+    // });
+    // return Promise.all(process).then(response => {
+    //   return response.toArray();
+    // });
+
+    return this.props.tree.map(function (leafSet, ii) {
+      var leavesForLeafSet = leafSet.get('leaves'); // T44088704
+
+      if (leavesForLeafSet.size === 0) {
+        return null;
+      }
+
+      var lastLeaf = leavesForLeafSet.size - 1;
+      var leaves = leavesForLeafSet.map(function (leaf, jj) {
+        var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
+        var start = leaf.get('start');
+        var end = leaf.get('end');
+        var entityKey = block.getEntityAt(leafSet.get('start'));
+
+        var snippet = _this2.getSnippetFromEntityKey(entityKey, snippets);
+
+        return React.createElement(DraftEditorLeaf, {
+          key: offsetKey,
+          offsetKey: offsetKey,
+          entityKey: entityKey,
+          block: block,
+          start: start,
+          startTime: snippet ? snippet.startTime : null,
+          endTime: snippet ? snippet.endTime : null,
+          selection: hasSelection ? _this2.props.selection : null,
+          forceSelection: _this2.props.forceSelection,
+          text: text.slice(start, end),
+          styleSet: block.getInlineStyleAt(start),
+          customStyleMap: _this2.props.customStyleMap,
+          customStyleFn: _this2.props.customStyleFn,
+          isLast: ii === lastLeafSet && jj === lastLeaf
+        });
+      }).toArray();
+      var decoratorKey = leafSet.get('decoratorKey');
+
+      if (decoratorKey == null) {
+        return leaves;
+      }
+
+      if (!_this2.props.decorator) {
+        return leaves;
+      }
+
+      var decorator = nullthrows(_this2.props.decorator);
+      var DecoratorComponent = decorator.getComponentForKey(decoratorKey);
+
+      if (!DecoratorComponent) {
+        return leaves;
+      }
+
+      var decoratorProps = decorator.getPropsForKey(decoratorKey);
+      var decoratorOffsetKey = DraftOffsetKey.encode(blockKey, ii, 0);
+      var start = leavesForLeafSet.first().get('start');
+      var end = leavesForLeafSet.last().get('end');
+      var decoratedText = text.slice(start, end);
+      var entityKey = block.getEntityAt(leafSet.get('start')); // Resetting dir to the same value on a child node makes Chrome/Firefox
+      // confused on cursor movement. See http://jsfiddle.net/d157kLck/3/
+
+      var dir = UnicodeBidiDirection.getHTMLDirIfDifferent(UnicodeBidi.getDirection(decoratedText), _this2.props.direction);
+      var commonProps = {
+        contentState: _this2.props.contentState,
+        decoratedText: decoratedText,
+        dir: dir,
+        key: decoratorOffsetKey,
+        start: start,
+        end: end,
+        blockKey: blockKey,
+        entityKey: entityKey,
+        offsetKey: decoratorOffsetKey
+      };
+      return React.createElement(DecoratorComponent, _extends({}, decoratorProps, commonProps), leaves);
+    }).toArray();
+  };
+
+  _proto.render = function render() {
+    var _this3 = this;
+
+    var _this$props = this.props,
+        direction = _this$props.direction,
+        offsetKey = _this$props.offsetKey;
+    var className = cx({
+      'public/DraftStyleDefault/block': true,
+      'public/DraftStyleDefault/ltr': direction === 'LTR',
+      'public/DraftStyleDefault/rtl': direction === 'RTL'
+    });
+    return React.createElement("div", {
+      "data-offset-key": offsetKey,
+      className: className,
+      ref: function ref(_ref) {
+        return _this3._node = _ref;
+      }
+    }, this._renderChildren());
+  };
+
+  return DraftEditorBlock;
+}(React.Component);
+
+module.exports = DraftEditorBlock;
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+// Use the fastest means possible to execute a task in its own turn, with
+// priority over other events including IO, animation, reflow, and redraw
+// events in browsers.
+//
+// An exception thrown by a task will permanently interrupt the processing of
+// subsequent tasks. The higher level `asap` function ensures that if an
+// exception is thrown by a task, that the task queue will continue flushing as
+// soon as possible, but if you use `rawAsap` directly, you are responsible to
+// either ensure that no exceptions are thrown from your task, or to manually
+// call `rawAsap.requestFlush` if an exception is thrown.
+module.exports = rawAsap;
+function rawAsap(task) {
+    if (!queue.length) {
+        requestFlush();
+        flushing = true;
+    }
+    // Equivalent to push, but avoids a function call.
+    queue[queue.length] = task;
+}
+
+var queue = [];
+// Once a flush has been requested, no further calls to `requestFlush` are
+// necessary until the next `flush` completes.
+var flushing = false;
+// `requestFlush` is an implementation-specific method that attempts to kick
+// off a `flush` event as quickly as possible. `flush` will attempt to exhaust
+// the event queue before yielding to the browser's own event loop.
+var requestFlush;
+// The position of the next task to execute in the task queue. This is
+// preserved between calls to `flush` so that it can be resumed if
+// a task throws an exception.
+var index = 0;
+// If a task schedules additional tasks recursively, the task queue can grow
+// unbounded. To prevent memory exhaustion, the task queue will periodically
+// truncate already-completed tasks.
+var capacity = 1024;
+
+// The flush function processes all tasks that have been scheduled with
+// `rawAsap` unless and until one of those tasks throws an exception.
+// If a task throws an exception, `flush` ensures that its state will remain
+// consistent and will resume where it left off when called again.
+// However, `flush` does not make any arrangements to be called again if an
+// exception is thrown.
+function flush() {
+    while (index < queue.length) {
+        var currentIndex = index;
+        // Advance the index before calling the task. This ensures that we will
+        // begin flushing on the next task the task throws an error.
+        index = index + 1;
+        queue[currentIndex].call();
+        // Prevent leaking memory for long chains of recursive calls to `asap`.
+        // If we call `asap` within tasks scheduled by `asap`, the queue will
+        // grow, but to avoid an O(n) walk for every task we execute, we don't
+        // shift tasks off the queue after they have been executed.
+        // Instead, we periodically shift 1024 tasks off the queue.
+        if (index > capacity) {
+            // Manually shift all values starting at the index back to the
+            // beginning of the queue.
+            for (var scan = 0, newLength = queue.length - index; scan < newLength; scan++) {
+                queue[scan] = queue[scan + index];
+            }
+            queue.length -= index;
+            index = 0;
+        }
+    }
+    queue.length = 0;
+    index = 0;
+    flushing = false;
+}
+
+// `requestFlush` is implemented using a strategy based on data collected from
+// every available SauceLabs Selenium web driver worker at time of writing.
+// https://docs.google.com/spreadsheets/d/1mG-5UYGup5qxGdEMWkhP6BWCz053NUb2E1QoUTU16uA/edit#gid=783724593
+
+// Safari 6 and 6.1 for desktop, iPad, and iPhone are the only browsers that
+// have WebKitMutationObserver but not un-prefixed MutationObserver.
+// Must use `global` or `self` instead of `window` to work in both frames and web
+// workers. `global` is a provision of Browserify, Mr, Mrs, or Mop.
+
+/* globals self */
+var scope = typeof global !== "undefined" ? global : self;
+var BrowserMutationObserver = scope.MutationObserver || scope.WebKitMutationObserver;
+
+// MutationObservers are desirable because they have high priority and work
+// reliably everywhere they are implemented.
+// They are implemented in all modern browsers.
+//
+// - Android 4-4.3
+// - Chrome 26-34
+// - Firefox 14-29
+// - Internet Explorer 11
+// - iPad Safari 6-7.1
+// - iPhone Safari 7-7.1
+// - Safari 6-7
+if (typeof BrowserMutationObserver === "function") {
+    requestFlush = makeRequestCallFromMutationObserver(flush);
+
+// MessageChannels are desirable because they give direct access to the HTML
+// task queue, are implemented in Internet Explorer 10, Safari 5.0-1, and Opera
+// 11-12, and in web workers in many engines.
+// Although message channels yield to any queued rendering and IO tasks, they
+// would be better than imposing the 4ms delay of timers.
+// However, they do not work reliably in Internet Explorer or Safari.
+
+// Internet Explorer 10 is the only browser that has setImmediate but does
+// not have MutationObservers.
+// Although setImmediate yields to the browser's renderer, it would be
+// preferrable to falling back to setTimeout since it does not have
+// the minimum 4ms penalty.
+// Unfortunately there appears to be a bug in Internet Explorer 10 Mobile (and
+// Desktop to a lesser extent) that renders both setImmediate and
+// MessageChannel useless for the purposes of ASAP.
+// https://github.com/kriskowal/q/issues/396
+
+// Timers are implemented universally.
+// We fall back to timers in workers in most engines, and in foreground
+// contexts in the following browsers.
+// However, note that even this simple case requires nuances to operate in a
+// broad spectrum of browsers.
+//
+// - Firefox 3-13
+// - Internet Explorer 6-9
+// - iPad Safari 4.3
+// - Lynx 2.8.7
+} else {
+    requestFlush = makeRequestCallFromTimer(flush);
+}
+
+// `requestFlush` requests that the high priority event queue be flushed as
+// soon as possible.
+// This is useful to prevent an error thrown in a task from stalling the event
+// queue if the exception handled by Node.js’s
+// `process.on("uncaughtException")` or by a domain.
+rawAsap.requestFlush = requestFlush;
+
+// To request a high priority event, we induce a mutation observer by toggling
+// the text of a text node between "1" and "-1".
+function makeRequestCallFromMutationObserver(callback) {
+    var toggle = 1;
+    var observer = new BrowserMutationObserver(callback);
+    var node = document.createTextNode("");
+    observer.observe(node, {characterData: true});
+    return function requestCall() {
+        toggle = -toggle;
+        node.data = toggle;
+    };
+}
+
+// The message channel technique was discovered by Malte Ubl and was the
+// original foundation for this library.
+// http://www.nonblocking.io/2011/06/windownexttick.html
+
+// Safari 6.0.5 (at least) intermittently fails to create message ports on a
+// page's first load. Thankfully, this version of Safari supports
+// MutationObservers, so we don't need to fall back in that case.
+
+// function makeRequestCallFromMessageChannel(callback) {
+//     var channel = new MessageChannel();
+//     channel.port1.onmessage = callback;
+//     return function requestCall() {
+//         channel.port2.postMessage(0);
+//     };
+// }
+
+// For reasons explained above, we are also unable to use `setImmediate`
+// under any circumstances.
+// Even if we were, there is another bug in Internet Explorer 10.
+// It is not sufficient to assign `setImmediate` to `requestFlush` because
+// `setImmediate` must be called *by name* and therefore must be wrapped in a
+// closure.
+// Never forget.
+
+// function makeRequestCallFromSetImmediate(callback) {
+//     return function requestCall() {
+//         setImmediate(callback);
+//     };
+// }
+
+// Safari 6.0 has a problem where timers will get lost while the user is
+// scrolling. This problem does not impact ASAP because Safari 6.0 supports
+// mutation observers, so that implementation is used instead.
+// However, if we ever elect to use timers in Safari, the prevalent work-around
+// is to add a scroll event listener that calls for a flush.
+
+// `setTimeout` does not call the passed callback if the delay is less than
+// approximately 7 in web workers in Firefox 8 through 18, and sometimes not
+// even then.
+
+function makeRequestCallFromTimer(callback) {
+    return function requestCall() {
+        // We dispatch a timeout with a specified delay of 0 for engines that
+        // can reliably accommodate that request. This will usually be snapped
+        // to a 4 milisecond delay, but once we're flushing, there's no delay
+        // between events.
+        var timeoutHandle = setTimeout(handleTimer, 0);
+        // However, since this timer gets frequently dropped in Firefox
+        // workers, we enlist an interval handle that will try to fire
+        // an event 20 times per second until it succeeds.
+        var intervalHandle = setInterval(handleTimer, 50);
+
+        function handleTimer() {
+            // Whichever timer succeeds will cancel both timers and
+            // execute the callback.
+            clearTimeout(timeoutHandle);
+            clearInterval(intervalHandle);
+            callback();
+        }
+    };
+}
+
+// This is for `asap.js` only.
+// Its name will be periodically randomized to break any code that depends on
+// its existence.
+rawAsap.makeRequestCallFromTimer = makeRequestCallFromTimer;
+
+// ASAP was originally a nextTick shim included in Q. This was factored out
+// into this ASAP package. It was later adapted to RSVP which made further
+// amendments. These decisions, particularly to marginalize MessageChannel and
+// to capture the MutationObserver implementation in a closure, were integrated
+// back into ASAP proper.
+// https://github.com/tildeio/rsvp.js/blob/cddf7232546a9cf858524b75cde6f9edf72620a7/lib/rsvp/asap.js
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+var PhotosMimeType = __webpack_require__(147);
+
+var createArrayFromMixed = __webpack_require__(148);
+
+var emptyFunction = __webpack_require__(59);
+
+var CR_LF_REGEX = new RegExp("\r\n", 'g');
+var LF_ONLY = "\n";
+var RICH_TEXT_TYPES = {
+  'text/rtf': 1,
+  'text/html': 1
+};
+/**
+ * If DataTransferItem is a file then return the Blob of data.
+ *
+ * @param {object} item
+ * @return {?blob}
+ */
+
+function getFileFromDataTransfer(item) {
+  if (item.kind == 'file') {
+    return item.getAsFile();
+  }
+}
+
+var DataTransfer =
+/*#__PURE__*/
+function () {
+  /**
+   * @param {object} data
+   */
+  function DataTransfer(data) {
+    this.data = data; // Types could be DOMStringList or array
+
+    this.types = data.types ? createArrayFromMixed(data.types) : [];
+  }
+  /**
+   * Is this likely to be a rich text data transfer?
+   *
+   * @return {boolean}
+   */
+
+
+  var _proto = DataTransfer.prototype;
+
+  _proto.isRichText = function isRichText() {
+    // If HTML is available, treat this data as rich text. This way, we avoid
+    // using a pasted image if it is packaged with HTML -- this may occur with
+    // pastes from MS Word, for example.  However this is only rich text if
+    // there's accompanying text.
+    if (this.getHTML() && this.getText()) {
+      return true;
+    } // When an image is copied from a preview window, you end up with two
+    // DataTransferItems one of which is a file's metadata as text.  Skip those.
+
+
+    if (this.isImage()) {
+      return false;
+    }
+
+    return this.types.some(function (type) {
+      return RICH_TEXT_TYPES[type];
+    });
+  };
+  /**
+   * Get raw text.
+   *
+   * @return {?string}
+   */
+
+
+  _proto.getText = function getText() {
+    var text;
+
+    if (this.data.getData) {
+      if (!this.types.length) {
+        text = this.data.getData('Text');
+      } else if (this.types.indexOf('text/plain') != -1) {
+        text = this.data.getData('text/plain');
+      }
+    }
+
+    return text ? text.replace(CR_LF_REGEX, LF_ONLY) : null;
+  };
+  /**
+   * Get HTML paste data
+   *
+   * @return {?string}
+   */
+
+
+  _proto.getHTML = function getHTML() {
+    if (this.data.getData) {
+      if (!this.types.length) {
+        return this.data.getData('Text');
+      } else if (this.types.indexOf('text/html') != -1) {
+        return this.data.getData('text/html');
+      }
+    }
+  };
+  /**
+   * Is this a link data transfer?
+   *
+   * @return {boolean}
+   */
+
+
+  _proto.isLink = function isLink() {
+    return this.types.some(function (type) {
+      return type.indexOf('Url') != -1 || type.indexOf('text/uri-list') != -1 || type.indexOf('text/x-moz-url');
+    });
+  };
+  /**
+   * Get a link url.
+   *
+   * @return {?string}
+   */
+
+
+  _proto.getLink = function getLink() {
+    if (this.data.getData) {
+      if (this.types.indexOf('text/x-moz-url') != -1) {
+        var url = this.data.getData('text/x-moz-url').split('\n');
+        return url[0];
+      }
+
+      return this.types.indexOf('text/uri-list') != -1 ? this.data.getData('text/uri-list') : this.data.getData('url');
+    }
+
+    return null;
+  };
+  /**
+   * Is this an image data transfer?
+   *
+   * @return {boolean}
+   */
+
+
+  _proto.isImage = function isImage() {
+    var isImage = this.types.some(function (type) {
+      // Firefox will have a type of application/x-moz-file for images during
+      // dragging
+      return type.indexOf('application/x-moz-file') != -1;
+    });
+
+    if (isImage) {
+      return true;
+    }
+
+    var items = this.getFiles();
+
+    for (var i = 0; i < items.length; i++) {
+      var type = items[i].type;
+
+      if (!PhotosMimeType.isImage(type)) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  _proto.getCount = function getCount() {
+    if (this.data.hasOwnProperty('items')) {
+      return this.data.items.length;
+    } else if (this.data.hasOwnProperty('mozItemCount')) {
+      return this.data.mozItemCount;
+    } else if (this.data.files) {
+      return this.data.files.length;
+    }
+
+    return null;
+  };
+  /**
+   * Get files.
+   *
+   * @return {array}
+   */
+
+
+  _proto.getFiles = function getFiles() {
+    if (this.data.items) {
+      // createArrayFromMixed doesn't properly handle DataTransferItemLists.
+      return Array.prototype.slice.call(this.data.items).map(getFileFromDataTransfer).filter(emptyFunction.thatReturnsArgument);
+    } else if (this.data.files) {
+      return Array.prototype.slice.call(this.data.files);
+    } else {
+      return [];
+    }
+  };
+  /**
+   * Are there any files to fetch?
+   *
+   * @return {boolean}
+   */
+
+
+  _proto.hasFiles = function hasFiles() {
+    return this.getFiles().length > 0;
+  };
+
+  return DataTransfer;
+}();
+
+module.exports = DataTransfer;
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var invariant = __webpack_require__(1);
+
+var TEXT_CLIPPING_REGEX = /\.textClipping$/;
+var TEXT_TYPES = {
+  'text/plain': true,
+  'text/html': true,
+  'text/rtf': true
+}; // Somewhat arbitrary upper bound on text size. Let's not lock up the browser.
+
+var TEXT_SIZE_UPPER_BOUND = 5000;
+/**
+ * Extract the text content from a file list.
+ */
+
+function getTextContentFromFiles(files, callback) {
+  var readCount = 0;
+  var results = [];
+  files.forEach(function (
+  /*blob*/
+  file) {
+    readFile(file, function (
+    /*string*/
+    text) {
+      readCount++;
+      text && results.push(text.slice(0, TEXT_SIZE_UPPER_BOUND));
+
+      if (readCount == files.length) {
+        callback(results.join('\r'));
+      }
+    });
+  });
+}
+/**
+ * todo isaac: Do work to turn html/rtf into a content fragment.
+ */
+
+
+function readFile(file, callback) {
+  if (!global.FileReader || file.type && !(file.type in TEXT_TYPES)) {
+    callback('');
+    return;
+  }
+
+  if (file.type === '') {
+    var _contents = ''; // Special-case text clippings, which have an empty type but include
+    // `.textClipping` in the file name. `readAsText` results in an empty
+    // string for text clippings, so we force the file name to serve
+    // as the text value for the file.
+
+    if (TEXT_CLIPPING_REGEX.test(file.name)) {
+      _contents = file.name.replace(TEXT_CLIPPING_REGEX, '');
+    }
+
+    callback(_contents);
+    return;
+  }
+
+  var reader = new FileReader();
+
+  reader.onload = function () {
+    var result = reader.result;
+    !(typeof result === 'string') ?  true ? invariant(false, 'We should be calling "FileReader.readAsText" which returns a string') : invariant(false) : void 0;
+    callback(result);
+  };
+
+  reader.onerror = function () {
+    callback('');
+  };
+
+  reader.readAsText(file);
+}
+
+module.exports = getTextContentFromFiles;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var getContentStateFragment = __webpack_require__(21);
+
+function getFragmentFromSelection(editorState) {
+  var selectionState = editorState.getSelection();
+
+  if (selectionState.isCollapsed()) {
+    return null;
+  }
+
+  return getContentStateFragment(editorState.getCurrentContent(), selectionState);
+}
+
+module.exports = getFragmentFromSelection;
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var _knownListItemDepthCl;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var CharacterMetadata = __webpack_require__(5);
+
+var ContentBlock = __webpack_require__(13);
+
+var ContentBlockNode = __webpack_require__(6);
+
+var DefaultDraftBlockRenderMap = __webpack_require__(33);
+
+var DraftEntity = __webpack_require__(22);
+
+var URI = __webpack_require__(161);
+
+var cx = __webpack_require__(14);
+
+var generateRandomKey = __webpack_require__(9);
+
+var getSafeBodyFromHTML = __webpack_require__(73);
+
+var gkx = __webpack_require__(12);
+
+var _require = __webpack_require__(0),
+    List = _require.List,
+    Map = _require.Map,
+    OrderedSet = _require.OrderedSet;
+
+var experimentalTreeDataSupport = gkx('draft_tree_data_support');
+var NBSP = '&nbsp;';
+var SPACE = ' '; // used for replacing characters in HTML
+
+var REGEX_CR = new RegExp('\r', 'g');
+var REGEX_LF = new RegExp('\n', 'g');
+var REGEX_LEADING_LF = new RegExp('^\n', 'g');
+var REGEX_NBSP = new RegExp(NBSP, 'g');
+var REGEX_CARRIAGE = new RegExp('&#13;?', 'g');
+var REGEX_ZWS = new RegExp('&#8203;?', 'g'); // https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight
+
+var boldValues = ['bold', 'bolder', '500', '600', '700', '800', '900'];
+var notBoldValues = ['light', 'lighter', '100', '200', '300', '400'];
+var anchorAttr = ['className', 'href', 'rel', 'target', 'title'];
+var imgAttr = ['alt', 'className', 'height', 'src', 'width'];
+var knownListItemDepthClasses = (_knownListItemDepthCl = {}, _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth0'), 0), _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth1'), 1), _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth2'), 2), _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth3'), 3), _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth4'), 4), _knownListItemDepthCl);
+var HTMLTagToRawInlineStyleMap = Map({
+  b: 'BOLD',
+  code: 'CODE',
+  del: 'STRIKETHROUGH',
+  em: 'ITALIC',
+  i: 'ITALIC',
+  s: 'STRIKETHROUGH',
+  strike: 'STRIKETHROUGH',
+  strong: 'BOLD',
+  u: 'UNDERLINE',
+  mark: 'HIGHLIGHT'
+});
+
+/**
+ * Build a mapping from HTML tags to draftjs block types
+ * out of a BlockRenderMap.
+ *
+ * The BlockTypeMap for the default BlockRenderMap looks like this:
+ *   Map({
+ *     h1: 'header-one',
+ *     h2: 'header-two',
+ *     h3: 'header-three',
+ *     h4: 'header-four',
+ *     h5: 'header-five',
+ *     h6: 'header-six',
+ *     blockquote: 'blockquote',
+ *     figure: 'atomic',
+ *     pre: ['code-block'],
+ *     div: 'unstyled',
+ *     p: 'unstyled',
+ *     li: ['ordered-list-item', 'unordered-list-item'],
+ *   })
+ */
+var buildBlockTypeMap = function buildBlockTypeMap(blockRenderMap) {
+  var blockTypeMap = {};
+  blockRenderMap.mapKeys(function (blockType, desc) {
+    var elements = [desc.element];
+
+    if (desc.aliasedElements !== undefined) {
+      elements.push.apply(elements, desc.aliasedElements);
+    }
+
+    elements.forEach(function (element) {
+      if (blockTypeMap[element] === undefined) {
+        blockTypeMap[element] = blockType;
+      } else if (typeof blockTypeMap[element] === 'string') {
+        blockTypeMap[element] = [blockTypeMap[element], blockType];
+      } else {
+        blockTypeMap[element].push(blockType);
+      }
+    });
+  });
+  return Map(blockTypeMap);
+};
+/**
+ * If we're pasting from one DraftEditor to another we can check to see if
+ * existing list item depth classes are being used and preserve this style
+ */
+
+
+var getListItemDepth = function getListItemDepth(node) {
+  var depth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  Object.keys(knownListItemDepthClasses).some(function (depthClass) {
+    if (node.classList.contains(depthClass)) {
+      depth = knownListItemDepthClasses[depthClass];
+    }
+  });
+  return depth;
+};
+/**
+ * Return true if the provided HTML Element can be used to build a
+ * Draftjs-compatible link.
+ */
+
+
+var isValidAnchor = function isValidAnchor(node) {
+  return !!(node instanceof HTMLAnchorElement && node.href && (node.protocol === 'http:' || node.protocol === 'https:' || node.protocol === 'mailto:'));
+};
+/**
+ * Return true if the provided HTML Element can be used to build a
+ * Draftjs-compatible image.
+ */
+
+
+var isValidImage = function isValidImage(node) {
+  return !!(node instanceof HTMLImageElement && node.attributes.getNamedItem('src') && node.attributes.getNamedItem('src').value);
+};
+/**
+ * Try to guess the inline style of an HTML element based on its css
+ * styles (font-weight, font-style and text-decoration).
+ */
+
+
+var styleFromNodeAttributes = function styleFromNodeAttributes(node) {
+  var style = OrderedSet();
+
+  if (!(node instanceof HTMLElement)) {
+    return style;
+  }
+
+  var htmlElement = node;
+  var fontWeight = htmlElement.style.fontWeight;
+  var fontStyle = htmlElement.style.fontStyle;
+  var textDecoration = htmlElement.style.textDecoration;
+  return style.withMutations(function (style) {
+    if (boldValues.indexOf(fontWeight) >= 0) {
+      style.add('BOLD');
+    } else if (notBoldValues.indexOf(fontWeight) >= 0) {
+      style.remove('BOLD');
+    }
+
+    if (fontStyle === 'italic') {
+      style.add('ITALIC');
+    } else if (fontStyle === 'normal') {
+      style.remove('ITALIC');
+    }
+
+    if (textDecoration === 'underline') {
+      style.add('UNDERLINE');
+    }
+
+    if (textDecoration === 'line-through') {
+      style.add('STRIKETHROUGH');
+    }
+
+    if (textDecoration === 'none') {
+      style.remove('UNDERLINE');
+      style.remove('STRIKETHROUGH');
+    }
+  });
+};
+/**
+ * Determine if a nodeName is a list type, 'ul' or 'ol'
+ */
+
+
+var isListNode = function isListNode(nodeName) {
+  return nodeName === 'ul' || nodeName === 'ol';
+};
+/**
+ *  ContentBlockConfig is a mutable data structure that holds all
+ *  the information required to build a ContentBlock and an array of
+ *  all the child nodes (childConfigs).
+ *  It is being used a temporary data structure by the
+ *  ContentBlocksBuilder class.
+ */
+
+
+/**
+ * ContentBlocksBuilder builds a list of ContentBlocks and an Entity Map
+ * out of one (or several) HTMLElement(s).
+ *
+ * The algorithm has two passes: first it builds a tree of ContentBlockConfigs
+ * by walking through the HTML nodes and their children, then it walks the
+ * ContentBlockConfigs tree to compute parents/siblings and create
+ * the actual ContentBlocks.
+ *
+ * Typical usage is:
+ *     new ContentBlocksBuilder()
+ *        .addDOMNode(someHTMLNode)
+ *        .addDOMNode(someOtherHTMLNode)
+ *       .getContentBlocks();
+ *
+ */
+var ContentBlocksBuilder =
+/*#__PURE__*/
+function () {
+  // Most of the method in the class depend on the state of the content builder
+  // (i.e. currentBlockType, currentDepth, currentEntity etc.). Though it may
+  // be confusing at first, it made the code simpler than the alternative which
+  // is to pass those values around in every call.
+  // The following attributes are used to accumulate text and styles
+  // as we are walking the HTML node tree.
+  // Describes the future ContentState as a tree of content blocks
+  // The content blocks generated from the blockConfigs
+  // Entity map use to store links and images found in the HTML nodes
+  // Map HTML tags to draftjs block types and disambiguation function
+  function ContentBlocksBuilder(blockTypeMap, disambiguate) {
+    _defineProperty(this, "characterList", List());
+
+    _defineProperty(this, "currentBlockType", 'unstyled');
+
+    _defineProperty(this, "currentDepth", 0);
+
+    _defineProperty(this, "currentEntity", null);
+
+    _defineProperty(this, "currentStyle", OrderedSet());
+
+    _defineProperty(this, "currentText", '');
+
+    _defineProperty(this, "wrapper", null);
+
+    _defineProperty(this, "blockConfigs", []);
+
+    _defineProperty(this, "contentBlocks", []);
+
+    _defineProperty(this, "entityMap", DraftEntity);
+
+    _defineProperty(this, "blockTypeMap", void 0);
+
+    _defineProperty(this, "disambiguate", void 0);
+
+    this.clear();
+    this.blockTypeMap = blockTypeMap;
+    this.disambiguate = disambiguate;
+  }
+  /**
+   * Clear the internal state of the ContentBlocksBuilder
+   */
+
+
+  var _proto = ContentBlocksBuilder.prototype;
+
+  _proto.clear = function clear() {
+    this.characterList = List();
+    this.blockConfigs = [];
+    this.currentBlockType = 'unstyled';
+    this.currentDepth = 0;
+    this.currentEntity = null;
+    this.currentStyle = OrderedSet();
+    this.currentText = '';
+    this.entityMap = DraftEntity;
+    this.wrapper = null;
+    this.contentBlocks = [];
+  }
+  /**
+   * Add an HTMLElement to the ContentBlocksBuilder
+   */
+  ;
+
+  _proto.addDOMNode = function addDOMNode(node) {
+    var _this$blockConfigs;
+
+    this.contentBlocks = [];
+    this.currentDepth = 0; // Converts the HTML node to block config
+
+    (_this$blockConfigs = this.blockConfigs).push.apply(_this$blockConfigs, this._toBlockConfigs([node])); // There might be some left over text in the builder's
+    // internal state, if so make a ContentBlock out of it.
+
+
+    this._trimCurrentText();
+
+    if (this.currentText !== '') {
+      this.blockConfigs.push(this._makeBlockConfig());
+    } // for chaining
+
+
+    return this;
+  }
+  /**
+   * Return the ContentBlocks and the EntityMap that corresponds
+   * to the previously added HTML nodes.
+   */
+  ;
+
+  _proto.getContentBlocks = function getContentBlocks() {
+    if (this.contentBlocks.length === 0) {
+      if (experimentalTreeDataSupport) {
+        this._toContentBlocks(this.blockConfigs);
+      } else {
+        this._toFlatContentBlocks(this.blockConfigs);
+      }
+    }
+
+    return {
+      contentBlocks: this.contentBlocks,
+      entityMap: this.entityMap
+    };
+  }
+  /**
+   * Add a new inline style to the upcoming nodes.
+   */
+  ;
+
+  _proto.addStyle = function addStyle(inlineStyle) {
+    this.currentStyle = this.currentStyle.union(inlineStyle);
+  }
+  /**
+   * Remove a currently applied inline style.
+   */
+  ;
+
+  _proto.removeStyle = function removeStyle(inlineStyle) {
+    this.currentStyle = this.currentStyle.subtract(inlineStyle);
+  } // ***********************************WARNING******************************
+  // The methods below this line are private - don't call them directly.
+
+  /**
+   * Generate a new ContentBlockConfig out of the current internal state
+   * of the builder, then clears the internal state.
+   */
+  ;
+
+  _proto._makeBlockConfig = function _makeBlockConfig() {
+    var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var key = config.key || generateRandomKey();
+
+    var block = _objectSpread({
+      key: key,
+      type: this.currentBlockType,
+      text: this.currentText,
+      characterList: this.characterList,
+      depth: this.currentDepth,
+      parent: null,
+      children: List(),
+      prevSibling: null,
+      nextSibling: null,
+      childConfigs: []
+    }, config);
+
+    this.characterList = List();
+    this.currentBlockType = 'unstyled';
+    this.currentText = '';
+    return block;
+  }
+  /**
+   * Converts an array of HTML elements to a multi-root tree of content
+   * block configs. Some text content may be left in the builders internal
+   * state to enable chaining sucessive calls.
+   */
+  ;
+
+  _proto._toBlockConfigs = function _toBlockConfigs(nodes) {
+    var blockConfigs = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      var nodeName = node.nodeName.toLowerCase();
+
+      if (nodeName === 'body' || isListNode(nodeName)) {
+        // body, ol and ul are 'block' type nodes so create a block config
+        // with the text accumulated so far (if any)
+        this._trimCurrentText();
+
+        if (this.currentText !== '') {
+          blockConfigs.push(this._makeBlockConfig());
+        } // body, ol and ul nodes are ignored, but their children are inlined in
+        // the parent block config.
+
+
+        var wasCurrentDepth = this.currentDepth;
+        var wasWrapper = this.wrapper;
+
+        if (isListNode(nodeName)) {
+          this.wrapper = nodeName;
+
+          if (isListNode(wasWrapper)) {
+            this.currentDepth++;
+          }
+        }
+
+        blockConfigs.push.apply(blockConfigs, this._toBlockConfigs(Array.from(node.childNodes)));
+        this.currentDepth = wasCurrentDepth;
+        this.wrapper = wasWrapper;
+        continue;
+      }
+
+      var blockType = this.blockTypeMap.get(nodeName);
+
+      if (blockType !== undefined) {
+        // 'block' type node means we need to create a block config
+        // with the text accumulated so far (if any)
+        this._trimCurrentText();
+
+        if (this.currentText !== '') {
+          blockConfigs.push(this._makeBlockConfig());
+        }
+
+        var _wasCurrentDepth = this.currentDepth;
+        var _wasWrapper = this.wrapper;
+        this.wrapper = nodeName === 'pre' ? 'pre' : this.wrapper;
+
+        if (typeof blockType !== 'string') {
+          blockType = this.disambiguate(nodeName, this.wrapper) || blockType[0] || 'unstyled';
+        }
+
+        if (!experimentalTreeDataSupport && node instanceof HTMLElement && (blockType === 'unordered-list-item' || blockType === 'ordered-list-item')) {
+          this.currentDepth = getListItemDepth(node, this.currentDepth);
+        }
+
+        var key = generateRandomKey();
+
+        var childConfigs = this._toBlockConfigs(Array.from(node.childNodes));
+
+        this._trimCurrentText();
+
+        blockConfigs.push(this._makeBlockConfig({
+          key: key,
+          childConfigs: childConfigs,
+          type: blockType
+        }));
+        this.currentDepth = _wasCurrentDepth;
+        this.wrapper = _wasWrapper;
+        continue;
+      }
+
+      if (nodeName === '#text') {
+        this._addTextNode(node);
+
+        continue;
+      }
+
+      if (nodeName === 'br') {
+        this._addBreakNode(node);
+
+        continue;
+      }
+
+      if (isValidImage(node)) {
+        this._addImgNode(node);
+
+        continue;
+      }
+
+      if (isValidAnchor(node)) {
+        this._addAnchorNode(node, blockConfigs);
+
+        continue;
+      }
+
+      var inlineStyle = HTMLTagToRawInlineStyleMap.has(nodeName) ? OrderedSet.of(HTMLTagToRawInlineStyleMap.get(nodeName)) : OrderedSet();
+      var attributesStyle = styleFromNodeAttributes(node);
+      this.addStyle(inlineStyle);
+      this.addStyle(attributesStyle);
+      blockConfigs.push.apply(blockConfigs, this._toBlockConfigs(Array.from(node.childNodes)));
+      this.removeStyle(attributesStyle);
+      this.removeStyle(inlineStyle);
+    }
+
+    return blockConfigs;
+  }
+  /**
+   * Append a string of text to the internal buffer.
+   */
+  ;
+
+  _proto._appendText = function _appendText(text) {
+    var _this$characterList;
+
+    this.currentText += text;
+    var characterMetadata = CharacterMetadata.create({
+      style: this.currentStyle,
+      entity: this.currentEntity
+    });
+    this.characterList = (_this$characterList = this.characterList).push.apply(_this$characterList, Array(text.length).fill(characterMetadata));
+  }
+  /**
+   * Trim the text in the internal buffer.
+   */
+  ;
+
+  _proto._trimCurrentText = function _trimCurrentText() {
+    var l = this.currentText.length;
+    var begin = l - this.currentText.trimLeft().length;
+    var end = this.currentText.trimRight().length; // We should not trim whitespaces for which an entity is defined.
+
+    var entity = this.characterList.findEntry(function (characterMetadata) {
+      return characterMetadata.getEntity() !== null;
+    });
+    begin = entity !== undefined ? Math.min(begin, entity[0]) : begin;
+    entity = this.characterList.reverse().findEntry(function (characterMetadata) {
+      return characterMetadata.getEntity() !== null;
+    });
+    end = entity !== undefined ? Math.max(end, l - entity[0]) : end;
+
+    if (begin > end) {
+      this.currentText = '';
+      this.characterList = List();
+    } else {
+      this.currentText = this.currentText.slice(begin, end);
+      this.characterList = this.characterList.slice(begin, end);
+    }
+  }
+  /**
+   * Add the content of an HTML text node to the internal state
+   */
+  ;
+
+  _proto._addTextNode = function _addTextNode(node) {
+    var text = node.textContent;
+    var trimmedText = text.trim(); // If we are not in a pre block and the trimmed content is empty,
+    // normalize to a single space.
+
+    if (trimmedText === '' && this.wrapper !== 'pre') {
+      text = ' ';
+    }
+
+    if (this.wrapper !== 'pre') {
+      // Trim leading line feed, which is invisible in HTML
+      text = text.replace(REGEX_LEADING_LF, ''); // Can't use empty string because MSWord
+
+      text = text.replace(REGEX_LF, SPACE);
+    }
+
+    this._appendText(text);
+  };
+
+  _proto._addBreakNode = function _addBreakNode(node) {
+    if (!(node instanceof HTMLBRElement)) {
+      return;
+    }
+
+    this._appendText('\n');
+  }
+  /**
+   * Add the content of an HTML img node to the internal state
+   */
+  ;
+
+  _proto._addImgNode = function _addImgNode(node) {
+    if (!(node instanceof HTMLImageElement)) {
+      return;
+    }
+
+    var image = node;
+    var entityConfig = {};
+    imgAttr.forEach(function (attr) {
+      var imageAttribute = image.getAttribute(attr);
+
+      if (imageAttribute) {
+        entityConfig[attr] = imageAttribute;
+      }
+    }); // TODO: T15530363 update this when we remove DraftEntity entirely
+
+    this.currentEntity = this.entityMap.__create('IMAGE', 'IMMUTABLE', entityConfig); // The child text node cannot just have a space or return as content (since
+    // we strip those out), unless the image is for presentation only.
+    // See https://github.com/facebook/draft-js/issues/231 for some context.
+
+    if (gkx('draftjs_fix_paste_for_img')) {
+      if (node.getAttribute('role') !== 'presentation') {
+        this._appendText("\uD83D\uDCF7");
+      }
+    } else {
+      this._appendText("\uD83D\uDCF7");
+    }
+
+    this.currentEntity = null;
+  }
+  /**
+   * Add the content of an HTML 'a' node to the internal state. Child nodes
+   * (if any) are converted to Block Configs and appended to the provided
+   * blockConfig array.
+   */
+  ;
+
+  _proto._addAnchorNode = function _addAnchorNode(node, blockConfigs) {
+    // The check has already been made by isValidAnchor but
+    // we have to do it again to keep flow happy.
+    if (!(node instanceof HTMLAnchorElement)) {
+      return;
+    }
+
+    var anchor = node;
+    var entityConfig = {};
+    anchorAttr.forEach(function (attr) {
+      var anchorAttribute = anchor.getAttribute(attr);
+
+      if (anchorAttribute) {
+        entityConfig[attr] = anchorAttribute;
+      }
+    });
+    entityConfig.url = new URI(anchor.href).toString(); // TODO: T15530363 update this when we remove DraftEntity completely
+
+    this.currentEntity = this.entityMap.__create('LINK', 'MUTABLE', entityConfig || {});
+    blockConfigs.push.apply(blockConfigs, this._toBlockConfigs(Array.from(node.childNodes)));
+    this.currentEntity = null;
+  }
+  /**
+   * Walk the BlockConfig tree, compute parent/children/siblings,
+   * and generate the corresponding ContentBlockNode
+   */
+  ;
+
+  _proto._toContentBlocks = function _toContentBlocks(blockConfigs) {
+    var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var l = blockConfigs.length - 1;
+
+    for (var i = 0; i <= l; i++) {
+      var config = blockConfigs[i];
+      config.parent = parent;
+      config.prevSibling = i > 0 ? blockConfigs[i - 1].key : null;
+      config.nextSibling = i < l ? blockConfigs[i + 1].key : null;
+      config.children = List(config.childConfigs.map(function (child) {
+        return child.key;
+      }));
+      this.contentBlocks.push(new ContentBlockNode(_objectSpread({}, config)));
+
+      this._toContentBlocks(config.childConfigs, config.key);
+    }
+  }
+  /**
+   * Remove 'useless' container nodes from the block config hierarchy, by
+   * replacing them with their children.
+   */
+  ;
+
+  _proto._hoistContainersInBlockConfigs = function _hoistContainersInBlockConfigs(blockConfigs) {
+    var _this = this;
+
+    var hoisted = List(blockConfigs).flatMap(function (blockConfig) {
+      // Don't mess with useful blocks
+      if (blockConfig.type !== 'unstyled' || blockConfig.text !== '') {
+        return [blockConfig];
+      }
+
+      return _this._hoistContainersInBlockConfigs(blockConfig.childConfigs);
+    });
+    return hoisted;
+  } // ***********************************************************************
+  // The two methods below are used for backward compatibility when
+  // experimentalTreeDataSupport is disabled.
+
+  /**
+   * Same as _toContentBlocks but replaces nested blocks by their
+   * text content.
+   */
+  ;
+
+  _proto._toFlatContentBlocks = function _toFlatContentBlocks(blockConfigs) {
+    var _this2 = this;
+
+    var cleanConfigs = this._hoistContainersInBlockConfigs(blockConfigs);
+
+    cleanConfigs.forEach(function (config) {
+      var _this2$_extractTextFr = _this2._extractTextFromBlockConfigs(config.childConfigs),
+          text = _this2$_extractTextFr.text,
+          characterList = _this2$_extractTextFr.characterList;
+
+      _this2.contentBlocks.push(new ContentBlock(_objectSpread({}, config, {
+        text: config.text + text,
+        characterList: config.characterList.concat(characterList)
+      })));
+    });
+  }
+  /**
+   * Extract the text and the associated inline styles form an
+   * array of content block configs.
+   */
+  ;
+
+  _proto._extractTextFromBlockConfigs = function _extractTextFromBlockConfigs(blockConfigs) {
+    var l = blockConfigs.length - 1;
+    var text = '';
+    var characterList = List();
+
+    for (var i = 0; i <= l; i++) {
+      var config = blockConfigs[i];
+      text += config.text;
+      characterList = characterList.concat(config.characterList);
+      /* $FlowFixMe(>=0.68.0 site=www,mobile) This comment suppresses an error
+       * found when Flow v0.68 was deployed. To see the error delete this
+       * comment and run Flow. */
+
+      if (text !== '' && config.blockType !== 'unstyled') {
+        text += '\n';
+        characterList = characterList.push(characterList.last());
+      }
+
+      var children = this._extractTextFromBlockConfigs(config.childConfigs);
+
+      text += children.text;
+      characterList = characterList.concat(children.characterList);
+    }
+
+    return {
+      text: text,
+      characterList: characterList
+    };
+  };
+
+  return ContentBlocksBuilder;
+}();
+/**
+ * Converts an HTML string to an array of ContentBlocks and an EntityMap
+ * suitable to initialize the internal state of a Draftjs component.
+ */
+
+
+var convertFromHTMLToContentBlocks = function convertFromHTMLToContentBlocks(html) {
+  var DOMBuilder = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : getSafeBodyFromHTML;
+  var blockRenderMap = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : DefaultDraftBlockRenderMap;
+  // Be ABSOLUTELY SURE that the dom builder you pass here won't execute
+  // arbitrary code in whatever environment you're running this in. For an
+  // example of how we try to do this in-browser, see getSafeBodyFromHTML.
+  // Remove funky characters from the HTML string
+  html = html.trim().replace(REGEX_CR, '').replace(REGEX_NBSP, SPACE).replace(REGEX_CARRIAGE, '').replace(REGEX_ZWS, ''); // Build a DOM tree out of the HTML string
+
+  var safeBody = DOMBuilder(html);
+
+  if (!safeBody) {
+    return null;
+  } // Build a BlockTypeMap out of the BlockRenderMap
+
+
+  var blockTypeMap = buildBlockTypeMap(blockRenderMap); // Select the proper block type for the cases where the blockRenderMap
+  // uses multiple block types for the same html tag.
+
+  var disambiguate = function disambiguate(tag, wrapper) {
+    if (tag === 'li') {
+      return wrapper === 'ol' ? 'ordered-list-item' : 'unordered-list-item';
+    }
+
+    return null;
+  };
+
+  return new ContentBlocksBuilder(blockTypeMap, disambiguate).addDOMNode(safeBody).getContentBlocks();
+};
+
+module.exports = convertFromHTMLToContentBlocks;
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var UserAgent = __webpack_require__(7);
+
+var invariant = __webpack_require__(1);
+
+var isOldIE = UserAgent.isBrowser('IE <= 9'); // Provides a dom node that will not execute scripts
+// https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation.createHTMLDocument
+// https://developer.mozilla.org/en-US/Add-ons/Code_snippets/HTML_to_DOM
+
+function getSafeBodyFromHTML(html) {
+  var doc;
+  var root = null; // Provides a safe context
+
+  if (!isOldIE && document.implementation && document.implementation.createHTMLDocument) {
+    doc = document.implementation.createHTMLDocument('foo');
+    !doc.documentElement ?  true ? invariant(false, 'Missing doc.documentElement') : invariant(false) : void 0;
+    doc.documentElement.innerHTML = html;
+    root = doc.getElementsByTagName('body')[0];
+  }
+
+  return root;
+}
+
+module.exports = getSafeBodyFromHTML;
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftModifier = __webpack_require__(3);
+
+var EditorState = __webpack_require__(2);
+
+var adjustBlockDepthForContentState = __webpack_require__(162);
+
+var nullthrows = __webpack_require__(4);
+
+var RichTextEditorUtil = {
+  currentBlockContainsLink: function currentBlockContainsLink(editorState) {
+    var selection = editorState.getSelection();
+    var contentState = editorState.getCurrentContent();
+    var entityMap = contentState.getEntityMap();
+    return contentState.getBlockForKey(selection.getAnchorKey()).getCharacterList().slice(selection.getStartOffset(), selection.getEndOffset()).some(function (v) {
+      var entity = v.getEntity();
+      return !!entity && entityMap.__get(entity).getType() === 'LINK';
+    });
+  },
+  getCurrentBlockType: function getCurrentBlockType(editorState) {
+    var selection = editorState.getSelection();
+    return editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
+  },
+  getDataObjectForLinkURL: function getDataObjectForLinkURL(uri) {
+    return {
+      url: uri.toString()
+    };
+  },
+  handleKeyCommand: function handleKeyCommand(editorState, command, eventTimeStamp) {
+    switch (command) {
+      case 'bold':
+        return RichTextEditorUtil.toggleInlineStyle(editorState, 'BOLD');
+
+      case 'italic':
+        return RichTextEditorUtil.toggleInlineStyle(editorState, 'ITALIC');
+
+      case 'underline':
+        return RichTextEditorUtil.toggleInlineStyle(editorState, 'UNDERLINE');
+
+      case 'code':
+        return RichTextEditorUtil.toggleCode(editorState);
+
+      case 'backspace':
+      case 'backspace-word':
+      case 'backspace-to-start-of-line':
+        return RichTextEditorUtil.onBackspace(editorState);
+
+      case 'delete':
+      case 'delete-word':
+      case 'delete-to-end-of-block':
+        return RichTextEditorUtil.onDelete(editorState);
+
+      default:
+        // they may have custom editor commands; ignore those
+        return null;
+    }
+  },
+  insertSoftNewline: function insertSoftNewline(editorState) {
+    var contentState = DraftModifier.insertText(editorState.getCurrentContent(), editorState.getSelection(), '\n', editorState.getCurrentInlineStyle(), null);
+    var newEditorState = EditorState.push(editorState, contentState, 'insert-characters');
+    return EditorState.forceSelection(newEditorState, contentState.getSelectionAfter());
+  },
+
+  /**
+   * For collapsed selections at the start of styled blocks, backspace should
+   * just remove the existing style.
+   */
+  onBackspace: function onBackspace(editorState) {
+    var selection = editorState.getSelection();
+
+    if (!selection.isCollapsed() || selection.getAnchorOffset() || selection.getFocusOffset()) {
+      return null;
+    } // First, try to remove a preceding atomic block.
+
+
+    var content = editorState.getCurrentContent();
+    var startKey = selection.getStartKey();
+    var blockBefore = content.getBlockBefore(startKey);
+
+    if (blockBefore && blockBefore.getType() === 'atomic') {
+      var blockMap = content.getBlockMap()["delete"](blockBefore.getKey());
+      var withoutAtomicBlock = content.merge({
+        blockMap: blockMap,
+        selectionAfter: selection
+      });
+
+      if (withoutAtomicBlock !== content) {
+        return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
+      }
+    } // If that doesn't succeed, try to remove the current block style.
+
+
+    var withoutBlockStyle = RichTextEditorUtil.tryToRemoveBlockStyle(editorState);
+
+    if (withoutBlockStyle) {
+      return EditorState.push(editorState, withoutBlockStyle, 'change-block-type');
+    }
+
+    return null;
+  },
+  onDelete: function onDelete(editorState) {
+    var selection = editorState.getSelection();
+
+    if (!selection.isCollapsed()) {
+      return null;
+    }
+
+    var content = editorState.getCurrentContent();
+    var startKey = selection.getStartKey();
+    var block = content.getBlockForKey(startKey);
+    var length = block.getLength(); // The cursor is somewhere within the text. Behave normally.
+
+    if (selection.getStartOffset() < length) {
+      return null;
+    }
+
+    var blockAfter = content.getBlockAfter(startKey);
+
+    if (!blockAfter || blockAfter.getType() !== 'atomic') {
+      return null;
+    }
+
+    var atomicBlockTarget = selection.merge({
+      focusKey: blockAfter.getKey(),
+      focusOffset: blockAfter.getLength()
+    });
+    var withoutAtomicBlock = DraftModifier.removeRange(content, atomicBlockTarget, 'forward');
+
+    if (withoutAtomicBlock !== content) {
+      return EditorState.push(editorState, withoutAtomicBlock, 'remove-range');
+    }
+
+    return null;
+  },
+  onTab: function onTab(event, editorState, maxDepth) {
+    var selection = editorState.getSelection();
+    var key = selection.getAnchorKey();
+
+    if (key !== selection.getFocusKey()) {
+      return editorState;
+    }
+
+    var content = editorState.getCurrentContent();
+    var block = content.getBlockForKey(key);
+    var type = block.getType();
+
+    if (type !== 'unordered-list-item' && type !== 'ordered-list-item') {
+      return editorState;
+    }
+
+    event.preventDefault();
+    var depth = block.getDepth();
+
+    if (!event.shiftKey && depth === maxDepth) {
+      return editorState;
+    }
+
+    var withAdjustment = adjustBlockDepthForContentState(content, selection, event.shiftKey ? -1 : 1, maxDepth);
+    return EditorState.push(editorState, withAdjustment, 'adjust-depth');
+  },
+  toggleBlockType: function toggleBlockType(editorState, blockType) {
+    var selection = editorState.getSelection();
+    var startKey = selection.getStartKey();
+    var endKey = selection.getEndKey();
+    var content = editorState.getCurrentContent();
+    var target = selection; // Triple-click can lead to a selection that includes offset 0 of the
+    // following block. The `SelectionState` for this case is accurate, but
+    // we should avoid toggling block type for the trailing block because it
+    // is a confusing interaction.
+
+    if (startKey !== endKey && selection.getEndOffset() === 0) {
+      var blockBefore = nullthrows(content.getBlockBefore(endKey));
+      endKey = blockBefore.getKey();
+      target = target.merge({
+        anchorKey: startKey,
+        anchorOffset: selection.getStartOffset(),
+        focusKey: endKey,
+        focusOffset: blockBefore.getLength(),
+        isBackward: false
+      });
+    }
+
+    var hasAtomicBlock = content.getBlockMap().skipWhile(function (_, k) {
+      return k !== startKey;
+    }).reverse().skipWhile(function (_, k) {
+      return k !== endKey;
+    }).some(function (v) {
+      return v.getType() === 'atomic';
+    });
+
+    if (hasAtomicBlock) {
+      return editorState;
+    }
+
+    var typeToSet = content.getBlockForKey(startKey).getType() === blockType ? 'unstyled' : blockType;
+    return EditorState.push(editorState, DraftModifier.setBlockType(content, target, typeToSet), 'change-block-type');
+  },
+  toggleCode: function toggleCode(editorState) {
+    var selection = editorState.getSelection();
+    var anchorKey = selection.getAnchorKey();
+    var focusKey = selection.getFocusKey();
+
+    if (selection.isCollapsed() || anchorKey !== focusKey) {
+      return RichTextEditorUtil.toggleBlockType(editorState, 'code-block');
+    }
+
+    return RichTextEditorUtil.toggleInlineStyle(editorState, 'CODE');
+  },
+
+  /**
+   * Toggle the specified inline style for the selection. If the
+   * user's selection is collapsed, apply or remove the style for the
+   * internal state. If it is not collapsed, apply the change directly
+   * to the document state.
+   */
+  toggleInlineStyle: function toggleInlineStyle(editorState, inlineStyle) {
+    var selection = editorState.getSelection();
+    var currentStyle = editorState.getCurrentInlineStyle(); // If the selection is collapsed, toggle the specified style on or off and
+    // set the result as the new inline style override. This will then be
+    // used as the inline style for the next character to be inserted.
+
+    if (selection.isCollapsed()) {
+      return EditorState.setInlineStyleOverride(editorState, currentStyle.has(inlineStyle) ? currentStyle.remove(inlineStyle) : currentStyle.add(inlineStyle));
+    } // If characters are selected, immediately apply or remove the
+    // inline style on the document state itself.
+
+
+    var content = editorState.getCurrentContent();
+    var newContent; // If the style is already present for the selection range, remove it.
+    // Otherwise, apply it.
+
+    if (currentStyle.has(inlineStyle)) {
+      newContent = DraftModifier.removeInlineStyle(content, selection, inlineStyle);
+    } else {
+      newContent = DraftModifier.applyInlineStyle(content, selection, inlineStyle);
+    }
+
+    return EditorState.push(editorState, newContent, 'change-inline-style');
+  },
+  toggleLink: function toggleLink(editorState, targetSelection, entityKey) {
+    var withoutLink = DraftModifier.applyEntity(editorState.getCurrentContent(), targetSelection, entityKey);
+    return EditorState.push(editorState, withoutLink, 'apply-entity');
+  },
+
+  /**
+   * When a collapsed cursor is at the start of a styled block, changes block
+   * type to 'unstyled'. Returns null if selection does not meet that criteria.
+   */
+  tryToRemoveBlockStyle: function tryToRemoveBlockStyle(editorState) {
+    var selection = editorState.getSelection();
+    var offset = selection.getAnchorOffset();
+
+    if (selection.isCollapsed() && offset === 0) {
+      var key = selection.getAnchorKey();
+      var content = editorState.getCurrentContent();
+      var block = content.getBlockForKey(key);
+      var type = block.getType();
+      var blockBefore = content.getBlockBefore(key);
+
+      if (type === 'code-block' && blockBefore && blockBefore.getType() === 'code-block' && blockBefore.getLength() !== 0) {
+        return null;
+      }
+
+      if (type !== 'unstyled') {
+        return DraftModifier.setBlockType(content, selection, 'unstyled');
+      }
+    }
+
+    return null;
+  }
+};
+module.exports = RichTextEditorUtil;
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var KeyBindingUtil = __webpack_require__(35);
+
+var Keys = __webpack_require__(26);
+
+var UserAgent = __webpack_require__(7);
+
+var isOSX = UserAgent.isPlatform('Mac OS X'); // Firefox on OSX had a bug resulting in navigation instead of cursor movement.
+// This bug was fixed in Firefox 29. Feature detection is virtually impossible
+// so we just check the version number. See #342765.
+
+var shouldFixFirefoxMovement = isOSX && UserAgent.isBrowser('Firefox < 29');
+var hasCommandModifier = KeyBindingUtil.hasCommandModifier,
+    isCtrlKeyCommand = KeyBindingUtil.isCtrlKeyCommand;
+
+function shouldRemoveWord(e) {
+  return isOSX && e.altKey || isCtrlKeyCommand(e);
+}
+/**
+ * Get the appropriate undo/redo command for a Z key command.
+ */
+
+
+function getZCommand(e) {
+  if (!hasCommandModifier(e)) {
+    return null;
+  }
+
+  return e.shiftKey ? 'redo' : 'undo';
+}
+
+function getDeleteCommand(e) {
+  // Allow default "cut" behavior for PCs on Shift + Delete.
+  if (!isOSX && e.shiftKey) {
+    return null;
+  }
+
+  return shouldRemoveWord(e) ? 'delete-word' : 'delete';
+}
+
+function getBackspaceCommand(e) {
+  if (hasCommandModifier(e) && isOSX) {
+    return 'backspace-to-start-of-line';
+  }
+
+  return shouldRemoveWord(e) ? 'backspace-word' : 'backspace';
+}
+/**
+ * Retrieve a bound key command for the given event.
+ */
+
+
+function getDefaultKeyBinding(e) {
+  switch (e.keyCode) {
+    case 66:
+      // B
+      return hasCommandModifier(e) ? 'bold' : null;
+
+    case 68:
+      // D
+      return isCtrlKeyCommand(e) ? 'delete' : null;
+
+    case 72:
+      // H
+      return isCtrlKeyCommand(e) ? 'backspace' : null;
+
+    case 73:
+      // I
+      return hasCommandModifier(e) ? 'italic' : null;
+
+    case 74:
+      // J
+      return hasCommandModifier(e) ? 'code' : null;
+
+    case 75:
+      // K
+      return isOSX && isCtrlKeyCommand(e) ? 'secondary-cut' : null;
+
+    case 77:
+      // M
+      return isCtrlKeyCommand(e) ? 'split-block' : null;
+
+    case 79:
+      // O
+      return isCtrlKeyCommand(e) ? 'split-block' : null;
+
+    case 84:
+      // T
+      return isOSX && isCtrlKeyCommand(e) ? 'transpose-characters' : null;
+
+    case 85:
+      // U
+      return hasCommandModifier(e) ? 'underline' : null;
+
+    case 87:
+      // W
+      return isOSX && isCtrlKeyCommand(e) ? 'backspace-word' : null;
+
+    case 89:
+      // Y
+      if (isCtrlKeyCommand(e)) {
+        return isOSX ? 'secondary-paste' : 'redo';
+      }
+
+      return null;
+
+    case 90:
+      // Z
+      return getZCommand(e) || null;
+
+    case Keys.RETURN:
+      return 'split-block';
+
+    case Keys.DELETE:
+      return getDeleteCommand(e);
+
+    case Keys.BACKSPACE:
+      return getBackspaceCommand(e);
+    // LEFT/RIGHT handlers serve as a workaround for a Firefox bug.
+
+    case Keys.LEFT:
+      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-start-of-block' : null;
+
+    case Keys.RIGHT:
+      return shouldFixFirefoxMovement && hasCommandModifier(e) ? 'move-selection-to-end-of-block' : null;
+
+    default:
+      return null;
+  }
+}
+
+module.exports = getDefaultKeyBinding;
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftStringKey = {
+  stringify: function stringify(key) {
+    return '_' + String(key);
+  },
+  unstringify: function unstringify(key) {
+    return key.slice(1);
+  }
+};
+module.exports = DraftStringKey;
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ */
+
+
+var AtomicBlockUtils = __webpack_require__(78);
+
+var BlockMapBuilder = __webpack_require__(18);
+
+var CharacterMetadata = __webpack_require__(5);
+
+var CompositeDraftDecorator = __webpack_require__(93);
+
+var ContentBlock = __webpack_require__(13);
+
+var ContentState = __webpack_require__(31);
+
+var DefaultDraftBlockRenderMap = __webpack_require__(33);
+
+var DefaultDraftInlineStyle = __webpack_require__(48);
+
+var DraftEditor = __webpack_require__(94);
+
+var DraftEditorBlock = __webpack_require__(67);
+
+var DraftEntity = __webpack_require__(22);
+
+var DraftModifier = __webpack_require__(3);
+
+var DraftEntityInstance = __webpack_require__(46);
+
+var EditorState = __webpack_require__(2);
+
+var KeyBindingUtil = __webpack_require__(35);
+
+var RawDraftContentState = __webpack_require__(165);
+
+var RichTextEditorUtil = __webpack_require__(74);
+
+var SelectionState = __webpack_require__(23);
+
+var convertFromDraftStateToRaw = __webpack_require__(166);
+
+var convertFromRawToDraftState = __webpack_require__(169);
+
+var generateRandomKey = __webpack_require__(9);
+
+var getDefaultKeyBinding = __webpack_require__(75);
+
+var getVisibleSelectionRect = __webpack_require__(175);
+
+var convertFromHTML = __webpack_require__(72);
+
+var DraftPublic = {
+  Editor: DraftEditor,
+  EditorBlock: DraftEditorBlock,
+  EditorState: EditorState,
+  CompositeDecorator: CompositeDraftDecorator,
+  Entity: DraftEntity,
+  EntityInstance: DraftEntityInstance,
+  BlockMapBuilder: BlockMapBuilder,
+  CharacterMetadata: CharacterMetadata,
+  ContentBlock: ContentBlock,
+  ContentState: ContentState,
+  RawDraftContentState: RawDraftContentState,
+  SelectionState: SelectionState,
+  AtomicBlockUtils: AtomicBlockUtils,
+  KeyBindingUtil: KeyBindingUtil,
+  Modifier: DraftModifier,
+  RichUtils: RichTextEditorUtil,
+  DefaultDraftBlockRenderMap: DefaultDraftBlockRenderMap,
+  DefaultDraftInlineStyle: DefaultDraftInlineStyle,
+  convertFromHTML: convertFromHTML,
+  convertFromRaw: convertFromRawToDraftState,
+  convertToRaw: convertFromDraftStateToRaw,
+  genKey: generateRandomKey,
+  getDefaultKeyBinding: getDefaultKeyBinding,
+  getVisibleSelectionRect: getVisibleSelectionRect
+};
+module.exports = DraftPublic;
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var BlockMapBuilder = __webpack_require__(18);
+
+var CharacterMetadata = __webpack_require__(5);
+
+var ContentBlock = __webpack_require__(13);
+
+var ContentBlockNode = __webpack_require__(6);
+
+var DraftModifier = __webpack_require__(3);
+
+var EditorState = __webpack_require__(2);
+
+var generateRandomKey = __webpack_require__(9);
+
+var gkx = __webpack_require__(12);
+
+var Immutable = __webpack_require__(0);
+
+var moveBlockInContentState = __webpack_require__(92);
+
+var experimentalTreeDataSupport = gkx('draft_tree_data_support');
+var ContentBlockRecord = experimentalTreeDataSupport ? ContentBlockNode : ContentBlock;
+var List = Immutable.List,
+    Repeat = Immutable.Repeat;
+var AtomicBlockUtils = {
+  insertAtomicBlock: function insertAtomicBlock(editorState, entityKey, character) {
+    var contentState = editorState.getCurrentContent();
+    var selectionState = editorState.getSelection();
+    var afterRemoval = DraftModifier.removeRange(contentState, selectionState, 'backward');
+    var targetSelection = afterRemoval.getSelectionAfter();
+    var afterSplit = DraftModifier.splitBlock(afterRemoval, targetSelection);
+    var insertionTarget = afterSplit.getSelectionAfter();
+    var asAtomicBlock = DraftModifier.setBlockType(afterSplit, insertionTarget, 'atomic');
+    var charData = CharacterMetadata.create({
+      entity: entityKey
+    });
+    var atomicBlockConfig = {
+      key: generateRandomKey(),
+      type: 'atomic',
+      text: character,
+      characterList: List(Repeat(charData, character.length))
+    };
+    var atomicDividerBlockConfig = {
+      key: generateRandomKey(),
+      type: 'unstyled'
+    };
+
+    if (experimentalTreeDataSupport) {
+      atomicBlockConfig = _objectSpread({}, atomicBlockConfig, {
+        nextSibling: atomicDividerBlockConfig.key
+      });
+      atomicDividerBlockConfig = _objectSpread({}, atomicDividerBlockConfig, {
+        prevSibling: atomicBlockConfig.key
+      });
+    }
+
+    var fragmentArray = [new ContentBlockRecord(atomicBlockConfig), new ContentBlockRecord(atomicDividerBlockConfig)];
+    var fragment = BlockMapBuilder.createFromArray(fragmentArray);
+    var withAtomicBlock = DraftModifier.replaceWithFragment(asAtomicBlock, insertionTarget, fragment);
+    var newContent = withAtomicBlock.merge({
+      selectionBefore: selectionState,
+      selectionAfter: withAtomicBlock.getSelectionAfter().set('hasFocus', true)
+    });
+    return EditorState.push(editorState, newContent, 'insert-fragment');
+  },
+  moveAtomicBlock: function moveAtomicBlock(editorState, atomicBlock, targetRange, insertionMode) {
+    var contentState = editorState.getCurrentContent();
+    var selectionState = editorState.getSelection();
+    var withMovedAtomicBlock;
+
+    if (insertionMode === 'before' || insertionMode === 'after') {
+      var targetBlock = contentState.getBlockForKey(insertionMode === 'before' ? targetRange.getStartKey() : targetRange.getEndKey());
+      withMovedAtomicBlock = moveBlockInContentState(contentState, atomicBlock, targetBlock, insertionMode);
+    } else {
+      var afterRemoval = DraftModifier.removeRange(contentState, targetRange, 'backward');
+      var selectionAfterRemoval = afterRemoval.getSelectionAfter();
+
+      var _targetBlock = afterRemoval.getBlockForKey(selectionAfterRemoval.getFocusKey());
+
+      if (selectionAfterRemoval.getStartOffset() === 0) {
+        withMovedAtomicBlock = moveBlockInContentState(afterRemoval, atomicBlock, _targetBlock, 'before');
+      } else if (selectionAfterRemoval.getEndOffset() === _targetBlock.getLength()) {
+        withMovedAtomicBlock = moveBlockInContentState(afterRemoval, atomicBlock, _targetBlock, 'after');
+      } else {
+        var afterSplit = DraftModifier.splitBlock(afterRemoval, selectionAfterRemoval);
+        var selectionAfterSplit = afterSplit.getSelectionAfter();
+
+        var _targetBlock2 = afterSplit.getBlockForKey(selectionAfterSplit.getFocusKey());
+
+        withMovedAtomicBlock = moveBlockInContentState(afterSplit, atomicBlock, _targetBlock2, 'before');
+      }
+    }
+
+    var newContent = withMovedAtomicBlock.merge({
+      selectionBefore: selectionState,
+      selectionAfter: withMovedAtomicBlock.getSelectionAfter().set('hasFocus', true)
+    });
+    return EditorState.push(editorState, newContent, 'move-block');
+  }
+};
+module.exports = AtomicBlockUtils;
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var CharacterMetadata = __webpack_require__(5);
+
+var _require = __webpack_require__(0),
+    Map = _require.Map;
+
+var ContentStateInlineStyle = {
+  add: function add(contentState, selectionState, inlineStyle) {
+    return modifyInlineStyle(contentState, selectionState, inlineStyle, true);
+  },
+  remove: function remove(contentState, selectionState, inlineStyle) {
+    return modifyInlineStyle(contentState, selectionState, inlineStyle, false);
+  }
+};
+
+function modifyInlineStyle(contentState, selectionState, inlineStyle, addOrRemove) {
+  var blockMap = contentState.getBlockMap();
+  var startKey = selectionState.getStartKey();
+  var startOffset = selectionState.getStartOffset();
+  var endKey = selectionState.getEndKey();
+  var endOffset = selectionState.getEndOffset();
+  var newBlocks = blockMap.skipUntil(function (_, k) {
+    return k === startKey;
+  }).takeUntil(function (_, k) {
+    return k === endKey;
+  }).concat(Map([[endKey, blockMap.get(endKey)]])).map(function (block, blockKey) {
+    var sliceStart;
+    var sliceEnd;
+
+    if (startKey === endKey) {
+      sliceStart = startOffset;
+      sliceEnd = endOffset;
+    } else {
+      sliceStart = blockKey === startKey ? startOffset : 0;
+      sliceEnd = blockKey === endKey ? endOffset : block.getLength();
+    }
+
+    var chars = block.getCharacterList();
+    var current;
+
+    while (sliceStart < sliceEnd) {
+      current = chars.get(sliceStart);
+      chars = chars.set(sliceStart, addOrRemove ? CharacterMetadata.applyStyle(current, inlineStyle) : CharacterMetadata.removeStyle(current, inlineStyle));
+      sliceStart++;
+    }
+
+    return block.set('characterList', chars);
+  });
+  return contentState.merge({
+    blockMap: blockMap.merge(newBlocks),
+    selectionBefore: selectionState,
+    selectionAfter: selectionState
+  });
+}
+
+module.exports = ContentStateInlineStyle;
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var applyEntityToContentBlock = __webpack_require__(81);
+
+var Immutable = __webpack_require__(0);
+
+function applyEntityToContentState(contentState, selectionState, entityKey) {
+  var blockMap = contentState.getBlockMap();
+  var startKey = selectionState.getStartKey();
+  var startOffset = selectionState.getStartOffset();
+  var endKey = selectionState.getEndKey();
+  var endOffset = selectionState.getEndOffset();
+  var newBlocks = blockMap.skipUntil(function (_, k) {
+    return k === startKey;
+  }).takeUntil(function (_, k) {
+    return k === endKey;
+  }).toOrderedMap().merge(Immutable.OrderedMap([[endKey, blockMap.get(endKey)]])).map(function (block, blockKey) {
+    var sliceStart = blockKey === startKey ? startOffset : 0;
+    var sliceEnd = blockKey === endKey ? endOffset : block.getLength();
+    return applyEntityToContentBlock(block, sliceStart, sliceEnd, entityKey);
+  });
+  return contentState.merge({
+    blockMap: blockMap.merge(newBlocks),
+    selectionBefore: selectionState,
+    selectionAfter: selectionState
+  });
+}
+
+module.exports = applyEntityToContentState;
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var CharacterMetadata = __webpack_require__(5);
+
+function applyEntityToContentBlock(contentBlock, start, end, entityKey) {
+  var characterList = contentBlock.getCharacterList();
+
+  while (start < end && characterList.size > start) {
+    characterList = characterList.set(start, CharacterMetadata.applyEntity(characterList.get(start), entityKey));
+    start++;
+  }
+
+  return contentBlock.set('characterList', characterList);
+}
+
+module.exports = applyEntityToContentBlock;
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftEntitySegments = __webpack_require__(83);
+
+var getRangesForDraftEntity = __webpack_require__(84);
+
+var invariant = __webpack_require__(1);
+/**
+ * Given a SelectionState and a removal direction, determine the entire range
+ * that should be removed from a ContentState. This is based on any entities
+ * within the target, with their `mutability` values taken into account.
+ *
+ * For instance, if we are attempting to remove part of an "immutable" entity
+ * range, the entire entity must be removed. The returned `SelectionState`
+ * will be adjusted accordingly.
+ */
+
+
+function getCharacterRemovalRange(entityMap, startBlock, endBlock, selectionState, direction) {
+  var start = selectionState.getStartOffset();
+  var end = selectionState.getEndOffset();
+  var startEntityKey = startBlock.getEntityAt(start);
+  var endEntityKey = endBlock.getEntityAt(end - 1);
+
+  if (!startEntityKey && !endEntityKey) {
+    return selectionState;
+  }
+
+  var newSelectionState = selectionState;
+
+  if (startEntityKey && startEntityKey === endEntityKey) {
+    newSelectionState = getEntityRemovalRange(entityMap, startBlock, newSelectionState, direction, startEntityKey, true, true);
+  } else if (startEntityKey && endEntityKey) {
+    var startSelectionState = getEntityRemovalRange(entityMap, startBlock, newSelectionState, direction, startEntityKey, false, true);
+    var endSelectionState = getEntityRemovalRange(entityMap, endBlock, newSelectionState, direction, endEntityKey, false, false);
+    newSelectionState = newSelectionState.merge({
+      anchorOffset: startSelectionState.getAnchorOffset(),
+      focusOffset: endSelectionState.getFocusOffset(),
+      isBackward: false
+    });
+  } else if (startEntityKey) {
+    var _startSelectionState = getEntityRemovalRange(entityMap, startBlock, newSelectionState, direction, startEntityKey, false, true);
+
+    newSelectionState = newSelectionState.merge({
+      anchorOffset: _startSelectionState.getStartOffset(),
+      isBackward: false
+    });
+  } else if (endEntityKey) {
+    var _endSelectionState = getEntityRemovalRange(entityMap, endBlock, newSelectionState, direction, endEntityKey, false, false);
+
+    newSelectionState = newSelectionState.merge({
+      focusOffset: _endSelectionState.getEndOffset(),
+      isBackward: false
+    });
+  }
+
+  return newSelectionState;
+}
+
+function getEntityRemovalRange(entityMap, block, selectionState, direction, entityKey, isEntireSelectionWithinEntity, isEntityAtStart) {
+  var start = selectionState.getStartOffset();
+  var end = selectionState.getEndOffset();
+
+  var entity = entityMap.__get(entityKey);
+
+  var mutability = entity.getMutability();
+  var sideToConsider = isEntityAtStart ? start : end; // `MUTABLE` entities can just have the specified range of text removed
+  // directly. No adjustments are needed.
+
+  if (mutability === 'MUTABLE') {
+    return selectionState;
+  } // Find the entity range that overlaps with our removal range.
+
+
+  var entityRanges = getRangesForDraftEntity(block, entityKey).filter(function (range) {
+    return sideToConsider <= range.end && sideToConsider >= range.start;
+  });
+  !(entityRanges.length == 1) ?  true ? invariant(false, 'There should only be one entity range within this removal range.') : invariant(false) : void 0;
+  var entityRange = entityRanges[0]; // For `IMMUTABLE` entity types, we will remove the entire entity range.
+
+  if (mutability === 'IMMUTABLE') {
+    return selectionState.merge({
+      anchorOffset: entityRange.start,
+      focusOffset: entityRange.end,
+      isBackward: false
+    });
+  } // For `SEGMENTED` entity types, determine the appropriate segment to
+  // remove.
+
+
+  if (!isEntireSelectionWithinEntity) {
+    if (isEntityAtStart) {
+      end = entityRange.end;
+    } else {
+      start = entityRange.start;
+    }
+  }
+
+  var removalRange = DraftEntitySegments.getRemovalRange(start, end, block.getText().slice(entityRange.start, entityRange.end), entityRange.start, direction);
+  return selectionState.merge({
+    anchorOffset: removalRange.start,
+    focusOffset: removalRange.end,
+    isBackward: false
+  });
+}
+
+module.exports = getCharacterRemovalRange;
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+/**
+ * Identify the range to delete from a segmented entity.
+ *
+ * Rules:
+ *
+ *  Example: 'John F. Kennedy'
+ *
+ *   - Deletion from within any non-whitespace (i.e. ['John', 'F.', 'Kennedy'])
+ *     will return the range of that text.
+ *
+ *       'John F. Kennedy' -> 'John F.'
+ *                  ^
+ *
+ *   - Forward deletion of whitespace will remove the following section:
+ *
+ *       'John F. Kennedy' -> 'John Kennedy'
+ *            ^
+ *
+ *   - Backward deletion of whitespace will remove the previous section:
+ *
+ *       'John F. Kennedy' -> 'F. Kennedy'
+ *            ^
+ */
+var DraftEntitySegments = {
+  getRemovalRange: function getRemovalRange(selectionStart, selectionEnd, text, entityStart, direction) {
+    var segments = text.split(' ');
+    segments = segments.map(function (
+    /*string*/
+    segment,
+    /*number*/
+    ii) {
+      if (direction === 'forward') {
+        if (ii > 0) {
+          return ' ' + segment;
+        }
+      } else if (ii < segments.length - 1) {
+        return segment + ' ';
+      }
+
+      return segment;
+    });
+    var segmentStart = entityStart;
+    var segmentEnd;
+    var segment;
+    var removalStart = null;
+    var removalEnd = null;
+
+    for (var jj = 0; jj < segments.length; jj++) {
+      segment = segments[jj];
+      segmentEnd = segmentStart + segment.length; // Our selection overlaps this segment.
+
+      if (selectionStart < segmentEnd && segmentStart < selectionEnd) {
+        if (removalStart !== null) {
+          removalEnd = segmentEnd;
+        } else {
+          removalStart = segmentStart;
+          removalEnd = segmentEnd;
+        }
+      } else if (removalStart !== null) {
+        break;
+      }
+
+      segmentStart = segmentEnd;
+    }
+
+    var entityEnd = entityStart + text.length;
+    var atStart = removalStart === entityStart;
+    var atEnd = removalEnd === entityEnd;
+
+    if (!atStart && atEnd || atStart && !atEnd) {
+      if (direction === 'forward') {
+        if (removalEnd !== entityEnd) {
+          removalEnd++;
+        }
+      } else if (removalStart !== entityStart) {
+        removalStart--;
+      }
+    }
+
+    return {
+      start: removalStart,
+      end: removalEnd
+    };
+  }
+};
+module.exports = DraftEntitySegments;
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var invariant = __webpack_require__(1);
+/**
+ * Obtain the start and end positions of the range that has the
+ * specified entity applied to it.
+ *
+ * Entity keys are applied only to contiguous stretches of text, so this
+ * method searches for the first instance of the entity key and returns
+ * the subsequent range.
+ */
+
+
+function getRangesForDraftEntity(block, key) {
+  var ranges = [];
+  block.findEntityRanges(function (c) {
+    return c.getEntity() === key;
+  }, function (start, end) {
+    ranges.push({
+      start: start,
+      end: end
+    });
+  });
+  !!!ranges.length ?  true ? invariant(false, 'Entity key not found in this range.') : invariant(false) : void 0;
+  return ranges;
+}
+
+module.exports = getRangesForDraftEntity;
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var BlockMapBuilder = __webpack_require__(18);
+
+var ContentBlockNode = __webpack_require__(6);
+
+var Immutable = __webpack_require__(0);
+
+var insertIntoList = __webpack_require__(43);
+
+var invariant = __webpack_require__(1);
+
+var randomizeBlockMapKeys = __webpack_require__(41);
+
+var List = Immutable.List;
+
+var updateExistingBlock = function updateExistingBlock(contentState, selectionState, blockMap, fragmentBlock, targetKey, targetOffset) {
+  var mergeBlockData = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 'REPLACE_WITH_NEW_DATA';
+  var targetBlock = blockMap.get(targetKey);
+  var text = targetBlock.getText();
+  var chars = targetBlock.getCharacterList();
+  var finalKey = targetKey;
+  var finalOffset = targetOffset + fragmentBlock.getText().length;
+  var data = null;
+
+  switch (mergeBlockData) {
+    case 'MERGE_OLD_DATA_TO_NEW_DATA':
+      data = fragmentBlock.getData().merge(targetBlock.getData());
+      break;
+
+    case 'REPLACE_WITH_NEW_DATA':
+      data = fragmentBlock.getData();
+      break;
+  }
+
+  var newBlock = targetBlock.merge({
+    text: text.slice(0, targetOffset) + fragmentBlock.getText() + text.slice(targetOffset),
+    characterList: insertIntoList(chars, fragmentBlock.getCharacterList(), targetOffset),
+    data: data
+  });
+  return contentState.merge({
+    blockMap: blockMap.set(targetKey, newBlock),
+    selectionBefore: selectionState,
+    selectionAfter: selectionState.merge({
+      anchorKey: finalKey,
+      anchorOffset: finalOffset,
+      focusKey: finalKey,
+      focusOffset: finalOffset,
+      isBackward: false
+    })
+  });
+};
+/**
+ * Appends text/characterList from the fragment first block to
+ * target block.
+ */
+
+
+var updateHead = function updateHead(block, targetOffset, fragment) {
+  var text = block.getText();
+  var chars = block.getCharacterList(); // Modify head portion of block.
+
+  var headText = text.slice(0, targetOffset);
+  var headCharacters = chars.slice(0, targetOffset);
+  var appendToHead = fragment.first();
+  return block.merge({
+    text: headText + appendToHead.getText(),
+    characterList: headCharacters.concat(appendToHead.getCharacterList()),
+    type: headText ? block.getType() : appendToHead.getType(),
+    data: appendToHead.getData()
+  });
+};
+/**
+ * Appends offset text/characterList from the target block to the last
+ * fragment block.
+ */
+
+
+var updateTail = function updateTail(block, targetOffset, fragment) {
+  // Modify tail portion of block.
+  var text = block.getText();
+  var chars = block.getCharacterList(); // Modify head portion of block.
+
+  var blockSize = text.length;
+  var tailText = text.slice(targetOffset, blockSize);
+  var tailCharacters = chars.slice(targetOffset, blockSize);
+  var prependToTail = fragment.last();
+  return prependToTail.merge({
+    text: prependToTail.getText() + tailText,
+    characterList: prependToTail.getCharacterList().concat(tailCharacters),
+    data: prependToTail.getData()
+  });
+};
+
+var getRootBlocks = function getRootBlocks(block, blockMap) {
+  var headKey = block.getKey();
+  var rootBlock = block;
+  var rootBlocks = []; // sometimes the fragment head block will not be part of the blockMap itself this can happen when
+  // the fragment head is used to update the target block, however when this does not happen we need
+  // to make sure that we include it on the rootBlocks since the first block of a fragment is always a
+  // fragment root block
+
+  if (blockMap.get(headKey)) {
+    rootBlocks.push(headKey);
+  }
+
+  while (rootBlock && rootBlock.getNextSiblingKey()) {
+    var lastSiblingKey = rootBlock.getNextSiblingKey();
+
+    if (!lastSiblingKey) {
+      break;
+    }
+
+    rootBlocks.push(lastSiblingKey);
+    rootBlock = blockMap.get(lastSiblingKey);
+  }
+
+  return rootBlocks;
+};
+
+var updateBlockMapLinks = function updateBlockMapLinks(blockMap, originalBlockMap, targetBlock, fragmentHeadBlock) {
+  return blockMap.withMutations(function (blockMapState) {
+    var targetKey = targetBlock.getKey();
+    var headKey = fragmentHeadBlock.getKey();
+    var targetNextKey = targetBlock.getNextSiblingKey();
+    var targetParentKey = targetBlock.getParentKey();
+    var fragmentRootBlocks = getRootBlocks(fragmentHeadBlock, blockMap);
+    var lastRootFragmentBlockKey = fragmentRootBlocks[fragmentRootBlocks.length - 1];
+
+    if (blockMapState.get(headKey)) {
+      // update the fragment head when it is part of the blockMap otherwise
+      blockMapState.setIn([targetKey, 'nextSibling'], headKey);
+      blockMapState.setIn([headKey, 'prevSibling'], targetKey);
+    } else {
+      // update the target block that had the fragment head contents merged into it
+      blockMapState.setIn([targetKey, 'nextSibling'], fragmentHeadBlock.getNextSiblingKey());
+      blockMapState.setIn([fragmentHeadBlock.getNextSiblingKey(), 'prevSibling'], targetKey);
+    } // update the last root block fragment
+
+
+    blockMapState.setIn([lastRootFragmentBlockKey, 'nextSibling'], targetNextKey); // update the original target next block
+
+    if (targetNextKey) {
+      blockMapState.setIn([targetNextKey, 'prevSibling'], lastRootFragmentBlockKey);
+    } // update fragment parent links
+
+
+    fragmentRootBlocks.forEach(function (blockKey) {
+      return blockMapState.setIn([blockKey, 'parent'], targetParentKey);
+    }); // update targetBlock parent child links
+
+    if (targetParentKey) {
+      var targetParent = blockMap.get(targetParentKey);
+      var originalTargetParentChildKeys = targetParent.getChildKeys();
+      var targetBlockIndex = originalTargetParentChildKeys.indexOf(targetKey);
+      var insertionIndex = targetBlockIndex + 1;
+      var newChildrenKeysArray = originalTargetParentChildKeys.toArray(); // insert fragment children
+
+      newChildrenKeysArray.splice.apply(newChildrenKeysArray, [insertionIndex, 0].concat(fragmentRootBlocks));
+      blockMapState.setIn([targetParentKey, 'children'], List(newChildrenKeysArray));
+    }
+  });
+};
+
+var insertFragment = function insertFragment(contentState, selectionState, blockMap, fragment, targetKey, targetOffset) {
+  var isTreeBasedBlockMap = blockMap.first() instanceof ContentBlockNode;
+  var newBlockArr = [];
+  var fragmentSize = fragment.size;
+  var target = blockMap.get(targetKey);
+  var head = fragment.first();
+  var tail = fragment.last();
+  var finalOffset = tail.getLength();
+  var finalKey = tail.getKey();
+  var shouldNotUpdateFromFragmentBlock = isTreeBasedBlockMap && (!target.getChildKeys().isEmpty() || !head.getChildKeys().isEmpty());
+  blockMap.forEach(function (block, blockKey) {
+    if (blockKey !== targetKey) {
+      newBlockArr.push(block);
+      return;
+    }
+
+    if (shouldNotUpdateFromFragmentBlock) {
+      newBlockArr.push(block);
+    } else {
+      newBlockArr.push(updateHead(block, targetOffset, fragment));
+    } // Insert fragment blocks after the head and before the tail.
+
+
+    fragment // when we are updating the target block with the head fragment block we skip the first fragment
+    // head since its contents have already been merged with the target block otherwise we include
+    // the whole fragment
+    .slice(shouldNotUpdateFromFragmentBlock ? 0 : 1, fragmentSize - 1).forEach(function (fragmentBlock) {
+      return newBlockArr.push(fragmentBlock);
+    }); // update tail
+
+    newBlockArr.push(updateTail(block, targetOffset, fragment));
+  });
+  var updatedBlockMap = BlockMapBuilder.createFromArray(newBlockArr);
+
+  if (isTreeBasedBlockMap) {
+    updatedBlockMap = updateBlockMapLinks(updatedBlockMap, blockMap, target, head);
+  }
+
+  return contentState.merge({
+    blockMap: updatedBlockMap,
+    selectionBefore: selectionState,
+    selectionAfter: selectionState.merge({
+      anchorKey: finalKey,
+      anchorOffset: finalOffset,
+      focusKey: finalKey,
+      focusOffset: finalOffset,
+      isBackward: false
+    })
+  });
+};
+
+var insertFragmentIntoContentState = function insertFragmentIntoContentState(contentState, selectionState, fragmentBlockMap) {
+  var mergeBlockData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'REPLACE_WITH_NEW_DATA';
+  !selectionState.isCollapsed() ?  true ? invariant(false, '`insertFragment` should only be called with a collapsed selection state.') : invariant(false) : void 0;
+  var blockMap = contentState.getBlockMap();
+  var fragment = randomizeBlockMapKeys(fragmentBlockMap);
+  var targetKey = selectionState.getStartKey();
+  var targetOffset = selectionState.getStartOffset();
+  var targetBlock = blockMap.get(targetKey);
+
+  if (targetBlock instanceof ContentBlockNode) {
+    !targetBlock.getChildKeys().isEmpty() ?  true ? invariant(false, '`insertFragment` should not be called when a container node is selected.') : invariant(false) : void 0;
+  } // When we insert a fragment with a single block we simply update the target block
+  // with the contents of the inserted fragment block
+
+
+  if (fragment.size === 1) {
+    return updateExistingBlock(contentState, selectionState, blockMap, fragment.first(), targetKey, targetOffset, mergeBlockData);
+  }
+
+  return insertFragment(contentState, selectionState, blockMap, fragment, targetKey, targetOffset);
+};
+
+module.exports = insertFragmentIntoContentState;
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var Immutable = __webpack_require__(0);
+
+var insertIntoList = __webpack_require__(43);
+
+var invariant = __webpack_require__(1);
+
+var Repeat = Immutable.Repeat;
+
+function insertTextIntoContentState(contentState, selectionState, text, characterMetadata) {
+  !selectionState.isCollapsed() ?  true ? invariant(false, '`insertText` should only be called with a collapsed range.') : invariant(false) : void 0;
+  var len = null;
+
+  if (text != null) {
+    len = text.length;
+  }
+
+  if (len == null || len === 0) {
+    return contentState;
+  }
+
+  var blockMap = contentState.getBlockMap();
+  var key = selectionState.getStartKey();
+  var offset = selectionState.getStartOffset();
+  var block = blockMap.get(key);
+  var blockText = block.getText();
+  var newBlock = block.merge({
+    text: blockText.slice(0, offset) + text + blockText.slice(offset, block.getLength()),
+    characterList: insertIntoList(block.getCharacterList(), Repeat(characterMetadata, len).toList(), offset)
+  });
+  var newOffset = offset + len;
+  return contentState.merge({
+    blockMap: blockMap.set(key, newBlock),
+    selectionAfter: selectionState.merge({
+      anchorOffset: newOffset,
+      focusOffset: newOffset
+    })
+  });
+}
+
+module.exports = insertTextIntoContentState;
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var ContentBlockNode = __webpack_require__(6);
+
+var getNextDelimiterBlockKey = __webpack_require__(45);
+
+var Immutable = __webpack_require__(0);
+
+var List = Immutable.List,
+    Map = Immutable.Map;
+
+var transformBlock = function transformBlock(key, blockMap, func) {
+  if (!key) {
+    return;
+  }
+
+  var block = blockMap.get(key);
+
+  if (!block) {
+    return;
+  }
+
+  blockMap.set(key, func(block));
+};
+/**
+ * Ancestors needs to be preserved when there are non selected
+ * children to make sure we do not leave any orphans behind
+ */
+
+
+var getAncestorsKeys = function getAncestorsKeys(blockKey, blockMap) {
+  var parents = [];
+
+  if (!blockKey) {
+    return parents;
+  }
+
+  var blockNode = blockMap.get(blockKey);
+
+  while (blockNode && blockNode.getParentKey()) {
+    var parentKey = blockNode.getParentKey();
+
+    if (parentKey) {
+      parents.push(parentKey);
+    }
+
+    blockNode = parentKey ? blockMap.get(parentKey) : null;
+  }
+
+  return parents;
+};
+/**
+ * Get all next delimiter keys until we hit a root delimiter and return
+ * an array of key references
+ */
+
+
+var getNextDelimitersBlockKeys = function getNextDelimitersBlockKeys(block, blockMap) {
+  var nextDelimiters = [];
+
+  if (!block) {
+    return nextDelimiters;
+  }
+
+  var nextDelimiter = getNextDelimiterBlockKey(block, blockMap);
+
+  while (nextDelimiter && blockMap.get(nextDelimiter)) {
+    var _block = blockMap.get(nextDelimiter);
+
+    nextDelimiters.push(nextDelimiter); // we do not need to keep checking all root node siblings, just the first occurance
+
+    nextDelimiter = _block.getParentKey() ? getNextDelimiterBlockKey(_block, blockMap) : null;
+  }
+
+  return nextDelimiters;
+};
+
+var getNextValidSibling = function getNextValidSibling(block, blockMap, originalBlockMap) {
+  if (!block) {
+    return null;
+  } // note that we need to make sure we refer to the original block since this
+  // function is called within a withMutations
+
+
+  var nextValidSiblingKey = originalBlockMap.get(block.getKey()).getNextSiblingKey();
+
+  while (nextValidSiblingKey && !blockMap.get(nextValidSiblingKey)) {
+    nextValidSiblingKey = originalBlockMap.get(nextValidSiblingKey).getNextSiblingKey() || null;
+  }
+
+  return nextValidSiblingKey;
+};
+
+var getPrevValidSibling = function getPrevValidSibling(block, blockMap, originalBlockMap) {
+  if (!block) {
+    return null;
+  } // note that we need to make sure we refer to the original block since this
+  // function is called within a withMutations
+
+
+  var prevValidSiblingKey = originalBlockMap.get(block.getKey()).getPrevSiblingKey();
+
+  while (prevValidSiblingKey && !blockMap.get(prevValidSiblingKey)) {
+    prevValidSiblingKey = originalBlockMap.get(prevValidSiblingKey).getPrevSiblingKey() || null;
+  }
+
+  return prevValidSiblingKey;
+};
+
+var updateBlockMapLinks = function updateBlockMapLinks(blockMap, startBlock, endBlock, originalBlockMap) {
+  return blockMap.withMutations(function (blocks) {
+    // update start block if its retained
+    transformBlock(startBlock.getKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+        prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+      });
+    }); // update endblock if its retained
+
+    transformBlock(endBlock.getKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+        prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+      });
+    }); // update start block parent ancestors
+
+    getAncestorsKeys(startBlock.getKey(), originalBlockMap).forEach(function (parentKey) {
+      return transformBlock(parentKey, blocks, function (block) {
+        return block.merge({
+          children: block.getChildKeys().filter(function (key) {
+            return blocks.get(key);
+          }),
+          nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+          prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+        });
+      });
+    }); // update start block next - can only happen if startBlock == endBlock
+
+    transformBlock(startBlock.getNextSiblingKey(), blocks, function (block) {
+      return block.merge({
+        prevSibling: startBlock.getPrevSiblingKey()
+      });
+    }); // update start block prev
+
+    transformBlock(startBlock.getPrevSiblingKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: getNextValidSibling(block, blocks, originalBlockMap)
+      });
+    }); // update end block next
+
+    transformBlock(endBlock.getNextSiblingKey(), blocks, function (block) {
+      return block.merge({
+        prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+      });
+    }); // update end block prev
+
+    transformBlock(endBlock.getPrevSiblingKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: endBlock.getNextSiblingKey()
+      });
+    }); // update end block parent ancestors
+
+    getAncestorsKeys(endBlock.getKey(), originalBlockMap).forEach(function (parentKey) {
+      transformBlock(parentKey, blocks, function (block) {
+        return block.merge({
+          children: block.getChildKeys().filter(function (key) {
+            return blocks.get(key);
+          }),
+          nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+          prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+        });
+      });
+    }); // update next delimiters all the way to a root delimiter
+
+    getNextDelimitersBlockKeys(endBlock, originalBlockMap).forEach(function (delimiterKey) {
+      return transformBlock(delimiterKey, blocks, function (block) {
+        return block.merge({
+          nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+          prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+        });
+      });
+    }); // if parent (startBlock) was deleted
+
+    if (blockMap.get(startBlock.getKey()) == null && blockMap.get(endBlock.getKey()) != null && endBlock.getParentKey() === startBlock.getKey() && endBlock.getPrevSiblingKey() == null) {
+      var prevSiblingKey = startBlock.getPrevSiblingKey(); // endBlock becomes next sibling of parent's prevSibling
+
+      transformBlock(endBlock.getKey(), blocks, function (block) {
+        return block.merge({
+          prevSibling: prevSiblingKey
+        });
+      });
+      transformBlock(prevSiblingKey, blocks, function (block) {
+        return block.merge({
+          nextSibling: endBlock.getKey()
+        });
+      }); // Update parent for previous parent's children, and children for that parent
+
+      var prevSibling = prevSiblingKey ? blockMap.get(prevSiblingKey) : null;
+      var newParentKey = prevSibling ? prevSibling.getParentKey() : null;
+      startBlock.getChildKeys().forEach(function (childKey) {
+        transformBlock(childKey, blocks, function (block) {
+          return block.merge({
+            parent: newParentKey // set to null if there is no parent
+
+          });
+        });
+      });
+
+      if (newParentKey != null) {
+        var newParent = blockMap.get(newParentKey);
+        transformBlock(newParentKey, blocks, function (block) {
+          return block.merge({
+            children: newParent.getChildKeys().concat(startBlock.getChildKeys())
+          });
+        });
+      } // last child of deleted parent should point to next sibling
+
+
+      transformBlock(startBlock.getChildKeys().find(function (key) {
+        var block = blockMap.get(key);
+        return block.getNextSiblingKey() === null;
+      }), blocks, function (block) {
+        return block.merge({
+          nextSibling: startBlock.getNextSiblingKey()
+        });
+      });
+    }
+  });
+};
+
+var removeRangeFromContentState = function removeRangeFromContentState(contentState, selectionState) {
+  if (selectionState.isCollapsed()) {
+    return contentState;
+  }
+
+  var blockMap = contentState.getBlockMap();
+  var startKey = selectionState.getStartKey();
+  var startOffset = selectionState.getStartOffset();
+  var endKey = selectionState.getEndKey();
+  var endOffset = selectionState.getEndOffset();
+  var startBlock = blockMap.get(startKey);
+  var endBlock = blockMap.get(endKey); // we assume that ContentBlockNode and ContentBlocks are not mixed together
+
+  var isExperimentalTreeBlock = startBlock instanceof ContentBlockNode; // used to retain blocks that should not be deleted to avoid orphan children
+
+  var parentAncestors = [];
+
+  if (isExperimentalTreeBlock) {
+    var endBlockchildrenKeys = endBlock.getChildKeys();
+    var endBlockAncestors = getAncestorsKeys(endKey, blockMap); // endBlock has unselected siblings so we can not remove its ancestors parents
+
+    if (endBlock.getNextSiblingKey()) {
+      parentAncestors = parentAncestors.concat(endBlockAncestors);
+    } // endBlock has children so can not remove this block or any of its ancestors
+
+
+    if (!endBlockchildrenKeys.isEmpty()) {
+      parentAncestors = parentAncestors.concat(endBlockAncestors.concat([endKey]));
+    } // we need to retain all ancestors of the next delimiter block
+
+
+    parentAncestors = parentAncestors.concat(getAncestorsKeys(getNextDelimiterBlockKey(endBlock, blockMap), blockMap));
+  }
+
+  var characterList;
+
+  if (startBlock === endBlock) {
+    characterList = removeFromList(startBlock.getCharacterList(), startOffset, endOffset);
+  } else {
+    characterList = startBlock.getCharacterList().slice(0, startOffset).concat(endBlock.getCharacterList().slice(endOffset));
+  }
+
+  var modifiedStart = startBlock.merge({
+    text: startBlock.getText().slice(0, startOffset) + endBlock.getText().slice(endOffset),
+    characterList: characterList
+  }); // If cursor (collapsed) is at the start of the first child, delete parent
+  // instead of child
+
+  var shouldDeleteParent = isExperimentalTreeBlock && startOffset === 0 && endOffset === 0 && endBlock.getParentKey() === startKey && endBlock.getPrevSiblingKey() == null;
+  var newBlocks = shouldDeleteParent ? Map([[startKey, null]]) : blockMap.toSeq().skipUntil(function (_, k) {
+    return k === startKey;
+  }).takeUntil(function (_, k) {
+    return k === endKey;
+  }).filter(function (_, k) {
+    return parentAncestors.indexOf(k) === -1;
+  }).concat(Map([[endKey, null]])).map(function (_, k) {
+    return k === startKey ? modifiedStart : null;
+  });
+  var updatedBlockMap = blockMap.merge(newBlocks).filter(function (block) {
+    return !!block;
+  }); // Only update tree block pointers if the range is across blocks
+
+  if (isExperimentalTreeBlock && startBlock !== endBlock) {
+    updatedBlockMap = updateBlockMapLinks(updatedBlockMap, startBlock, endBlock, blockMap);
+  }
+
+  return contentState.merge({
+    blockMap: updatedBlockMap,
+    selectionBefore: selectionState,
+    selectionAfter: selectionState.merge({
+      anchorKey: startKey,
+      anchorOffset: startOffset,
+      focusKey: startKey,
+      focusOffset: startOffset,
+      isBackward: false
+    })
+  });
+};
+/**
+ * Maintain persistence for target list when removing characters on the
+ * head and tail of the character list.
+ */
+
+
+var removeFromList = function removeFromList(targetList, startOffset, endOffset) {
+  if (startOffset === 0) {
+    while (startOffset < endOffset) {
+      targetList = targetList.shift();
+      startOffset++;
+    }
+  } else if (endOffset === targetList.count()) {
+    while (endOffset > startOffset) {
+      targetList = targetList.pop();
+      endOffset--;
+    }
+  } else {
+    var head = targetList.slice(0, startOffset);
+    var tail = targetList.slice(endOffset);
+    targetList = head.concat(tail).toList();
+  }
+
+  return targetList;
+};
+
+module.exports = removeRangeFromContentState;
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var ContentBlockNode = __webpack_require__(6);
+
+var generateRandomKey = __webpack_require__(9);
+
+var Immutable = __webpack_require__(0);
+
+var invariant = __webpack_require__(1);
+
+var modifyBlockForContentState = __webpack_require__(44);
+
+var List = Immutable.List,
+    Map = Immutable.Map;
+
+var transformBlock = function transformBlock(key, blockMap, func) {
+  if (!key) {
+    return;
+  }
+
+  var block = blockMap.get(key);
+
+  if (!block) {
+    return;
+  }
+
+  blockMap.set(key, func(block));
+};
+
+var updateBlockMapLinks = function updateBlockMapLinks(blockMap, originalBlock, belowBlock) {
+  return blockMap.withMutations(function (blocks) {
+    var originalBlockKey = originalBlock.getKey();
+    var belowBlockKey = belowBlock.getKey(); // update block parent
+
+    transformBlock(originalBlock.getParentKey(), blocks, function (block) {
+      var parentChildrenList = block.getChildKeys();
+      var insertionIndex = parentChildrenList.indexOf(originalBlockKey) + 1;
+      var newChildrenArray = parentChildrenList.toArray();
+      newChildrenArray.splice(insertionIndex, 0, belowBlockKey);
+      return block.merge({
+        children: List(newChildrenArray)
+      });
+    }); // update original next block
+
+    transformBlock(originalBlock.getNextSiblingKey(), blocks, function (block) {
+      return block.merge({
+        prevSibling: belowBlockKey
+      });
+    }); // update original block
+
+    transformBlock(originalBlockKey, blocks, function (block) {
+      return block.merge({
+        nextSibling: belowBlockKey
+      });
+    }); // update below block
+
+    transformBlock(belowBlockKey, blocks, function (block) {
+      return block.merge({
+        prevSibling: originalBlockKey
+      });
+    });
+  });
+};
+
+var splitBlockInContentState = function splitBlockInContentState(contentState, selectionState) {
+  !selectionState.isCollapsed() ?  true ? invariant(false, 'Selection range must be collapsed.') : invariant(false) : void 0;
+  var key = selectionState.getAnchorKey();
+  var blockMap = contentState.getBlockMap();
+  var blockToSplit = blockMap.get(key);
+  var text = blockToSplit.getText();
+
+  if (!text) {
+    var blockType = blockToSplit.getType();
+
+    if (blockType === 'unordered-list-item' || blockType === 'ordered-list-item') {
+      return modifyBlockForContentState(contentState, selectionState, function (block) {
+        return block.merge({
+          type: 'unstyled',
+          depth: 0
+        });
+      });
+    }
+  }
+
+  var offset = selectionState.getAnchorOffset();
+  var chars = blockToSplit.getCharacterList();
+  var keyBelow = generateRandomKey();
+  var isExperimentalTreeBlock = blockToSplit instanceof ContentBlockNode;
+  var blockAbove = blockToSplit.merge({
+    text: text.slice(0, offset),
+    characterList: chars.slice(0, offset)
+  });
+  var blockBelow = blockAbove.merge({
+    key: keyBelow,
+    text: text.slice(offset),
+    characterList: chars.slice(offset),
+    data: Map()
+  });
+  var blocksBefore = blockMap.toSeq().takeUntil(function (v) {
+    return v === blockToSplit;
+  });
+  var blocksAfter = blockMap.toSeq().skipUntil(function (v) {
+    return v === blockToSplit;
+  }).rest();
+  var newBlocks = blocksBefore.concat([[key, blockAbove], [keyBelow, blockBelow]], blocksAfter).toOrderedMap();
+
+  if (isExperimentalTreeBlock) {
+    !blockToSplit.getChildKeys().isEmpty() ?  true ? invariant(false, 'ContentBlockNode must not have children') : invariant(false) : void 0;
+    newBlocks = updateBlockMapLinks(newBlocks, blockAbove, blockBelow);
+  }
+
+  return contentState.merge({
+    blockMap: newBlocks,
+    selectionBefore: selectionState,
+    selectionAfter: selectionState.merge({
+      anchorKey: keyBelow,
+      anchorOffset: 0,
+      focusKey: keyBelow,
+      focusOffset: 0,
+      isBackward: false
+    })
+  });
+};
+
+module.exports = splitBlockInContentState;
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var findRangesImmutable = __webpack_require__(19);
+
+var Immutable = __webpack_require__(0);
+
+var List = Immutable.List,
+    Repeat = Immutable.Repeat,
+    Record = Immutable.Record;
+
+var returnTrue = function returnTrue() {
+  return true;
+};
+
+var defaultLeafRange = {
+  start: null,
+  end: null
+};
+var LeafRange = Record(defaultLeafRange);
+var defaultDecoratorRange = {
+  start: null,
+  end: null,
+  decoratorKey: null,
+  leaves: null
+};
+var DecoratorRange = Record(defaultDecoratorRange);
+var BlockTree = {
+  /**
+   * Generate a block tree for a given ContentBlock/decorator pair.
+   */
+  generate: function generate(contentState, block, decorator) {
+    var textLength = block.getLength();
+
+    if (!textLength) {
+      return List.of(new DecoratorRange({
+        start: 0,
+        end: 0,
+        decoratorKey: null,
+        leaves: List.of(new LeafRange({
+          start: 0,
+          end: 0
+        }))
+      }));
+    }
+
+    var leafSets = [];
+    var decorations = decorator ? decorator.getDecorations(block, contentState) : List(Repeat(null, textLength));
+    var chars = block.getCharacterList();
+    findRangesImmutable(decorations, areEqual, returnTrue, function (start, end) {
+      leafSets.push(new DecoratorRange({
+        start: start,
+        end: end,
+        decoratorKey: decorations.get(start),
+        leaves: generateLeaves(chars.slice(start, end).toList(), start)
+      }));
+    });
+    return List(leafSets);
+  }
+};
+/**
+ * Generate LeafRange records for a given character list.
+ */
+
+function generateLeaves(characters, offset) {
+  var leaves = [];
+  var inlineStyles = characters.map(function (c) {
+    return c.getStyle();
+  }).toList();
+  findRangesImmutable(inlineStyles, areEqual, returnTrue, function (start, end) {
+    leaves.push(new LeafRange({
+      start: start + offset,
+      end: end + offset
+    }));
+  });
+  return List(leaves);
+}
+
+function areEqual(a, b) {
+  return a === b;
+}
+
+module.exports = BlockTree;
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var UnicodeBidiService = __webpack_require__(91);
+
+var Immutable = __webpack_require__(0);
+
+var nullthrows = __webpack_require__(4);
+
+var OrderedMap = Immutable.OrderedMap;
+var bidiService;
+var EditorBidiService = {
+  getDirectionMap: function getDirectionMap(content, prevBidiMap) {
+    if (!bidiService) {
+      bidiService = new UnicodeBidiService();
+    } else {
+      bidiService.reset();
+    }
+
+    var blockMap = content.getBlockMap();
+    var nextBidi = blockMap.valueSeq().map(function (block) {
+      return nullthrows(bidiService).getDirection(block.getText());
+    });
+    var bidiMap = OrderedMap(blockMap.keySeq().zip(nextBidi));
+
+    if (prevBidiMap != null && Immutable.is(prevBidiMap, bidiMap)) {
+      return prevBidiMap;
+    }
+
+    return bidiMap;
+  }
+};
+module.exports = EditorBidiService;
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ * 
+ */
+
+/**
+ * Stateful API for text direction detection
+ *
+ * This class can be used in applications where you need to detect the
+ * direction of a sequence of text blocks, where each direction shall be used
+ * as the fallback direction for the next one.
+ *
+ * NOTE: A default direction, if not provided, is set based on the global
+ *       direction, as defined by `UnicodeBidiDirection`.
+ *
+ * == Example ==
+ * ```
+ * var UnicodeBidiService = require('UnicodeBidiService');
+ *
+ * var bidiService = new UnicodeBidiService();
+ *
+ * ...
+ *
+ * bidiService.reset();
+ * for (var para in paragraphs) {
+ *   var dir = bidiService.getDirection(para);
+ *   ...
+ * }
+ * ```
+ *
+ * Part of our implementation of Unicode Bidirectional Algorithm (UBA)
+ * Unicode Standard Annex #9 (UAX9)
+ * http://www.unicode.org/reports/tr9/
+ */
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var UnicodeBidi = __webpack_require__(32);
+
+var UnicodeBidiDirection = __webpack_require__(24);
+
+var invariant = __webpack_require__(1);
+
+var UnicodeBidiService =
+/*#__PURE__*/
+function () {
+  /**
+   * Stateful class for paragraph direction detection
+   *
+   * @param defaultDir  Default direction of the service
+   */
+  function UnicodeBidiService(defaultDir) {
+    _defineProperty(this, "_defaultDir", void 0);
+
+    _defineProperty(this, "_lastDir", void 0);
+
+    if (!defaultDir) {
+      defaultDir = UnicodeBidiDirection.getGlobalDir();
+    } else {
+      !UnicodeBidiDirection.isStrong(defaultDir) ?  true ? invariant(false, 'Default direction must be a strong direction (LTR or RTL)') : invariant(false) : void 0;
+    }
+
+    this._defaultDir = defaultDir;
+    this.reset();
+  }
+  /**
+   * Reset the internal state
+   *
+   * Instead of creating a new instance, you can just reset() your instance
+   * everytime you start a new loop.
+   */
+
+
+  var _proto = UnicodeBidiService.prototype;
+
+  _proto.reset = function reset() {
+    this._lastDir = this._defaultDir;
+  };
+  /**
+   * Returns the direction of a block of text, and remembers it as the
+   * fall-back direction for the next paragraph.
+   *
+   * @param str  A text block, e.g. paragraph, table cell, tag
+   * @return     The resolved direction
+   */
+
+
+  _proto.getDirection = function getDirection(str) {
+    this._lastDir = UnicodeBidi.getDirection(str, this._lastDir);
+    return this._lastDir;
+  };
+
+  return UnicodeBidiService;
+}();
+
+module.exports = UnicodeBidiService;
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var ContentBlockNode = __webpack_require__(6);
+
+var getNextDelimiterBlockKey = __webpack_require__(45);
+
+var Immutable = __webpack_require__(0);
+
+var invariant = __webpack_require__(1);
+
+var OrderedMap = Immutable.OrderedMap,
+    List = Immutable.List;
+
+var transformBlock = function transformBlock(key, blockMap, func) {
+  if (!key) {
+    return;
+  }
+
+  var block = blockMap.get(key);
+
+  if (!block) {
+    return;
+  }
+
+  blockMap.set(key, func(block));
+};
+
+var updateBlockMapLinks = function updateBlockMapLinks(blockMap, originalBlockToBeMoved, originalTargetBlock, insertionMode, isExperimentalTreeBlock) {
+  if (!isExperimentalTreeBlock) {
+    return blockMap;
+  } // possible values of 'insertionMode' are: 'after', 'before'
+
+
+  var isInsertedAfterTarget = insertionMode === 'after';
+  var originalBlockKey = originalBlockToBeMoved.getKey();
+  var originalTargetKey = originalTargetBlock.getKey();
+  var originalParentKey = originalBlockToBeMoved.getParentKey();
+  var originalNextSiblingKey = originalBlockToBeMoved.getNextSiblingKey();
+  var originalPrevSiblingKey = originalBlockToBeMoved.getPrevSiblingKey();
+  var newParentKey = originalTargetBlock.getParentKey();
+  var newNextSiblingKey = isInsertedAfterTarget ? originalTargetBlock.getNextSiblingKey() : originalTargetKey;
+  var newPrevSiblingKey = isInsertedAfterTarget ? originalTargetKey : originalTargetBlock.getPrevSiblingKey();
+  return blockMap.withMutations(function (blocks) {
+    // update old parent
+    transformBlock(originalParentKey, blocks, function (block) {
+      var parentChildrenList = block.getChildKeys();
+      return block.merge({
+        children: parentChildrenList["delete"](parentChildrenList.indexOf(originalBlockKey))
+      });
+    }); // update old prev
+
+    transformBlock(originalPrevSiblingKey, blocks, function (block) {
+      return block.merge({
+        nextSibling: originalNextSiblingKey
+      });
+    }); // update old next
+
+    transformBlock(originalNextSiblingKey, blocks, function (block) {
+      return block.merge({
+        prevSibling: originalPrevSiblingKey
+      });
+    }); // update new next
+
+    transformBlock(newNextSiblingKey, blocks, function (block) {
+      return block.merge({
+        prevSibling: originalBlockKey
+      });
+    }); // update new prev
+
+    transformBlock(newPrevSiblingKey, blocks, function (block) {
+      return block.merge({
+        nextSibling: originalBlockKey
+      });
+    }); // update new parent
+
+    transformBlock(newParentKey, blocks, function (block) {
+      var newParentChildrenList = block.getChildKeys();
+      var targetBlockIndex = newParentChildrenList.indexOf(originalTargetKey);
+      var insertionIndex = isInsertedAfterTarget ? targetBlockIndex + 1 : targetBlockIndex !== 0 ? targetBlockIndex - 1 : 0;
+      var newChildrenArray = newParentChildrenList.toArray();
+      newChildrenArray.splice(insertionIndex, 0, originalBlockKey);
+      return block.merge({
+        children: List(newChildrenArray)
+      });
+    }); // update block
+
+    transformBlock(originalBlockKey, blocks, function (block) {
+      return block.merge({
+        nextSibling: newNextSiblingKey,
+        prevSibling: newPrevSiblingKey,
+        parent: newParentKey
+      });
+    });
+  });
+};
+
+var moveBlockInContentState = function moveBlockInContentState(contentState, blockToBeMoved, targetBlock, insertionMode) {
+  !(insertionMode !== 'replace') ?  true ? invariant(false, 'Replacing blocks is not supported.') : invariant(false) : void 0;
+  var targetKey = targetBlock.getKey();
+  var blockKey = blockToBeMoved.getKey();
+  !(blockKey !== targetKey) ?  true ? invariant(false, 'Block cannot be moved next to itself.') : invariant(false) : void 0;
+  var blockMap = contentState.getBlockMap();
+  var isExperimentalTreeBlock = blockToBeMoved instanceof ContentBlockNode;
+  var blocksToBeMoved = [blockToBeMoved];
+  var blockMapWithoutBlocksToBeMoved = blockMap["delete"](blockKey);
+
+  if (isExperimentalTreeBlock) {
+    blocksToBeMoved = [];
+    blockMapWithoutBlocksToBeMoved = blockMap.withMutations(function (blocks) {
+      var nextSiblingKey = blockToBeMoved.getNextSiblingKey();
+      var nextDelimiterBlockKey = getNextDelimiterBlockKey(blockToBeMoved, blocks);
+      blocks.toSeq().skipUntil(function (block) {
+        return block.getKey() === blockKey;
+      }).takeWhile(function (block) {
+        var key = block.getKey();
+        var isBlockToBeMoved = key === blockKey;
+        var hasNextSiblingAndIsNotNextSibling = nextSiblingKey && key !== nextSiblingKey;
+        var doesNotHaveNextSiblingAndIsNotDelimiter = !nextSiblingKey && block.getParentKey() && (!nextDelimiterBlockKey || key !== nextDelimiterBlockKey);
+        return !!(isBlockToBeMoved || hasNextSiblingAndIsNotNextSibling || doesNotHaveNextSiblingAndIsNotDelimiter);
+      }).forEach(function (block) {
+        blocksToBeMoved.push(block);
+        blocks["delete"](block.getKey());
+      });
+    });
+  }
+
+  var blocksBefore = blockMapWithoutBlocksToBeMoved.toSeq().takeUntil(function (v) {
+    return v === targetBlock;
+  });
+  var blocksAfter = blockMapWithoutBlocksToBeMoved.toSeq().skipUntil(function (v) {
+    return v === targetBlock;
+  }).skip(1);
+  var slicedBlocks = blocksToBeMoved.map(function (block) {
+    return [block.getKey(), block];
+  });
+  var newBlocks = OrderedMap();
+
+  if (insertionMode === 'before') {
+    var blockBefore = contentState.getBlockBefore(targetKey);
+    !(!blockBefore || blockBefore.getKey() !== blockToBeMoved.getKey()) ?  true ? invariant(false, 'Block cannot be moved next to itself.') : invariant(false) : void 0;
+    newBlocks = blocksBefore.concat([].concat(slicedBlocks, [[targetKey, targetBlock]]), blocksAfter).toOrderedMap();
+  } else if (insertionMode === 'after') {
+    var blockAfter = contentState.getBlockAfter(targetKey);
+    !(!blockAfter || blockAfter.getKey() !== blockKey) ?  true ? invariant(false, 'Block cannot be moved next to itself.') : invariant(false) : void 0;
+    newBlocks = blocksBefore.concat([[targetKey, targetBlock]].concat(slicedBlocks), blocksAfter).toOrderedMap();
+  }
+
+  return contentState.merge({
+    blockMap: updateBlockMapLinks(newBlocks, blockToBeMoved, targetBlock, insertionMode, isExperimentalTreeBlock),
+    selectionBefore: contentState.getSelectionAfter(),
+    selectionAfter: contentState.getSelectionAfter().merge({
+      anchorKey: blockKey,
+      focusKey: blockKey
+    })
+  });
+};
+
+module.exports = moveBlockInContentState;
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Immutable = __webpack_require__(0);
+
+var List = Immutable.List;
+var DELIMITER = '.';
+/**
+ * A CompositeDraftDecorator traverses through a list of DraftDecorator
+ * instances to identify sections of a ContentBlock that should be rendered
+ * in a "decorated" manner. For example, hashtags, mentions, and links may
+ * be intended to stand out visually, be rendered as anchors, etc.
+ *
+ * The list of decorators supplied to the constructor will be used in the
+ * order they are provided. This allows the caller to specify a priority for
+ * string matching, in case of match collisions among decorators.
+ *
+ * For instance, I may have a link with a `#` in its text. Though this section
+ * of text may match our hashtag decorator, it should not be treated as a
+ * hashtag. I should therefore list my link DraftDecorator
+ * before my hashtag DraftDecorator when constructing this composite
+ * decorator instance.
+ *
+ * Thus, when a collision like this is encountered, the earlier match is
+ * preserved and the new match is discarded.
+ */
+
+var CompositeDraftDecorator =
+/*#__PURE__*/
+function () {
+  function CompositeDraftDecorator(decorators) {
+    _defineProperty(this, "_decorators", void 0);
+
+    // Copy the decorator array, since we use this array order to determine
+    // precedence of decoration matching. If the array is mutated externally,
+    // we don't want to be affected here.
+    this._decorators = decorators.slice();
+  }
+
+  var _proto = CompositeDraftDecorator.prototype;
+
+  _proto.getDecorations = function getDecorations(block, contentState) {
+    var decorations = Array(block.getText().length).fill(null);
+
+    this._decorators.forEach(function (
+    /*object*/
+    decorator,
+    /*number*/
+    ii) {
+      var counter = 0;
+      var strategy = decorator.strategy;
+
+      var callback = function callback(
+      /*number*/
+      start,
+      /*number*/
+      end) {
+        // Find out if any of our matching range is already occupied
+        // by another decorator. If so, discard the match. Otherwise, store
+        // the component key for rendering.
+        if (canOccupySlice(decorations, start, end)) {
+          occupySlice(decorations, start, end, ii + DELIMITER + counter);
+          counter++;
+        }
+      };
+
+      strategy(block, callback, contentState);
+    });
+
+    return List(decorations);
+  };
+
+  _proto.getComponentForKey = function getComponentForKey(key) {
+    var componentKey = parseInt(key.split(DELIMITER)[0], 10);
+    return this._decorators[componentKey].component;
+  };
+
+  _proto.getPropsForKey = function getPropsForKey(key) {
+    var componentKey = parseInt(key.split(DELIMITER)[0], 10);
+    return this._decorators[componentKey].props;
+  };
+
+  return CompositeDraftDecorator;
+}();
+/**
+ * Determine whether we can occupy the specified slice of the decorations
+ * array.
+ */
+
+
+function canOccupySlice(decorations, start, end) {
+  for (var ii = start; ii < end; ii++) {
+    if (decorations[ii] != null) {
+      return false;
+    }
+  }
+
+  return true;
+}
+/**
+ * Splice the specified component into our decoration array at the desired
+ * range.
+ */
+
+
+function occupySlice(targetArr, start, end, componentKey) {
+  for (var ii = start; ii < end; ii++) {
+    targetArr[ii] = componentKey;
+  }
+}
+
+module.exports = CompositeDraftDecorator;
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @preventMunge
+ * @emails oncall+draft_js
+ */
+
+
+var _assign = __webpack_require__(15);
+
+function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var DefaultDraftBlockRenderMap = __webpack_require__(33);
+
+var DefaultDraftInlineStyle = __webpack_require__(48);
+
+var DraftEditorCompositionHandler = __webpack_require__(95);
+
+var DraftEditorContents = __webpack_require__(119);
+
+var DraftEditorDragHandler = __webpack_require__(146);
+
+var DraftEditorEditHandler = __webpack_require__(149);
+
+var DraftEditorPlaceholder = __webpack_require__(164);
+
+var DraftEffects = __webpack_require__(63);
+
+var EditorState = __webpack_require__(2);
+
+var React = __webpack_require__(8);
+
+var ReactDOM = __webpack_require__(27);
+
+var Scroll = __webpack_require__(40);
+
+var Style = __webpack_require__(29);
+
+var UserAgent = __webpack_require__(7);
+
+var cx = __webpack_require__(14);
+
+var generateRandomKey = __webpack_require__(9);
+
+var getDefaultKeyBinding = __webpack_require__(75);
+
+var getScrollPosition = __webpack_require__(30);
+
+var gkx = __webpack_require__(12);
+
+var invariant = __webpack_require__(1);
+
+var nullthrows = __webpack_require__(4);
+
+var isIE = UserAgent.isBrowser('IE'); // IE does not support the `input` event on contentEditable, so we can't
+// observe spellcheck behavior.
+
+var allowSpellCheck = !isIE; // Define a set of handler objects to correspond to each possible `mode`
+// of editor behavior.
+
+var handlerMap = {
+  edit: DraftEditorEditHandler,
+  composite: DraftEditorCompositionHandler,
+  drag: DraftEditorDragHandler,
+  cut: null,
+  render: null
+};
+var didInitODS = false;
+
+var UpdateDraftEditorFlags =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(UpdateDraftEditorFlags, _React$Component);
+
+  function UpdateDraftEditorFlags() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = UpdateDraftEditorFlags.prototype;
+
+  _proto.render = function render() {
+    return null;
+  };
+
+  _proto.componentDidMount = function componentDidMount() {
+    this._update();
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    this._update();
+  };
+
+  _proto._update = function _update() {
+    var editor = this.props.editor;
+    /**
+     * Sometimes a render triggers a 'focus' or other event, and that will
+     * schedule a second render pass.
+     * In order to make sure the second render pass gets the latest editor
+     * state, we update it here.
+     * Example:
+     * render #1
+     * +
+     * |
+     * | cWU -> Nothing ... latestEditorState = STALE_STATE :(
+     * |
+     * | render -> this.props.editorState = FRESH_STATE
+     * | +         *and* set latestEditorState = FRESH_STATE
+     *   |
+     * | |
+     * | +--> triggers 'focus' event, calling 'handleFocus' with latestEditorState
+     * |                                                +
+     * |                                                |
+     * +>cdU -> latestEditorState = FRESH_STATE         | the 'handleFocus' call schedules render #2
+     *                                                  | with latestEditorState, which is FRESH_STATE
+     *                                                  |
+     * render #2 <--------------------------------------+
+     * +
+     * |
+     * | cwU -> nothing updates
+     * |
+     * | render -> this.props.editorState = FRESH_STATE which was passed in above
+     * |
+     * +>cdU fires and resets latestEditorState = FRESH_STATE
+     * ---
+     * Note that if we don't set latestEditorState in 'render' in the above
+     * diagram, then STALE_STATE gets passed to render #2.
+     */
+
+    editor._latestEditorState = this.props.editorState;
+    /**
+     * The reason we set this 'blockSelectEvents' flag is that  IE will fire a
+     * 'selectionChange' event when we programmatically change the selection,
+     * meaning it would trigger a new select event while we are in the middle
+     * of updating.
+     * We found that the 'selection.addRange' was what triggered the stray
+     * selectionchange event in IE.
+     * To be clear - we have not been able to reproduce specific bugs related
+     * to this stray selection event, but have recorded logs that some
+     * conditions do cause it to get bumped into during editOnSelect.
+     */
+
+    editor._blockSelectEvents = true;
+  };
+
+  return UpdateDraftEditorFlags;
+}(React.Component);
+/**
+ * `DraftEditor` is the root editor component. It composes a `contentEditable`
+ * div, and provides a wide variety of useful function props for managing the
+ * state of the editor. See `DraftEditorProps` for details.
+ */
+
+
+var DraftEditor =
+/*#__PURE__*/
+function (_React$Component2) {
+  _inheritsLoose(DraftEditor, _React$Component2);
+
+  /**
+   * Define proxies that can route events to the current handler.
+   */
+  function DraftEditor(props) {
+    var _this;
+
+    _this = _React$Component2.call(this, props) || this;
+
+    _defineProperty(_assertThisInitialized(_this), "_blockSelectEvents", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_clipboard", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_handler", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_dragCount", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_internalDrag", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_editorKey", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_placeholderAccessibilityID", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_latestEditorState", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_latestCommittedEditorState", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_pendingStateFromBeforeInput", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onBeforeInput", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onBlur", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onCharacterData", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onCompositionEnd", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onCompositionStart", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onCompositionUpdate", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onCopy", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onCut", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onDragEnd", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onDragOver", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onDragStart", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onDrop", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onInput", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onFocus", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onKeyDown", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onKeyPress", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onKeyUp", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onMouseDown", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onMouseUp", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onPaste", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_onSelect", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "editor", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "editorContainer", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "focus", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "blur", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "setMode", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "exitCurrentMode", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "restoreEditorDOM", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "setClipboard", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "getClipboard", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "getEditorKey", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "update", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "onDragEnter", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "onDragLeave", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "focus", function (scrollPosition) {
+      var editorState = _this.props.editorState;
+      var alreadyHasFocus = editorState.getSelection().getHasFocus();
+      var editorNode = _this.editor;
+
+      if (!editorNode) {
+        // once in a while people call 'focus' in a setTimeout, and the node has
+        // been deleted, so it can be null in that case.
+        return;
+      }
+
+      var scrollParent = Style.getScrollParent(editorNode);
+
+      var _ref = scrollPosition || getScrollPosition(scrollParent),
+          x = _ref.x,
+          y = _ref.y;
+
+      !(editorNode instanceof HTMLElement) ?  true ? invariant(false, 'editorNode is not an HTMLElement') : invariant(false) : void 0;
+      editorNode.focus(); // Restore scroll position
+
+      if (scrollParent === window) {
+        window.scrollTo(x, y);
+      } else {
+        Scroll.setTop(scrollParent, y);
+      } // On Chrome and Safari, calling focus on contenteditable focuses the
+      // cursor at the first character. This is something you don't expect when
+      // you're clicking on an input element but not directly on a character.
+      // Put the cursor back where it was before the blur.
+
+
+      if (!alreadyHasFocus) {
+        _this.update(EditorState.forceSelection(editorState, editorState.getSelection()));
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "blur", function () {
+      var editorNode = _this.editor;
+      !(editorNode instanceof HTMLElement) ?  true ? invariant(false, 'editorNode is not an HTMLElement') : invariant(false) : void 0;
+      editorNode.blur();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setMode", function (mode) {
+      var _this$props = _this.props,
+          onPaste = _this$props.onPaste,
+          onCut = _this$props.onCut,
+          onCopy = _this$props.onCopy;
+
+      var editHandler = _objectSpread({}, handlerMap.edit);
+
+      if (onPaste) {
+        /* $FlowFixMe(>=0.111.0) This comment suppresses an error found when Flow
+         * v0.111.0 was deployed. To see the error, delete this comment and run
+         * Flow. */
+        editHandler.onPaste = onPaste;
+      }
+
+      if (onCut) {
+        editHandler.onCut = onCut;
+      }
+
+      if (onCopy) {
+        editHandler.onCopy = onCopy;
+      }
+
+      var handler = _objectSpread({}, handlerMap, {
+        edit: editHandler
+      });
+
+      _this._handler = handler[mode];
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "exitCurrentMode", function () {
+      _this.setMode('edit');
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "restoreEditorDOM", function (scrollPosition) {
+      _this.setState({
+        contentsKey: _this.state.contentsKey + 1
+      }, function () {
+        _this.focus(scrollPosition);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setClipboard", function (clipboard) {
+      _this._clipboard = clipboard;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getClipboard", function () {
+      return _this._clipboard;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "update", function (editorState) {
+      _this._latestEditorState = editorState;
+
+      _this.props.onChange(editorState);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragEnter", function () {
+      _this._dragCount++;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragLeave", function () {
+      _this._dragCount--;
+
+      if (_this._dragCount === 0) {
+        _this.exitCurrentMode();
+      }
+    });
+
+    _this._blockSelectEvents = false;
+    _this._clipboard = null;
+    _this._handler = null;
+    _this._dragCount = 0;
+    _this._editorKey = props.editorKey || generateRandomKey();
+    _this._placeholderAccessibilityID = 'placeholder-' + _this._editorKey;
+    _this._latestEditorState = props.editorState;
+    _this._latestCommittedEditorState = props.editorState;
+    _this._onBeforeInput = _this._buildHandler('onBeforeInput');
+    _this._onBlur = _this._buildHandler('onBlur');
+    _this._onCharacterData = _this._buildHandler('onCharacterData');
+    _this._onCompositionEnd = _this._buildHandler('onCompositionEnd');
+    _this._onCompositionStart = _this._buildHandler('onCompositionStart');
+    _this._onCompositionUpdate = _this._buildHandler('onCompositionUpdate');
+    _this._onCopy = _this._buildHandler('onCopy');
+    _this._onCut = _this._buildHandler('onCut');
+    _this._onDragEnd = _this._buildHandler('onDragEnd');
+    _this._onDragOver = _this._buildHandler('onDragOver');
+    _this._onDragStart = _this._buildHandler('onDragStart');
+    _this._onDrop = _this._buildHandler('onDrop');
+    _this._onInput = _this._buildHandler('onInput');
+    _this._onFocus = _this._buildHandler('onFocus');
+    _this._onKeyDown = _this._buildHandler('onKeyDown');
+    _this._onKeyPress = _this._buildHandler('onKeyPress');
+    _this._onKeyUp = _this._buildHandler('onKeyUp');
+    _this._onMouseDown = _this._buildHandler('onMouseDown');
+    _this._onMouseUp = _this._buildHandler('onMouseUp');
+    _this._onPaste = _this._buildHandler('onPaste');
+    _this._onSelect = _this._buildHandler('onSelect');
+
+    _this.getEditorKey = function () {
+      return _this._editorKey;
+    };
+
+    if (true) {
+      ['onDownArrow', 'onEscape', 'onLeftArrow', 'onRightArrow', 'onTab', 'onUpArrow'].forEach(function (propName) {
+        if (props.hasOwnProperty(propName)) {
+          // eslint-disable-next-line no-console
+          console.warn("Supplying an `".concat(propName, "` prop to `DraftEditor` has ") + 'been deprecated. If your handler needs access to the keyboard ' + 'event, supply a custom `keyBindingFn` prop that falls back to ' + 'the default one (eg. https://is.gd/RG31RJ).');
+        }
+      });
+    } // See `restoreEditorDOM()`.
+
+
+    _this.state = {
+      contentsKey: 0
+    };
+    return _this;
+  }
+  /**
+   * Build a method that will pass the event to the specified handler method.
+   * This allows us to look up the correct handler function for the current
+   * editor mode, if any has been specified.
+   */
+
+
+  var _proto2 = DraftEditor.prototype;
+
+  _proto2._buildHandler = function _buildHandler(eventName) {
+    var _this2 = this;
+
+    var flushControlled =
+    /* $FlowFixMe(>=0.79.1 site=www) This comment suppresses an error found
+     * when Flow v0.79 was deployed. To see the error delete this comment and
+     * run Flow. */
+    ReactDOM.unstable_flushControlled; // Wrap event handlers in `flushControlled`. In sync mode, this is
+    // effectively a no-op. In async mode, this ensures all updates scheduled
+    // inside the handler are flushed before React yields to the browser.
+
+    return function (e) {
+      if (!_this2.props.readOnly) {
+        var method = _this2._handler && _this2._handler[eventName];
+
+        if (method) {
+          if (flushControlled) {
+            flushControlled(function () {
+              return method(_this2, e);
+            });
+          } else {
+            method(_this2, e);
+          }
+        }
+      }
+    };
+  };
+
+  _proto2._showPlaceholder = function _showPlaceholder() {
+    return !!this.props.placeholder && !this.props.editorState.isInCompositionMode() && !this.props.editorState.getCurrentContent().hasText();
+  };
+
+  _proto2._renderPlaceholder = function _renderPlaceholder() {
+    if (this._showPlaceholder()) {
+      var placeHolderProps = {
+        text: nullthrows(this.props.placeholder),
+        editorState: this.props.editorState,
+        textAlignment: this.props.textAlignment,
+        accessibilityID: this._placeholderAccessibilityID
+      };
+      /* $FlowFixMe(>=0.112.0 site=mobile) This comment suppresses an error
+       * found when Flow v0.112 was deployed. To see the error delete this
+       * comment and run Flow. */
+
+      /* $FlowFixMe(>=0.112.0 site=www) This comment suppresses an error found
+       * when Flow v0.112 was deployed. To see the error delete this comment
+       * and run Flow. */
+
+      /* $FlowFixMe(>=0.112.0 site=www,mobile) This comment suppresses an error
+       * found when Flow v0.112 was deployed. To see the error delete this
+       * comment and run Flow. */
+
+      return React.createElement(DraftEditorPlaceholder, placeHolderProps);
+    }
+
+    return null;
+  };
+
+  _proto2.render = function render() {
+    var _this3 = this;
+
+    var _this$props2 = this.props,
+        blockRenderMap = _this$props2.blockRenderMap,
+        blockRendererFn = _this$props2.blockRendererFn,
+        blockStyleFn = _this$props2.blockStyleFn,
+        customStyleFn = _this$props2.customStyleFn,
+        customStyleMap = _this$props2.customStyleMap,
+        editorState = _this$props2.editorState,
+        readOnly = _this$props2.readOnly,
+        textAlignment = _this$props2.textAlignment,
+        textDirectionality = _this$props2.textDirectionality;
+    var rootClass = cx({
+      'DraftEditor/root': true,
+      'DraftEditor/alignLeft': textAlignment === 'left',
+      'DraftEditor/alignRight': textAlignment === 'right',
+      'DraftEditor/alignCenter': textAlignment === 'center'
+    });
+    var contentStyle = {
+      outline: 'none',
+      // fix parent-draggable Safari bug. #1326
+      userSelect: 'text',
+      WebkitUserSelect: 'text',
+      whiteSpace: 'pre-wrap',
+      wordWrap: 'break-word'
+    }; // The aria-expanded and aria-haspopup properties should only be rendered
+    // for a combobox.
+
+    /* $FlowFixMe(>=0.68.0 site=www,mobile) This comment suppresses an error
+     * found when Flow v0.68 was deployed. To see the error delete this comment
+     * and run Flow. */
+
+    var ariaRole = this.props.role || 'textbox';
+    var ariaExpanded = ariaRole === 'combobox' ? !!this.props.ariaExpanded : null;
+    var editorContentsProps = {
+      blockRenderMap: blockRenderMap,
+      blockRendererFn: blockRendererFn,
+      blockStyleFn: blockStyleFn,
+      customStyleMap: _objectSpread({}, DefaultDraftInlineStyle, {}, customStyleMap),
+      customStyleFn: customStyleFn,
+      editorKey: this._editorKey,
+      editorState: editorState,
+      textDirectionality: textDirectionality
+    };
+    return React.createElement("div", {
+      className: rootClass
+    }, this._renderPlaceholder(), React.createElement("div", {
+      className: cx('DraftEditor/editorContainer'),
+      ref: function ref(_ref3) {
+        return _this3.editorContainer = _ref3;
+      }
+    }, React.createElement("div", {
+      "aria-activedescendant": readOnly ? null : this.props.ariaActiveDescendantID,
+      "aria-autocomplete": readOnly ? null : this.props.ariaAutoComplete,
+      "aria-controls": readOnly ? null : this.props.ariaControls,
+      "aria-describedby": this.props.ariaDescribedBy || this._placeholderAccessibilityID,
+      "aria-expanded": readOnly ? null : ariaExpanded,
+      "aria-label": this.props.ariaLabel,
+      "aria-labelledby": this.props.ariaLabelledBy,
+      "aria-multiline": this.props.ariaMultiline,
+      "aria-owns": readOnly ? null : this.props.ariaOwneeID,
+      autoCapitalize: this.props.autoCapitalize,
+      autoComplete: this.props.autoComplete,
+      autoCorrect: this.props.autoCorrect,
+      className: cx({
+        // Chrome's built-in translation feature mutates the DOM in ways
+        // that Draft doesn't expect (ex: adding <font> tags inside
+        // DraftEditorLeaf spans) and causes problems. We add notranslate
+        // here which makes its autotranslation skip over this subtree.
+        notranslate: !readOnly,
+        'public/DraftEditor/content': true
+      }),
+      contentEditable: !readOnly,
+      "data-testid": this.props.webDriverTestID,
+      onBeforeInput: this._onBeforeInput,
+      onBlur: this._onBlur,
+      onCompositionEnd: this._onCompositionEnd,
+      onCompositionStart: this._onCompositionStart,
+      onCompositionUpdate: this._onCompositionUpdate,
+      onCopy: this._onCopy,
+      onCut: this._onCut,
+      onDragEnd: this._onDragEnd,
+      onDragEnter: this.onDragEnter,
+      onDragLeave: this.onDragLeave,
+      onDragOver: this._onDragOver,
+      onDragStart: this._onDragStart,
+      onDrop: this._onDrop,
+      onFocus: this._onFocus,
+      onInput: this._onInput,
+      onKeyDown: this._onKeyDown,
+      onKeyPress: this._onKeyPress,
+      onKeyUp: this._onKeyUp,
+      onMouseUp: this._onMouseUp,
+      onPaste: this._onPaste,
+      onSelect: this._onSelect,
+      ref: function ref(_ref2) {
+        return _this3.editor = _ref2;
+      },
+      role: readOnly ? null : ariaRole,
+      spellCheck: allowSpellCheck && this.props.spellCheck,
+      style: contentStyle,
+      suppressContentEditableWarning: true,
+      tabIndex: this.props.tabIndex
+    }, React.createElement(UpdateDraftEditorFlags, {
+      editor: this,
+      editorState: editorState
+    }), React.createElement(DraftEditorContents, _extends({}, editorContentsProps, {
+      key: 'contents' + this.state.contentsKey
+    })))));
+  };
+
+  _proto2.componentDidMount = function componentDidMount() {
+    this._blockSelectEvents = false;
+
+    if (!didInitODS && gkx('draft_ods_enabled')) {
+      didInitODS = true;
+      DraftEffects.initODS();
+    }
+
+    this.setMode('edit');
+    /**
+     * IE has a hardcoded "feature" that attempts to convert link text into
+     * anchors in contentEditable DOM. This breaks the editor's expectations of
+     * the DOM, and control is lost. Disable it to make IE behave.
+     * See: http://blogs.msdn.com/b/ieinternals/archive/2010/09/15/
+     * ie9-beta-minor-change-list.aspx
+     */
+
+    if (isIE) {
+      document.execCommand('AutoUrlDetect', false, false);
+    }
+  };
+
+  _proto2.componentDidUpdate = function componentDidUpdate() {
+    this._blockSelectEvents = false;
+    this._latestEditorState = this.props.editorState;
+    this._latestCommittedEditorState = this.props.editorState;
+  }
+  /**
+   * Used via `this.focus()`.
+   *
+   * Force focus back onto the editor node.
+   *
+   * We attempt to preserve scroll position when focusing. You can also pass
+   * a specified scroll position (for cases like `cut` behavior where it should
+   * be restored to a known position).
+   */
+  ;
+
+  return DraftEditor;
+}(React.Component);
+
+_defineProperty(DraftEditor, "defaultProps", {
+  blockRenderMap: DefaultDraftBlockRenderMap,
+  blockRendererFn: function blockRendererFn() {
+    return null;
+  },
+  blockStyleFn: function blockStyleFn() {
+    return '';
+  },
+  keyBindingFn: getDefaultKeyBinding,
+  readOnly: false,
+  spellCheck: false,
+  stripPastedStyles: false
+});
+
+module.exports = DraftEditor;
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DOMObserver = __webpack_require__(96);
+
+var DraftModifier = __webpack_require__(3);
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var EditorState = __webpack_require__(2);
+
+var Keys = __webpack_require__(26);
+
+var editOnSelect = __webpack_require__(50);
+
+var getContentEditableContainer = __webpack_require__(52);
+
+var getDraftEditorSelection = __webpack_require__(53);
+
+var getEntityKeyForSelection = __webpack_require__(34);
+
+var nullthrows = __webpack_require__(4);
+
+var editOnBeforeInput = __webpack_require__(56);
+
+var editOnKeyDown = __webpack_require__(57);
+
+var keyCommandPlainBackspace = __webpack_require__(38);
+/**
+ * Millisecond delay to allow `compositionstart` to fire again upon
+ * `compositionend`.
+ *
+ * This is used for Korean input to ensure that typing can continue without
+ * the editor trying to render too quickly. More specifically, Safari 7.1+
+ * triggers `compositionstart` a little slower than Chrome/FF, which
+ * leads to composed characters being resolved and re-render occurring
+ * sooner than we want.
+ */
+
+
+var RESOLVE_DELAY = 20;
+/**
+ * A handful of variables used to track the current composition and its
+ * resolution status. These exist at the module level because it is not
+ * possible to have compositions occurring in multiple editors simultaneously,
+ * and it simplifies state management with respect to the DraftEditor component.
+ */
+
+var resolved = false;
+var stillComposing = false;
+var domObserver = null;
+var isCompositionEnd = true;
+
+function startDOMObserver(editor) {
+  if (!domObserver) {
+    domObserver = new DOMObserver(getContentEditableContainer(editor));
+    domObserver.start();
+  }
+}
+
+function checkDevice() {
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return isMobile;
+}
+
+var DraftEditorCompositionHandler = {
+  /**
+   * A `compositionstart` event has fired while we're still in composition
+   * mode. Continue the current composition session to prevent a re-render.
+   */
+  onCompositionStart: function onCompositionStart(editor, e) {
+    console.log('onCompositionStart======');
+    isCompositionEnd = false;
+    stillComposing = true;
+    var isMobile = checkDevice();
+    var editorState = editor._latestEditorState;
+    var selection = editorState.getSelection(); // if (isMobile && selection.getIsBackward()) {
+    //   const updateSelection = selection.merge({
+    //     anchorKey: selection.getFocusKey(),
+    //     anchorOffset: selection.getFocusOffset(),
+    //     focusKey: selection.getAnchorKey(),
+    //     focusOffset: selection.getAnchorOffset(),
+    //     isBackward: false,
+    //   });
+    //   const newEditorState = EditorState.forceSelection(
+    //     editorState,
+    //     updateSelection,
+    //   );
+    //   editor.update(newEditorState);
+    // }
+
+    if (isMobile && selection.getFocusKey() !== selection.getAnchorKey() || !isMobile) {
+      editor.update(EditorState.set(editorState, {
+        inCompositionMode: true
+      }));
+      var contentState = editorState.getCurrentContent();
+
+      if (!selection.isCollapsed()) {
+        editor.props.handleBeforeReplaceText(editorState);
+        var updatedContentState = DraftModifier.removeRange(contentState, selection, 'forward');
+        EditorState.push(editorState, updatedContentState, 'remove-range');
+      }
+    }
+
+    startDOMObserver(editor);
+  },
+
+  /**
+   * A `compositionstart` event has fired while we're still in composition
+   * mode. Continue the current composition session to prevent a re-render.
+   */
+  onCompositionUpdate: function onCompositionUpdate(editor, e) {
+    console.log('onCompositionUpdate======');
+    var editorState = editor._latestEditorState; // editOnBeforeInput(editor, e);
+
+    var selection = editorState.getSelection();
+    var contentState = editorState.getCurrentContent(); // if (!selection.isCollapsed()) {
+    //   editor.props.handleBeforeReplaceText(editorState);
+    //   const updatedContentState = DraftModifier.removeRange(
+    //     contentState,
+    //     selection,
+    //     'forward',
+    //   );
+    //   editorState = EditorState.push(
+    //     editorState,
+    //     updatedContentState,
+    //     'remove-range',
+    //   );
+    //   editor.update(editorState);
+    // }
+  },
+
+  /**
+   * Attempt to end the current composition session.
+   *
+   * Defer handling because browser will still insert the chars into active
+   * element after `compositionend`. If a `compositionstart` event fires
+   * before `resolveComposition` executes, our composition session will
+   * continue.
+   *
+   * The `resolved` flag is useful because certain IME interfaces fire the
+   * `compositionend` event multiple times, thus queueing up multiple attempts
+   * at handling the composition. Since handling the same composition event
+   * twice could break the DOM, we only use the first event. Example: Arabic
+   * Google Input Tools on Windows 8.1 fires `compositionend` three times.
+   */
+  onCompositionEnd: function onCompositionEnd(editor, e) {
+    console.log('onCompositionEnd======');
+    resolved = false;
+    stillComposing = false;
+    console.log('onCompositionEnd-stillComposing', stillComposing);
+    isCompositionEnd = true;
+    e.persist();
+
+    if (!resolved) {
+      isCompositionEnd = true;
+      DraftEditorCompositionHandler.resolveComposition(editor, e);
+    }
+  },
+  onSelect: editOnSelect,
+  onBeforeInput: function onBeforeInput(editor, e) {
+    console.log('onBeforeInput================='); // editOnBeforeInput(editor, e);
+    // handle when user not typing IME
+
+    if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
+      editOnBeforeInput(editor, e);
+    }
+  },
+
+  /**
+   * In Safari, keydown events may fire when committing compositions. If
+   * the arrow keys are used to commit, prevent default so that the cursor
+   * doesn't move, otherwise it will jump back noticeably on re-render.
+   */
+  onKeyDown: function onKeyDown(editor, e) {
+    console.log('onKeyDown==========');
+    var editorState = editor._latestEditorState;
+    var isMobile = checkDevice();
+
+    if (!isMobile) {
+      if (e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' && !stillComposing) {
+        var timeStamp = e.timeStamp;
+        setTimeout(function () {
+          editor.props.handleBeforeInput && editor.props.handleBeforeInput('　', editorState, timeStamp);
+        }, 0);
+      }
+
+      if (domObserver && !(e.key === 'Process' && e.nativeEvent && (e.nativeEvent.code === 'Space' || e.nativeEvent.code === 'Enter') && stillComposing)) {
+        editOnKeyDown(editor, e);
+
+        if (e.key === 'Backspace') {
+          keyCommandPlainBackspace(editorState);
+        } // if (!stillComposing) {
+        // If a keydown event is received after compositionend but before the
+        // 20ms timer expires (ex: type option-E then backspace, or type A then
+        // backspace in 2-Set Korean), we should immediately resolve the
+        // composition and reinterpret the key press in edit mode.
+        // editor._onKeyDown(e);
+        //   return;
+        // }
+
+      } else {
+        if (e.key === 'Backspace') {
+          keyCommandPlainBackspace(editorState);
+        }
+
+        if (!stillComposing) {
+          editOnKeyDown(editor, e);
+        }
+
+        return;
+      }
+    } else {
+      if (!stillComposing) {
+        // If a keydown event is received after compositionend but before the
+        // 20ms timer expires (ex: type option-E then backspace, or type A then
+        // backspace in 2-Set Korean), we should immediately resolve the
+        // composition and reinterpret the key press in edit mode.
+        DraftEditorCompositionHandler.resolveComposition(editor);
+
+        editor._onKeyDown(e);
+
+        return;
+      }
+    }
+
+    if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
+      e.preventDefault();
+    }
+  },
+
+  /**
+   * Keypress events may fire when committing compositions. In Firefox,
+   * pressing RETURN commits the composition and inserts extra newline
+   * characters that we do not want. `preventDefault` allows the composition
+   * to be committed while preventing the extra characters.
+   */
+  onKeyPress: function onKeyPress(editor, e) {
+    if (e.which === Keys.RETURN) {
+      e.preventDefault();
+    }
+  },
+
+  /**
+   * Attempt to insert composed characters into the document.
+   *
+   * If we are still in a composition session, do nothing. Otherwise, insert
+   * the characters into the document and terminate the composition session.
+   *
+   * If no characters were composed -- for instance, the user
+   * deleted all composed characters and committed nothing new --
+   * force a re-render. We also re-render when the composition occurs
+   * at the beginning of a leaf, to ensure that if the browser has
+   * created a new text node for the composition, we will discard it.
+   *
+   * Resetting innerHTML will move focus to the beginning of the editor,
+   * so we update to force it back to the correct place.
+   */
+  resolveComposition: function resolveComposition(editor, e) {
+    console.log('resolveComposition===========');
+    console.log('resolveComposition-stillComposing: ', stillComposing);
+    console.log('isCompositionEnd-stillComposing:', isCompositionEnd);
+
+    if (stillComposing) {
+      return;
+    }
+
+    var isMobile = checkDevice();
+
+    if (!isMobile) {
+      editor.update(EditorState.set(editor._latestEditorState, {
+        inCompositionMode: false
+      }));
+
+      if (e.data || e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' || !domObserver) {
+        var currentSelection = editor._latestEditorState.getSelection();
+
+        if (!(e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space')) {
+          var focusOffset = currentSelection.getFocusOffset();
+          currentSelection = currentSelection.merge({
+            anchorOffset: focusOffset - e.data.length < 0 ? focusOffset : focusOffset - e.data.length,
+            focusOffset: focusOffset - e.data.length < 0 ? focusOffset : focusOffset - e.data.length
+          });
+          var newEditorState = EditorState.forceSelection(editor._latestEditorState, currentSelection);
+          editor.update(newEditorState);
+        } // editOnBeforeInput(editor, e);
+
+
+        stillComposing = false;
+        domObserver = null;
+        resolved = true;
+        return;
+      }
+    }
+
+    var mutations = nullthrows(domObserver).stopAndFlushMutations();
+    console.log('resolveComposition-mutations: ', mutations);
+    domObserver = null;
+    resolved = true;
+    var editorState = EditorState.set(editor._latestEditorState, {
+      inCompositionMode: false
+    });
+    editor.exitCurrentMode();
+
+    if (!mutations.size) {
+      editor.update(editorState);
+      return;
+    } // TODO, check if Facebook still needs this flag or if it could be removed.
+    // Since there can be multiple mutations providing a `composedChars` doesn't
+    // apply well on this new model.
+    // if (
+    //   gkx('draft_handlebeforeinput_composed_text') &&
+    //   editor.props.handleBeforeInput &&
+    //   isEventHandled(
+    //     editor.props.handleBeforeInput(
+    //       composedChars,
+    //       editorState,
+    //       event.timeStamp,
+    //     ),
+    //   )
+    // ) {
+    //   return;
+    // }
+    // editor.props.handleBeforeInput(
+    //         e.data,
+    //         editorState,
+    //         e.timeStamp,
+    //       );
+
+
+    var contentState = editorState.getCurrentContent();
+    mutations.forEach(function (composedChars, offsetKey) {
+      var _DraftOffsetKey$decod = DraftOffsetKey.decode(offsetKey),
+          blockKey = _DraftOffsetKey$decod.blockKey,
+          decoratorKey = _DraftOffsetKey$decod.decoratorKey,
+          leafKey = _DraftOffsetKey$decod.leafKey;
+
+      if (editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey])) {
+        var _editorState$getBlock = editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey]),
+            start = _editorState$getBlock.start,
+            end = _editorState$getBlock.end;
+
+        var replacementRange = editorState.getSelection().merge({
+          anchorKey: blockKey,
+          focusKey: blockKey,
+          anchorOffset: start,
+          focusOffset: end,
+          isBackward: false
+        });
+        var entityKey = getEntityKeyForSelection(contentState, replacementRange);
+        var currentStyle = contentState.getBlockForKey(blockKey).getInlineStyleAt(start);
+        contentState = DraftModifier.replaceText(contentState, replacementRange, composedChars, currentStyle, entityKey);
+        console.log('resolveComposition-contentState:', contentState);
+        var block = contentState.getBlockForKey(blockKey);
+        var blockText = block.getText();
+        var plainText = contentState.getPlainText();
+        console.log('resolveComposition-plainText:', plainText);
+        console.log('resolveComposition-blockText:', blockText); // We need to update the editorState so the leaf node ranges are properly
+        // updated and multiple mutations are correctly applied.
+
+        editorState = EditorState.set(editorState, {
+          currentContent: contentState
+        });
+      }
+    }); // When we apply the text changes to the ContentState, the selection always
+    // goes to the end of the field, but it should just stay where it is
+    // after compositionEnd.
+
+    var documentSelection = getDraftEditorSelection(editorState, getContentEditableContainer(editor));
+    console.log('resolveComposition-documentSelection"', documentSelection);
+    var compositionEndSelectionState = documentSelection.selectionState;
+    editor.restoreEditorDOM();
+    var editorStateWithUpdatedSelection = EditorState.acceptSelection(editorState, compositionEndSelectionState);
+    editor.update(EditorState.push(editorStateWithUpdatedSelection, contentState, 'insert-characters'));
+  }
+};
+module.exports = DraftEditorCompositionHandler;
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var UserAgent = __webpack_require__(7);
+
+var findAncestorOffsetKey = __webpack_require__(25);
+
+var Immutable = __webpack_require__(0);
+
+var invariant = __webpack_require__(1);
+
+var nullthrows = __webpack_require__(4);
+
+var Map = Immutable.Map;
+// Heavily based on Prosemirror's DOMObserver https://github.com/ProseMirror/prosemirror-view/blob/master/src/domobserver.js
+var DOM_OBSERVER_OPTIONS = {
+  subtree: true,
+  characterData: true,
+  childList: true,
+  characterDataOldValue: false,
+  attributes: false
+}; // IE11 has very broken mutation observers, so we also listen to DOMCharacterDataModified
+
+var USE_CHAR_DATA = UserAgent.isBrowser('IE <= 11');
+
+var DOMObserver =
+/*#__PURE__*/
+function () {
+  function DOMObserver(container) {
+    var _this = this;
+
+    _defineProperty(this, "observer", void 0);
+
+    _defineProperty(this, "container", void 0);
+
+    _defineProperty(this, "mutations", void 0);
+
+    _defineProperty(this, "onCharData", void 0);
+
+    this.container = container;
+    this.mutations = Map();
+
+    if (window.MutationObserver && !USE_CHAR_DATA) {
+      this.observer = new window.MutationObserver(function (mutations) {
+        return _this.registerMutations(mutations);
+      });
+    } else {
+      this.onCharData = function (e) {
+        !(e.target instanceof Node) ?  true ? invariant(false, 'Expected target to be an instance of Node') : invariant(false) : void 0;
+
+        _this.registerMutation({
+          type: 'characterData',
+          target: e.target
+        });
+      };
+    }
+  }
+
+  var _proto = DOMObserver.prototype;
+
+  _proto.start = function start() {
+    if (this.observer) {
+      this.observer.observe(this.container, DOM_OBSERVER_OPTIONS);
+    } else {
+      /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
+       * by Flow's standard library */
+      this.container.addEventListener('DOMCharacterDataModified', this.onCharData);
+    }
+  };
+
+  _proto.stopAndFlushMutations = function stopAndFlushMutations() {
+    var observer = this.observer;
+
+    if (observer) {
+      this.registerMutations(observer.takeRecords());
+      observer.disconnect();
+    } else {
+      /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
+       * by Flow's standard library */
+      this.container.removeEventListener('DOMCharacterDataModified', this.onCharData);
+    }
+
+    var mutations = this.mutations;
+    this.mutations = Map();
+    return mutations;
+  };
+
+  _proto.registerMutations = function registerMutations(mutations) {
+    for (var i = 0; i < mutations.length; i++) {
+      this.registerMutation(mutations[i]);
+    }
+  };
+
+  _proto.getMutationTextContent = function getMutationTextContent(mutation) {
+    var type = mutation.type,
+        target = mutation.target,
+        removedNodes = mutation.removedNodes;
+
+    if (type === 'characterData') {
+      // When `textContent` is '', there is a race condition that makes
+      // getting the offsetKey from the target not possible.
+      // These events are also followed by a `childList`, which is the one
+      // we are able to retrieve the offsetKey and apply the '' text.
+      if (target.textContent !== '') {
+        return target.textContent;
+      }
+    } else if (type === 'childList') {
+      // `characterData` events won't happen or are ignored when
+      // removing the last character of a leaf node, what happens
+      // instead is a `childList` event with a `removedNodes` array.
+      // For this case the textContent should be '' and
+      // `DraftModifier.replaceText` will make sure the content is
+      // updated properly.
+      if (removedNodes && removedNodes.length) {
+        return '';
+      }
+    }
+
+    return null;
+  };
+
+  _proto.registerMutation = function registerMutation(mutation) {
+    var textContent = this.getMutationTextContent(mutation);
+
+    if (textContent != null) {
+      var offsetKey = nullthrows(findAncestorOffsetKey(mutation.target));
+      this.mutations = this.mutations.set(offsetKey, textContent);
+    }
+  };
+
+  return DOMObserver;
+}();
+
+module.exports = DOMObserver;
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+/**
+ * Usage note:
+ * This module makes a best effort to export the same data we would internally.
+ * At Facebook we use a server-generated module that does the parsing and
+ * exports the data for the client to use. We can't rely on a server-side
+ * implementation in open source so instead we make use of an open source
+ * library to do the heavy lifting and then make some adjustments as necessary.
+ * It's likely there will be some differences. Some we can smooth over.
+ * Others are going to be harder.
+ */
+
+
+var UAParser = __webpack_require__(98);
+
+var UNKNOWN = 'Unknown';
+var PLATFORM_MAP = {
+  'Mac OS': 'Mac OS X'
+};
+/**
+ * Convert from UAParser platform name to what we expect.
+ */
+
+function convertPlatformName(name) {
+  return PLATFORM_MAP[name] || name;
+}
+/**
+ * Get the version number in parts. This is very naive. We actually get major
+ * version as a part of UAParser already, which is generally good enough, but
+ * let's get the minor just in case.
+ */
+
+
+function getBrowserVersion(version) {
+  if (!version) {
+    return {
+      major: '',
+      minor: ''
+    };
+  }
+
+  var parts = version.split('.');
+  return {
+    major: parts[0],
+    minor: parts[1]
+  };
+}
+/**
+ * Get the UA data fom UAParser and then convert it to the format we're
+ * expecting for our APIS.
+ */
+
+
+var parser = new UAParser();
+var results = parser.getResult(); // Do some conversion first.
+
+var browserVersionData = getBrowserVersion(results.browser.version);
+var uaData = {
+  browserArchitecture: results.cpu.architecture || UNKNOWN,
+  browserFullVersion: results.browser.version || UNKNOWN,
+  browserMinorVersion: browserVersionData.minor || UNKNOWN,
+  browserName: results.browser.name || UNKNOWN,
+  browserVersion: results.browser.major || UNKNOWN,
+  deviceName: results.device.model || UNKNOWN,
+  engineName: results.engine.name || UNKNOWN,
+  engineVersion: results.engine.version || UNKNOWN,
+  platformArchitecture: results.cpu.architecture || UNKNOWN,
+  platformName: convertPlatformName(results.os.name) || UNKNOWN,
+  platformVersion: results.os.version || UNKNOWN,
+  platformFullVersion: results.os.version || UNKNOWN
+};
+module.exports = uaData;
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * UAParser.js v0.7.20
+ * Lightweight JavaScript-based User-Agent string parser
+ * https://github.com/faisalman/ua-parser-js
+ *
+ * Copyright © 2012-2019 Faisal Salman <f@faisalman.com>
+ * Licensed under MIT License
+ */
+
+(function (window, undefined) {
+
+    'use strict';
+
+    //////////////
+    // Constants
+    /////////////
+
+
+    var LIBVERSION  = '0.7.20',
+        EMPTY       = '',
+        UNKNOWN     = '?',
+        FUNC_TYPE   = 'function',
+        UNDEF_TYPE  = 'undefined',
+        OBJ_TYPE    = 'object',
+        STR_TYPE    = 'string',
+        MAJOR       = 'major', // deprecated
+        MODEL       = 'model',
+        NAME        = 'name',
+        TYPE        = 'type',
+        VENDOR      = 'vendor',
+        VERSION     = 'version',
+        ARCHITECTURE= 'architecture',
+        CONSOLE     = 'console',
+        MOBILE      = 'mobile',
+        TABLET      = 'tablet',
+        SMARTTV     = 'smarttv',
+        WEARABLE    = 'wearable',
+        EMBEDDED    = 'embedded';
+
+
+    ///////////
+    // Helper
+    //////////
+
+
+    var util = {
+        extend : function (regexes, extensions) {
+            var mergedRegexes = {};
+            for (var i in regexes) {
+                if (extensions[i] && extensions[i].length % 2 === 0) {
+                    mergedRegexes[i] = extensions[i].concat(regexes[i]);
+                } else {
+                    mergedRegexes[i] = regexes[i];
+                }
+            }
+            return mergedRegexes;
+        },
+        has : function (str1, str2) {
+          if (typeof str1 === "string") {
+            return str2.toLowerCase().indexOf(str1.toLowerCase()) !== -1;
+          } else {
+            return false;
+          }
+        },
+        lowerize : function (str) {
+            return str.toLowerCase();
+        },
+        major : function (version) {
+            return typeof(version) === STR_TYPE ? version.replace(/[^\d\.]/g,'').split(".")[0] : undefined;
+        },
+        trim : function (str) {
+          return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+        }
+    };
+
+
+    ///////////////
+    // Map helper
+    //////////////
+
+
+    var mapper = {
+
+        rgx : function (ua, arrays) {
+
+            var i = 0, j, k, p, q, matches, match;
+
+            // loop through all regexes maps
+            while (i < arrays.length && !matches) {
+
+                var regex = arrays[i],       // even sequence (0,2,4,..)
+                    props = arrays[i + 1];   // odd sequence (1,3,5,..)
+                j = k = 0;
+
+                // try matching uastring with regexes
+                while (j < regex.length && !matches) {
+
+                    matches = regex[j++].exec(ua);
+
+                    if (!!matches) {
+                        for (p = 0; p < props.length; p++) {
+                            match = matches[++k];
+                            q = props[p];
+                            // check if given property is actually array
+                            if (typeof q === OBJ_TYPE && q.length > 0) {
+                                if (q.length == 2) {
+                                    if (typeof q[1] == FUNC_TYPE) {
+                                        // assign modified match
+                                        this[q[0]] = q[1].call(this, match);
+                                    } else {
+                                        // assign given value, ignore regex match
+                                        this[q[0]] = q[1];
+                                    }
+                                } else if (q.length == 3) {
+                                    // check whether function or regex
+                                    if (typeof q[1] === FUNC_TYPE && !(q[1].exec && q[1].test)) {
+                                        // call function (usually string mapper)
+                                        this[q[0]] = match ? q[1].call(this, match, q[2]) : undefined;
+                                    } else {
+                                        // sanitize match using given regex
+                                        this[q[0]] = match ? match.replace(q[1], q[2]) : undefined;
+                                    }
+                                } else if (q.length == 4) {
+                                        this[q[0]] = match ? q[3].call(this, match.replace(q[1], q[2])) : undefined;
+                                }
+                            } else {
+                                this[q] = match ? match : undefined;
+                            }
+                        }
+                    }
+                }
+                i += 2;
+            }
+        },
+
+        str : function (str, map) {
+
+            for (var i in map) {
+                // check if array
+                if (typeof map[i] === OBJ_TYPE && map[i].length > 0) {
+                    for (var j = 0; j < map[i].length; j++) {
+                        if (util.has(map[i][j], str)) {
+                            return (i === UNKNOWN) ? undefined : i;
+                        }
+                    }
+                } else if (util.has(map[i], str)) {
+                    return (i === UNKNOWN) ? undefined : i;
+                }
+            }
+            return str;
+        }
+    };
+
+
+    ///////////////
+    // String map
+    //////////////
+
+
+    var maps = {
+
+        browser : {
+            oldsafari : {
+                version : {
+                    '1.0'   : '/8',
+                    '1.2'   : '/1',
+                    '1.3'   : '/3',
+                    '2.0'   : '/412',
+                    '2.0.2' : '/416',
+                    '2.0.3' : '/417',
+                    '2.0.4' : '/419',
+                    '?'     : '/'
+                }
+            }
+        },
+
+        device : {
+            amazon : {
+                model : {
+                    'Fire Phone' : ['SD', 'KF']
+                }
+            },
+            sprint : {
+                model : {
+                    'Evo Shift 4G' : '7373KT'
+                },
+                vendor : {
+                    'HTC'       : 'APA',
+                    'Sprint'    : 'Sprint'
+                }
+            }
+        },
+
+        os : {
+            windows : {
+                version : {
+                    'ME'        : '4.90',
+                    'NT 3.11'   : 'NT3.51',
+                    'NT 4.0'    : 'NT4.0',
+                    '2000'      : 'NT 5.0',
+                    'XP'        : ['NT 5.1', 'NT 5.2'],
+                    'Vista'     : 'NT 6.0',
+                    '7'         : 'NT 6.1',
+                    '8'         : 'NT 6.2',
+                    '8.1'       : 'NT 6.3',
+                    '10'        : ['NT 6.4', 'NT 10.0'],
+                    'RT'        : 'ARM'
+                }
+            }
+        }
+    };
+
+
+    //////////////
+    // Regex map
+    /////////////
+
+
+    var regexes = {
+
+        browser : [[
+
+            // Presto based
+            /(opera\smini)\/([\w\.-]+)/i,                                       // Opera Mini
+            /(opera\s[mobiletab]+).+version\/([\w\.-]+)/i,                      // Opera Mobi/Tablet
+            /(opera).+version\/([\w\.]+)/i,                                     // Opera > 9.80
+            /(opera)[\/\s]+([\w\.]+)/i                                          // Opera < 9.80
+            ], [NAME, VERSION], [
+
+            /(opios)[\/\s]+([\w\.]+)/i                                          // Opera mini on iphone >= 8.0
+            ], [[NAME, 'Opera Mini'], VERSION], [
+
+            /\s(opr)\/([\w\.]+)/i                                               // Opera Webkit
+            ], [[NAME, 'Opera'], VERSION], [
+
+            // Mixed
+            /(kindle)\/([\w\.]+)/i,                                             // Kindle
+            /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?([\w\.]*)/i,
+                                                                                // Lunascape/Maxthon/Netfront/Jasmine/Blazer
+
+            // Trident based
+            /(avant\s|iemobile|slim|baidu)(?:browser)?[\/\s]?([\w\.]*)/i,
+                                                                                // Avant/IEMobile/SlimBrowser/Baidu
+            /(?:ms|\()(ie)\s([\w\.]+)/i,                                        // Internet Explorer
+
+            // Webkit/KHTML based
+            /(rekonq)\/([\w\.]*)/i,                                             // Rekonq
+            /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon)\/([\w\.-]+)/i
+                                                                                // Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron/Iridium/PhantomJS/Bowser/QupZilla/Falkon
+            ], [NAME, VERSION], [
+
+            /(konqueror)\/([\w\.]+)/i                                           // Konqueror
+            ], [[NAME, 'Konqueror'], VERSION], [
+
+            /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i                         // IE11
+            ], [[NAME, 'IE'], VERSION], [
+
+            /(edge|edgios|edga|edg)\/((\d+)?[\w\.]+)/i                          // Microsoft Edge
+            ], [[NAME, 'Edge'], VERSION], [
+
+            /(yabrowser)\/([\w\.]+)/i                                           // Yandex
+            ], [[NAME, 'Yandex'], VERSION], [
+
+            /(puffin)\/([\w\.]+)/i                                              // Puffin
+            ], [[NAME, 'Puffin'], VERSION], [
+
+            /(focus)\/([\w\.]+)/i                                               // Firefox Focus
+            ], [[NAME, 'Firefox Focus'], VERSION], [
+
+            /(opt)\/([\w\.]+)/i                                                 // Opera Touch
+            ], [[NAME, 'Opera Touch'], VERSION], [
+
+            /((?:[\s\/])uc?\s?browser|(?:juc.+)ucweb)[\/\s]?([\w\.]+)/i         // UCBrowser
+            ], [[NAME, 'UCBrowser'], VERSION], [
+
+            /(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
+            ], [[NAME, /_/g, ' '], VERSION], [
+
+            /(windowswechat qbcore)\/([\w\.]+)/i                                // WeChat Desktop for Windows Built-in Browser
+            ], [[NAME, 'WeChat(Win) Desktop'], VERSION], [
+
+            /(micromessenger)\/([\w\.]+)/i                                      // WeChat
+            ], [[NAME, 'WeChat'], VERSION], [
+
+            /(brave)\/([\w\.]+)/i                                              // Brave browser
+            ], [[NAME, 'Brave'], VERSION], [
+
+            /(qqbrowserlite)\/([\w\.]+)/i                                       // QQBrowserLite
+            ], [NAME, VERSION], [
+
+            /(QQ)\/([\d\.]+)/i                                                  // QQ, aka ShouQ
+            ], [NAME, VERSION], [
+
+            /m?(qqbrowser)[\/\s]?([\w\.]+)/i                                    // QQBrowser
+            ], [NAME, VERSION], [
+
+            /(BIDUBrowser)[\/\s]?([\w\.]+)/i                                    // Baidu Browser
+            ], [NAME, VERSION], [
+
+            /(2345Explorer)[\/\s]?([\w\.]+)/i                                   // 2345 Browser
+            ], [NAME, VERSION], [
+
+            /(MetaSr)[\/\s]?([\w\.]+)/i                                         // SouGouBrowser
+            ], [NAME], [
+
+            /(LBBROWSER)/i                                      // LieBao Browser
+            ], [NAME], [
+
+            /xiaomi\/miuibrowser\/([\w\.]+)/i                                   // MIUI Browser
+            ], [VERSION, [NAME, 'MIUI Browser']], [
+
+            /;fbav\/([\w\.]+);/i                                                // Facebook App for iOS & Android
+            ], [VERSION, [NAME, 'Facebook']], [
+
+            /safari\s(line)\/([\w\.]+)/i,                                       // Line App for iOS
+            /android.+(line)\/([\w\.]+)\/iab/i                                  // Line App for Android
+            ], [NAME, VERSION], [
+
+            /headlesschrome(?:\/([\w\.]+)|\s)/i                                 // Chrome Headless
+            ], [VERSION, [NAME, 'Chrome Headless']], [
+
+            /\swv\).+(chrome)\/([\w\.]+)/i                                      // Chrome WebView
+            ], [[NAME, /(.+)/, '$1 WebView'], VERSION], [
+
+            /((?:oculus|samsung)browser)\/([\w\.]+)/i
+            ], [[NAME, /(.+(?:g|us))(.+)/, '$1 $2'], VERSION], [                // Oculus / Samsung Browser
+
+            /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)*/i        // Android Browser
+            ], [VERSION, [NAME, 'Android Browser']], [
+
+            /(sailfishbrowser)\/([\w\.]+)/i                                     // Sailfish Browser
+            ], [[NAME, 'Sailfish Browser'], VERSION], [
+
+            /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i
+                                                                                // Chrome/OmniWeb/Arora/Tizen/Nokia
+            ], [NAME, VERSION], [
+
+            /(dolfin)\/([\w\.]+)/i                                              // Dolphin
+            ], [[NAME, 'Dolphin'], VERSION], [
+
+            /((?:android.+)crmo|crios)\/([\w\.]+)/i                             // Chrome for Android/iOS
+            ], [[NAME, 'Chrome'], VERSION], [
+
+            /(coast)\/([\w\.]+)/i                                               // Opera Coast
+            ], [[NAME, 'Opera Coast'], VERSION], [
+
+            /fxios\/([\w\.-]+)/i                                                // Firefox for iOS
+            ], [VERSION, [NAME, 'Firefox']], [
+
+            /version\/([\w\.]+).+?mobile\/\w+\s(safari)/i                       // Mobile Safari
+            ], [VERSION, [NAME, 'Mobile Safari']], [
+
+            /version\/([\w\.]+).+?(mobile\s?safari|safari)/i                    // Safari & Safari Mobile
+            ], [VERSION, NAME], [
+
+            /webkit.+?(gsa)\/([\w\.]+).+?(mobile\s?safari|safari)(\/[\w\.]+)/i  // Google Search Appliance on iOS
+            ], [[NAME, 'GSA'], VERSION], [
+
+            /webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i                     // Safari < 3.0
+            ], [NAME, [VERSION, mapper.str, maps.browser.oldsafari.version]], [
+
+            /(webkit|khtml)\/([\w\.]+)/i
+            ], [NAME, VERSION], [
+
+            // Gecko based
+            /(navigator|netscape)\/([\w\.-]+)/i                                 // Netscape
+            ], [[NAME, 'Netscape'], VERSION], [
+            /(swiftfox)/i,                                                      // Swiftfox
+            /(icedragon|iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo|conkeror)[\/\s]?([\w\.\+]+)/i,
+                                                                                // IceDragon/Iceweasel/Camino/Chimera/Fennec/Maemo/Minimo/Conkeror
+            /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([\w\.-]+)$/i,
+
+                                                                                // Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
+            /(mozilla)\/([\w\.]+).+rv\:.+gecko\/\d+/i,                          // Mozilla
+
+            // Other
+            /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir)[\/\s]?([\w\.]+)/i,
+                                                                                // Polaris/Lynx/Dillo/iCab/Doris/Amaya/w3m/NetSurf/Sleipnir
+            /(links)\s\(([\w\.]+)/i,                                            // Links
+            /(gobrowser)\/?([\w\.]*)/i,                                         // GoBrowser
+            /(ice\s?browser)\/v?([\w\._]+)/i,                                   // ICE Browser
+            /(mosaic)[\/\s]([\w\.]+)/i                                          // Mosaic
+            ], [NAME, VERSION]
+        ],
+
+        cpu : [[
+
+            /(?:(amd|x(?:(?:86|64)[_-])?|wow|win)64)[;\)]/i                     // AMD64
+            ], [[ARCHITECTURE, 'amd64']], [
+
+            /(ia32(?=;))/i                                                      // IA32 (quicktime)
+            ], [[ARCHITECTURE, util.lowerize]], [
+
+            /((?:i[346]|x)86)[;\)]/i                                            // IA32
+            ], [[ARCHITECTURE, 'ia32']], [
+
+            // PocketPC mistakenly identified as PowerPC
+            /windows\s(ce|mobile);\sppc;/i
+            ], [[ARCHITECTURE, 'arm']], [
+
+            /((?:ppc|powerpc)(?:64)?)(?:\smac|;|\))/i                           // PowerPC
+            ], [[ARCHITECTURE, /ower/, '', util.lowerize]], [
+
+            /(sun4\w)[;\)]/i                                                    // SPARC
+            ], [[ARCHITECTURE, 'sparc']], [
+
+            /((?:avr32|ia64(?=;))|68k(?=\))|arm(?:64|(?=v\d+[;l]))|(?=atmel\s)avr|(?:irix|mips|sparc)(?:64)?(?=;)|pa-risc)/i
+                                                                                // IA64, 68K, ARM/64, AVR/32, IRIX/64, MIPS/64, SPARC/64, PA-RISC
+            ], [[ARCHITECTURE, util.lowerize]]
+        ],
+
+        device : [[
+
+            /\((ipad|playbook);[\w\s\),;-]+(rim|apple)/i                        // iPad/PlayBook
+            ], [MODEL, VENDOR, [TYPE, TABLET]], [
+
+            /applecoremedia\/[\w\.]+ \((ipad)/                                  // iPad
+            ], [MODEL, [VENDOR, 'Apple'], [TYPE, TABLET]], [
+
+            /(apple\s{0,1}tv)/i                                                 // Apple TV
+            ], [[MODEL, 'Apple TV'], [VENDOR, 'Apple']], [
+
+            /(archos)\s(gamepad2?)/i,                                           // Archos
+            /(hp).+(touchpad)/i,                                                // HP TouchPad
+            /(hp).+(tablet)/i,                                                  // HP Tablet
+            /(kindle)\/([\w\.]+)/i,                                             // Kindle
+            /\s(nook)[\w\s]+build\/(\w+)/i,                                     // Nook
+            /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+
+            /(kf[A-z]+)\sbuild\/.+silk\//i                                      // Kindle Fire HD
+            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
+            /(sd|kf)[0349hijorstuw]+\sbuild\/.+silk\//i                         // Fire Phone
+            ], [[MODEL, mapper.str, maps.device.amazon.model], [VENDOR, 'Amazon'], [TYPE, MOBILE]], [
+            /android.+aft([bms])\sbuild/i                                       // Fire TV
+            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, SMARTTV]], [
+
+            /\((ip[honed|\s\w*]+);.+(apple)/i                                   // iPod/iPhone
+            ], [MODEL, VENDOR, [TYPE, MOBILE]], [
+            /\((ip[honed|\s\w*]+);/i                                            // iPod/iPhone
+            ], [MODEL, [VENDOR, 'Apple'], [TYPE, MOBILE]], [
+
+            /(blackberry)[\s-]?(\w+)/i,                                         // BlackBerry
+            /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[\s_-]?([\w-]*)/i,
+                                                                                // BenQ/Palm/Sony-Ericsson/Acer/Asus/Dell/Meizu/Motorola/Polytron
+            /(hp)\s([\w\s]+\w)/i,                                               // HP iPAQ
+            /(asus)-?(\w+)/i                                                    // Asus
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+            /\(bb10;\s(\w+)/i                                                   // BlackBerry 10
+            ], [MODEL, [VENDOR, 'BlackBerry'], [TYPE, MOBILE]], [
+                                                                                // Asus Tablets
+            /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7|padfone|p00c)/i
+            ], [MODEL, [VENDOR, 'Asus'], [TYPE, TABLET]], [
+
+            /(sony)\s(tablet\s[ps])\sbuild\//i,                                  // Sony
+            /(sony)?(?:sgp.+)\sbuild\//i
+            ], [[VENDOR, 'Sony'], [MODEL, 'Xperia Tablet'], [TYPE, TABLET]], [
+            /android.+\s([c-g]\d{4}|so[-l]\w+)(?=\sbuild\/|\).+chrome\/(?![1-6]{0,1}\d\.))/i
+            ], [MODEL, [VENDOR, 'Sony'], [TYPE, MOBILE]], [
+
+            /\s(ouya)\s/i,                                                      // Ouya
+            /(nintendo)\s([wids3u]+)/i                                          // Nintendo
+            ], [VENDOR, MODEL, [TYPE, CONSOLE]], [
+
+            /android.+;\s(shield)\sbuild/i                                      // Nvidia
+            ], [MODEL, [VENDOR, 'Nvidia'], [TYPE, CONSOLE]], [
+
+            /(playstation\s[34portablevi]+)/i                                   // Playstation
+            ], [MODEL, [VENDOR, 'Sony'], [TYPE, CONSOLE]], [
+
+            /(sprint\s(\w+))/i                                                  // Sprint Phones
+            ], [[VENDOR, mapper.str, maps.device.sprint.vendor], [MODEL, mapper.str, maps.device.sprint.model], [TYPE, MOBILE]], [
+
+            /(htc)[;_\s-]+([\w\s]+(?=\)|\sbuild)|\w+)/i,                        // HTC
+            /(zte)-(\w*)/i,                                                     // ZTE
+            /(alcatel|geeksphone|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]*)/i
+                                                                                // Alcatel/GeeksPhone/Nexian/Panasonic/Sony
+            ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
+
+            /(nexus\s9)/i                                                       // HTC Nexus 9
+            ], [MODEL, [VENDOR, 'HTC'], [TYPE, TABLET]], [
+
+            /d\/huawei([\w\s-]+)[;\)]/i,
+            /(nexus\s6p)/i                                                      // Huawei
+            ], [MODEL, [VENDOR, 'Huawei'], [TYPE, MOBILE]], [
+
+            /(microsoft);\s(lumia[\s\w]+)/i                                     // Microsoft Lumia
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+
+            /[\s\(;](xbox(?:\sone)?)[\s\);]/i                                   // Microsoft Xbox
+            ], [MODEL, [VENDOR, 'Microsoft'], [TYPE, CONSOLE]], [
+            /(kin\.[onetw]{3})/i                                                // Microsoft Kin
+            ], [[MODEL, /\./g, ' '], [VENDOR, 'Microsoft'], [TYPE, MOBILE]], [
+
+                                                                                // Motorola
+            /\s(milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?:?(\s4g)?)[\w\s]+build\//i,
+            /mot[\s-]?(\w*)/i,
+            /(XT\d{3,4}) build\//i,
+            /(nexus\s6)/i
+            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, MOBILE]], [
+            /android.+\s(mz60\d|xoom[\s2]{0,2})\sbuild\//i
+            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, TABLET]], [
+
+            /hbbtv\/\d+\.\d+\.\d+\s+\([\w\s]*;\s*(\w[^;]*);([^;]*)/i            // HbbTV devices
+            ], [[VENDOR, util.trim], [MODEL, util.trim], [TYPE, SMARTTV]], [
+
+            /hbbtv.+maple;(\d+)/i
+            ], [[MODEL, /^/, 'SmartTV'], [VENDOR, 'Samsung'], [TYPE, SMARTTV]], [
+
+            /\(dtv[\);].+(aquos)/i                                              // Sharp
+            ], [MODEL, [VENDOR, 'Sharp'], [TYPE, SMARTTV]], [
+
+            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n\d+|sgh-t8[56]9|nexus 10))/i,
+            /((SM-T\w+))/i
+            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
+            /smart-tv.+(samsung)/i
+            ], [VENDOR, [TYPE, SMARTTV], MODEL], [
+            /((s[cgp]h-\w+|gt-\w+|galaxy\snexus|sm-\w[\w\d]+))/i,
+            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)/i,
+            /sec-((sgh\w+))/i
+            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
+
+            /sie-(\w*)/i                                                        // Siemens
+            ], [MODEL, [VENDOR, 'Siemens'], [TYPE, MOBILE]], [
+
+            /(maemo|nokia).*(n900|lumia\s\d+)/i,                                // Nokia
+            /(nokia)[\s_-]?([\w-]*)/i
+            ], [[VENDOR, 'Nokia'], MODEL, [TYPE, MOBILE]], [
+
+            /android[x\d\.\s;]+\s([ab][1-7]\-?[0178a]\d\d?)/i                   // Acer
+            ], [MODEL, [VENDOR, 'Acer'], [TYPE, TABLET]], [
+
+            /android.+([vl]k\-?\d{3})\s+build/i                                 // LG Tablet
+            ], [MODEL, [VENDOR, 'LG'], [TYPE, TABLET]], [
+            /android\s3\.[\s\w;-]{10}(lg?)-([06cv9]{3,4})/i                     // LG Tablet
+            ], [[VENDOR, 'LG'], MODEL, [TYPE, TABLET]], [
+            /(lg) netcast\.tv/i                                                 // LG SmartTV
+            ], [VENDOR, MODEL, [TYPE, SMARTTV]], [
+            /(nexus\s[45])/i,                                                   // LG
+            /lg[e;\s\/-]+(\w*)/i,
+            /android.+lg(\-?[\d\w]+)\s+build/i
+            ], [MODEL, [VENDOR, 'LG'], [TYPE, MOBILE]], [
+
+            /(lenovo)\s?(s(?:5000|6000)(?:[\w-]+)|tab(?:[\s\w]+))/i             // Lenovo tablets
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+            /android.+(ideatab[a-z0-9\-\s]+)/i                                  // Lenovo
+            ], [MODEL, [VENDOR, 'Lenovo'], [TYPE, TABLET]], [
+            /(lenovo)[_\s-]?([\w-]+)/i
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+
+            /linux;.+((jolla));/i                                               // Jolla
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+
+            /((pebble))app\/[\d\.]+\s/i                                         // Pebble
+            ], [VENDOR, MODEL, [TYPE, WEARABLE]], [
+
+            /android.+;\s(oppo)\s?([\w\s]+)\sbuild/i                            // OPPO
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+
+            /crkey/i                                                            // Google Chromecast
+            ], [[MODEL, 'Chromecast'], [VENDOR, 'Google']], [
+
+            /android.+;\s(glass)\s\d/i                                          // Google Glass
+            ], [MODEL, [VENDOR, 'Google'], [TYPE, WEARABLE]], [
+
+            /android.+;\s(pixel c)[\s)]/i                                       // Google Pixel C
+            ], [MODEL, [VENDOR, 'Google'], [TYPE, TABLET]], [
+
+            /android.+;\s(pixel( [23])?( xl)?)[\s)]/i                              // Google Pixel
+            ], [MODEL, [VENDOR, 'Google'], [TYPE, MOBILE]], [
+
+            /android.+;\s(\w+)\s+build\/hm\1/i,                                 // Xiaomi Hongmi 'numeric' models
+            /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,               // Xiaomi Hongmi
+            /android.+(mi[\s\-_]*(?:a\d|one|one[\s_]plus|note lte)?[\s_]*(?:\d?\w?)[\s_]*(?:plus)?)\s+build/i,    
+                                                                                // Xiaomi Mi
+            /android.+(redmi[\s\-_]*(?:note)?(?:[\s_]*[\w\s]+))\s+build/i       // Redmi Phones
+            ], [[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, MOBILE]], [
+            /android.+(mi[\s\-_]*(?:pad)(?:[\s_]*[\w\s]+))\s+build/i            // Mi Pad tablets
+            ],[[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, TABLET]], [
+            /android.+;\s(m[1-5]\snote)\sbuild/i                                // Meizu
+            ], [MODEL, [VENDOR, 'Meizu'], [TYPE, MOBILE]], [
+            /(mz)-([\w-]{2,})/i
+            ], [[VENDOR, 'Meizu'], MODEL, [TYPE, MOBILE]], [
+
+            /android.+a000(1)\s+build/i,                                        // OnePlus
+            /android.+oneplus\s(a\d{4})\s+build/i
+            ], [MODEL, [VENDOR, 'OnePlus'], [TYPE, MOBILE]], [
+
+            /android.+[;\/]\s*(RCT[\d\w]+)\s+build/i                            // RCA Tablets
+            ], [MODEL, [VENDOR, 'RCA'], [TYPE, TABLET]], [
+
+            /android.+[;\/\s]+(Venue[\d\s]{2,7})\s+build/i                      // Dell Venue Tablets
+            ], [MODEL, [VENDOR, 'Dell'], [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*(Q[T|M][\d\w]+)\s+build/i                         // Verizon Tablet
+            ], [MODEL, [VENDOR, 'Verizon'], [TYPE, TABLET]], [
+
+            /android.+[;\/]\s+(Barnes[&\s]+Noble\s+|BN[RT])(V?.*)\s+build/i     // Barnes & Noble Tablet
+            ], [[VENDOR, 'Barnes & Noble'], MODEL, [TYPE, TABLET]], [
+
+            /android.+[;\/]\s+(TM\d{3}.*\b)\s+build/i                           // Barnes & Noble Tablet
+            ], [MODEL, [VENDOR, 'NuVision'], [TYPE, TABLET]], [
+
+            /android.+;\s(k88)\sbuild/i                                         // ZTE K Series Tablet
+            ], [MODEL, [VENDOR, 'ZTE'], [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*(gen\d{3})\s+build.*49h/i                         // Swiss GEN Mobile
+            ], [MODEL, [VENDOR, 'Swiss'], [TYPE, MOBILE]], [
+
+            /android.+[;\/]\s*(zur\d{3})\s+build/i                              // Swiss ZUR Tablet
+            ], [MODEL, [VENDOR, 'Swiss'], [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*((Zeki)?TB.*\b)\s+build/i                         // Zeki Tablets
+            ], [MODEL, [VENDOR, 'Zeki'], [TYPE, TABLET]], [
+
+            /(android).+[;\/]\s+([YR]\d{2})\s+build/i,
+            /android.+[;\/]\s+(Dragon[\-\s]+Touch\s+|DT)(\w{5})\sbuild/i        // Dragon Touch Tablet
+            ], [[VENDOR, 'Dragon Touch'], MODEL, [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*(NS-?\w{0,9})\sbuild/i                            // Insignia Tablets
+            ], [MODEL, [VENDOR, 'Insignia'], [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*((NX|Next)-?\w{0,9})\s+build/i                    // NextBook Tablets
+            ], [MODEL, [VENDOR, 'NextBook'], [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*(Xtreme\_)?(V(1[045]|2[015]|30|40|60|7[05]|90))\s+build/i
+            ], [[VENDOR, 'Voice'], MODEL, [TYPE, MOBILE]], [                    // Voice Xtreme Phones
+
+            /android.+[;\/]\s*(LVTEL\-)?(V1[12])\s+build/i                     // LvTel Phones
+            ], [[VENDOR, 'LvTel'], MODEL, [TYPE, MOBILE]], [
+
+            /android.+;\s(PH-1)\s/i
+            ], [MODEL, [VENDOR, 'Essential'], [TYPE, MOBILE]], [                // Essential PH-1
+
+            /android.+[;\/]\s*(V(100MD|700NA|7011|917G).*\b)\s+build/i          // Envizen Tablets
+            ], [MODEL, [VENDOR, 'Envizen'], [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*(Le[\s\-]+Pan)[\s\-]+(\w{1,9})\s+build/i          // Le Pan Tablets
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*(Trio[\s\-]*.*)\s+build/i                         // MachSpeed Tablets
+            ], [MODEL, [VENDOR, 'MachSpeed'], [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*(Trinity)[\-\s]*(T\d{3})\s+build/i                // Trinity Tablets
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+
+            /android.+[;\/]\s*TU_(1491)\s+build/i                               // Rotor Tablets
+            ], [MODEL, [VENDOR, 'Rotor'], [TYPE, TABLET]], [
+
+            /android.+(KS(.+))\s+build/i                                        // Amazon Kindle Tablets
+            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
+
+            /android.+(Gigaset)[\s\-]+(Q\w{1,9})\s+build/i                      // Gigaset Tablets
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+
+            /\s(tablet|tab)[;\/]/i,                                             // Unidentifiable Tablet
+            /\s(mobile)(?:[;\/]|\ssafari)/i                                     // Unidentifiable Mobile
+            ], [[TYPE, util.lowerize], VENDOR, MODEL], [
+
+            /[\s\/\(](smart-?tv)[;\)]/i                                         // SmartTV
+            ], [[TYPE, SMARTTV]], [
+
+            /(android[\w\.\s\-]{0,9});.+build/i                                 // Generic Android Device
+            ], [MODEL, [VENDOR, 'Generic']]
+        ],
+
+        engine : [[
+
+            /windows.+\sedge\/([\w\.]+)/i                                       // EdgeHTML
+            ], [VERSION, [NAME, 'EdgeHTML']], [
+
+            /webkit\/537\.36.+chrome\/(?!27)/i                                  // Blink
+            ], [[NAME, 'Blink']], [
+
+            /(presto)\/([\w\.]+)/i,                                             // Presto
+            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i,     
+                                                                                // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m/Goanna
+            /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i,                          // KHTML/Tasman/Links
+            /(icab)[\/\s]([23]\.[\d\.]+)/i                                      // iCab
+            ], [NAME, VERSION], [
+
+            /rv\:([\w\.]{1,9}).+(gecko)/i                                       // Gecko
+            ], [VERSION, NAME]
+        ],
+
+        os : [[
+
+            // Windows based
+            /microsoft\s(windows)\s(vista|xp)/i                                 // Windows (iTunes)
+            ], [NAME, VERSION], [
+            /(windows)\snt\s6\.2;\s(arm)/i,                                     // Windows RT
+            /(windows\sphone(?:\sos)*)[\s\/]?([\d\.\s\w]*)/i,                   // Windows Phone
+            /(windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
+            ], [NAME, [VERSION, mapper.str, maps.os.windows.version]], [
+            /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
+            ], [[NAME, 'Windows'], [VERSION, mapper.str, maps.os.windows.version]], [
+
+            // Mobile/Embedded OS
+            /\((bb)(10);/i                                                      // BlackBerry 10
+            ], [[NAME, 'BlackBerry'], VERSION], [
+            /(blackberry)\w*\/?([\w\.]*)/i,                                     // Blackberry
+            /(tizen)[\/\s]([\w\.]+)/i,                                          // Tizen
+            /(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|sailfish|contiki)[\/\s-]?([\w\.]*)/i
+                                                                                // Android/WebOS/Palm/QNX/Bada/RIM/MeeGo/Contiki/Sailfish OS
+            ], [NAME, VERSION], [
+            /(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]*)/i                  // Symbian
+            ], [[NAME, 'Symbian'], VERSION], [
+            /\((series40);/i                                                    // Series 40
+            ], [NAME], [
+            /mozilla.+\(mobile;.+gecko.+firefox/i                               // Firefox OS
+            ], [[NAME, 'Firefox OS'], VERSION], [
+
+            // Console
+            /(nintendo|playstation)\s([wids34portablevu]+)/i,                   // Nintendo/Playstation
+
+            // GNU/Linux based
+            /(mint)[\/\s\(]?(\w*)/i,                                            // Mint
+            /(mageia|vectorlinux)[;\s]/i,                                       // Mageia/VectorLinux
+            /(joli|[kxln]?ubuntu|debian|suse|opensuse|gentoo|(?=\s)arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?(?!chrom)([\w\.-]*)/i,
+                                                                                // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
+                                                                                // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk/Linpus
+            /(hurd|linux)\s?([\w\.]*)/i,                                        // Hurd/Linux
+            /(gnu)\s?([\w\.]*)/i                                                // GNU
+            ], [NAME, VERSION], [
+
+            /(cros)\s[\w]+\s([\w\.]+\w)/i                                       // Chromium OS
+            ], [[NAME, 'Chromium OS'], VERSION],[
+
+            // Solaris
+            /(sunos)\s?([\w\.\d]*)/i                                            // Solaris
+            ], [[NAME, 'Solaris'], VERSION], [
+
+            // BSD based
+            /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]*)/i                    // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
+            ], [NAME, VERSION],[
+
+            /(haiku)\s(\w+)/i                                                   // Haiku
+            ], [NAME, VERSION],[
+
+            /cfnetwork\/.+darwin/i,
+            /ip[honead]{2,4}(?:.*os\s([\w]+)\slike\smac|;\sopera)/i             // iOS
+            ], [[VERSION, /_/g, '.'], [NAME, 'iOS']], [
+
+            /(mac\sos\sx)\s?([\w\s\.]*)/i,
+            /(macintosh|mac(?=_powerpc)\s)/i                                    // Mac OS
+            ], [[NAME, 'Mac OS'], [VERSION, /_/g, '.']], [
+
+            // Other
+            /((?:open)?solaris)[\/\s-]?([\w\.]*)/i,                             // Solaris
+            /(aix)\s((\d)(?=\.|\)|\s)[\w\.])*/i,                                // AIX
+            /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms|fuchsia)/i,
+                                                                                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS/OpenVMS/Fuchsia
+            /(unix)\s?([\w\.]*)/i                                               // UNIX
+            ], [NAME, VERSION]
+        ]
+    };
+
+
+    /////////////////
+    // Constructor
+    ////////////////
+    var UAParser = function (uastring, extensions) {
+
+        if (typeof uastring === 'object') {
+            extensions = uastring;
+            uastring = undefined;
+        }
+
+        if (!(this instanceof UAParser)) {
+            return new UAParser(uastring, extensions).getResult();
+        }
+
+        var ua = uastring || ((window && window.navigator && window.navigator.userAgent) ? window.navigator.userAgent : EMPTY);
+        var rgxmap = extensions ? util.extend(regexes, extensions) : regexes;
+
+        this.getBrowser = function () {
+            var browser = { name: undefined, version: undefined };
+            mapper.rgx.call(browser, ua, rgxmap.browser);
+            browser.major = util.major(browser.version); // deprecated
+            return browser;
+        };
+        this.getCPU = function () {
+            var cpu = { architecture: undefined };
+            mapper.rgx.call(cpu, ua, rgxmap.cpu);
+            return cpu;
+        };
+        this.getDevice = function () {
+            var device = { vendor: undefined, model: undefined, type: undefined };
+            mapper.rgx.call(device, ua, rgxmap.device);
+            return device;
+        };
+        this.getEngine = function () {
+            var engine = { name: undefined, version: undefined };
+            mapper.rgx.call(engine, ua, rgxmap.engine);
+            return engine;
+        };
+        this.getOS = function () {
+            var os = { name: undefined, version: undefined };
+            mapper.rgx.call(os, ua, rgxmap.os);
+            return os;
+        };
+        this.getResult = function () {
+            return {
+                ua      : this.getUA(),
+                browser : this.getBrowser(),
+                engine  : this.getEngine(),
+                os      : this.getOS(),
+                device  : this.getDevice(),
+                cpu     : this.getCPU()
+            };
+        };
+        this.getUA = function () {
+            return ua;
+        };
+        this.setUA = function (uastring) {
+            ua = uastring;
+            return this;
+        };
+        return this;
+    };
+
+    UAParser.VERSION = LIBVERSION;
+    UAParser.BROWSER = {
+        NAME    : NAME,
+        MAJOR   : MAJOR, // deprecated
+        VERSION : VERSION
+    };
+    UAParser.CPU = {
+        ARCHITECTURE : ARCHITECTURE
+    };
+    UAParser.DEVICE = {
+        MODEL   : MODEL,
+        VENDOR  : VENDOR,
+        TYPE    : TYPE,
+        CONSOLE : CONSOLE,
+        MOBILE  : MOBILE,
+        SMARTTV : SMARTTV,
+        TABLET  : TABLET,
+        WEARABLE: WEARABLE,
+        EMBEDDED: EMBEDDED
+    };
+    UAParser.ENGINE = {
+        NAME    : NAME,
+        VERSION : VERSION
+    };
+    UAParser.OS = {
+        NAME    : NAME,
+        VERSION : VERSION
+    };
+
+    ///////////
+    // Export
+    //////////
+
+
+    // check js environment
+    if (typeof(exports) !== UNDEF_TYPE) {
+        // nodejs env
+        if (typeof module !== UNDEF_TYPE && module.exports) {
+            exports = module.exports = UAParser;
+        }
+        exports.UAParser = UAParser;
+    } else {
+        // requirejs env (optional)
+        if (true) {
+            !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+                return UAParser;
+            }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+        } else if (window) {
+            // browser env
+            window.UAParser = UAParser;
+        }
+    }
+
+    // jQuery/Zepto specific (optional)
+    // Note:
+    //   In AMD env the global scope should be kept clean, but jQuery is an exception.
+    //   jQuery always exports to global scope, unless jQuery.noConflict(true) is used,
+    //   and we should catch that.
+    var $ = window && (window.jQuery || window.Zepto);
+    if (typeof $ !== UNDEF_TYPE && !$.ua) {
+        var parser = new UAParser();
+        $.ua = parser.getResult();
+        $.ua.get = function () {
+            return parser.getUA();
+        };
+        $.ua.set = function (uastring) {
+            parser.setUA(uastring);
+            var result = parser.getResult();
+            for (var prop in result) {
+                $.ua[prop] = result[prop];
+            }
+        };
+    }
+
+})(typeof window === 'object' ? window : this);
+
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+var invariant = __webpack_require__(1);
+
+var componentRegex = /\./;
+var orRegex = /\|\|/;
+var rangeRegex = /\s+\-\s+/;
+var modifierRegex = /^(<=|<|=|>=|~>|~|>|)?\s*(.+)/;
+var numericRegex = /^(\d*)(.*)/;
+/**
+ * Splits input `range` on "||" and returns true if any subrange matches
+ * `version`.
+ *
+ * @param {string} range
+ * @param {string} version
+ * @returns {boolean}
+ */
+
+function checkOrExpression(range, version) {
+  var expressions = range.split(orRegex);
+
+  if (expressions.length > 1) {
+    return expressions.some(function (range) {
+      return VersionRange.contains(range, version);
+    });
+  } else {
+    range = expressions[0].trim();
+    return checkRangeExpression(range, version);
+  }
+}
+/**
+ * Splits input `range` on " - " (the surrounding whitespace is required) and
+ * returns true if version falls between the two operands.
+ *
+ * @param {string} range
+ * @param {string} version
+ * @returns {boolean}
+ */
+
+
+function checkRangeExpression(range, version) {
+  var expressions = range.split(rangeRegex);
+  !(expressions.length > 0 && expressions.length <= 2) ?  true ? invariant(false, 'the "-" operator expects exactly 2 operands') : invariant(false) : void 0;
+
+  if (expressions.length === 1) {
+    return checkSimpleExpression(expressions[0], version);
+  } else {
+    var startVersion = expressions[0],
+        endVersion = expressions[1];
+    !(isSimpleVersion(startVersion) && isSimpleVersion(endVersion)) ?  true ? invariant(false, 'operands to the "-" operator must be simple (no modifiers)') : invariant(false) : void 0;
+    return checkSimpleExpression('>=' + startVersion, version) && checkSimpleExpression('<=' + endVersion, version);
+  }
+}
+/**
+ * Checks if `range` matches `version`. `range` should be a "simple" range (ie.
+ * not a compound range using the " - " or "||" operators).
+ *
+ * @param {string} range
+ * @param {string} version
+ * @returns {boolean}
+ */
+
+
+function checkSimpleExpression(range, version) {
+  range = range.trim();
+
+  if (range === '') {
+    return true;
+  }
+
+  var versionComponents = version.split(componentRegex);
+
+  var _getModifierAndCompon = getModifierAndComponents(range),
+      modifier = _getModifierAndCompon.modifier,
+      rangeComponents = _getModifierAndCompon.rangeComponents;
+
+  switch (modifier) {
+    case '<':
+      return checkLessThan(versionComponents, rangeComponents);
+
+    case '<=':
+      return checkLessThanOrEqual(versionComponents, rangeComponents);
+
+    case '>=':
+      return checkGreaterThanOrEqual(versionComponents, rangeComponents);
+
+    case '>':
+      return checkGreaterThan(versionComponents, rangeComponents);
+
+    case '~':
+    case '~>':
+      return checkApproximateVersion(versionComponents, rangeComponents);
+
+    default:
+      return checkEqual(versionComponents, rangeComponents);
+  }
+}
+/**
+ * Checks whether `a` is less than `b`.
+ *
+ * @param {array<string>} a
+ * @param {array<string>} b
+ * @returns {boolean}
+ */
+
+
+function checkLessThan(a, b) {
+  return compareComponents(a, b) === -1;
+}
+/**
+ * Checks whether `a` is less than or equal to `b`.
+ *
+ * @param {array<string>} a
+ * @param {array<string>} b
+ * @returns {boolean}
+ */
+
+
+function checkLessThanOrEqual(a, b) {
+  var result = compareComponents(a, b);
+  return result === -1 || result === 0;
+}
+/**
+ * Checks whether `a` is equal to `b`.
+ *
+ * @param {array<string>} a
+ * @param {array<string>} b
+ * @returns {boolean}
+ */
+
+
+function checkEqual(a, b) {
+  return compareComponents(a, b) === 0;
+}
+/**
+ * Checks whether `a` is greater than or equal to `b`.
+ *
+ * @param {array<string>} a
+ * @param {array<string>} b
+ * @returns {boolean}
+ */
+
+
+function checkGreaterThanOrEqual(a, b) {
+  var result = compareComponents(a, b);
+  return result === 1 || result === 0;
+}
+/**
+ * Checks whether `a` is greater than `b`.
+ *
+ * @param {array<string>} a
+ * @param {array<string>} b
+ * @returns {boolean}
+ */
+
+
+function checkGreaterThan(a, b) {
+  return compareComponents(a, b) === 1;
+}
+/**
+ * Checks whether `a` is "reasonably close" to `b` (as described in
+ * https://www.npmjs.org/doc/misc/semver.html). For example, if `b` is "1.3.1"
+ * then "reasonably close" is defined as ">= 1.3.1 and < 1.4".
+ *
+ * @param {array<string>} a
+ * @param {array<string>} b
+ * @returns {boolean}
+ */
+
+
+function checkApproximateVersion(a, b) {
+  var lowerBound = b.slice();
+  var upperBound = b.slice();
+
+  if (upperBound.length > 1) {
+    upperBound.pop();
+  }
+
+  var lastIndex = upperBound.length - 1;
+  var numeric = parseInt(upperBound[lastIndex], 10);
+
+  if (isNumber(numeric)) {
+    upperBound[lastIndex] = numeric + 1 + '';
+  }
+
+  return checkGreaterThanOrEqual(a, lowerBound) && checkLessThan(a, upperBound);
+}
+/**
+ * Extracts the optional modifier (<, <=, =, >=, >, ~, ~>) and version
+ * components from `range`.
+ *
+ * For example, given `range` ">= 1.2.3" returns an object with a `modifier` of
+ * `">="` and `components` of `[1, 2, 3]`.
+ *
+ * @param {string} range
+ * @returns {object}
+ */
+
+
+function getModifierAndComponents(range) {
+  var rangeComponents = range.split(componentRegex);
+  var matches = rangeComponents[0].match(modifierRegex);
+  !matches ?  true ? invariant(false, 'expected regex to match but it did not') : invariant(false) : void 0;
+  return {
+    modifier: matches[1],
+    rangeComponents: [matches[2]].concat(rangeComponents.slice(1))
+  };
+}
+/**
+ * Determines if `number` is a number.
+ *
+ * @param {mixed} number
+ * @returns {boolean}
+ */
+
+
+function isNumber(number) {
+  return !isNaN(number) && isFinite(number);
+}
+/**
+ * Tests whether `range` is a "simple" version number without any modifiers
+ * (">", "~" etc).
+ *
+ * @param {string} range
+ * @returns {boolean}
+ */
+
+
+function isSimpleVersion(range) {
+  return !getModifierAndComponents(range).modifier;
+}
+/**
+ * Zero-pads array `array` until it is at least `length` long.
+ *
+ * @param {array} array
+ * @param {number} length
+ */
+
+
+function zeroPad(array, length) {
+  for (var i = array.length; i < length; i++) {
+    array[i] = '0';
+  }
+}
+/**
+ * Normalizes `a` and `b` in preparation for comparison by doing the following:
+ *
+ * - zero-pads `a` and `b`
+ * - marks any "x", "X" or "*" component in `b` as equivalent by zero-ing it out
+ *   in both `a` and `b`
+ * - marks any final "*" component in `b` as a greedy wildcard by zero-ing it
+ *   and all of its successors in `a`
+ *
+ * @param {array<string>} a
+ * @param {array<string>} b
+ * @returns {array<array<string>>}
+ */
+
+
+function normalizeVersions(a, b) {
+  a = a.slice();
+  b = b.slice();
+  zeroPad(a, b.length); // mark "x" and "*" components as equal
+
+  for (var i = 0; i < b.length; i++) {
+    var matches = b[i].match(/^[x*]$/i);
+
+    if (matches) {
+      b[i] = a[i] = '0'; // final "*" greedily zeros all remaining components
+
+      if (matches[0] === '*' && i === b.length - 1) {
+        for (var j = i; j < a.length; j++) {
+          a[j] = '0';
+        }
+      }
+    }
+  }
+
+  zeroPad(b, a.length);
+  return [a, b];
+}
+/**
+ * Returns the numerical -- not the lexicographical -- ordering of `a` and `b`.
+ *
+ * For example, `10-alpha` is greater than `2-beta`.
+ *
+ * @param {string} a
+ * @param {string} b
+ * @returns {number} -1, 0 or 1 to indicate whether `a` is less than, equal to,
+ * or greater than `b`, respectively
+ */
+
+
+function compareNumeric(a, b) {
+  var aPrefix = a.match(numericRegex)[1];
+  var bPrefix = b.match(numericRegex)[1];
+  var aNumeric = parseInt(aPrefix, 10);
+  var bNumeric = parseInt(bPrefix, 10);
+
+  if (isNumber(aNumeric) && isNumber(bNumeric) && aNumeric !== bNumeric) {
+    return compare(aNumeric, bNumeric);
+  } else {
+    return compare(a, b);
+  }
+}
+/**
+ * Returns the ordering of `a` and `b`.
+ *
+ * @param {string|number} a
+ * @param {string|number} b
+ * @returns {number} -1, 0 or 1 to indicate whether `a` is less than, equal to,
+ * or greater than `b`, respectively
+ */
+
+
+function compare(a, b) {
+  !(typeof a === typeof b) ?  true ? invariant(false, '"a" and "b" must be of the same type') : invariant(false) : void 0;
+
+  if (a > b) {
+    return 1;
+  } else if (a < b) {
+    return -1;
+  } else {
+    return 0;
+  }
+}
+/**
+ * Compares arrays of version components.
+ *
+ * @param {array<string>} a
+ * @param {array<string>} b
+ * @returns {number} -1, 0 or 1 to indicate whether `a` is less than, equal to,
+ * or greater than `b`, respectively
+ */
+
+
+function compareComponents(a, b) {
+  var _normalizeVersions = normalizeVersions(a, b),
+      aNormalized = _normalizeVersions[0],
+      bNormalized = _normalizeVersions[1];
+
+  for (var i = 0; i < bNormalized.length; i++) {
+    var result = compareNumeric(aNormalized[i], bNormalized[i]);
+
+    if (result) {
+      return result;
+    }
+  }
+
+  return 0;
+}
+
+var VersionRange = {
+  /**
+   * Checks whether `version` satisfies the `range` specification.
+   *
+   * We support a subset of the expressions defined in
+   * https://www.npmjs.org/doc/misc/semver.html:
+   *
+   *    version   Must match version exactly
+   *    =version  Same as just version
+   *    >version  Must be greater than version
+   *    >=version Must be greater than or equal to version
+   *    <version  Must be less than version
+   *    <=version Must be less than or equal to version
+   *    ~version  Must be at least version, but less than the next significant
+   *              revision above version:
+   *              "~1.2.3" is equivalent to ">= 1.2.3 and < 1.3"
+   *    ~>version Equivalent to ~version
+   *    1.2.x     Must match "1.2.x", where "x" is a wildcard that matches
+   *              anything
+   *    1.2.*     Similar to "1.2.x", but "*" in the trailing position is a
+   *              "greedy" wildcard, so will match any number of additional
+   *              components:
+   *              "1.2.*" will match "1.2.1", "1.2.1.1", "1.2.1.1.1" etc
+   *    *         Any version
+   *    ""        (Empty string) Same as *
+   *    v1 - v2   Equivalent to ">= v1 and <= v2"
+   *    r1 || r2  Passes if either r1 or r2 are satisfied
+   *
+   * @param {string} range
+   * @param {string} version
+   * @returns {boolean}
+   */
+  contains: function contains(range, version) {
+    return checkOrExpression(range.trim(), version.trim());
+  }
+};
+module.exports = VersionRange;
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+/**
+ * Executes the provided `callback` once for each enumerable own property in the
+ * object and constructs a new object from the results. The `callback` is
+ * invoked with three arguments:
+ *
+ *  - the property value
+ *  - the property name
+ *  - the object being traversed
+ *
+ * Properties that are added after the call to `mapObject` will not be visited
+ * by `callback`. If the values of existing properties are changed, the value
+ * passed to `callback` will be the value at the time `mapObject` visits them.
+ * Properties that are deleted before being visited are not visited.
+ *
+ * @grep function objectMap()
+ * @grep function objMap()
+ *
+ * @param {?object} object
+ * @param {function} callback
+ * @param {*} context
+ * @return {?object}
+ */
+
+function mapObject(object, callback, context) {
+  if (!object) {
+    return null;
+  }
+
+  var result = {};
+
+  for (var name in object) {
+    if (hasOwnProperty.call(object, name)) {
+      result[name] = callback.call(context, object[name], name, object);
+    }
+  }
+
+  return result;
+}
+
+module.exports = mapObject;
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ * @typechecks static-only
+ */
+
+/**
+ * Memoizes the return value of a function that accepts one string argument.
+ */
+
+function memoizeStringOnly(callback) {
+  var cache = {};
+  return function (string) {
+    if (!cache.hasOwnProperty(string)) {
+      cache[string] = callback.call(this, string);
+    }
+
+    return cache[string];
+  };
+}
+
+module.exports = memoizeStringOnly;
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function isSelectionAtLeafStart(editorState) {
+  var selection = editorState.getSelection();
+  var anchorKey = selection.getAnchorKey();
+  var blockTree = editorState.getBlockTree(anchorKey);
+  var offset = selection.getStartOffset();
+  var isAtStart = false;
+  blockTree.some(function (leafSet) {
+    if (offset === leafSet.get('start')) {
+      isAtStart = true;
+      return true;
+    }
+
+    if (offset < leafSet.get('end')) {
+      return leafSet.get('leaves').some(function (leaf) {
+        var leafStart = leaf.get('start');
+
+        if (offset === leafStart) {
+          isAtStart = true;
+          return true;
+        }
+
+        return false;
+      });
+    }
+
+    return false;
+  });
+  return isAtStart;
+}
+
+module.exports = isSelectionAtLeafStart;
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+ // setimmediate adds setImmediate to the global. We want to make sure we export
+// the actual function.
+
+__webpack_require__(104);
+
+module.exports = global.setImmediate;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+    "use strict";
+
+    if (global.setImmediate) {
+        return;
+    }
+
+    var nextHandle = 1; // Spec says greater than zero
+    var tasksByHandle = {};
+    var currentlyRunningATask = false;
+    var doc = global.document;
+    var registerImmediate;
+
+    function setImmediate(callback) {
+      // Callback can either be a function or a string
+      if (typeof callback !== "function") {
+        callback = new Function("" + callback);
+      }
+      // Copy function arguments
+      var args = new Array(arguments.length - 1);
+      for (var i = 0; i < args.length; i++) {
+          args[i] = arguments[i + 1];
+      }
+      // Store and register the task
+      var task = { callback: callback, args: args };
+      tasksByHandle[nextHandle] = task;
+      registerImmediate(nextHandle);
+      return nextHandle++;
+    }
+
+    function clearImmediate(handle) {
+        delete tasksByHandle[handle];
+    }
+
+    function run(task) {
+        var callback = task.callback;
+        var args = task.args;
+        switch (args.length) {
+        case 0:
+            callback();
+            break;
+        case 1:
+            callback(args[0]);
+            break;
+        case 2:
+            callback(args[0], args[1]);
+            break;
+        case 3:
+            callback(args[0], args[1], args[2]);
+            break;
+        default:
+            callback.apply(undefined, args);
+            break;
+        }
+    }
+
+    function runIfPresent(handle) {
+        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+        // So if we're currently running a task, we'll need to delay this invocation.
+        if (currentlyRunningATask) {
+            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+            // "too much recursion" error.
+            setTimeout(runIfPresent, 0, handle);
+        } else {
+            var task = tasksByHandle[handle];
+            if (task) {
+                currentlyRunningATask = true;
+                try {
+                    run(task);
+                } finally {
+                    clearImmediate(handle);
+                    currentlyRunningATask = false;
+                }
+            }
+        }
+    }
+
+    function installNextTickImplementation() {
+        registerImmediate = function(handle) {
+            process.nextTick(function () { runIfPresent(handle); });
+        };
+    }
+
+    function canUsePostMessage() {
+        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+        // where `global.postMessage` means something completely different and can't be used for this purpose.
+        if (global.postMessage && !global.importScripts) {
+            var postMessageIsAsynchronous = true;
+            var oldOnMessage = global.onmessage;
+            global.onmessage = function() {
+                postMessageIsAsynchronous = false;
+            };
+            global.postMessage("", "*");
+            global.onmessage = oldOnMessage;
+            return postMessageIsAsynchronous;
+        }
+    }
+
+    function installPostMessageImplementation() {
+        // Installs an event handler on `global` for the `message` event: see
+        // * https://developer.mozilla.org/en/DOM/window.postMessage
+        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+        var messagePrefix = "setImmediate$" + Math.random() + "$";
+        var onGlobalMessage = function(event) {
+            if (event.source === global &&
+                typeof event.data === "string" &&
+                event.data.indexOf(messagePrefix) === 0) {
+                runIfPresent(+event.data.slice(messagePrefix.length));
+            }
+        };
+
+        if (global.addEventListener) {
+            global.addEventListener("message", onGlobalMessage, false);
+        } else {
+            global.attachEvent("onmessage", onGlobalMessage);
+        }
+
+        registerImmediate = function(handle) {
+            global.postMessage(messagePrefix + handle, "*");
+        };
+    }
+
+    function installMessageChannelImplementation() {
+        var channel = new MessageChannel();
+        channel.port1.onmessage = function(event) {
+            var handle = event.data;
+            runIfPresent(handle);
+        };
+
+        registerImmediate = function(handle) {
+            channel.port2.postMessage(handle);
+        };
+    }
+
+    function installReadyStateChangeImplementation() {
+        var html = doc.documentElement;
+        registerImmediate = function(handle) {
+            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+            var script = doc.createElement("script");
+            script.onreadystatechange = function () {
+                runIfPresent(handle);
+                script.onreadystatechange = null;
+                html.removeChild(script);
+                script = null;
+            };
+            html.appendChild(script);
+        };
+    }
+
+    function installSetTimeoutImplementation() {
+        registerImmediate = function(handle) {
+            setTimeout(runIfPresent, 0, handle);
+        };
+    }
+
+    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+    // Don't get fooled by e.g. browserify environments.
+    if ({}.toString.call(global.process) === "[object process]") {
+        // For Node.js before 0.9
+        installNextTickImplementation();
+
+    } else if (canUsePostMessage()) {
+        // For non-IE10 modern browsers
+        installPostMessageImplementation();
+
+    } else if (global.MessageChannel) {
+        // For web workers, where supported
+        installMessageChannelImplementation();
+
+    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+        // For IE 6–8
+        installReadyStateChangeImplementation();
+
+    } else {
+        // For older browsers
+        installSetTimeoutImplementation();
+    }
+
+    attachTo.setImmediate = setImmediate;
+    attachTo.clearImmediate = clearImmediate;
+}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(105)))
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var Keys = __webpack_require__(26);
+
+function isSoftNewlineEvent(e) {
+  return e.which === Keys.RETURN && (e.getModifierState('Shift') || e.getModifierState('Alt') || e.getModifierState('Control'));
+}
+
+module.exports = isSoftNewlineEvent;
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftModifier = __webpack_require__(3);
+
+var EditorState = __webpack_require__(2);
+
+var getContentStateFragment = __webpack_require__(21);
+
+var nullthrows = __webpack_require__(4);
+
+var clipboard = null;
+/**
+ * Some systems offer a "secondary" clipboard to allow quick internal cut
+ * and paste behavior. For instance, Ctrl+K (cut) and Ctrl+Y (paste).
+ */
+
+var SecondaryClipboard = {
+  cut: function cut(editorState) {
+    var content = editorState.getCurrentContent();
+    var selection = editorState.getSelection();
+    var targetRange = null;
+
+    if (selection.isCollapsed()) {
+      var anchorKey = selection.getAnchorKey();
+      var blockEnd = content.getBlockForKey(anchorKey).getLength();
+
+      if (blockEnd === selection.getAnchorOffset()) {
+        var keyAfter = content.getKeyAfter(anchorKey);
+
+        if (keyAfter == null) {
+          return editorState;
+        }
+
+        targetRange = selection.set('focusKey', keyAfter).set('focusOffset', 0);
+      } else {
+        targetRange = selection.set('focusOffset', blockEnd);
+      }
+    } else {
+      targetRange = selection;
+    }
+
+    targetRange = nullthrows(targetRange); // TODO: This should actually append to the current state when doing
+    // successive ^K commands without any other cursor movement
+
+    clipboard = getContentStateFragment(content, targetRange);
+    var afterRemoval = DraftModifier.removeRange(content, targetRange, 'forward');
+
+    if (afterRemoval === content) {
+      return editorState;
+    }
+
+    return EditorState.push(editorState, afterRemoval, 'remove-range');
+  },
+  paste: function paste(editorState) {
+    if (!clipboard) {
+      return editorState;
+    }
+
+    var newContent = DraftModifier.replaceWithFragment(editorState.getCurrentContent(), editorState.getSelection(), clipboard);
+    return EditorState.push(editorState, newContent, 'insert-fragment');
+  }
+};
+module.exports = SecondaryClipboard;
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var EditorState = __webpack_require__(2);
+
+var expandRangeToStartOfLine = __webpack_require__(109);
+
+var getDraftEditorSelectionWithNodes = __webpack_require__(54);
+
+var moveSelectionBackward = __webpack_require__(36);
+
+var removeTextWithStrategy = __webpack_require__(20);
+
+function keyCommandBackspaceToStartOfLine(editorState) {
+  var afterRemoval = removeTextWithStrategy(editorState, function (strategyState) {
+    var selection = strategyState.getSelection();
+
+    if (selection.isCollapsed() && selection.getAnchorOffset() === 0) {
+      return moveSelectionBackward(strategyState, 1);
+    }
+
+    var domSelection = global.getSelection();
+    var range = domSelection.getRangeAt(0);
+    range = expandRangeToStartOfLine(range);
+    return getDraftEditorSelectionWithNodes(strategyState, null, range.endContainer, range.endOffset, range.startContainer, range.startOffset).selectionState;
+  }, 'backward');
+
+  if (afterRemoval === editorState.getCurrentContent()) {
+    return editorState;
+  }
+
+  return EditorState.push(editorState, afterRemoval, 'remove-range');
+}
+
+module.exports = keyCommandBackspaceToStartOfLine;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+var UnicodeUtils = __webpack_require__(16);
+
+var getRangeClientRects = __webpack_require__(58);
+
+var invariant = __webpack_require__(1);
+/**
+ * Return the computed line height, in pixels, for the provided element.
+ */
+
+
+function getLineHeightPx(element) {
+  var computed = getComputedStyle(element);
+  var div = document.createElement('div');
+  div.style.fontFamily = computed.fontFamily;
+  div.style.fontSize = computed.fontSize;
+  div.style.fontStyle = computed.fontStyle;
+  div.style.fontWeight = computed.fontWeight;
+  div.style.lineHeight = computed.lineHeight;
+  div.style.position = 'absolute';
+  div.textContent = 'M';
+  var documentBody = document.body;
+  !documentBody ?  true ? invariant(false, 'Missing document.body') : invariant(false) : void 0; // forced layout here
+
+  documentBody.appendChild(div);
+  var rect = div.getBoundingClientRect();
+  documentBody.removeChild(div);
+  return rect.height;
+}
+/**
+ * Return whether every ClientRect in the provided list lies on the same line.
+ *
+ * We assume that the rects on the same line all contain the baseline, so the
+ * lowest top line needs to be above the highest bottom line (i.e., if you were
+ * to project the rects onto the y-axis, their intersection would be nonempty).
+ *
+ * In addition, we require that no two boxes are lineHeight (or more) apart at
+ * either top or bottom, which helps protect against false positives for fonts
+ * with extremely large glyph heights (e.g., with a font size of 17px, Zapfino
+ * produces rects of height 58px!).
+ */
+
+
+function areRectsOnOneLine(rects, lineHeight) {
+  var minTop = Infinity;
+  var minBottom = Infinity;
+  var maxTop = -Infinity;
+  var maxBottom = -Infinity;
+
+  for (var ii = 0; ii < rects.length; ii++) {
+    var rect = rects[ii];
+
+    if (rect.width === 0 || rect.width === 1) {
+      // When a range starts or ends a soft wrap, many browsers (Chrome, IE,
+      // Safari) include an empty rect on the previous or next line. When the
+      // text lies in a container whose position is not integral (e.g., from
+      // margin: auto), Safari makes these empty rects have width 1 (instead of
+      // 0). Having one-pixel-wide characters seems unlikely (and most browsers
+      // report widths in subpixel precision anyway) so it's relatively safe to
+      // skip over them.
+      continue;
+    }
+
+    minTop = Math.min(minTop, rect.top);
+    minBottom = Math.min(minBottom, rect.bottom);
+    maxTop = Math.max(maxTop, rect.top);
+    maxBottom = Math.max(maxBottom, rect.bottom);
+  }
+
+  return maxTop <= minBottom && maxTop - minTop < lineHeight && maxBottom - minBottom < lineHeight;
+}
+/**
+ * Return the length of a node, as used by Range offsets.
+ */
+
+
+function getNodeLength(node) {
+  // http://www.w3.org/TR/dom/#concept-node-length
+  switch (node.nodeType) {
+    case Node.DOCUMENT_TYPE_NODE:
+      return 0;
+
+    case Node.TEXT_NODE:
+    case Node.PROCESSING_INSTRUCTION_NODE:
+    case Node.COMMENT_NODE:
+      return node.length;
+
+    default:
+      return node.childNodes.length;
+  }
+}
+/**
+ * Given a collapsed range, move the start position backwards as far as
+ * possible while the range still spans only a single line.
+ */
+
+
+function expandRangeToStartOfLine(range) {
+  !range.collapsed ?  true ? invariant(false, 'expandRangeToStartOfLine: Provided range is not collapsed.') : invariant(false) : void 0;
+  range = range.cloneRange();
+  var containingElement = range.startContainer;
+
+  if (containingElement.nodeType !== 1) {
+    containingElement = containingElement.parentNode;
+  }
+
+  var lineHeight = getLineHeightPx(containingElement); // Imagine our text looks like:
+  //   <div><span>once upon a time, there was a <em>boy
+  //   who lived</em> </span><q><strong>under^ the
+  //   stairs</strong> in a small closet.</q></div>
+  // where the caret represents the cursor. First, we crawl up the tree until
+  // the range spans multiple lines (setting the start point to before
+  // "<strong>", then before "<div>"), then at each level we do a search to
+  // find the latest point which is still on a previous line. We'll find that
+  // the break point is inside the span, then inside the <em>, then in its text
+  // node child, the actual break point before "who".
+
+  var bestContainer = range.endContainer;
+  var bestOffset = range.endOffset;
+  range.setStart(range.startContainer, 0);
+
+  while (areRectsOnOneLine(getRangeClientRects(range), lineHeight)) {
+    bestContainer = range.startContainer;
+    bestOffset = range.startOffset;
+    !bestContainer.parentNode ?  true ? invariant(false, 'Found unexpected detached subtree when traversing.') : invariant(false) : void 0;
+    range.setStartBefore(bestContainer);
+
+    if (bestContainer.nodeType === 1 && getComputedStyle(bestContainer).display !== 'inline') {
+      // The start of the line is never in a different block-level container.
+      break;
+    }
+  } // In the above example, range now spans from "<div>" to "under",
+  // bestContainer is <div>, and bestOffset is 1 (index of <q> inside <div>)].
+  // Picking out which child to recurse into here is a special case since we
+  // don't want to check past <q> -- once we find that the final range starts
+  // in <span>, we can look at all of its children (and all of their children)
+  // to find the break point.
+  // At all times, (bestContainer, bestOffset) is the latest single-line start
+  // point that we know of.
+
+
+  var currentContainer = bestContainer;
+  var maxIndexToConsider = bestOffset - 1;
+
+  do {
+    var nodeValue = currentContainer.nodeValue;
+    var ii = maxIndexToConsider;
+
+    for (; ii >= 0; ii--) {
+      if (nodeValue != null && ii > 0 && UnicodeUtils.isSurrogatePair(nodeValue, ii - 1)) {
+        // We're in the middle of a surrogate pair -- skip over so we never
+        // return a range with an endpoint in the middle of a code point.
+        continue;
+      }
+
+      range.setStart(currentContainer, ii);
+
+      if (areRectsOnOneLine(getRangeClientRects(range), lineHeight)) {
+        bestContainer = currentContainer;
+        bestOffset = ii;
+      } else {
+        break;
+      }
+    }
+
+    if (ii === -1 || currentContainer.childNodes.length === 0) {
+      // If ii === -1, then (bestContainer, bestOffset), which is equal to
+      // (currentContainer, 0), was a single-line start point but a start
+      // point before currentContainer wasn't, so the line break seems to
+      // have occurred immediately after currentContainer's start tag
+      //
+      // If currentContainer.childNodes.length === 0, we're already at a
+      // terminal node (e.g., text node) and should return our current best.
+      break;
+    }
+
+    currentContainer = currentContainer.childNodes[ii];
+    maxIndexToConsider = getNodeLength(currentContainer);
+  } while (true);
+
+  range.setStart(bestContainer, bestOffset);
+  return range;
+}
+
+module.exports = expandRangeToStartOfLine;
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftRemovableWord = __webpack_require__(60);
+
+var EditorState = __webpack_require__(2);
+
+var moveSelectionBackward = __webpack_require__(36);
+
+var removeTextWithStrategy = __webpack_require__(20);
+/**
+ * Delete the word that is left of the cursor, as well as any spaces or
+ * punctuation after the word.
+ */
+
+
+function keyCommandBackspaceWord(editorState) {
+  var afterRemoval = removeTextWithStrategy(editorState, function (strategyState) {
+    var selection = strategyState.getSelection();
+    var offset = selection.getStartOffset(); // If there are no words before the cursor, remove the preceding newline.
+
+    if (offset === 0) {
+      return moveSelectionBackward(strategyState, 1);
+    }
+
+    var key = selection.getStartKey();
+    var content = strategyState.getCurrentContent();
+    var text = content.getBlockForKey(key).getText().slice(0, offset);
+    var toRemove = DraftRemovableWord.getBackward(text);
+    return moveSelectionBackward(strategyState, toRemove.length || 1);
+  }, 'backward');
+
+  if (afterRemoval === editorState.getCurrentContent()) {
+    return editorState;
+  }
+
+  return EditorState.push(editorState, afterRemoval, 'remove-range');
+}
+
+module.exports = keyCommandBackspaceWord;
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ * @stub
+ * 
+ */
+ // \u00a1-\u00b1\u00b4-\u00b8\u00ba\u00bb\u00bf
+//             is latin supplement punctuation except fractions and superscript
+//             numbers
+// \u2010-\u2027\u2030-\u205e
+//             is punctuation from the general punctuation block:
+//             weird quotes, commas, bullets, dashes, etc.
+// \u30fb\u3001\u3002\u3008-\u3011\u3014-\u301f
+//             is CJK punctuation
+// \uff1a-\uff1f\uff01-\uff0f\uff3b-\uff40\uff5b-\uff65
+//             is some full-width/half-width punctuation
+// \u2E2E\u061f\u066a-\u066c\u061b\u060c\u060d\uFD3e\uFD3F
+//             is some Arabic punctuation marks
+// \u1801\u0964\u104a\u104b
+//             is misc. other language punctuation marks
+
+var PUNCTUATION = '[.,+*?$|#{}()\'\\^\\-\\[\\]\\\\\\/!@%"~=<>_:;' + "\u30FB\u3001\u3002\u3008-\u3011\u3014-\u301F\uFF1A-\uFF1F\uFF01-\uFF0F" + "\uFF3B-\uFF40\uFF5B-\uFF65\u2E2E\u061F\u066A-\u066C\u061B\u060C\u060D" + "\uFD3E\uFD3F\u1801\u0964\u104A\u104B\u2010-\u2027\u2030-\u205E" + "\xA1-\xB1\xB4-\xB8\xBA\xBB\xBF]";
+module.exports = {
+  getPunctuation: function getPunctuation() {
+    return PUNCTUATION;
+  }
+};
+
+/***/ }),
+/* 112 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftRemovableWord = __webpack_require__(60);
+
+var EditorState = __webpack_require__(2);
+
+var moveSelectionForward = __webpack_require__(61);
+
+var removeTextWithStrategy = __webpack_require__(20);
+/**
+ * Delete the word that is right of the cursor, as well as any spaces or
+ * punctuation before the word.
+ */
+
+
+function keyCommandDeleteWord(editorState) {
+  var afterRemoval = removeTextWithStrategy(editorState, function (strategyState) {
+    var selection = strategyState.getSelection();
+    var offset = selection.getStartOffset();
+    var key = selection.getStartKey();
+    var content = strategyState.getCurrentContent();
+    var text = content.getBlockForKey(key).getText().slice(offset);
+    var toRemove = DraftRemovableWord.getForward(text); // If there are no words in front of the cursor, remove the newline.
+
+    return moveSelectionForward(strategyState, toRemove.length || 1);
+  }, 'forward');
+
+  if (afterRemoval === editorState.getCurrentContent()) {
+    return editorState;
+  }
+
+  return EditorState.push(editorState, afterRemoval, 'remove-range');
+}
+
+module.exports = keyCommandDeleteWord;
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftModifier = __webpack_require__(3);
+
+var EditorState = __webpack_require__(2);
+
+function keyCommandInsertNewline(editorState) {
+  var contentState = DraftModifier.splitBlock(editorState.getCurrentContent(), editorState.getSelection());
+  return EditorState.push(editorState, contentState, 'split-block');
+}
+
+module.exports = keyCommandInsertNewline;
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var EditorState = __webpack_require__(2);
+/**
+ * See comment for `moveSelectionToStartOfBlock`.
+ */
+
+
+function keyCommandMoveSelectionToEndOfBlock(editorState) {
+  var selection = editorState.getSelection();
+  var endKey = selection.getEndKey();
+  var content = editorState.getCurrentContent();
+  var textLength = content.getBlockForKey(endKey).getLength();
+  return EditorState.set(editorState, {
+    selection: selection.merge({
+      anchorKey: endKey,
+      anchorOffset: textLength,
+      focusKey: endKey,
+      focusOffset: textLength,
+      isBackward: false
+    }),
+    forceSelection: true
+  });
+}
+
+module.exports = keyCommandMoveSelectionToEndOfBlock;
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var EditorState = __webpack_require__(2);
+/**
+ * Collapse selection at the start of the first selected block. This is used
+ * for Firefox versions that attempt to navigate forward/backward instead of
+ * moving the cursor. Other browsers are able to move the cursor natively.
+ */
+
+
+function keyCommandMoveSelectionToStartOfBlock(editorState) {
+  var selection = editorState.getSelection();
+  var startKey = selection.getStartKey();
+  return EditorState.set(editorState, {
+    selection: selection.merge({
+      anchorKey: startKey,
+      anchorOffset: 0,
+      focusKey: startKey,
+      focusOffset: 0,
+      isBackward: false
+    }),
+    forceSelection: true
+  });
+}
+
+module.exports = keyCommandMoveSelectionToStartOfBlock;
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var EditorState = __webpack_require__(2);
+
+var UnicodeUtils = __webpack_require__(16);
+
+var moveSelectionForward = __webpack_require__(61);
+
+var removeTextWithStrategy = __webpack_require__(20);
+/**
+ * Remove the selected range. If the cursor is collapsed, remove the following
+ * character. This operation is Unicode-aware, so removing a single character
+ * will remove a surrogate pair properly as well.
+ */
+
+
+function keyCommandPlainDelete(editorState) {
+  var afterRemoval = removeTextWithStrategy(editorState, function (strategyState) {
+    var selection = strategyState.getSelection();
+    var content = strategyState.getCurrentContent();
+    var key = selection.getAnchorKey();
+    var offset = selection.getAnchorOffset();
+    var charAhead = content.getBlockForKey(key).getText()[offset];
+    return moveSelectionForward(strategyState, charAhead ? UnicodeUtils.getUTF16Length(charAhead, 0) : 1);
+  }, 'forward');
+
+  if (afterRemoval === editorState.getCurrentContent()) {
+    return editorState;
+  }
+
+  var selection = editorState.getSelection();
+  return EditorState.push(editorState, afterRemoval.set('selectionBefore', selection), selection.isCollapsed() ? 'delete-character' : 'remove-range');
+}
+
+module.exports = keyCommandPlainDelete;
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftModifier = __webpack_require__(3);
+
+var EditorState = __webpack_require__(2);
+
+var getContentStateFragment = __webpack_require__(21);
+/**
+ * Transpose the characters on either side of a collapsed cursor, or
+ * if the cursor is at the end of the block, transpose the last two
+ * characters.
+ */
+
+
+function keyCommandTransposeCharacters(editorState) {
+  var selection = editorState.getSelection();
+
+  if (!selection.isCollapsed()) {
+    return editorState;
+  }
+
+  var offset = selection.getAnchorOffset();
+
+  if (offset === 0) {
+    return editorState;
+  }
+
+  var blockKey = selection.getAnchorKey();
+  var content = editorState.getCurrentContent();
+  var block = content.getBlockForKey(blockKey);
+  var length = block.getLength(); // Nothing to transpose if there aren't two characters.
+
+  if (length <= 1) {
+    return editorState;
+  }
+
+  var removalRange;
+  var finalSelection;
+
+  if (offset === length) {
+    // The cursor is at the end of the block. Swap the last two characters.
+    removalRange = selection.set('anchorOffset', offset - 1);
+    finalSelection = selection;
+  } else {
+    removalRange = selection.set('focusOffset', offset + 1);
+    finalSelection = removalRange.set('anchorOffset', offset + 1);
+  } // Extract the character to move as a fragment. This preserves its
+  // styling and entity, if any.
+
+
+  var movedFragment = getContentStateFragment(content, removalRange);
+  var afterRemoval = DraftModifier.removeRange(content, removalRange, 'backward'); // After the removal, the insertion target is one character back.
+
+  var selectionAfter = afterRemoval.getSelectionAfter();
+  var targetOffset = selectionAfter.getAnchorOffset() - 1;
+  var targetRange = selectionAfter.merge({
+    anchorOffset: targetOffset,
+    focusOffset: targetOffset
+  });
+  var afterInsert = DraftModifier.replaceWithFragment(afterRemoval, targetRange, movedFragment);
+  var newEditorState = EditorState.push(editorState, afterInsert, 'insert-fragment');
+  return EditorState.acceptSelection(newEditorState, finalSelection);
+}
+
+module.exports = keyCommandTransposeCharacters;
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var EditorState = __webpack_require__(2);
+
+function keyCommandUndo(e, editorState, updateFn) {
+  var undoneState = EditorState.undo(editorState); // If the last change to occur was a spellcheck change, allow the undo
+  // event to fall through to the browser. This allows the browser to record
+  // the unwanted change, which should soon lead it to learn not to suggest
+  // the correction again.
+
+  if (editorState.getLastChangeType() === 'spellcheck-change') {
+    var nativelyRenderedContent = undoneState.getCurrentContent();
+    updateFn(EditorState.set(undoneState, {
+      nativelyRenderedContent: nativelyRenderedContent
+    }));
+    return;
+  } // Otheriwse, manage the undo behavior manually.
+
+
+  e.preventDefault();
+
+  if (!editorState.getNativelyRenderedContent()) {
+    updateFn(undoneState);
+    return;
+  } // Trigger a re-render with the current content state to ensure that the
+  // component tree has up-to-date props for comparison.
+
+
+  updateFn(EditorState.set(editorState, {
+    nativelyRenderedContent: null
+  })); // Wait to ensure that the re-render has occurred before performing
+  // the undo action.
+
+  setTimeout(function () {
+    updateFn(undoneState);
+  }, 0);
+}
+
+module.exports = keyCommandUndo;
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ */
+
+
+var gkx = __webpack_require__(12);
+
+var experimentalTreeDataSupport = gkx('draft_tree_data_support');
+module.exports = experimentalTreeDataSupport ? __webpack_require__(120) : __webpack_require__(135);
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ *
+ * This file is a fork of DraftEditorContents.react.js for tree nodes
+ *
+ * This is unstable and not part of the public API and should not be used by
+ * production systems. This file may be update/removed without notice.
+ */
+
+
+var _assign = __webpack_require__(15);
+
+function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var DraftEditorBlockNode = __webpack_require__(121);
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var React = __webpack_require__(8);
+
+var nullthrows = __webpack_require__(4);
+
+/**
+ * `DraftEditorContents` is the container component for all block components
+ * rendered for a `DraftEditor`. It is optimized to aggressively avoid
+ * re-rendering blocks whenever possible.
+ *
+ * This component is separate from `DraftEditor` because certain props
+ * (for instance, ARIA props) must be allowed to update without affecting
+ * the contents of the editor.
+ */
+var DraftEditorContentsExperimental =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(DraftEditorContentsExperimental, _React$Component);
+
+  function DraftEditorContentsExperimental() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = DraftEditorContentsExperimental.prototype;
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+    var prevEditorState = this.props.editorState;
+    var nextEditorState = nextProps.editorState;
+    var prevDirectionMap = prevEditorState.getDirectionMap();
+    var nextDirectionMap = nextEditorState.getDirectionMap(); // Text direction has changed for one or more blocks. We must re-render.
+
+    if (prevDirectionMap !== nextDirectionMap) {
+      return true;
+    }
+
+    var didHaveFocus = prevEditorState.getSelection().getHasFocus();
+    var nowHasFocus = nextEditorState.getSelection().getHasFocus();
+
+    if (didHaveFocus !== nowHasFocus) {
+      return true;
+    }
+
+    var nextNativeContent = nextEditorState.getNativelyRenderedContent();
+    var wasComposing = prevEditorState.isInCompositionMode();
+    var nowComposing = nextEditorState.isInCompositionMode(); // If the state is unchanged or we're currently rendering a natively
+    // rendered state, there's nothing new to be done.
+
+    if (prevEditorState === nextEditorState || nextNativeContent !== null && nextEditorState.getCurrentContent() === nextNativeContent || wasComposing && nowComposing) {
+      return false;
+    }
+
+    var prevContent = prevEditorState.getCurrentContent();
+    var nextContent = nextEditorState.getCurrentContent();
+    var prevDecorator = prevEditorState.getDecorator();
+    var nextDecorator = nextEditorState.getDecorator();
+    return wasComposing !== nowComposing || prevContent !== nextContent || prevDecorator !== nextDecorator || nextEditorState.mustForceSelection();
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        blockRenderMap = _this$props.blockRenderMap,
+        blockRendererFn = _this$props.blockRendererFn,
+        blockStyleFn = _this$props.blockStyleFn,
+        customStyleMap = _this$props.customStyleMap,
+        customStyleFn = _this$props.customStyleFn,
+        editorState = _this$props.editorState,
+        editorKey = _this$props.editorKey,
+        textDirectionality = _this$props.textDirectionality;
+    var content = editorState.getCurrentContent();
+    var selection = editorState.getSelection();
+    var forceSelection = editorState.mustForceSelection();
+    var decorator = editorState.getDecorator();
+    var directionMap = nullthrows(editorState.getDirectionMap());
+    var blocksAsArray = content.getBlocksAsArray();
+    var rootBlock = blocksAsArray[0];
+    var processedBlocks = [];
+    var nodeBlock = rootBlock;
+
+    while (nodeBlock) {
+      var blockKey = nodeBlock.getKey();
+      var blockProps = {
+        blockRenderMap: blockRenderMap,
+        blockRendererFn: blockRendererFn,
+        blockStyleFn: blockStyleFn,
+        contentState: content,
+        customStyleFn: customStyleFn,
+        customStyleMap: customStyleMap,
+        decorator: decorator,
+        editorKey: editorKey,
+        editorState: editorState,
+        forceSelection: forceSelection,
+        selection: selection,
+        block: nodeBlock,
+        direction: textDirectionality ? textDirectionality : directionMap.get(blockKey),
+        tree: editorState.getBlockTree(blockKey)
+      };
+      var configForType = blockRenderMap.get(nodeBlock.getType()) || blockRenderMap.get('unstyled');
+      var wrapperTemplate = configForType.wrapper;
+      processedBlocks.push({
+        /* $FlowFixMe(>=0.112.0 site=mobile) This comment suppresses an error
+         * found when Flow v0.112 was deployed. To see the error delete this
+         * comment and run Flow. */
+
+        /* $FlowFixMe(>=0.112.0 site=www) This comment suppresses an error
+         * found when Flow v0.112 was deployed. To see the error delete this
+         * comment and run Flow. */
+
+        /* $FlowFixMe(>=0.112.0 site=www,mobile) This comment suppresses an
+         * error found when Flow v0.112 was deployed. To see the error delete
+         * this comment and run Flow. */
+        block: React.createElement(DraftEditorBlockNode, _extends({
+          key: blockKey
+        }, blockProps)),
+        wrapperTemplate: wrapperTemplate,
+        key: blockKey,
+        offsetKey: DraftOffsetKey.encode(blockKey, 0, 0)
+      });
+      var nextBlockKey = nodeBlock.getNextSiblingKey();
+      nodeBlock = nextBlockKey ? content.getBlockForKey(nextBlockKey) : null;
+    } // Group contiguous runs of blocks that have the same wrapperTemplate
+
+
+    var outputBlocks = [];
+
+    for (var ii = 0; ii < processedBlocks.length;) {
+      var info = processedBlocks[ii];
+
+      if (info.wrapperTemplate) {
+        var blocks = [];
+
+        do {
+          blocks.push(processedBlocks[ii].block);
+          ii++;
+        } while (ii < processedBlocks.length && processedBlocks[ii].wrapperTemplate === info.wrapperTemplate);
+
+        var wrapperElement = React.cloneElement(info.wrapperTemplate, {
+          key: info.key + '-wrap',
+          'data-offset-key': info.offsetKey
+        }, blocks);
+        outputBlocks.push(wrapperElement);
+      } else {
+        outputBlocks.push(info.block);
+        ii++;
+      }
+    }
+
+    return React.createElement("div", {
+      "data-contents": "true"
+    }, outputBlocks);
+  };
+
+  return DraftEditorContentsExperimental;
+}(React.Component);
+
+module.exports = DraftEditorContentsExperimental;
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ *
+ * This file is a fork of DraftEditorBlock.react.js and DraftEditorContents.react.js
+ *
+ * This is unstable and not part of the public API and should not be used by
+ * production systems. This file may be update/removed without notice.
+ */
+
+
+var _assign = __webpack_require__(15);
+
+function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var DraftEditorNode = __webpack_require__(122);
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var React = __webpack_require__(8);
+
+var ReactDOM = __webpack_require__(27);
+
+var Scroll = __webpack_require__(40);
+
+var Style = __webpack_require__(29);
+
+var getElementPosition = __webpack_require__(65);
+
+var getScrollPosition = __webpack_require__(30);
+
+var getViewportDimensions = __webpack_require__(66);
+
+var Immutable = __webpack_require__(0);
+
+var invariant = __webpack_require__(1);
+
+var SCROLL_BUFFER = 10;
+var List = Immutable.List; // we should harden up the bellow flow types to make them more strict
+
+/**
+ * Return whether a block overlaps with either edge of the `SelectionState`.
+ */
+var isBlockOnSelectionEdge = function isBlockOnSelectionEdge(selection, key) {
+  return selection.getAnchorKey() === key || selection.getFocusKey() === key;
+};
+/**
+ * We will use this helper to identify blocks that need to be wrapped but have siblings that
+ * also share the same wrapper element, this way we can do the wrapping once the last sibling
+ * is added.
+ */
+
+
+var shouldNotAddWrapperElement = function shouldNotAddWrapperElement(block, contentState) {
+  var nextSiblingKey = block.getNextSiblingKey();
+  return nextSiblingKey ? contentState.getBlockForKey(nextSiblingKey).getType() === block.getType() : false;
+};
+
+var applyWrapperElementToSiblings = function applyWrapperElementToSiblings(wrapperTemplate, Element, nodes) {
+  var wrappedSiblings = []; // we check back until we find a sibbling that does not have same wrapper
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = nodes.reverse()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var sibling = _step.value;
+
+      if (sibling.type !== Element) {
+        break;
+      }
+
+      wrappedSiblings.push(sibling);
+    } // we now should remove from acc the wrappedSiblings and add them back under same wrap
+
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+        _iterator["return"]();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  nodes.splice(nodes.indexOf(wrappedSiblings[0]), wrappedSiblings.length + 1);
+  var childrenIs = wrappedSiblings.reverse();
+  var key = childrenIs[0].key;
+  nodes.push(React.cloneElement(wrapperTemplate, {
+    key: "".concat(key, "-wrap"),
+    'data-offset-key': DraftOffsetKey.encode(key, 0, 0)
+  }, childrenIs));
+  return nodes;
+};
+
+var getDraftRenderConfig = function getDraftRenderConfig(block, blockRenderMap) {
+  var configForType = blockRenderMap.get(block.getType()) || blockRenderMap.get('unstyled');
+  var wrapperTemplate = configForType.wrapper;
+  var Element = configForType.element || blockRenderMap.get('unstyled').element;
+  return {
+    Element: Element,
+    wrapperTemplate: wrapperTemplate
+  };
+};
+
+var getCustomRenderConfig = function getCustomRenderConfig(block, blockRendererFn) {
+  var customRenderer = blockRendererFn(block);
+
+  if (!customRenderer) {
+    return {};
+  }
+
+  var CustomComponent = customRenderer.component,
+      customProps = customRenderer.props,
+      customEditable = customRenderer.editable;
+  return {
+    CustomComponent: CustomComponent,
+    customProps: customProps,
+    customEditable: customEditable
+  };
+};
+
+var getElementPropsConfig = function getElementPropsConfig(block, editorKey, offsetKey, blockStyleFn, customConfig) {
+  var elementProps = {
+    'data-block': true,
+    'data-editor': editorKey,
+    'data-offset-key': offsetKey,
+    key: block.getKey()
+  };
+  var customClass = blockStyleFn(block);
+
+  if (customClass) {
+    elementProps.className = customClass;
+  }
+
+  if (customConfig.customEditable !== undefined) {
+    elementProps = _objectSpread({}, elementProps, {
+      contentEditable: customConfig.customEditable,
+      suppressContentEditableWarning: true
+    });
+  }
+
+  return elementProps;
+};
+
+var DraftEditorBlockNode =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(DraftEditorBlockNode, _React$Component);
+
+  function DraftEditorBlockNode() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = DraftEditorBlockNode.prototype;
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+    var _this$props = this.props,
+        block = _this$props.block,
+        direction = _this$props.direction,
+        tree = _this$props.tree;
+    var isContainerNode = !block.getChildKeys().isEmpty();
+    var blockHasChanged = block !== nextProps.block || tree !== nextProps.tree || direction !== nextProps.direction || isBlockOnSelectionEdge(nextProps.selection, nextProps.block.getKey()) && nextProps.forceSelection; // if we have children at this stage we always re-render container nodes
+    // else if its a root node we avoid re-rendering by checking for block updates
+
+    return isContainerNode || blockHasChanged;
+  }
+  /**
+   * When a block is mounted and overlaps the selection state, we need to make
+   * sure that the cursor is visible to match native behavior. This may not
+   * be the case if the user has pressed `RETURN` or pasted some content, since
+   * programatically creating these new blocks and setting the DOM selection
+   * will miss out on the browser natively scrolling to that position.
+   *
+   * To replicate native behavior, if the block overlaps the selection state
+   * on mount, force the scroll position. Check the scroll state of the scroll
+   * parent, and adjust it to align the entire block to the bottom of the
+   * scroll parent.
+   */
+  ;
+
+  _proto.componentDidMount = function componentDidMount() {
+    var selection = this.props.selection;
+    var endKey = selection.getEndKey();
+
+    if (!selection.getHasFocus() || endKey !== this.props.block.getKey()) {
+      return;
+    }
+
+    var blockNode = ReactDOM.findDOMNode(this);
+    var scrollParent = Style.getScrollParent(blockNode);
+    var scrollPosition = getScrollPosition(scrollParent);
+    var scrollDelta;
+
+    if (scrollParent === window) {
+      var nodePosition = getElementPosition(blockNode);
+      var nodeBottom = nodePosition.y + nodePosition.height;
+      var viewportHeight = getViewportDimensions().height;
+      scrollDelta = nodeBottom - viewportHeight;
+
+      if (scrollDelta > 0) {
+        window.scrollTo(scrollPosition.x, scrollPosition.y + scrollDelta + SCROLL_BUFFER);
+      }
+    } else {
+      !(blockNode instanceof HTMLElement) ?  true ? invariant(false, 'blockNode is not an HTMLElement') : invariant(false) : void 0;
+      var blockBottom = blockNode.offsetHeight + blockNode.offsetTop;
+      var scrollBottom = scrollParent.offsetHeight + scrollPosition.y;
+      scrollDelta = blockBottom - scrollBottom;
+
+      if (scrollDelta > 0) {
+        Scroll.setTop(scrollParent, Scroll.getTop(scrollParent) + scrollDelta + SCROLL_BUFFER);
+      }
+    }
+  };
+
+  _proto.render = function render() {
+    var _this = this;
+
+    var _this$props2 = this.props,
+        block = _this$props2.block,
+        blockRenderMap = _this$props2.blockRenderMap,
+        blockRendererFn = _this$props2.blockRendererFn,
+        blockStyleFn = _this$props2.blockStyleFn,
+        contentState = _this$props2.contentState,
+        decorator = _this$props2.decorator,
+        editorKey = _this$props2.editorKey,
+        editorState = _this$props2.editorState,
+        customStyleFn = _this$props2.customStyleFn,
+        customStyleMap = _this$props2.customStyleMap,
+        direction = _this$props2.direction,
+        forceSelection = _this$props2.forceSelection,
+        selection = _this$props2.selection,
+        tree = _this$props2.tree;
+    var children = null;
+
+    if (block.children.size) {
+      children = block.children.reduce(function (acc, key) {
+        var offsetKey = DraftOffsetKey.encode(key, 0, 0);
+        var child = contentState.getBlockForKey(key);
+        var customConfig = getCustomRenderConfig(child, blockRendererFn);
+        var Component = customConfig.CustomComponent || DraftEditorBlockNode;
+
+        var _getDraftRenderConfig = getDraftRenderConfig(child, blockRenderMap),
+            Element = _getDraftRenderConfig.Element,
+            wrapperTemplate = _getDraftRenderConfig.wrapperTemplate;
+
+        var elementProps = getElementPropsConfig(child, editorKey, offsetKey, blockStyleFn, customConfig);
+
+        var childProps = _objectSpread({}, _this.props, {
+          tree: editorState.getBlockTree(key),
+          blockProps: customConfig.customProps,
+          offsetKey: offsetKey,
+          block: child
+        });
+
+        acc.push(React.createElement(Element, elementProps, React.createElement(Component, childProps)));
+
+        if (!wrapperTemplate || shouldNotAddWrapperElement(child, contentState)) {
+          return acc;
+        } // if we are here it means we are the last block
+        // that has a wrapperTemplate so we should wrap itself
+        // and all other previous siblings that share the same wrapper
+
+
+        applyWrapperElementToSiblings(wrapperTemplate, Element, acc);
+        return acc;
+      }, []);
+    }
+
+    var blockKey = block.getKey();
+    var offsetKey = DraftOffsetKey.encode(blockKey, 0, 0);
+    var customConfig = getCustomRenderConfig(block, blockRendererFn);
+    var Component = customConfig.CustomComponent;
+    var blockNode = Component != null ? React.createElement(Component, _extends({}, this.props, {
+      tree: editorState.getBlockTree(blockKey),
+      blockProps: customConfig.customProps,
+      offsetKey: offsetKey,
+      block: block
+    })) : React.createElement(DraftEditorNode, {
+      block: block,
+      children: children,
+      contentState: contentState,
+      customStyleFn: customStyleFn,
+      customStyleMap: customStyleMap,
+      decorator: decorator,
+      direction: direction,
+      forceSelection: forceSelection,
+      hasSelection: isBlockOnSelectionEdge(selection, blockKey),
+      selection: selection,
+      tree: tree
+    });
+
+    if (block.getParentKey()) {
+      return blockNode;
+    }
+
+    var _getDraftRenderConfig2 = getDraftRenderConfig(block, blockRenderMap),
+        Element = _getDraftRenderConfig2.Element;
+
+    var elementProps = getElementPropsConfig(block, editorKey, offsetKey, blockStyleFn, customConfig); // root block nodes needs to be wrapped
+
+    return React.createElement(Element, elementProps, blockNode);
+  };
+
+  return DraftEditorBlockNode;
+}(React.Component);
+
+module.exports = DraftEditorBlockNode;
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ *
+ * This is unstable and not part of the public API and should not be used by
+ * production systems. This file may be update/removed without notice.
+ */
+
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var DraftEditorDecoratedLeaves = __webpack_require__(123);
+
+var DraftEditorLeaf = __webpack_require__(62);
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var Immutable = __webpack_require__(0);
+
+var React = __webpack_require__(8);
+
+var cx = __webpack_require__(14);
+
+var List = Immutable.List;
+
+var DraftEditorNode =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(DraftEditorNode, _React$Component);
+
+  function DraftEditorNode() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = DraftEditorNode.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        block = _this$props.block,
+        contentState = _this$props.contentState,
+        customStyleFn = _this$props.customStyleFn,
+        customStyleMap = _this$props.customStyleMap,
+        decorator = _this$props.decorator,
+        direction = _this$props.direction,
+        forceSelection = _this$props.forceSelection,
+        hasSelection = _this$props.hasSelection,
+        selection = _this$props.selection,
+        tree = _this$props.tree;
+    var blockKey = block.getKey();
+    var text = block.getText();
+    var lastLeafSet = tree.size - 1;
+    var children = this.props.children || tree.map(function (leafSet, ii) {
+      var decoratorKey = leafSet.get('decoratorKey');
+      var leavesForLeafSet = leafSet.get('leaves');
+      var lastLeaf = leavesForLeafSet.size - 1;
+      var Leaves = leavesForLeafSet.map(function (leaf, jj) {
+        var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
+        var start = leaf.get('start');
+        var end = leaf.get('end');
+        return React.createElement(DraftEditorLeaf, {
+          key: offsetKey,
+          offsetKey: offsetKey,
+          block: block,
+          start: start,
+          selection: hasSelection ? selection : null,
+          forceSelection: forceSelection,
+          text: text.slice(start, end),
+          styleSet: block.getInlineStyleAt(start),
+          customStyleMap: customStyleMap,
+          customStyleFn: customStyleFn,
+          isLast: decoratorKey === lastLeafSet && jj === lastLeaf
+        });
+      }).toArray();
+
+      if (!decoratorKey || !decorator) {
+        return Leaves;
+      }
+
+      return React.createElement(DraftEditorDecoratedLeaves, {
+        block: block,
+        children: Leaves,
+        contentState: contentState,
+        decorator: decorator,
+        decoratorKey: decoratorKey,
+        direction: direction,
+        leafSet: leafSet,
+        text: text,
+        key: ii
+      });
+    }).toArray();
+    return React.createElement("div", {
+      "data-offset-key": DraftOffsetKey.encode(blockKey, 0, 0),
+      className: cx({
+        'public/DraftStyleDefault/block': true,
+        'public/DraftStyleDefault/ltr': direction === 'LTR',
+        'public/DraftStyleDefault/rtl': direction === 'RTL'
+      })
+    }, children);
+  };
+
+  return DraftEditorNode;
+}(React.Component);
+
+module.exports = DraftEditorNode;
+
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ *
+ * This is unstable and not part of the public API and should not be used by
+ * production systems. This file may be update/removed without notice.
+ */
+
+
+var _assign = __webpack_require__(15);
+
+function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var React = __webpack_require__(8);
+
+var UnicodeBidi = __webpack_require__(32);
+
+var UnicodeBidiDirection = __webpack_require__(24);
+
+var DraftEditorDecoratedLeaves =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(DraftEditorDecoratedLeaves, _React$Component);
+
+  function DraftEditorDecoratedLeaves() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = DraftEditorDecoratedLeaves.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        block = _this$props.block,
+        children = _this$props.children,
+        contentState = _this$props.contentState,
+        decorator = _this$props.decorator,
+        decoratorKey = _this$props.decoratorKey,
+        direction = _this$props.direction,
+        leafSet = _this$props.leafSet,
+        text = _this$props.text;
+    var blockKey = block.getKey();
+    var leavesForLeafSet = leafSet.get('leaves');
+    var DecoratorComponent = decorator.getComponentForKey(decoratorKey);
+    var decoratorProps = decorator.getPropsForKey(decoratorKey);
+    var decoratorOffsetKey = DraftOffsetKey.encode(blockKey, parseInt(decoratorKey, 10), 0);
+    var decoratedText = text.slice(leavesForLeafSet.first().get('start'), leavesForLeafSet.last().get('end')); // Resetting dir to the same value on a child node makes Chrome/Firefox
+    // confused on cursor movement. See http://jsfiddle.net/d157kLck/3/
+
+    var dir = UnicodeBidiDirection.getHTMLDirIfDifferent(UnicodeBidi.getDirection(decoratedText), direction);
+    return React.createElement(DecoratorComponent, _extends({}, decoratorProps, {
+      contentState: contentState,
+      decoratedText: decoratedText,
+      dir: dir,
+      key: decoratorOffsetKey,
+      entityKey: block.getEntityAt(leafSet.get('start')),
+      offsetKey: decoratorOffsetKey
+    }), children);
+  };
+
+  return DraftEditorDecoratedLeaves;
+}(React.Component);
+
+module.exports = DraftEditorDecoratedLeaves;
+
+/***/ }),
+/* 124 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var React = __webpack_require__(8);
+
+var UserAgent = __webpack_require__(7);
+
+var invariant = __webpack_require__(1);
+
+var isElement = __webpack_require__(125); // In IE, spans with <br> tags render as two newlines. By rendering a span
+// with only a newline character, we can be sure to render a single line.
+
+
+var useNewlineChar = UserAgent.isBrowser('IE <= 11');
+/**
+ * Check whether the node should be considered a newline.
+ */
+
+function isNewline(node) {
+  return useNewlineChar ? node.textContent === '\n' : node.tagName === 'BR';
+}
+/**
+ * Placeholder elements for empty text content.
+ *
+ * What is this `data-text` attribute, anyway? It turns out that we need to
+ * put an attribute on the lowest-level text node in order to preserve correct
+ * spellcheck handling. If the <span> is naked, Chrome and Safari may do
+ * bizarre things to do the DOM -- split text nodes, create extra spans, etc.
+ * If the <span> has an attribute, this appears not to happen.
+ * See http://jsfiddle.net/9khdavod/ for the failure case, and
+ * http://jsfiddle.net/7pg143f7/ for the fixed case.
+ */
+
+
+var NEWLINE_A = function NEWLINE_A(ref) {
+  return useNewlineChar ? React.createElement("span", {
+    key: "A",
+    "data-text": "true",
+    ref: ref
+  }, '\n') : React.createElement("br", {
+    key: "A",
+    "data-text": "true",
+    ref: ref
+  });
+};
+
+var NEWLINE_B = function NEWLINE_B(ref) {
+  return useNewlineChar ? React.createElement("span", {
+    key: "B",
+    "data-text": "true",
+    ref: ref
+  }, '\n') : React.createElement("br", {
+    key: "B",
+    "data-text": "true",
+    ref: ref
+  });
+};
+
+/**
+ * The lowest-level component in a `DraftEditor`, the text node component
+ * replaces the default React text node implementation. This allows us to
+ * perform custom handling of newline behavior and avoid re-rendering text
+ * nodes with DOM state that already matches the expectations of our immutable
+ * editor state.
+ */
+var DraftEditorTextNode =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(DraftEditorTextNode, _React$Component);
+
+  function DraftEditorTextNode(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this; // By flipping this flag, we also keep flipping keys which forces
+    // React to remount this node every time it rerenders.
+
+    _defineProperty(_assertThisInitialized(_this), "_forceFlag", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_node", void 0);
+
+    _this._forceFlag = false;
+    return _this;
+  }
+
+  var _proto = DraftEditorTextNode.prototype;
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+    var node = this._node;
+    var shouldBeNewline = nextProps.children === '';
+    !isElement(node) ?  true ? invariant(false, 'node is not an Element') : invariant(false) : void 0;
+    var elementNode = node;
+
+    if (shouldBeNewline && elementNode) {
+      return !isNewline(elementNode);
+    }
+
+    return elementNode && this.props.textContent !== nextProps.children;
+  };
+
+  _proto.componentDidMount = function componentDidMount() {
+    this._forceFlag = !this._forceFlag;
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    this._forceFlag = !this._forceFlag;
+  };
+
+  _proto.render = function render() {
+    var _this2 = this;
+
+    var _this$props = this.props,
+        offsetKey = _this$props.offsetKey,
+        entityKey = _this$props.entityKey,
+        startTime = _this$props.startTime,
+        endTime = _this$props.endTime,
+        styleObj = _this$props.styleObj,
+        refNode = _this$props.refNode;
+
+    if (this.props.children === '') {
+      return this._forceFlag ? NEWLINE_A(function (ref) {
+        return _this2._node = ref;
+      }) : NEWLINE_B(function (ref) {
+        return _this2._node = ref;
+      });
+    }
+
+    return React.createElement("span", {
+      "data-offset-key": offsetKey,
+      "data-entity-key": entityKey,
+      "data-start-time": startTime,
+      "data-end-time": endTime,
+      style: styleObj,
+      key: this._forceFlag ? 'A' : 'B',
+      "data-text": "true",
+      ref: function ref(_ref) {
+        _this2._node = _ref;
+        refNode(_ref);
+      }
+    }, this.props.children);
+  };
+
+  return DraftEditorTextNode;
+}(React.Component);
+
+module.exports = DraftEditorTextNode;
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+function isElement(node) {
+  if (!node || !node.ownerDocument) {
+    return false;
+  }
+
+  return node.nodeType === Node.ELEMENT_NODE;
+}
+
+module.exports = isElement;
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftEffects = __webpack_require__(63);
+
+var DraftJsDebugLogging = __webpack_require__(51);
+
+var containsNode = __webpack_require__(39);
+
+var getActiveElement = __webpack_require__(64);
+
+var invariant = __webpack_require__(1);
+
+function getAnonymizedDOM(node, getNodeLabels) {
+  if (!node) {
+    return '[empty]';
+  }
+
+  var anonymized = anonymizeTextWithin(node, getNodeLabels);
+
+  if (anonymized.nodeType === Node.TEXT_NODE) {
+    return anonymized.textContent;
+  }
+
+  !(anonymized instanceof Element) ?  true ? invariant(false, 'Node must be an Element if it is not a text node.') : invariant(false) : void 0;
+  return anonymized.outerHTML;
+}
+
+function anonymizeTextWithin(node, getNodeLabels) {
+  var labels = getNodeLabels !== undefined ? getNodeLabels(node) : [];
+
+  if (node.nodeType === Node.TEXT_NODE) {
+    var length = node.textContent.length;
+    return document.createTextNode('[text ' + length + (labels.length ? ' | ' + labels.join(', ') : '') + ']');
+  }
+
+  var clone = node.cloneNode();
+
+  if (clone.nodeType === 1 && labels.length) {
+    clone.setAttribute('data-labels', labels.join(', '));
+  }
+
+  var childNodes = node.childNodes;
+
+  for (var ii = 0; ii < childNodes.length; ii++) {
+    clone.appendChild(anonymizeTextWithin(childNodes[ii], getNodeLabels));
+  }
+
+  return clone;
+}
+
+function getAnonymizedEditorDOM(node, getNodeLabels) {
+  // grabbing the DOM content of the Draft editor
+  var currentNode = node;
+
+  while (currentNode) {
+    if (currentNode instanceof Element && currentNode.hasAttribute('contenteditable')) {
+      // found the Draft editor container
+      return getAnonymizedDOM(currentNode, getNodeLabels);
+    } else {
+      currentNode = currentNode.parentNode;
+    }
+  }
+
+  return 'Could not find contentEditable parent of node';
+}
+
+function getNodeLength(node) {
+  return node.nodeValue === null ? node.childNodes.length : node.nodeValue.length;
+}
+/**
+ * In modern non-IE browsers, we can support both forward and backward
+ * selections.
+ *
+ * Note: IE10+ supports the Selection object, but it does not support
+ * the `extend` method, which means that even in modern IE, it's not possible
+ * to programatically create a backward selection. Thus, for all IE
+ * versions, we use the old IE API to create our selections.
+ */
+
+
+function setDraftEditorSelection(selectionState, node, blockKey, nodeStart, nodeEnd) {
+  // It's possible that the editor has been removed from the DOM but
+  // our selection code doesn't know it yet. Forcing selection in
+  // this case may lead to errors, so just bail now.
+  if (!containsNode(document.documentElement, node)) {
+    return;
+  }
+
+  var selection = global.getSelection();
+  var anchorKey = selectionState.getAnchorKey();
+  var anchorOffset = selectionState.getAnchorOffset();
+  var focusKey = selectionState.getFocusKey();
+  var focusOffset = selectionState.getFocusOffset();
+  var isBackward = selectionState.getIsBackward(); // IE doesn't support backward selection. Swap key/offset pairs.
+
+  if (!selection.extend && isBackward) {
+    var tempKey = anchorKey;
+    var tempOffset = anchorOffset;
+    anchorKey = focusKey;
+    anchorOffset = focusOffset;
+    focusKey = tempKey;
+    focusOffset = tempOffset;
+    isBackward = false;
+  }
+
+  var hasAnchor = anchorKey === blockKey && nodeStart <= anchorOffset && nodeEnd >= anchorOffset;
+  var hasFocus = focusKey === blockKey && nodeStart <= focusOffset && nodeEnd >= focusOffset; // If the selection is entirely bound within this node, set the selection
+  // and be done.
+
+  if (hasAnchor && hasFocus) {
+    selection.removeAllRanges();
+    addPointToSelection(selection, node, anchorOffset - nodeStart, selectionState);
+    addFocusToSelection(selection, node, focusOffset - nodeStart, selectionState);
+    return;
+  }
+
+  if (!isBackward) {
+    // If the anchor is within this node, set the range start.
+    if (hasAnchor) {
+      selection.removeAllRanges();
+      addPointToSelection(selection, node, anchorOffset - nodeStart, selectionState);
+    } // If the focus is within this node, we can assume that we have
+    // already set the appropriate start range on the selection, and
+    // can simply extend the selection.
+
+
+    if (hasFocus) {
+      addFocusToSelection(selection, node, focusOffset - nodeStart, selectionState);
+    }
+  } else {
+    // If this node has the focus, set the selection range to be a
+    // collapsed range beginning here. Later, when we encounter the anchor,
+    // we'll use this information to extend the selection.
+    if (hasFocus) {
+      selection.removeAllRanges();
+      addPointToSelection(selection, node, focusOffset - nodeStart, selectionState);
+    } // If this node has the anchor, we may assume that the correct
+    // focus information is already stored on the selection object.
+    // We keep track of it, reset the selection range, and extend it
+    // back to the focus point.
+
+
+    if (hasAnchor) {
+      var storedFocusNode = selection.focusNode;
+      var storedFocusOffset = selection.focusOffset;
+      selection.removeAllRanges();
+      addPointToSelection(selection, node, anchorOffset - nodeStart, selectionState);
+      addFocusToSelection(selection, storedFocusNode, storedFocusOffset, selectionState);
+    }
+  }
+}
+/**
+ * Extend selection towards focus point.
+ */
+
+
+function addFocusToSelection(selection, node, offset, selectionState) {
+  var activeElement = getActiveElement();
+
+  if (selection.extend && containsNode(activeElement, node)) {
+    // If `extend` is called while another element has focus, an error is
+    // thrown. We therefore disable `extend` if the active element is somewhere
+    // other than the node we are selecting. This should only occur in Firefox,
+    // since it is the only browser to support multiple selections.
+    // See https://bugzilla.mozilla.org/show_bug.cgi?id=921444.
+    // logging to catch bug that is being reported in t16250795
+    if (offset > getNodeLength(node)) {
+      // the call to 'selection.extend' is about to throw
+      DraftJsDebugLogging.logSelectionStateFailure({
+        anonymizedDom: getAnonymizedEditorDOM(node),
+        extraParams: JSON.stringify({
+          offset: offset
+        }),
+        selectionState: JSON.stringify(selectionState.toJS())
+      });
+    } // logging to catch bug that is being reported in t18110632
+
+
+    var nodeWasFocus = node === selection.focusNode;
+
+    try {
+      selection.extend(node, offset);
+    } catch (e) {
+      DraftJsDebugLogging.logSelectionStateFailure({
+        anonymizedDom: getAnonymizedEditorDOM(node, function (n) {
+          var labels = [];
+
+          if (n === activeElement) {
+            labels.push('active element');
+          }
+
+          if (n === selection.anchorNode) {
+            labels.push('selection anchor node');
+          }
+
+          if (n === selection.focusNode) {
+            labels.push('selection focus node');
+          }
+
+          return labels;
+        }),
+        extraParams: JSON.stringify({
+          activeElementName: activeElement ? activeElement.nodeName : null,
+          nodeIsFocus: node === selection.focusNode,
+          nodeWasFocus: nodeWasFocus,
+          selectionRangeCount: selection.rangeCount,
+          selectionAnchorNodeName: selection.anchorNode ? selection.anchorNode.nodeName : null,
+          selectionAnchorOffset: selection.anchorOffset,
+          selectionFocusNodeName: selection.focusNode ? selection.focusNode.nodeName : null,
+          selectionFocusOffset: selection.focusOffset,
+          message: e ? '' + e : null,
+          offset: offset
+        }, null, 2),
+        selectionState: JSON.stringify(selectionState.toJS(), null, 2)
+      }); // allow the error to be thrown -
+      // better than continuing in a broken state
+
+      throw e;
+    }
+  } else {
+    // IE doesn't support extend. This will mean no backward selection.
+    // Extract the existing selection range and add focus to it.
+    // Additionally, clone the selection range. IE11 throws an
+    // InvalidStateError when attempting to access selection properties
+    // after the range is detached.
+    var range = selection.getRangeAt(0);
+    range.setEnd(node, offset);
+    selection.addRange(range.cloneRange());
+  }
+}
+
+function addPointToSelection(selection, node, offset, selectionState) {
+  var range = document.createRange(); // logging to catch bug that is being reported in t16250795
+
+  if (offset > getNodeLength(node)) {
+    // in this case we know that the call to 'range.setStart' is about to throw
+    DraftJsDebugLogging.logSelectionStateFailure({
+      anonymizedDom: getAnonymizedEditorDOM(node),
+      extraParams: JSON.stringify({
+        offset: offset
+      }),
+      selectionState: JSON.stringify(selectionState.toJS())
+    });
+    DraftEffects.handleExtensionCausedError();
+  }
+
+  range.setStart(node, offset);
+  selection.addRange(range);
+}
+
+module.exports = setDraftEditorSelection;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+var isNode = __webpack_require__(128);
+/**
+ * @param {*} object The object to check.
+ * @return {boolean} Whether or not the object is a DOM text node.
+ */
+
+
+function isTextNode(object) {
+  return isNode(object) && object.nodeType == 3;
+}
+
+module.exports = isTextNode;
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+/**
+ * @param {*} object The object to check.
+ * @return {boolean} Whether or not the object is a DOM node.
+ */
+function isNode(object) {
+  var doc = object ? object.ownerDocument || object : document;
+  var defaultView = doc.defaultView || window;
+  return !!(object && (typeof defaultView.Node === 'function' ? object instanceof defaultView.Node : typeof object === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string'));
+}
+
+module.exports = isNode;
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+var camelize = __webpack_require__(130);
+
+var hyphenate = __webpack_require__(131);
+
+function asString(value)
+/*?string*/
+{
+  return value == null ? value : String(value);
+}
+
+function getStyleProperty(
+/*DOMNode*/
+node,
+/*string*/
+name)
+/*?string*/
+{
+  var computedStyle; // W3C Standard
+
+  if (window.getComputedStyle) {
+    // In certain cases such as within an iframe in FF3, this returns null.
+    computedStyle = window.getComputedStyle(node, null);
+
+    if (computedStyle) {
+      return asString(computedStyle.getPropertyValue(hyphenate(name)));
+    }
+  } // Safari
+
+
+  if (document.defaultView && document.defaultView.getComputedStyle) {
+    computedStyle = document.defaultView.getComputedStyle(node, null); // A Safari bug causes this to return null for `display: none` elements.
+
+    if (computedStyle) {
+      return asString(computedStyle.getPropertyValue(hyphenate(name)));
+    }
+
+    if (name === 'display') {
+      return 'none';
+    }
+  } // Internet Explorer
+
+
+  if (node.currentStyle) {
+    if (name === 'float') {
+      return asString(node.currentStyle.cssFloat || node.currentStyle.styleFloat);
+    }
+
+    return asString(node.currentStyle[camelize(name)]);
+  }
+
+  return asString(node.style && node.style[camelize(name)]);
+}
+
+module.exports = getStyleProperty;
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+var _hyphenPattern = /-(.)/g;
+/**
+ * Camelcases a hyphenated string, for example:
+ *
+ *   > camelize('background-color')
+ *   < "backgroundColor"
+ *
+ * @param {string} string
+ * @return {string}
+ */
+
+function camelize(string) {
+  return string.replace(_hyphenPattern, function (_, character) {
+    return character.toUpperCase();
+  });
+}
+
+module.exports = camelize;
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+var _uppercasePattern = /([A-Z])/g;
+/**
+ * Hyphenates a camelcased string, for example:
+ *
+ *   > hyphenate('backgroundColor')
+ *   < "background-color"
+ *
+ * For CSS style names, use `hyphenateStyleName` instead which works properly
+ * with all vendor prefixes, including `ms`.
+ *
+ * @param {string} string
+ * @return {string}
+ */
+
+function hyphenate(string) {
+  return string.replace(_uppercasePattern, '-$1').toLowerCase();
+}
+
+module.exports = hyphenate;
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+var containsNode = __webpack_require__(39);
+/**
+ * Gets an element's bounding rect in pixels relative to the viewport.
+ *
+ * @param {DOMElement} elem
+ * @return {object}
+ */
+
+
+function getElementRect(elem) {
+  var docElem = elem.ownerDocument.documentElement; // FF 2, Safari 3 and Opera 9.5- do not support getBoundingClientRect().
+  // IE9- will throw if the element is not in the document.
+
+  if (!('getBoundingClientRect' in elem) || !containsNode(docElem, elem)) {
+    return {
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0
+    };
+  } // Subtracts clientTop/Left because IE8- added a 2px border to the
+  // <html> element (see http://fburl.com/1493213). IE 7 in
+  // Quicksmode does not report clientLeft/clientTop so there
+  // will be an unaccounted offset of 2px when in quirksmode
+
+
+  var rect = elem.getBoundingClientRect();
+  return {
+    left: Math.round(rect.left) - docElem.clientLeft,
+    right: Math.round(rect.right) - docElem.clientLeft,
+    top: Math.round(rect.top) - docElem.clientTop,
+    bottom: Math.round(rect.bottom) - docElem.clientTop
+  };
+}
+
+module.exports = getElementRect;
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+
+var isWebkit = typeof navigator !== 'undefined' && navigator.userAgent.indexOf('AppleWebKit') > -1;
+/**
+ * Gets the element with the document scroll properties such as `scrollLeft` and
+ * `scrollHeight`. This may differ across different browsers.
+ *
+ * NOTE: The return value can be null if the DOM is not yet ready.
+ *
+ * @param {?DOMDocument} doc Defaults to current document.
+ * @return {?DOMElement}
+ */
+
+function getDocumentScrollElement(doc) {
+  doc = doc || document;
+
+  if (doc.scrollingElement) {
+    return doc.scrollingElement;
+  }
+
+  return !isWebkit && doc.compatMode === 'CSS1Compat' ? doc.documentElement : doc.body;
+}
+
+module.exports = getDocumentScrollElement;
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+
+/**
+ * Gets the scroll position of the supplied element or window.
+ *
+ * The return values are unbounded, unlike `getScrollPosition`. This means they
+ * may be negative or exceed the element boundaries (which is possible using
+ * inertial scrolling).
+ *
+ * @param {DOMWindow|DOMElement} scrollable
+ * @return {object} Map with `x` and `y` keys.
+ */
+
+function getUnboundedScrollPosition(scrollable) {
+  if (scrollable.Window && scrollable instanceof scrollable.Window) {
+    return {
+      x: scrollable.pageXOffset || scrollable.document.documentElement.scrollLeft,
+      y: scrollable.pageYOffset || scrollable.document.documentElement.scrollTop
+    };
+  }
+
+  return {
+    x: scrollable.scrollLeft,
+    y: scrollable.scrollTop
+  };
+}
+
+module.exports = getUnboundedScrollPosition;
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var _assign = __webpack_require__(15);
+
+function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var DraftEditorBlock = __webpack_require__(67);
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var React = __webpack_require__(8);
+
+var cx = __webpack_require__(14);
+
+var joinClasses = __webpack_require__(145);
+
+var nullthrows = __webpack_require__(4);
+
+/**
+ * Provide default styling for list items. This way, lists will be styled with
+ * proper counters and indentation even if the caller does not specify
+ * their own styling at all. If more than five levels of nesting are needed,
+ * the necessary CSS classes can be provided via `blockStyleFn` configuration.
+ */
+var getListItemClasses = function getListItemClasses(type, depth, shouldResetCount, direction) {
+  return cx({
+    'public/DraftStyleDefault/unorderedListItem': type === 'unordered-list-item',
+    'public/DraftStyleDefault/orderedListItem': type === 'ordered-list-item',
+    'public/DraftStyleDefault/reset': shouldResetCount,
+    'public/DraftStyleDefault/depth0': depth === 0,
+    'public/DraftStyleDefault/depth1': depth === 1,
+    'public/DraftStyleDefault/depth2': depth === 2,
+    'public/DraftStyleDefault/depth3': depth === 3,
+    'public/DraftStyleDefault/depth4': depth >= 4,
+    'public/DraftStyleDefault/listLTR': direction === 'LTR',
+    'public/DraftStyleDefault/listRTL': direction === 'RTL'
+  });
+};
+/**
+ * `DraftEditorContents` is the container component for all block components
+ * rendered for a `DraftEditor`. It is optimized to aggressively avoid
+ * re-rendering blocks whenever possible.
+ *
+ * This component is separate from `DraftEditor` because certain props
+ * (for instance, ARIA props) must be allowed to update without affecting
+ * the contents of the editor.
+ */
+
+
+var DraftEditorContents =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(DraftEditorContents, _React$Component);
+
+  function DraftEditorContents() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = DraftEditorContents.prototype;
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+    var prevEditorState = this.props.editorState;
+    var nextEditorState = nextProps.editorState;
+    var prevDirectionMap = prevEditorState.getDirectionMap();
+    var nextDirectionMap = nextEditorState.getDirectionMap(); // Text direction has changed for one or more blocks. We must re-render.
+
+    if (prevDirectionMap !== nextDirectionMap) {
+      return true;
+    }
+
+    var didHaveFocus = prevEditorState.getSelection().getHasFocus();
+    var nowHasFocus = nextEditorState.getSelection().getHasFocus();
+
+    if (didHaveFocus !== nowHasFocus) {
+      return true;
+    }
+
+    var nextNativeContent = nextEditorState.getNativelyRenderedContent();
+    var wasComposing = prevEditorState.isInCompositionMode();
+    var nowComposing = nextEditorState.isInCompositionMode(); // If the state is unchanged or we're currently rendering a natively
+    // rendered state, there's nothing new to be done.
+
+    if (prevEditorState === nextEditorState || nextNativeContent !== null && nextEditorState.getCurrentContent() === nextNativeContent || wasComposing && nowComposing) {
+      return false;
+    }
+
+    var prevContent = prevEditorState.getCurrentContent();
+    var nextContent = nextEditorState.getCurrentContent();
+    var prevDecorator = prevEditorState.getDecorator();
+    var nextDecorator = nextEditorState.getDecorator();
+    return wasComposing !== nowComposing || prevContent !== nextContent || prevDecorator !== nextDecorator || nextEditorState.mustForceSelection();
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        blockRenderMap = _this$props.blockRenderMap,
+        blockRendererFn = _this$props.blockRendererFn,
+        blockStyleFn = _this$props.blockStyleFn,
+        customStyleMap = _this$props.customStyleMap,
+        customStyleFn = _this$props.customStyleFn,
+        editorState = _this$props.editorState,
+        editorKey = _this$props.editorKey,
+        textDirectionality = _this$props.textDirectionality;
+    var content = editorState.getCurrentContent();
+    var selection = editorState.getSelection();
+    var forceSelection = editorState.mustForceSelection();
+    var decorator = editorState.getDecorator();
+    var directionMap = nullthrows(editorState.getDirectionMap());
+    var blocksAsArray = content.getBlocksAsArray();
+    var processedBlocks = [];
+    var currentDepth = null;
+    var lastWrapperTemplate = null;
+
+    for (var ii = 0; ii < blocksAsArray.length; ii++) {
+      var _block = blocksAsArray[ii];
+
+      var key = _block.getKey();
+
+      var blockType = _block.getType();
+
+      var customRenderer = blockRendererFn(_block);
+      var CustomComponent = void 0,
+          customProps = void 0,
+          customEditable = void 0;
+
+      if (customRenderer) {
+        CustomComponent = customRenderer.component;
+        customProps = customRenderer.props;
+        customEditable = customRenderer.editable;
+      }
+
+      var direction = textDirectionality ? textDirectionality : directionMap.get(key);
+      var offsetKey = DraftOffsetKey.encode(key, 0, 0);
+      var componentProps = {
+        contentState: content,
+        block: _block,
+        blockProps: customProps,
+        blockStyleFn: blockStyleFn,
+        customStyleMap: customStyleMap,
+        customStyleFn: customStyleFn,
+        decorator: decorator,
+        direction: direction,
+        forceSelection: forceSelection,
+        offsetKey: offsetKey,
+        selection: selection,
+        tree: editorState.getBlockTree(key)
+      };
+      var configForType = blockRenderMap.get(blockType) || blockRenderMap.get('unstyled');
+      var wrapperTemplate = configForType.wrapper;
+      var Element = configForType.element || blockRenderMap.get('unstyled').element;
+
+      var depth = _block.getDepth();
+
+      var _className = '';
+
+      if (blockStyleFn) {
+        _className = blockStyleFn(_block);
+      } // List items are special snowflakes, since we handle nesting and
+      // counters manually.
+
+
+      if (Element === 'li') {
+        var shouldResetCount = lastWrapperTemplate !== wrapperTemplate || currentDepth === null || depth > currentDepth;
+        _className = joinClasses(_className, getListItemClasses(blockType, depth, shouldResetCount, direction));
+      }
+
+      var Component = CustomComponent || DraftEditorBlock;
+      var childProps = {
+        className: _className,
+        'data-block': true,
+        'data-editor': editorKey,
+        'data-offset-key': offsetKey,
+        key: key
+      };
+
+      if (customEditable !== undefined) {
+        childProps = _objectSpread({}, childProps, {
+          contentEditable: customEditable,
+          suppressContentEditableWarning: true
+        });
+      }
+
+      var child = React.createElement(Element, childProps,
+      /* $FlowFixMe(>=0.112.0 site=mobile) This comment suppresses an error
+       * found when Flow v0.112 was deployed. To see the error delete this
+       * comment and run Flow. */
+
+      /* $FlowFixMe(>=0.112.0 site=www) This comment suppresses an error
+       * found when Flow v0.112 was deployed. To see the error delete this
+       * comment and run Flow. */
+
+      /* $FlowFixMe(>=0.112.0 site=www,mobile) This comment suppresses an
+       * error found when Flow v0.112 was deployed. To see the error delete
+       * this comment and run Flow. */
+      React.createElement(Component, _extends({}, componentProps, {
+        key: key
+      })));
+      processedBlocks.push({
+        block: child,
+        wrapperTemplate: wrapperTemplate,
+        key: key,
+        offsetKey: offsetKey
+      });
+
+      if (wrapperTemplate) {
+        currentDepth = _block.getDepth();
+      } else {
+        currentDepth = null;
+      }
+
+      lastWrapperTemplate = wrapperTemplate;
+    } // Group contiguous runs of blocks that have the same wrapperTemplate
+
+
+    var outputBlocks = [];
+
+    for (var _ii = 0; _ii < processedBlocks.length;) {
+      var info = processedBlocks[_ii];
+
+      if (info.wrapperTemplate) {
+        var blocks = [];
+
+        do {
+          blocks.push(processedBlocks[_ii].block);
+          _ii++;
+        } while (_ii < processedBlocks.length && processedBlocks[_ii].wrapperTemplate === info.wrapperTemplate);
+
+        var wrapperElement = React.cloneElement(info.wrapperTemplate, {
+          key: info.key + '-wrap',
+          'data-offset-key': info.offsetKey
+        }, blocks);
+        outputBlocks.push(wrapperElement);
+      } else {
+        outputBlocks.push(info.block);
+        _ii++;
+      }
+    }
+
+    return React.createElement("div", {
+      "data-contents": "true"
+    }, outputBlocks);
+  };
+
+  return DraftEditorContents;
+}(React.Component);
+
+module.exports = DraftEditorContents;
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+module.exports = __webpack_require__(137);
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(138)
+
+
+/***/ }),
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(17);
+__webpack_require__(139);
+__webpack_require__(140);
+__webpack_require__(141);
+__webpack_require__(142);
+__webpack_require__(144);
+
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Promise = __webpack_require__(17);
+
+module.exports = Promise;
+Promise.prototype.done = function (onFulfilled, onRejected) {
+  var self = arguments.length ? this.then.apply(this, arguments) : this;
+  self.then(null, function (err) {
+    setTimeout(function () {
+      throw err;
+    }, 0);
+  });
+};
+
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Promise = __webpack_require__(17);
+
+module.exports = Promise;
+Promise.prototype['finally'] = function (f) {
+  return this.then(function (value) {
+    return Promise.resolve(f()).then(function () {
+      return value;
+    });
+  }, function (err) {
+    return Promise.resolve(f()).then(function () {
+      throw err;
+    });
+  });
+};
+
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//This file contains the ES6 extensions to the core Promises/A+ API
+
+var Promise = __webpack_require__(17);
+
+module.exports = Promise;
+
+/* Static Functions */
+
+var TRUE = valuePromise(true);
+var FALSE = valuePromise(false);
+var NULL = valuePromise(null);
+var UNDEFINED = valuePromise(undefined);
+var ZERO = valuePromise(0);
+var EMPTYSTRING = valuePromise('');
+
+function valuePromise(value) {
+  var p = new Promise(Promise._61);
+  p._65 = 1;
+  p._55 = value;
+  return p;
+}
+Promise.resolve = function (value) {
+  if (value instanceof Promise) return value;
+
+  if (value === null) return NULL;
+  if (value === undefined) return UNDEFINED;
+  if (value === true) return TRUE;
+  if (value === false) return FALSE;
+  if (value === 0) return ZERO;
+  if (value === '') return EMPTYSTRING;
+
+  if (typeof value === 'object' || typeof value === 'function') {
+    try {
+      var then = value.then;
+      if (typeof then === 'function') {
+        return new Promise(then.bind(value));
+      }
+    } catch (ex) {
+      return new Promise(function (resolve, reject) {
+        reject(ex);
+      });
+    }
+  }
+  return valuePromise(value);
+};
+
+Promise.all = function (arr) {
+  var args = Array.prototype.slice.call(arr);
+
+  return new Promise(function (resolve, reject) {
+    if (args.length === 0) return resolve([]);
+    var remaining = args.length;
+    function res(i, val) {
+      if (val && (typeof val === 'object' || typeof val === 'function')) {
+        if (val instanceof Promise && val.then === Promise.prototype.then) {
+          while (val._65 === 3) {
+            val = val._55;
+          }
+          if (val._65 === 1) return res(i, val._55);
+          if (val._65 === 2) reject(val._55);
+          val.then(function (val) {
+            res(i, val);
+          }, reject);
+          return;
+        } else {
+          var then = val.then;
+          if (typeof then === 'function') {
+            var p = new Promise(then.bind(val));
+            p.then(function (val) {
+              res(i, val);
+            }, reject);
+            return;
+          }
+        }
+      }
+      args[i] = val;
+      if (--remaining === 0) {
+        resolve(args);
+      }
+    }
+    for (var i = 0; i < args.length; i++) {
+      res(i, args[i]);
+    }
+  });
+};
+
+Promise.reject = function (value) {
+  return new Promise(function (resolve, reject) {
+    reject(value);
+  });
+};
+
+Promise.race = function (values) {
+  return new Promise(function (resolve, reject) {
+    values.forEach(function(value){
+      Promise.resolve(value).then(resolve, reject);
+    });
+  });
+};
+
+/* Prototype Methods */
+
+Promise.prototype['catch'] = function (onRejected) {
+  return this.then(null, onRejected);
+};
+
+
+/***/ }),
+/* 142 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// This file contains then/promise specific extensions that are only useful
+// for node.js interop
+
+var Promise = __webpack_require__(17);
+var asap = __webpack_require__(143);
+
+module.exports = Promise;
+
+/* Static Functions */
+
+Promise.denodeify = function (fn, argumentCount) {
+  if (
+    typeof argumentCount === 'number' && argumentCount !== Infinity
+  ) {
+    return denodeifyWithCount(fn, argumentCount);
+  } else {
+    return denodeifyWithoutCount(fn);
+  }
+};
+
+var callbackFn = (
+  'function (err, res) {' +
+  'if (err) { rj(err); } else { rs(res); }' +
+  '}'
+);
+function denodeifyWithCount(fn, argumentCount) {
+  var args = [];
+  for (var i = 0; i < argumentCount; i++) {
+    args.push('a' + i);
+  }
+  var body = [
+    'return function (' + args.join(',') + ') {',
+    'var self = this;',
+    'return new Promise(function (rs, rj) {',
+    'var res = fn.call(',
+    ['self'].concat(args).concat([callbackFn]).join(','),
+    ');',
+    'if (res &&',
+    '(typeof res === "object" || typeof res === "function") &&',
+    'typeof res.then === "function"',
+    ') {rs(res);}',
+    '});',
+    '};'
+  ].join('');
+  return Function(['Promise', 'fn'], body)(Promise, fn);
+}
+function denodeifyWithoutCount(fn) {
+  var fnLength = Math.max(fn.length - 1, 3);
+  var args = [];
+  for (var i = 0; i < fnLength; i++) {
+    args.push('a' + i);
+  }
+  var body = [
+    'return function (' + args.join(',') + ') {',
+    'var self = this;',
+    'var args;',
+    'var argLength = arguments.length;',
+    'if (arguments.length > ' + fnLength + ') {',
+    'args = new Array(arguments.length + 1);',
+    'for (var i = 0; i < arguments.length; i++) {',
+    'args[i] = arguments[i];',
+    '}',
+    '}',
+    'return new Promise(function (rs, rj) {',
+    'var cb = ' + callbackFn + ';',
+    'var res;',
+    'switch (argLength) {',
+    args.concat(['extra']).map(function (_, index) {
+      return (
+        'case ' + (index) + ':' +
+        'res = fn.call(' + ['self'].concat(args.slice(0, index)).concat('cb').join(',') + ');' +
+        'break;'
+      );
+    }).join(''),
+    'default:',
+    'args[argLength] = cb;',
+    'res = fn.apply(self, args);',
+    '}',
+    
+    'if (res &&',
+    '(typeof res === "object" || typeof res === "function") &&',
+    'typeof res.then === "function"',
+    ') {rs(res);}',
+    '});',
+    '};'
+  ].join('');
+
+  return Function(
+    ['Promise', 'fn'],
+    body
+  )(Promise, fn);
+}
+
+Promise.nodeify = function (fn) {
+  return function () {
+    var args = Array.prototype.slice.call(arguments);
+    var callback =
+      typeof args[args.length - 1] === 'function' ? args.pop() : null;
+    var ctx = this;
+    try {
+      return fn.apply(this, arguments).nodeify(callback, ctx);
+    } catch (ex) {
+      if (callback === null || typeof callback == 'undefined') {
+        return new Promise(function (resolve, reject) {
+          reject(ex);
+        });
+      } else {
+        asap(function () {
+          callback.call(ctx, ex);
+        })
+      }
+    }
+  }
+};
+
+Promise.prototype.nodeify = function (callback, ctx) {
+  if (typeof callback != 'function') return this;
+
+  this.then(function (value) {
+    asap(function () {
+      callback.call(ctx, null, value);
+    });
+  }, function (err) {
+    asap(function () {
+      callback.call(ctx, err);
+    });
+  });
+};
+
+
+/***/ }),
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// rawAsap provides everything we need except exception management.
+var rawAsap = __webpack_require__(68);
+// RawTasks are recycled to reduce GC churn.
+var freeTasks = [];
+// We queue errors to ensure they are thrown in right order (FIFO).
+// Array-as-queue is good enough here, since we are just dealing with exceptions.
+var pendingErrors = [];
+var requestErrorThrow = rawAsap.makeRequestCallFromTimer(throwFirstError);
+
+function throwFirstError() {
+    if (pendingErrors.length) {
+        throw pendingErrors.shift();
+    }
+}
+
+/**
+ * Calls a task as soon as possible after returning, in its own event, with priority
+ * over other events like animation, reflow, and repaint. An error thrown from an
+ * event will not interrupt, nor even substantially slow down the processing of
+ * other events, but will be rather postponed to a lower priority event.
+ * @param {{call}} task A callable object, typically a function that takes no
+ * arguments.
+ */
+module.exports = asap;
+function asap(task) {
+    var rawTask;
+    if (freeTasks.length) {
+        rawTask = freeTasks.pop();
+    } else {
+        rawTask = new RawTask();
+    }
+    rawTask.task = task;
+    rawAsap(rawTask);
+}
+
+// We wrap tasks with recyclable task objects.  A task object implements
+// `call`, just like a function.
+function RawTask() {
+    this.task = null;
+}
+
+// The sole purpose of wrapping the task is to catch the exception and recycle
+// the task object after its single use.
+RawTask.prototype.call = function () {
+    try {
+        this.task.call();
+    } catch (error) {
+        if (asap.onerror) {
+            // This hook exists purely for testing purposes.
+            // Its name will be periodically randomized to break any code that
+            // depends on its existence.
+            asap.onerror(error);
+        } else {
+            // In a web browser, exceptions are not fatal. However, to avoid
+            // slowing down the queue of pending tasks, we rethrow the error in a
+            // lower priority turn.
+            pendingErrors.push(error);
+            requestErrorThrow();
+        }
+    } finally {
+        this.task = null;
+        freeTasks[freeTasks.length] = this;
+    }
+};
+
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Promise = __webpack_require__(17);
+
+module.exports = Promise;
+Promise.enableSynchronous = function () {
+  Promise.prototype.isPending = function() {
+    return this.getState() == 0;
+  };
+
+  Promise.prototype.isFulfilled = function() {
+    return this.getState() == 1;
+  };
+
+  Promise.prototype.isRejected = function() {
+    return this.getState() == 2;
+  };
+
+  Promise.prototype.getValue = function () {
+    if (this._65 === 3) {
+      return this._55.getValue();
+    }
+
+    if (!this.isFulfilled()) {
+      throw new Error('Cannot get a value of an unfulfilled promise.');
+    }
+
+    return this._55;
+  };
+
+  Promise.prototype.getReason = function () {
+    if (this._65 === 3) {
+      return this._55.getReason();
+    }
+
+    if (!this.isRejected()) {
+      throw new Error('Cannot get a rejection reason of a non-rejected promise.');
+    }
+
+    return this._55;
+  };
+
+  Promise.prototype.getState = function () {
+    if (this._65 === 3) {
+      return this._55.getState();
+    }
+    if (this._65 === -1 || this._65 === -2) {
+      return 0;
+    }
+
+    return this._65;
+  };
+};
+
+Promise.disableSynchronous = function() {
+  Promise.prototype.isPending = undefined;
+  Promise.prototype.isFulfilled = undefined;
+  Promise.prototype.isRejected = undefined;
+  Promise.prototype.getValue = undefined;
+  Promise.prototype.getReason = undefined;
+  Promise.prototype.getState = undefined;
+};
+
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ * @typechecks static-only
+ */
+
+/**
+ * Combines multiple className strings into one.
+ */
+
+function joinClasses(className) {
+  var newClassName = className || '';
+  var argLength = arguments.length;
+
+  if (argLength > 1) {
+    for (var index = 1; index < argLength; index++) {
+      var nextClass = arguments[index];
+
+      if (nextClass) {
+        newClassName = (newClassName ? newClassName + ' ' : '') + nextClass;
+      }
+    }
+  }
+
+  return newClassName;
+}
+
+module.exports = joinClasses;
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DataTransfer = __webpack_require__(69);
+
+var DraftModifier = __webpack_require__(3);
+
+var EditorState = __webpack_require__(2);
+
+var ReactDOM = __webpack_require__(27);
+
+var findAncestorOffsetKey = __webpack_require__(25);
+
+var getTextContentFromFiles = __webpack_require__(70);
+
+var getUpdatedSelectionState = __webpack_require__(55);
+
+var isEventHandled = __webpack_require__(28);
+
+var nullthrows = __webpack_require__(4);
+/**
+ * Get a SelectionState for the supplied mouse event.
+ */
+
+
+function getSelectionForEvent(event, editorState) {
+  var node = null;
+  var offset = null;
+  /* $FlowFixMe(>=0.68.0 site=www,mobile) This comment suppresses an error
+   * found when Flow v0.68 was deployed. To see the error delete this comment
+   * and run Flow. */
+
+  if (typeof document.caretRangeFromPoint === 'function') {
+    var dropRange = document.caretRangeFromPoint(event.x, event.y);
+    node = dropRange.startContainer;
+    offset = dropRange.startOffset;
+  } else if (event.rangeParent) {
+    node = event.rangeParent;
+    offset = event.rangeOffset;
+  } else {
+    return null;
+  }
+
+  node = nullthrows(node);
+  offset = nullthrows(offset);
+  var offsetKey = nullthrows(findAncestorOffsetKey(node));
+  return getUpdatedSelectionState(editorState, offsetKey, offset, offsetKey, offset);
+}
+
+var DraftEditorDragHandler = {
+  /**
+   * Drag originating from input terminated.
+   */
+  onDragEnd: function onDragEnd(editor) {
+    editor.exitCurrentMode();
+    endDrag(editor);
+  },
+
+  /**
+   * Handle data being dropped.
+   */
+  onDrop: function onDrop(editor, e) {
+    var data = new DataTransfer(e.nativeEvent.dataTransfer);
+    var editorState = editor._latestEditorState;
+    var dropSelection = getSelectionForEvent(e.nativeEvent, editorState);
+    e.preventDefault();
+    editor._dragCount = 0;
+    editor.exitCurrentMode();
+
+    if (dropSelection == null) {
+      return;
+    }
+    /* $FlowFixMe This comment suppresses an error found DataTransfer was typed.
+     * getFiles() returns an array of <Files extends Blob>, not Blob */
+
+
+    var files = data.getFiles();
+
+    if (files.length > 0) {
+      if (editor.props.handleDroppedFiles && isEventHandled(editor.props.handleDroppedFiles(dropSelection, files))) {
+        return;
+      }
+
+      getTextContentFromFiles(files, function (fileText) {
+        fileText && editor.update(insertTextAtSelection(editorState, dropSelection, fileText));
+      });
+      return;
+    }
+
+    var dragType = editor._internalDrag ? 'internal' : 'external';
+
+    if (editor.props.handleDrop && isEventHandled(editor.props.handleDrop(dropSelection, data, dragType))) {// handled
+    } else if (editor._internalDrag) {
+      editor.update(moveText(editorState, dropSelection));
+    } else {
+      editor.update(insertTextAtSelection(editorState, dropSelection, data.getText()));
+    }
+
+    endDrag(editor);
+  }
+};
+
+function endDrag(editor) {
+  editor._internalDrag = false; // Fix issue #1383
+  // Prior to React v16.5.0 onDrop breaks onSelect event:
+  // https://github.com/facebook/react/issues/11379.
+  // Dispatching a mouseup event on DOM node will make it go back to normal.
+
+  var editorNode = ReactDOM.findDOMNode(editor);
+
+  if (editorNode) {
+    var mouseUpEvent = new MouseEvent('mouseup', {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    });
+    editorNode.dispatchEvent(mouseUpEvent);
+  }
+}
+
+function moveText(editorState, targetSelection) {
+  var newContentState = DraftModifier.moveText(editorState.getCurrentContent(), editorState.getSelection(), targetSelection);
+  return EditorState.push(editorState, newContentState, 'insert-fragment');
+}
+/**
+ * Insert text at a specified selection.
+ */
+
+
+function insertTextAtSelection(editorState, selection, text) {
+  var newContentState = DraftModifier.insertText(editorState.getCurrentContent(), selection, text, editorState.getCurrentInlineStyle());
+  return EditorState.push(editorState, newContentState, 'insert-fragment');
+}
+
+module.exports = DraftEditorDragHandler;
+
+/***/ }),
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+var PhotosMimeType = {
+  isImage: function isImage(mimeString) {
+    return getParts(mimeString)[0] === 'image';
+  },
+  isJpeg: function isJpeg(mimeString) {
+    var parts = getParts(mimeString);
+    return PhotosMimeType.isImage(mimeString) && ( // see http://fburl.com/10972194
+    parts[1] === 'jpeg' || parts[1] === 'pjpeg');
+  }
+};
+
+function getParts(mimeString) {
+  return mimeString.split('/');
+}
+
+module.exports = PhotosMimeType;
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ */
+var invariant = __webpack_require__(1);
+/**
+ * Convert array-like objects to arrays.
+ *
+ * This API assumes the caller knows the contents of the data type. For less
+ * well defined inputs use createArrayFromMixed.
+ *
+ * @param {object|function|filelist} obj
+ * @return {array}
+ */
+
+
+function toArray(obj) {
+  var length = obj.length; // Some browsers builtin objects can report typeof 'function' (e.g. NodeList
+  // in old versions of Safari).
+
+  !(!Array.isArray(obj) && (typeof obj === 'object' || typeof obj === 'function')) ?  true ? invariant(false, 'toArray: Array-like object expected') : invariant(false) : void 0;
+  !(typeof length === 'number') ?  true ? invariant(false, 'toArray: Object needs a length property') : invariant(false) : void 0;
+  !(length === 0 || length - 1 in obj) ?  true ? invariant(false, 'toArray: Object should have keys for indices') : invariant(false) : void 0;
+  !(typeof obj.callee !== 'function') ?  true ? invariant(false, 'toArray: Object can\'t be `arguments`. Use rest params ' + '(function(...args) {}) or Array.from() instead.') : invariant(false) : void 0; // Old IE doesn't give collections access to hasOwnProperty. Assume inputs
+  // without method will throw during the slice call and skip straight to the
+  // fallback.
+
+  if (obj.hasOwnProperty) {
+    try {
+      return Array.prototype.slice.call(obj);
+    } catch (e) {// IE < 9 does not support Array#slice on collections objects
+    }
+  } // Fall back to copying key by key. This assumes all keys have a value,
+  // so will not preserve sparsely populated inputs.
+
+
+  var ret = Array(length);
+
+  for (var ii = 0; ii < length; ii++) {
+    ret[ii] = obj[ii];
+  }
+
+  return ret;
+}
+/**
+ * Perform a heuristic test to determine if an object is "array-like".
+ *
+ *   A monk asked Joshu, a Zen master, "Has a dog Buddha nature?"
+ *   Joshu replied: "Mu."
+ *
+ * This function determines if its argument has "array nature": it returns
+ * true if the argument is an actual array, an `arguments' object, or an
+ * HTMLCollection (e.g. node.childNodes or node.getElementsByTagName()).
+ *
+ * It will return false for other array-like objects like Filelist.
+ *
+ * @param {*} obj
+ * @return {boolean}
+ */
+
+
+function hasArrayNature(obj) {
+  return (// not null/false
+    !!obj && ( // arrays are objects, NodeLists are functions in Safari
+    typeof obj == 'object' || typeof obj == 'function') && // quacks like an array
+    'length' in obj && // not window
+    !('setInterval' in obj) && // no DOM node should be considered an array-like
+    // a 'select' element has 'length' and 'item' properties on IE8
+    typeof obj.nodeType != 'number' && ( // a real array
+    Array.isArray(obj) || // arguments
+    'callee' in obj || // HTMLCollection/NodeList
+    'item' in obj)
+  );
+}
+/**
+ * Ensure that the argument is an array by wrapping it in an array if it is not.
+ * Creates a copy of the argument if it is already an array.
+ *
+ * This is mostly useful idiomatically:
+ *
+ *   var createArrayFromMixed = require('createArrayFromMixed');
+ *
+ *   function takesOneOrMoreThings(things) {
+ *     things = createArrayFromMixed(things);
+ *     ...
+ *   }
+ *
+ * This allows you to treat `things' as an array, but accept scalars in the API.
+ *
+ * If you need to convert an array-like object, like `arguments`, into an array
+ * use toArray instead.
+ *
+ * @param {*} obj
+ * @return {array}
+ */
+
+
+function createArrayFromMixed(obj) {
+  if (!hasArrayNature(obj)) {
+    return [obj];
+  } else if (Array.isArray(obj)) {
+    return obj.slice();
+  } else {
+    return toArray(obj);
+  }
+}
+
+module.exports = createArrayFromMixed;
+
+/***/ }),
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var UserAgent = __webpack_require__(7);
+
+var onBeforeInput = __webpack_require__(56);
+
+var onBlur = __webpack_require__(150);
+
+var onCompositionStart = __webpack_require__(151);
+
+var onCopy = __webpack_require__(152);
+
+var onCut = __webpack_require__(153);
+
+var onDragOver = __webpack_require__(154);
+
+var onDragStart = __webpack_require__(155);
+
+var onFocus = __webpack_require__(156);
+
+var onInput = __webpack_require__(157);
+
+var onKeyDown = __webpack_require__(57);
+
+var onPaste = __webpack_require__(159);
+
+var onSelect = __webpack_require__(50);
+
+var isChrome = UserAgent.isBrowser('Chrome');
+var selectionHandler = isChrome ? onSelect : function (e) {};
+var DraftEditorEditHandler = {
+  onBeforeInput: onBeforeInput,
+  onBlur: onBlur,
+  onCompositionStart: onCompositionStart,
+  onCopy: onCopy,
+  onCut: onCut,
+  onDragOver: onDragOver,
+  onDragStart: onDragStart,
+  onFocus: onFocus,
+  onInput: onInput,
+  onKeyDown: onKeyDown,
+  onPaste: onPaste,
+  onSelect: onSelect,
+  // In certain cases, contenteditable on chrome does not fire the onSelect
+  // event, causing problems with cursor positioning. Therefore, the selection
+  // state update handler is added to more events to ensure that the selection
+  // state is always synced with the actual cursor positions.
+  onMouseUp: selectionHandler,
+  onKeyUp: selectionHandler
+};
+module.exports = DraftEditorEditHandler;
+
+/***/ }),
+/* 150 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var EditorState = __webpack_require__(2);
+
+var containsNode = __webpack_require__(39);
+
+var getActiveElement = __webpack_require__(64);
+
+function editOnBlur(editor, e) {
+  // In a contentEditable element, when you select a range and then click
+  // another active element, this does trigger a `blur` event but will not
+  // remove the DOM selection from the contenteditable.
+  // This is consistent across all browsers, but we prefer that the editor
+  // behave like a textarea, where a `blur` event clears the DOM selection.
+  // We therefore force the issue to be certain, checking whether the active
+  // element is `body` to force it when blurring occurs within the window (as
+  // opposed to clicking to another tab or window).
+  // However if users wish to override this behaviour they can provide
+  // a prop preserveSelectionOnBlur of `true`.
+  if (!editor.props.preserveSelectionOnBlur && getActiveElement() === document.body) {
+    var _selection = global.getSelection();
+
+    var editorNode = editor.editor;
+
+    if (_selection.rangeCount === 1 && containsNode(editorNode, _selection.anchorNode) && containsNode(editorNode, _selection.focusNode)) {
+      _selection.removeAllRanges();
+    }
+  }
+
+  var editorState = editor._latestEditorState;
+  var currentSelection = editorState.getSelection();
+
+  if (!currentSelection.getHasFocus()) {
+    return;
+  }
+
+  var selection = currentSelection.set('hasFocus', false);
+  editor.props.onBlur && editor.props.onBlur(e);
+  editor.update(EditorState.acceptSelection(editorState, selection));
+}
+
+module.exports = editOnBlur;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var EditorState = __webpack_require__(2);
+/**
+ * The user has begun using an IME input system. Switching to `composite` mode
+ * allows handling composition input and disables other edit behavior.
+ */
+
+
+function editOnCompositionStart(editor, e) {
+  editor.setMode('composite');
+  editor.update(EditorState.set(editor._latestEditorState, {
+    inCompositionMode: true
+  })); // Allow composition handler to interpret the compositionstart event
+
+  editor._onCompositionStart(e);
+}
+
+module.exports = editOnCompositionStart;
+
+/***/ }),
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var getFragmentFromSelection = __webpack_require__(71);
+/**
+ * If we have a selection, create a ContentState fragment and store
+ * it in our internal clipboard. Subsequent paste events will use this
+ * fragment if no external clipboard data is supplied.
+ */
+
+
+function editOnCopy(editor, e) {
+  var editorState = editor._latestEditorState;
+  var selection = editorState.getSelection(); // No selection, so there's nothing to copy.
+
+  if (selection.isCollapsed()) {
+    e.preventDefault();
+    return;
+  }
+
+  editor.setClipboard(getFragmentFromSelection(editor._latestEditorState));
+}
+
+module.exports = editOnCopy;
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftModifier = __webpack_require__(3);
+
+var EditorState = __webpack_require__(2);
+
+var Style = __webpack_require__(29);
+
+var getFragmentFromSelection = __webpack_require__(71);
+
+var getScrollPosition = __webpack_require__(30);
+/**
+ * On `cut` events, native behavior is allowed to occur so that the system
+ * clipboard is set properly. This means that we need to take steps to recover
+ * the editor DOM state after the `cut` has occurred in order to maintain
+ * control of the component.
+ *
+ * In addition, we can keep a copy of the removed fragment, including all
+ * styles and entities, for use as an internal paste.
+ */
+
+
+function editOnCut(editor, e) {
+  var editorState = editor._latestEditorState;
+  var selection = editorState.getSelection();
+  var element = e.target;
+  var scrollPosition; // No selection, so there's nothing to cut.
+
+  if (selection.isCollapsed()) {
+    e.preventDefault();
+    return;
+  } // Track the current scroll position so that it can be forced back in place
+  // after the editor regains control of the DOM.
+
+
+  if (element instanceof Node) {
+    scrollPosition = getScrollPosition(Style.getScrollParent(element));
+  }
+
+  var fragment = getFragmentFromSelection(editorState);
+  editor.setClipboard(fragment); // Set `cut` mode to disable all event handling temporarily.
+
+  editor.setMode('cut'); // Let native `cut` behavior occur, then recover control.
+
+  setTimeout(function () {
+    editor.restoreEditorDOM(scrollPosition);
+    editor.exitCurrentMode();
+    editor.update(removeFragment(editorState));
+  }, 0);
+}
+
+function removeFragment(editorState) {
+  var newContent = DraftModifier.removeRange(editorState.getCurrentContent(), editorState.getSelection(), 'forward');
+  return EditorState.push(editorState, newContent, 'remove-range');
+}
+
+module.exports = editOnCut;
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+/**
+ * Drag behavior has begun from outside the editor element.
+ */
+function editOnDragOver(editor, e) {
+  editor.setMode('drag');
+  e.preventDefault();
+}
+
+module.exports = editOnDragOver;
+
+/***/ }),
+/* 155 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+/**
+ * A `dragstart` event has begun within the text editor component.
+ */
+function editOnDragStart(editor) {
+  editor._internalDrag = true;
+  editor.setMode('drag');
+}
+
+module.exports = editOnDragStart;
+
+/***/ }),
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var EditorState = __webpack_require__(2);
+
+var UserAgent = __webpack_require__(7);
+
+function editOnFocus(editor, e) {
+  var editorState = editor._latestEditorState;
+  var currentSelection = editorState.getSelection();
+
+  if (currentSelection.getHasFocus()) {
+    return;
+  }
+
+  var selection = currentSelection.set('hasFocus', true);
+  editor.props.onFocus && editor.props.onFocus(e); // When the tab containing this text editor is hidden and the user does a
+  // find-in-page in a _different_ tab, Chrome on Mac likes to forget what the
+  // selection was right after sending this focus event and (if you let it)
+  // moves the cursor back to the beginning of the editor, so we force the
+  // selection here instead of simply accepting it in order to preserve the
+  // old cursor position. See https://crbug.com/540004.
+  // But it looks like this is fixed in Chrome 60.0.3081.0.
+  // Other browsers also don't have this bug, so we prefer to acceptSelection
+  // when possible, to ensure that unfocusing and refocusing a Draft editor
+  // doesn't preserve the selection, matching how textareas work.
+
+  if (UserAgent.isBrowser('Chrome < 60.0.3081.0')) {
+    editor.update(EditorState.forceSelection(editorState, selection));
+  } else {
+    editor.update(EditorState.acceptSelection(editorState, selection));
+  }
+}
+
+module.exports = editOnFocus;
+
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftModifier = __webpack_require__(3);
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var EditorState = __webpack_require__(2);
+
+var UserAgent = __webpack_require__(7);
+
+var _require = __webpack_require__(158),
+    notEmptyKey = _require.notEmptyKey;
+
+var findAncestorOffsetKey = __webpack_require__(25);
+
+var keyCommandPlainBackspace = __webpack_require__(38);
+
+var nullthrows = __webpack_require__(4);
+
+var isGecko = UserAgent.isEngine('Gecko');
+var DOUBLE_NEWLINE = '\n\n';
+
+function onInputType(inputType, editorState) {
+  switch (inputType) {
+    case 'deleteContentBackward':
+      return keyCommandPlainBackspace(editorState);
+  }
+
+  return editorState;
+}
+/**
+ * This function serves two purposes
+ *
+ * 1. To update the editorState and call onChange method with the new
+ * editorState. This editorState is calculated in editOnBeforeInput but the
+ * onChange method is not called with the new state until this method does it.
+ * It is done to handle a specific case where certain character inputs might
+ * be replaced with something else. E.g. snippets ('rc' might be replaced
+ * with boilerplate code for react component). More information on the
+ * exact problem can be found here -
+ * https://github.com/facebook/draft-js/commit/07892ba479bd4dfc6afd1e0ed179aaf51cd138b1
+ *
+ * 2. intended to handle spellcheck and autocorrect changes,
+ * which occur in the DOM natively without any opportunity to observe or
+ * interpret the changes before they occur.
+ *
+ * The `input` event fires in contentEditable elements reliably for non-IE
+ * browsers, immediately after changes occur to the editor DOM. Since our other
+ * handlers override or otherwise handle cover other varieties of text input,
+ * the DOM state should match the model in all controlled input cases. Thus,
+ * when an `input` change leads to a DOM/model mismatch, the change should be
+ * due to a spellcheck change, and we can incorporate it into our model.
+ */
+
+
+function editOnInput(editor, e) {
+  if (editor._pendingStateFromBeforeInput !== undefined) {
+    editor.update(editor._pendingStateFromBeforeInput);
+    editor._pendingStateFromBeforeInput = undefined;
+  }
+
+  var domSelection = global.getSelection();
+  var anchorNode = domSelection.anchorNode,
+      isCollapsed = domSelection.isCollapsed;
+  var isNotTextOrElementNode = anchorNode.nodeType !== Node.TEXT_NODE && anchorNode.nodeType !== Node.ELEMENT_NODE;
+
+  if (isNotTextOrElementNode) {
+    // TODO: (t16149272) figure out context for this change
+    return;
+  }
+
+  if (anchorNode.nodeType === Node.TEXT_NODE && (anchorNode.previousSibling !== null || anchorNode.nextSibling !== null)) {
+    // When typing at the beginning of a visual line, Chrome splits the text
+    // nodes into two. Why? No one knows. This commit is suspicious:
+    // https://chromium.googlesource.com/chromium/src/+/a3b600981286b135632371477f902214c55a1724
+    // To work around, we'll merge the sibling text nodes back into this one.
+    var span = anchorNode.parentNode;
+    anchorNode.nodeValue = span.textContent;
+
+    for (var child = span.firstChild; child !== null; child = child.nextSibling) {
+      if (child !== anchorNode) {
+        span.removeChild(child);
+      }
+    }
+  }
+
+  var domText = anchorNode.textContent;
+  var editorState = editor._latestEditorState;
+  var offsetKey = nullthrows(findAncestorOffsetKey(anchorNode));
+
+  var _DraftOffsetKey$decod = DraftOffsetKey.decode(offsetKey),
+      blockKey = _DraftOffsetKey$decod.blockKey,
+      decoratorKey = _DraftOffsetKey$decod.decoratorKey,
+      leafKey = _DraftOffsetKey$decod.leafKey;
+
+  var _editorState$getBlock = editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey]),
+      start = _editorState$getBlock.start,
+      end = _editorState$getBlock.end;
+
+  var content = editorState.getCurrentContent();
+  var block = content.getBlockForKey(blockKey);
+  var modelText = block.getText().slice(start, end); // Special-case soft newlines here. If the DOM text ends in a soft newline,
+  // we will have manually inserted an extra soft newline in DraftEditorLeaf.
+  // We want to remove this extra newline for the purpose of our comparison
+  // of DOM and model text.
+
+  if (domText.endsWith(DOUBLE_NEWLINE)) {
+    domText = domText.slice(0, -1);
+  } // No change -- the DOM is up to date. Nothing to do here.
+
+
+  if (domText === modelText) {
+    // This can be buggy for some Android keyboards because they don't fire
+    // standard onkeydown/pressed events and only fired editOnInput
+    // so domText is already changed by the browser and ends up being equal
+    // to modelText unexpectedly.
+    // Newest versions of Android support the dom-inputevent-inputtype
+    // and we can use the `inputType` to properly apply the state changes.
+
+    /* $FlowFixMe inputType is only defined on a draft of a standard.
+     * https://w3c.github.io/input-events/#dom-inputevent-inputtype */
+    var inputType = e.nativeEvent.inputType;
+
+    if (inputType) {
+      var newEditorState = onInputType(inputType, editorState);
+
+      if (newEditorState !== editorState) {
+        editor.restoreEditorDOM();
+        editor.update(newEditorState);
+        return;
+      }
+    }
+
+    return;
+  }
+
+  var selection = editorState.getSelection(); // We'll replace the entire leaf with the text content of the target.
+
+  var targetRange = selection.merge({
+    anchorOffset: start,
+    focusOffset: end,
+    isBackward: false
+  });
+  var entityKey = block.getEntityAt(start);
+  var entity = notEmptyKey(entityKey) ? content.getEntity(entityKey) : null;
+  var entityType = entity != null ? entity.getMutability() : null;
+  var preserveEntity = entityType === 'MUTABLE'; // Immutable or segmented entities cannot properly be handled by the
+  // default browser undo, so we have to use a different change type to
+  // force using our internal undo method instead of falling through to the
+  // native browser undo.
+
+  var changeType = preserveEntity ? 'spellcheck-change' : 'apply-entity';
+  var newContent = DraftModifier.replaceText(content, targetRange, domText, block.getInlineStyleAt(start), preserveEntity ? block.getEntityAt(start) : null);
+  var anchorOffset, focusOffset, startOffset, endOffset;
+
+  if (isGecko) {
+    // Firefox selection does not change while the context menu is open, so
+    // we preserve the anchor and focus values of the DOM selection.
+    anchorOffset = domSelection.anchorOffset;
+    focusOffset = domSelection.focusOffset;
+    startOffset = start + Math.min(anchorOffset, focusOffset);
+    endOffset = startOffset + Math.abs(anchorOffset - focusOffset);
+    anchorOffset = startOffset;
+    focusOffset = endOffset;
+  } else {
+    // Browsers other than Firefox may adjust DOM selection while the context
+    // menu is open, and Safari autocorrect is prone to providing an inaccurate
+    // DOM selection. Don't trust it. Instead, use our existing SelectionState
+    // and adjust it based on the number of characters changed during the
+    // mutation.
+    var charDelta = domText.length - modelText.length;
+    startOffset = selection.getStartOffset();
+    endOffset = selection.getEndOffset();
+    anchorOffset = isCollapsed ? endOffset + charDelta : startOffset;
+    focusOffset = endOffset + charDelta;
+  } // Segmented entities are completely or partially removed when their
+  // text content changes. For this case we do not want any text to be selected
+  // after the change, so we are not merging the selection.
+
+
+  var contentWithAdjustedDOMSelection = newContent.merge({
+    selectionBefore: content.getSelectionAfter(),
+    selectionAfter: selection.merge({
+      anchorOffset: anchorOffset,
+      focusOffset: focusOffset
+    })
+  });
+  editor.update(EditorState.push(editorState, contentWithAdjustedDOMSelection, changeType));
+}
+
+module.exports = editOnInput;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
+
+/***/ }),
+/* 158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * Provides utilities for handling draftjs keys.
+ *
+ * @emails oncall+draft_js
+ * 
+ * @format
+ */
+
+
+function notEmptyKey(key) {
+  return key != null && key != '';
+}
+
+module.exports = {
+  notEmptyKey: notEmptyKey
+};
+
+/***/ }),
+/* 159 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var BlockMapBuilder = __webpack_require__(18);
+
+var CharacterMetadata = __webpack_require__(5);
+
+var DataTransfer = __webpack_require__(69);
+
+var DraftModifier = __webpack_require__(3);
+
+var DraftPasteProcessor = __webpack_require__(160);
+
+var EditorState = __webpack_require__(2);
+
+var RichTextEditorUtil = __webpack_require__(74);
+
+var getEntityKeyForSelection = __webpack_require__(34);
+
+var getTextContentFromFiles = __webpack_require__(70);
+
+var isEventHandled = __webpack_require__(28);
+
+var splitTextIntoTextBlocks = __webpack_require__(163);
+/**
+ * Paste content.
+ */
+
+
+function editOnPaste(editor, e) {
+  e.preventDefault();
+  var data = new DataTransfer(e.clipboardData); // Get files, unless this is likely to be a string the user wants inline.
+
+  if (!data.isRichText()) {
+    /* $FlowFixMe This comment suppresses an error found DataTransfer was typed.
+     * getFiles() returns an array of <Files extends Blob>, not Blob */
+    var files = data.getFiles();
+    var defaultFileText = data.getText();
+
+    if (files.length > 0) {
+      // Allow customized paste handling for images, etc. Otherwise, fall
+      // through to insert text contents into the editor.
+      if (editor.props.handlePastedFiles && isEventHandled(editor.props.handlePastedFiles(files))) {
+        return;
+      }
+
+      getTextContentFromFiles(files, function (
+      /*string*/
+      fileText) {
+        fileText = fileText || defaultFileText;
+
+        if (!fileText) {
+          return;
+        }
+
+        var editorState = editor._latestEditorState;
+        var blocks = splitTextIntoTextBlocks(fileText);
+        var character = CharacterMetadata.create({
+          style: editorState.getCurrentInlineStyle(),
+          entity: getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection())
+        });
+        var currentBlockType = RichTextEditorUtil.getCurrentBlockType(editorState);
+        var text = DraftPasteProcessor.processText(blocks, character, currentBlockType);
+        var fragment = BlockMapBuilder.createFromArray(text);
+        var withInsertedText = DraftModifier.replaceWithFragment(editorState.getCurrentContent(), editorState.getSelection(), fragment);
+        editor.update(EditorState.push(editorState, withInsertedText, 'insert-fragment'));
+      });
+      return;
+    }
+  }
+
+  var textBlocks = [];
+  var text = data.getText();
+  var html = data.getHTML();
+  var editorState = editor._latestEditorState;
+
+  if (editor.props.handlePastedText && isEventHandled(editor.props.handlePastedText(text, html, editorState))) {
+    return;
+  }
+
+  if (text) {
+    textBlocks = splitTextIntoTextBlocks(text);
+  }
+
+  if (!editor.props.stripPastedStyles) {
+    // If the text from the paste event is rich content that matches what we
+    // already have on the internal clipboard, assume that we should just use
+    // the clipboard fragment for the paste. This will allow us to preserve
+    // styling and entities, if any are present. Note that newlines are
+    // stripped during comparison -- this is because copy/paste within the
+    // editor in Firefox and IE will not include empty lines. The resulting
+    // paste will preserve the newlines correctly.
+    var internalClipboard = editor.getClipboard();
+
+    if (data.isRichText() && internalClipboard) {
+      if ( // If the editorKey is present in the pasted HTML, it should be safe to
+      // assume this is an internal paste.
+      html.indexOf(editor.getEditorKey()) !== -1 || // The copy may have been made within a single block, in which case the
+      // editor key won't be part of the paste. In this case, just check
+      // whether the pasted text matches the internal clipboard.
+      textBlocks.length === 1 && internalClipboard.size === 1 && internalClipboard.first().getText() === text) {
+        editor.update(insertFragment(editor._latestEditorState, internalClipboard));
+        return;
+      }
+    } else if (internalClipboard && data.types.includes('com.apple.webarchive') && !data.types.includes('text/html') && areTextBlocksAndClipboardEqual(textBlocks, internalClipboard)) {
+      // Safari does not properly store text/html in some cases.
+      // Use the internalClipboard if present and equal to what is on
+      // the clipboard. See https://bugs.webkit.org/show_bug.cgi?id=19893.
+      editor.update(insertFragment(editor._latestEditorState, internalClipboard));
+      return;
+    } // If there is html paste data, try to parse that.
+
+
+    if (html) {
+      var htmlFragment = DraftPasteProcessor.processHTML(html, editor.props.blockRenderMap);
+
+      if (htmlFragment) {
+        var contentBlocks = htmlFragment.contentBlocks,
+            entityMap = htmlFragment.entityMap;
+
+        if (contentBlocks) {
+          var htmlMap = BlockMapBuilder.createFromArray(contentBlocks);
+          editor.update(insertFragment(editor._latestEditorState, htmlMap, entityMap));
+          return;
+        }
+      }
+    } // Otherwise, create a new fragment from our pasted text. Also
+    // empty the internal clipboard, since it's no longer valid.
+
+
+    editor.setClipboard(null);
+  }
+
+  if (textBlocks.length) {
+    var character = CharacterMetadata.create({
+      style: editorState.getCurrentInlineStyle(),
+      entity: getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection())
+    });
+    var currentBlockType = RichTextEditorUtil.getCurrentBlockType(editorState);
+    var textFragment = DraftPasteProcessor.processText(textBlocks, character, currentBlockType);
+    var textMap = BlockMapBuilder.createFromArray(textFragment);
+    editor.update(insertFragment(editor._latestEditorState, textMap));
+  }
+}
+
+function insertFragment(editorState, fragment, entityMap) {
+  var newContent = DraftModifier.replaceWithFragment(editorState.getCurrentContent(), editorState.getSelection(), fragment); // TODO: merge the entity map once we stop using DraftEntity
+  // like this:
+  // const mergedEntityMap = newContent.getEntityMap().merge(entityMap);
+
+  return EditorState.push(editorState, newContent.set('entityMap', entityMap), 'insert-fragment');
+}
+
+function areTextBlocksAndClipboardEqual(textBlocks, blockMap) {
+  return textBlocks.length === blockMap.size && blockMap.valueSeq().every(function (block, ii) {
+    return block.getText() === textBlocks[ii];
+  });
+}
+
+module.exports = editOnPaste;
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var ContentBlock = __webpack_require__(13);
+
+var ContentBlockNode = __webpack_require__(6);
+
+var convertFromHTMLToContentBlocks = __webpack_require__(72);
+
+var generateRandomKey = __webpack_require__(9);
+
+var getSafeBodyFromHTML = __webpack_require__(73);
+
+var gkx = __webpack_require__(12);
+
+var Immutable = __webpack_require__(0);
+
+var sanitizeDraftText = __webpack_require__(47);
+
+var List = Immutable.List,
+    Repeat = Immutable.Repeat;
+var experimentalTreeDataSupport = gkx('draft_tree_data_support');
+var ContentBlockRecord = experimentalTreeDataSupport ? ContentBlockNode : ContentBlock;
+var DraftPasteProcessor = {
+  processHTML: function processHTML(html, blockRenderMap) {
+    return convertFromHTMLToContentBlocks(html, getSafeBodyFromHTML, blockRenderMap);
+  },
+  processText: function processText(textBlocks, character, type) {
+    return textBlocks.reduce(function (acc, textLine, index) {
+      textLine = sanitizeDraftText(textLine);
+      var key = generateRandomKey();
+      var blockNodeConfig = {
+        key: key,
+        type: type,
+        text: textLine,
+        characterList: List(Repeat(character, textLine.length))
+      }; // next block updates previous block
+
+      if (experimentalTreeDataSupport && index !== 0) {
+        var prevSiblingIndex = index - 1; // update previous block
+
+        var previousBlock = acc[prevSiblingIndex] = acc[prevSiblingIndex].merge({
+          nextSibling: key
+        });
+        blockNodeConfig = _objectSpread({}, blockNodeConfig, {
+          prevSibling: previousBlock.getKey()
+        });
+      }
+
+      acc.push(new ContentBlockRecord(blockNodeConfig));
+      return acc;
+    }, []);
+  }
+};
+module.exports = DraftPasteProcessor;
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var URI =
+/*#__PURE__*/
+function () {
+  function URI(uri) {
+    _defineProperty(this, "_uri", void 0);
+
+    this._uri = uri;
+  }
+
+  var _proto = URI.prototype;
+
+  _proto.toString = function toString() {
+    return this._uri;
+  };
+
+  return URI;
+}();
+
+module.exports = URI;
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function adjustBlockDepthForContentState(contentState, selectionState, adjustment, maxDepth) {
+  var startKey = selectionState.getStartKey();
+  var endKey = selectionState.getEndKey();
+  var blockMap = contentState.getBlockMap();
+  var blocks = blockMap.toSeq().skipUntil(function (_, k) {
+    return k === startKey;
+  }).takeUntil(function (_, k) {
+    return k === endKey;
+  }).concat([[endKey, blockMap.get(endKey)]]).map(function (block) {
+    var depth = block.getDepth() + adjustment;
+    depth = Math.max(0, Math.min(depth, maxDepth));
+    return block.set('depth', depth);
+  });
+  blockMap = blockMap.merge(blocks);
+  return contentState.merge({
+    blockMap: blockMap,
+    selectionBefore: selectionState,
+    selectionAfter: selectionState
+  });
+}
+
+module.exports = adjustBlockDepthForContentState;
+
+/***/ }),
+/* 163 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var NEWLINE_REGEX = /\r\n?|\n/g;
+
+function splitTextIntoTextBlocks(text) {
+  return text.split(NEWLINE_REGEX);
+}
+
+module.exports = splitTextIntoTextBlocks;
+
+/***/ }),
+/* 164 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(8);
+
+var cx = __webpack_require__(14);
+
+/**
+ * This component is responsible for rendering placeholder text for the
+ * `DraftEditor` component.
+ *
+ * Override placeholder style via CSS.
+ */
+var DraftEditorPlaceholder =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(DraftEditorPlaceholder, _React$Component);
+
+  function DraftEditorPlaceholder() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = DraftEditorPlaceholder.prototype;
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+    return this.props.text !== nextProps.text || this.props.editorState.getSelection().getHasFocus() !== nextProps.editorState.getSelection().getHasFocus();
+  };
+
+  _proto.render = function render() {
+    var hasFocus = this.props.editorState.getSelection().getHasFocus();
+    var className = cx({
+      'public/DraftEditorPlaceholder/root': true,
+      'public/DraftEditorPlaceholder/hasFocus': hasFocus
+    });
+    var contentStyle = {
+      whiteSpace: 'pre-wrap'
+    };
+    return React.createElement("div", {
+      className: className
+    }, React.createElement("div", {
+      className: cx('public/DraftEditorPlaceholder/inner'),
+      id: this.props.accessibilityID,
+      style: contentStyle
+    }, this.props.text));
+  };
+
+  return DraftEditorPlaceholder;
+}(React.Component);
+
+module.exports = DraftEditorPlaceholder;
+
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+/***/ }),
+/* 166 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var ContentBlock = __webpack_require__(13);
+
+var ContentBlockNode = __webpack_require__(6);
+
+var DraftStringKey = __webpack_require__(76);
+
+var encodeEntityRanges = __webpack_require__(167);
+
+var encodeInlineStyleRanges = __webpack_require__(168);
+
+var invariant = __webpack_require__(1);
+
+var createRawBlock = function createRawBlock(block, entityStorageMap) {
+  return {
+    key: block.getKey(),
+    text: block.getText(),
+    type: block.getType(),
+    depth: block.getDepth(),
+    inlineStyleRanges: encodeInlineStyleRanges(block),
+    entityRanges: encodeEntityRanges(block, entityStorageMap),
+    data: block.getData().toObject()
+  };
+};
+
+var insertRawBlock = function insertRawBlock(block, entityMap, rawBlocks, blockCacheRef) {
+  if (block instanceof ContentBlock) {
+    rawBlocks.push(createRawBlock(block, entityMap));
+    return;
+  }
+
+  !(block instanceof ContentBlockNode) ?  true ? invariant(false, 'block is not a BlockNode') : invariant(false) : void 0;
+  var parentKey = block.getParentKey();
+
+  var rawBlock = blockCacheRef[block.getKey()] = _objectSpread({}, createRawBlock(block, entityMap), {
+    children: []
+  });
+
+  if (parentKey) {
+    blockCacheRef[parentKey].children.push(rawBlock);
+    return;
+  }
+
+  rawBlocks.push(rawBlock);
+};
+
+var encodeRawBlocks = function encodeRawBlocks(contentState, rawState) {
+  var entityMap = rawState.entityMap;
+  var rawBlocks = [];
+  var blockCacheRef = {};
+  var entityCacheRef = {};
+  var entityStorageKey = 0;
+  contentState.getBlockMap().forEach(function (block) {
+    block.findEntityRanges(function (character) {
+      return character.getEntity() !== null;
+    }, function (start) {
+      var entityKey = block.getEntityAt(start); // Stringify to maintain order of otherwise numeric keys.
+
+      var stringifiedEntityKey = DraftStringKey.stringify(entityKey); // This makes this function resilient to two entities
+      // erroneously having the same key
+
+      if (entityCacheRef[stringifiedEntityKey]) {
+        return;
+      }
+
+      entityCacheRef[stringifiedEntityKey] = entityKey; // we need the `any` casting here since this is a temporary state
+      // where we will later on flip the entity map and populate it with
+      // real entity, at this stage we just need to map back the entity
+      // key used by the BlockNode
+
+      entityMap[stringifiedEntityKey] = "".concat(entityStorageKey);
+      entityStorageKey++;
+    });
+    insertRawBlock(block, entityMap, rawBlocks, blockCacheRef);
+  });
+  return {
+    blocks: rawBlocks,
+    entityMap: entityMap
+  };
+}; // Flip storage map so that our storage keys map to global
+// DraftEntity keys.
+
+
+var encodeRawEntityMap = function encodeRawEntityMap(contentState, rawState) {
+  var blocks = rawState.blocks,
+      entityMap = rawState.entityMap;
+  var rawEntityMap = {};
+  Object.keys(entityMap).forEach(function (key, index) {
+    var entity = contentState.getEntity(DraftStringKey.unstringify(key));
+    rawEntityMap[index] = {
+      type: entity.getType(),
+      mutability: entity.getMutability(),
+      data: entity.getData()
+    };
+  });
+  return {
+    blocks: blocks,
+    entityMap: rawEntityMap
+  };
+};
+
+var convertFromDraftStateToRaw = function convertFromDraftStateToRaw(contentState) {
+  var rawDraftContentState = {
+    entityMap: {},
+    blocks: []
+  }; // add blocks
+
+  rawDraftContentState = encodeRawBlocks(contentState, rawDraftContentState); // add entities
+
+  rawDraftContentState = encodeRawEntityMap(contentState, rawDraftContentState);
+  return rawDraftContentState;
+};
+
+module.exports = convertFromDraftStateToRaw;
+
+/***/ }),
+/* 167 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var DraftStringKey = __webpack_require__(76);
+
+var UnicodeUtils = __webpack_require__(16);
+
+var strlen = UnicodeUtils.strlen;
+/**
+ * Convert to UTF-8 character counts for storage.
+ */
+
+function encodeEntityRanges(block, storageMap) {
+  var encoded = [];
+  block.findEntityRanges(function (character) {
+    return !!character.getEntity();
+  }, function (
+  /*number*/
+  start,
+  /*number*/
+  end) {
+    var text = block.getText();
+    var key = block.getEntityAt(start);
+    encoded.push({
+      offset: strlen(text.slice(0, start)),
+      length: strlen(text.slice(start, end)),
+      // Encode the key as a number for range storage.
+      key: Number(storageMap[DraftStringKey.stringify(key)])
+    });
+  });
+  return encoded;
+}
+
+module.exports = encodeEntityRanges;
+
+/***/ }),
+/* 168 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var UnicodeUtils = __webpack_require__(16);
+
+var findRangesImmutable = __webpack_require__(19);
+
+var areEqual = function areEqual(a, b) {
+  return a === b;
+};
+
+var isTruthy = function isTruthy(a) {
+  return !!a;
+};
+
+var EMPTY_ARRAY = [];
+/**
+ * Helper function for getting encoded styles for each inline style. Convert
+ * to UTF-8 character counts for storage.
+ */
+
+function getEncodedInlinesForType(block, styleList, styleToEncode) {
+  var ranges = []; // Obtain an array with ranges for only the specified style.
+
+  var filteredInlines = styleList.map(function (style) {
+    return style.has(styleToEncode);
+  }).toList();
+  findRangesImmutable(filteredInlines, areEqual, // We only want to keep ranges with nonzero style values.
+  isTruthy, function (start, end) {
+    var text = block.getText();
+    ranges.push({
+      offset: UnicodeUtils.strlen(text.slice(0, start)),
+      length: UnicodeUtils.strlen(text.slice(start, end)),
+      style: styleToEncode
+    });
+  });
+  return ranges;
+}
+/*
+ * Retrieve the encoded arrays of inline styles, with each individual style
+ * treated separately.
+ */
+
+
+function encodeInlineStyleRanges(block) {
+  var styleList = block.getCharacterList().map(function (c) {
+    return c.getStyle();
+  }).toList();
+  var ranges = styleList.flatten().toSet().map(function (style) {
+    return getEncodedInlinesForType(block, styleList, style);
+  });
+  return Array.prototype.concat.apply(EMPTY_ARRAY, ranges.toJS());
+}
+
+module.exports = encodeInlineStyleRanges;
+
+/***/ }),
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var ContentBlock = __webpack_require__(13);
+
+var ContentBlockNode = __webpack_require__(6);
+
+var ContentState = __webpack_require__(31);
+
+var DraftEntity = __webpack_require__(22);
+
+var DraftTreeAdapter = __webpack_require__(170);
+
+var DraftTreeInvariants = __webpack_require__(171);
+
+var SelectionState = __webpack_require__(23);
+
+var createCharacterList = __webpack_require__(172);
+
+var decodeEntityRanges = __webpack_require__(173);
+
+var decodeInlineStyleRanges = __webpack_require__(174);
+
+var generateRandomKey = __webpack_require__(9);
+
+var gkx = __webpack_require__(12);
+
+var Immutable = __webpack_require__(0);
+
+var invariant = __webpack_require__(1);
+
+var experimentalTreeDataSupport = gkx('draft_tree_data_support');
+var List = Immutable.List,
+    Map = Immutable.Map,
+    OrderedMap = Immutable.OrderedMap;
+
+var decodeBlockNodeConfig = function decodeBlockNodeConfig(block, entityMap) {
+  var key = block.key,
+      type = block.type,
+      data = block.data,
+      text = block.text,
+      depth = block.depth;
+  var blockNodeConfig = {
+    text: text,
+    depth: depth || 0,
+    type: type || 'unstyled',
+    key: key || generateRandomKey(),
+    data: Map(data),
+    characterList: decodeCharacterList(block, entityMap)
+  };
+  return blockNodeConfig;
+};
+
+var decodeCharacterList = function decodeCharacterList(block, entityMap) {
+  var text = block.text,
+      rawEntityRanges = block.entityRanges,
+      rawInlineStyleRanges = block.inlineStyleRanges;
+  var entityRanges = rawEntityRanges || [];
+  var inlineStyleRanges = rawInlineStyleRanges || []; // Translate entity range keys to the DraftEntity map.
+
+  return createCharacterList(decodeInlineStyleRanges(text, inlineStyleRanges), decodeEntityRanges(text, entityRanges.filter(function (range) {
+    return entityMap.hasOwnProperty(range.key);
+  }).map(function (range) {
+    return _objectSpread({}, range, {
+      key: entityMap[range.key]
+    });
+  })));
+};
+
+var addKeyIfMissing = function addKeyIfMissing(block) {
+  return _objectSpread({}, block, {
+    key: block.key || generateRandomKey()
+  });
+};
+/**
+ * Node stack is responsible to ensure we traverse the tree only once
+ * in depth order, while also providing parent refs to inner nodes to
+ * construct their links.
+ */
+
+
+var updateNodeStack = function updateNodeStack(stack, nodes, parentRef) {
+  var nodesWithParentRef = nodes.map(function (block) {
+    return _objectSpread({}, block, {
+      parentRef: parentRef
+    });
+  }); // since we pop nodes from the stack we need to insert them in reverse
+
+  return stack.concat(nodesWithParentRef.reverse());
+};
+/**
+ * This will build a tree draft content state by creating the node
+ * reference links into a single tree walk. Each node has a link
+ * reference to "parent", "children", "nextSibling" and "prevSibling"
+ * blockMap will be created using depth ordering.
+ */
+
+
+var decodeContentBlockNodes = function decodeContentBlockNodes(blocks, entityMap) {
+  return blocks // ensure children have valid keys to enable sibling links
+  .map(addKeyIfMissing).reduce(function (blockMap, block, index) {
+    !Array.isArray(block.children) ?  true ? invariant(false, 'invalid RawDraftContentBlock can not be converted to ContentBlockNode') : invariant(false) : void 0; // ensure children have valid keys to enable sibling links
+
+    var children = block.children.map(addKeyIfMissing); // root level nodes
+
+    var contentBlockNode = new ContentBlockNode(_objectSpread({}, decodeBlockNodeConfig(block, entityMap), {
+      prevSibling: index === 0 ? null : blocks[index - 1].key,
+      nextSibling: index === blocks.length - 1 ? null : blocks[index + 1].key,
+      children: List(children.map(function (child) {
+        return child.key;
+      }))
+    })); // push root node to blockMap
+
+    blockMap = blockMap.set(contentBlockNode.getKey(), contentBlockNode); // this stack is used to ensure we visit all nodes respecting depth ordering
+
+    var stack = updateNodeStack([], children, contentBlockNode); // start computing children nodes
+
+    while (stack.length > 0) {
+      // we pop from the stack and start processing this node
+      var node = stack.pop(); // parentRef already points to a converted ContentBlockNode
+
+      var parentRef = node.parentRef;
+      var siblings = parentRef.getChildKeys();
+
+      var _index = siblings.indexOf(node.key);
+
+      var isValidBlock = Array.isArray(node.children);
+
+      if (!isValidBlock) {
+        !isValidBlock ?  true ? invariant(false, 'invalid RawDraftContentBlock can not be converted to ContentBlockNode') : invariant(false) : void 0;
+        break;
+      } // ensure children have valid keys to enable sibling links
+
+
+      var _children = node.children.map(addKeyIfMissing);
+
+      var _contentBlockNode = new ContentBlockNode(_objectSpread({}, decodeBlockNodeConfig(node, entityMap), {
+        parent: parentRef.getKey(),
+        children: List(_children.map(function (child) {
+          return child.key;
+        })),
+        prevSibling: _index === 0 ? null : siblings.get(_index - 1),
+        nextSibling: _index === siblings.size - 1 ? null : siblings.get(_index + 1)
+      })); // push node to blockMap
+
+
+      blockMap = blockMap.set(_contentBlockNode.getKey(), _contentBlockNode); // this stack is used to ensure we visit all nodes respecting depth ordering
+
+      stack = updateNodeStack(stack, _children, _contentBlockNode);
+    }
+
+    return blockMap;
+  }, OrderedMap());
+};
+
+var decodeContentBlocks = function decodeContentBlocks(blocks, entityMap) {
+  return OrderedMap(blocks.map(function (block) {
+    var contentBlock = new ContentBlock(decodeBlockNodeConfig(block, entityMap));
+    return [contentBlock.getKey(), contentBlock];
+  }));
+};
+
+var decodeRawBlocks = function decodeRawBlocks(rawState, entityMap) {
+  var isTreeRawBlock = rawState.blocks.find(function (block) {
+    return Array.isArray(block.children) && block.children.length > 0;
+  });
+  var rawBlocks = experimentalTreeDataSupport && !isTreeRawBlock ? DraftTreeAdapter.fromRawStateToRawTreeState(rawState).blocks : rawState.blocks;
+
+  if (!experimentalTreeDataSupport) {
+    return decodeContentBlocks(isTreeRawBlock ? DraftTreeAdapter.fromRawTreeStateToRawState(rawState).blocks : rawBlocks, entityMap);
+  }
+
+  var blockMap = decodeContentBlockNodes(rawBlocks, entityMap); // in dev mode, check that the tree invariants are met
+
+  if (true) {
+    !DraftTreeInvariants.isValidTree(blockMap) ?  true ? invariant(false, 'Should be a valid tree') : invariant(false) : void 0;
+  }
+
+  return blockMap;
+};
+
+var decodeRawEntityMap = function decodeRawEntityMap(rawState) {
+  var rawEntityMap = rawState.entityMap;
+  var entityMap = {}; // TODO: Update this once we completely remove DraftEntity
+
+  Object.keys(rawEntityMap).forEach(function (rawEntityKey) {
+    var _rawEntityMap$rawEnti = rawEntityMap[rawEntityKey],
+        type = _rawEntityMap$rawEnti.type,
+        mutability = _rawEntityMap$rawEnti.mutability,
+        data = _rawEntityMap$rawEnti.data; // get the key reference to created entity
+
+    entityMap[rawEntityKey] = DraftEntity.__create(type, mutability, data || {});
+  });
+  return entityMap;
+};
+
+var convertFromRawToDraftState = function convertFromRawToDraftState(rawState) {
+  !Array.isArray(rawState.blocks) ?  true ? invariant(false, 'invalid RawDraftContentState') : invariant(false) : void 0; // decode entities
+
+  var entityMap = decodeRawEntityMap(rawState); // decode blockMap
+
+  var blockMap = decodeRawBlocks(rawState, entityMap); // create initial selection
+
+  var selectionState = blockMap.isEmpty() ? new SelectionState() : SelectionState.createEmpty(blockMap.first().getKey());
+  return new ContentState({
+    blockMap: blockMap,
+    entityMap: entityMap,
+    selectionBefore: selectionState,
+    selectionAfter: selectionState
+  });
+};
+
+module.exports = convertFromRawToDraftState;
+
+/***/ }),
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ *
+ * This is unstable and not part of the public API and should not be used by
+ * production systems. This file may be update/removed without notice.
+ */
+var generateRandomKey = __webpack_require__(9);
+
+var invariant = __webpack_require__(1);
+
+var traverseInDepthOrder = function traverseInDepthOrder(blocks, fn) {
+  var stack = [].concat(blocks).reverse();
+
+  while (stack.length) {
+    var _block = stack.pop();
+
+    fn(_block);
+    var children = _block.children;
+    !Array.isArray(children) ?  true ? invariant(false, 'Invalid tree raw block') : invariant(false) : void 0;
+    stack = stack.concat([].concat(children.reverse()));
+  }
+};
+
+var isListBlock = function isListBlock(block) {
+  if (!(block && block.type)) {
+    return false;
+  }
+
+  var type = block.type;
+  return type === 'unordered-list-item' || type === 'ordered-list-item';
+};
+
+var addDepthToChildren = function addDepthToChildren(block) {
+  if (Array.isArray(block.children)) {
+    block.children = block.children.map(function (child) {
+      return child.type === block.type ? _objectSpread({}, child, {
+        depth: (block.depth || 0) + 1
+      }) : child;
+    });
+  }
+};
+/**
+ * This adapter is intended to be be used as an adapter to draft tree data
+ *
+ * draft state <=====> draft tree state
+ */
+
+
+var DraftTreeAdapter = {
+  /**
+   * Converts from a tree raw state back to draft raw state
+   */
+  fromRawTreeStateToRawState: function fromRawTreeStateToRawState(draftTreeState) {
+    var blocks = draftTreeState.blocks;
+    var transformedBlocks = [];
+    !Array.isArray(blocks) ?  true ? invariant(false, 'Invalid raw state') : invariant(false) : void 0;
+
+    if (!Array.isArray(blocks) || !blocks.length) {
+      return draftTreeState;
+    }
+
+    traverseInDepthOrder(blocks, function (block) {
+      var newBlock = _objectSpread({}, block);
+
+      if (isListBlock(block)) {
+        newBlock.depth = newBlock.depth || 0;
+        addDepthToChildren(block); // if it's a non-leaf node, we don't do anything else
+
+        if (block.children != null && block.children.length > 0) {
+          return;
+        }
+      }
+
+      delete newBlock.children;
+      transformedBlocks.push(newBlock);
+    });
+    draftTreeState.blocks = transformedBlocks;
+    return _objectSpread({}, draftTreeState, {
+      blocks: transformedBlocks
+    });
+  },
+
+  /**
+   * Converts from draft raw state to tree draft state
+   */
+  fromRawStateToRawTreeState: function fromRawStateToRawTreeState(draftState) {
+    var transformedBlocks = [];
+    var parentStack = [];
+    draftState.blocks.forEach(function (block) {
+      var isList = isListBlock(block);
+      var depth = block.depth || 0;
+
+      var treeBlock = _objectSpread({}, block, {
+        children: []
+      });
+
+      if (!isList) {
+        transformedBlocks.push(treeBlock);
+        return;
+      }
+
+      var lastParent = parentStack[0]; // block is non-nested & there are no nested blocks, directly push block
+
+      if (lastParent == null && depth === 0) {
+        transformedBlocks.push(treeBlock); // block is first nested block or previous nested block is at a lower level
+      } else if (lastParent == null || lastParent.depth < depth - 1) {
+        // create new parent block
+        var newParent = {
+          key: generateRandomKey(),
+          text: '',
+          depth: depth - 1,
+          type: block.type,
+          children: [],
+          entityRanges: [],
+          inlineStyleRanges: []
+        };
+        parentStack.unshift(newParent);
+
+        if (depth === 1) {
+          // add as a root-level block
+          transformedBlocks.push(newParent);
+        } else if (lastParent != null) {
+          // depth > 1 => also add as previous parent's child
+          lastParent.children.push(newParent);
+        }
+
+        newParent.children.push(treeBlock);
+      } else if (lastParent.depth === depth - 1) {
+        // add as child of last parent
+        lastParent.children.push(treeBlock);
+      } else {
+        // pop out parents at levels above this one from the parent stack
+        while (lastParent != null && lastParent.depth >= depth) {
+          parentStack.shift();
+          lastParent = parentStack[0];
+        }
+
+        if (depth > 0) {
+          lastParent.children.push(treeBlock);
+        } else {
+          transformedBlocks.push(treeBlock);
+        }
+      }
+    });
+    return _objectSpread({}, draftState, {
+      blocks: transformedBlocks
+    });
+  }
+};
+module.exports = DraftTreeAdapter;
+
+/***/ }),
+/* 171 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ *
+ * This is unstable and not part of the public API and should not be used by
+ * production systems. This file may be update/removed without notice.
+ */
+var warning = __webpack_require__(37);
+
+var DraftTreeInvariants = {
+  /**
+   * Check if the block is valid
+   */
+  isValidBlock: function isValidBlock(block, blockMap) {
+    var key = block.getKey(); // is its parent's child
+
+    var parentKey = block.getParentKey();
+
+    if (parentKey != null) {
+      var parent = blockMap.get(parentKey);
+
+      if (!parent.getChildKeys().includes(key)) {
+         true ? warning(true, 'Tree is missing parent -> child pointer on %s', key) : void 0;
+        return false;
+      }
+    } // is its children's parent
+
+
+    var children = block.getChildKeys().map(function (k) {
+      return blockMap.get(k);
+    });
+
+    if (!children.every(function (c) {
+      return c.getParentKey() === key;
+    })) {
+       true ? warning(true, 'Tree is missing child -> parent pointer on %s', key) : void 0;
+      return false;
+    } // is its previous sibling's next sibling
+
+
+    var prevSiblingKey = block.getPrevSiblingKey();
+
+    if (prevSiblingKey != null) {
+      var prevSibling = blockMap.get(prevSiblingKey);
+
+      if (prevSibling.getNextSiblingKey() !== key) {
+         true ? warning(true, "Tree is missing nextSibling pointer on %s's prevSibling", key) : void 0;
+        return false;
+      }
+    } // is its next sibling's previous sibling
+
+
+    var nextSiblingKey = block.getNextSiblingKey();
+
+    if (nextSiblingKey != null) {
+      var nextSibling = blockMap.get(nextSiblingKey);
+
+      if (nextSibling.getPrevSiblingKey() !== key) {
+         true ? warning(true, "Tree is missing prevSibling pointer on %s's nextSibling", key) : void 0;
+        return false;
+      }
+    } // no 2-node cycles
+
+
+    if (nextSiblingKey !== null && prevSiblingKey !== null) {
+      if (prevSiblingKey === nextSiblingKey) {
+         true ? warning(true, 'Tree has a two-node cycle at %s', key) : void 0;
+        return false;
+      }
+    } // if it's a leaf node, it has text but no children
+
+
+    if (block.text != '') {
+      if (block.getChildKeys().size > 0) {
+         true ? warning(true, 'Leaf node %s has children', key) : void 0;
+        return false;
+      }
+    }
+
+    return true;
+  },
+
+  /**
+   * Checks that this is a connected tree on all the blocks
+   * starting from the first block, traversing nextSibling and child pointers
+   * should be a tree (preorder traversal - parent, then children)
+   * num of connected node === number of blocks
+   */
+  isConnectedTree: function isConnectedTree(blockMap) {
+    // exactly one node has no previous sibling + no parent
+    var eligibleFirstNodes = blockMap.toArray().filter(function (block) {
+      return block.getParentKey() == null && block.getPrevSiblingKey() == null;
+    });
+
+    if (eligibleFirstNodes.length !== 1) {
+       true ? warning(true, 'Tree is not connected. More or less than one first node') : void 0;
+      return false;
+    }
+
+    var firstNode = eligibleFirstNodes.shift();
+    var nodesSeen = 0;
+    var currentKey = firstNode.getKey();
+    var visitedStack = [];
+
+    while (currentKey != null) {
+      var currentNode = blockMap.get(currentKey);
+      var childKeys = currentNode.getChildKeys();
+      var nextSiblingKey = currentNode.getNextSiblingKey(); // if the node has children, add parent's next sibling to stack and go to children
+
+      if (childKeys.size > 0) {
+        if (nextSiblingKey != null) {
+          visitedStack.unshift(nextSiblingKey);
+        }
+
+        var children = childKeys.map(function (k) {
+          return blockMap.get(k);
+        });
+
+        var _firstNode = children.find(function (block) {
+          return block.getPrevSiblingKey() == null;
+        });
+
+        if (_firstNode == null) {
+           true ? warning(true, '%s has no first child', currentKey) : void 0;
+          return false;
+        }
+
+        currentKey = _firstNode.getKey(); // TODO(T32490138): Deal with multi-node cycles here
+      } else {
+        if (currentNode.getNextSiblingKey() != null) {
+          currentKey = currentNode.getNextSiblingKey();
+        } else {
+          currentKey = visitedStack.shift();
+        }
+      }
+
+      nodesSeen++;
+    }
+
+    if (nodesSeen !== blockMap.size) {
+       true ? warning(true, 'Tree is not connected. %s nodes were seen instead of %s', nodesSeen, blockMap.size) : void 0;
+      return false;
+    }
+
+    return true;
+  },
+
+  /**
+   * Checks that the block map is a connected tree with valid blocks
+   */
+  isValidTree: function isValidTree(blockMap) {
+    var _this = this;
+
+    var blocks = blockMap.toArray();
+
+    if (!blocks.every(function (block) {
+      return _this.isValidBlock(block, blockMap);
+    })) {
+      return false;
+    }
+
+    return this.isConnectedTree(blockMap);
+  }
+};
+module.exports = DraftTreeInvariants;
+
+/***/ }),
+/* 172 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var CharacterMetadata = __webpack_require__(5);
+
+var Immutable = __webpack_require__(0);
+
+var List = Immutable.List;
+
+function createCharacterList(inlineStyles, entities) {
+  var characterArray = inlineStyles.map(function (style, ii) {
+    var entity = entities[ii];
+    return CharacterMetadata.create({
+      style: style,
+      entity: entity
+    });
+  });
+  return List(characterArray);
+}
+
+module.exports = createCharacterList;
+
+/***/ }),
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var UnicodeUtils = __webpack_require__(16);
+
+var substr = UnicodeUtils.substr;
+/**
+ * Convert to native JavaScript string lengths to determine ranges.
+ */
+
+function decodeEntityRanges(text, ranges) {
+  var entities = Array(text.length).fill(null);
+
+  if (ranges) {
+    ranges.forEach(function (range) {
+      // Using Unicode-enabled substrings converted to JavaScript lengths,
+      // fill the output array with entity keys.
+      var start = substr(text, 0, range.offset).length;
+      var end = start + substr(text, range.offset, range.length).length;
+
+      for (var ii = start; ii < end; ii++) {
+        entities[ii] = range.key;
+      }
+    });
+  }
+
+  return entities;
+}
+
+module.exports = decodeEntityRanges;
+
+/***/ }),
+/* 174 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var UnicodeUtils = __webpack_require__(16);
+
+var _require = __webpack_require__(0),
+    OrderedSet = _require.OrderedSet;
+
+var substr = UnicodeUtils.substr;
+var EMPTY_SET = OrderedSet();
+/**
+ * Convert to native JavaScript string lengths to determine ranges.
+ */
+
+function decodeInlineStyleRanges(text, ranges) {
+  var styles = Array(text.length).fill(EMPTY_SET);
+
+  if (ranges) {
+    ranges.forEach(function (range) {
+      var cursor = substr(text, 0, range.offset).length;
+      var end = cursor + substr(text, range.offset, range.length).length;
+
+      while (cursor < end) {
+        styles[cursor] = styles[cursor].add(range.style);
+        cursor++;
+      }
+    });
+  }
+
+  return styles;
+}
+
+module.exports = decodeInlineStyleRanges;
+
+/***/ }),
+/* 175 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var getRangeBoundingClientRect = __webpack_require__(176);
+/**
+ * Return the bounding ClientRect for the visible DOM selection, if any.
+ * In cases where there are no selected ranges or the bounding rect is
+ * temporarily invalid, return null.
+ */
+
+
+function getVisibleSelectionRect(global) {
+  var selection = global.getSelection();
+
+  if (!selection.rangeCount) {
+    return null;
+  }
+
+  var range = selection.getRangeAt(0);
+  var boundingRect = getRangeBoundingClientRect(range);
+  var top = boundingRect.top,
+      right = boundingRect.right,
+      bottom = boundingRect.bottom,
+      left = boundingRect.left; // When a re-render leads to a node being removed, the DOM selection will
+  // temporarily be placed on an ancestor node, which leads to an invalid
+  // bounding rect. Discard this state.
+
+  if (top === 0 && right === 0 && bottom === 0 && left === 0) {
+    return null;
+  }
+
+  return boundingRect;
+}
+
+module.exports = getVisibleSelectionRect;
+
+/***/ }),
+/* 176 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+var getRangeClientRects = __webpack_require__(58);
+
+/**
+ * Like range.getBoundingClientRect() but normalizes for browser bugs.
+ */
+function getRangeBoundingClientRect(range) {
+  // "Return a DOMRect object describing the smallest rectangle that includes
+  // the first rectangle in list and all of the remaining rectangles of which
+  // the height or width is not zero."
+  // http://www.w3.org/TR/cssom-view/#dom-range-getboundingclientrect
+  var rects = getRangeClientRects(range);
+  var top = 0;
+  var right = 0;
+  var bottom = 0;
+  var left = 0;
+
+  if (rects.length) {
+    // If the first rectangle has 0 width, we use the second, this is needed
+    // because Chrome renders a 0 width rectangle when the selection contains
+    // a line break.
+    if (rects.length > 1 && rects[0].width === 0) {
+      var _rects$ = rects[1];
+      top = _rects$.top;
+      right = _rects$.right;
+      bottom = _rects$.bottom;
+      left = _rects$.left;
+    } else {
+      var _rects$2 = rects[0];
+      top = _rects$2.top;
+      right = _rects$2.right;
+      bottom = _rects$2.bottom;
+      left = _rects$2.left;
+    }
+
+    for (var ii = 1; ii < rects.length; ii++) {
+      var rect = rects[ii];
+
+      if (rect.height !== 0 && rect.width !== 0) {
+        top = Math.min(top, rect.top);
+        right = Math.max(right, rect.right);
+        bottom = Math.max(bottom, rect.bottom);
+        left = Math.min(left, rect.left);
+      }
+    }
+  }
+
+  return {
+    top: top,
+    right: right,
+    bottom: bottom,
+    left: left,
+    width: right - left,
+    height: bottom - top
+  };
+}
+
+module.exports = getRangeBoundingClientRect;
+
+/***/ })
+/******/ ]);
+});
