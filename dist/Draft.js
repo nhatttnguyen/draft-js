@@ -11081,6 +11081,14 @@ function checkDevice() {
   return isMobile;
 }
 
+function findDiff(str1, str2) {
+  var diff = '';
+  str2.split('').forEach(function (val, i) {
+    if (val != str1.charAt(i)) diff += val;
+  });
+  return diff;
+}
+
 var DraftEditorCompositionHandler = {
   /**
    * A `compositionstart` event has fired while we're still in composition
@@ -11324,29 +11332,57 @@ var DraftEditorCompositionHandler = {
       editor.update(EditorState.set(editor._latestEditorState, {
         inCompositionMode: false
       }));
+      mutations.forEach(function (composedChars, offsetKey) {
+        var selectionState = editor._latestEditorState.getSelection();
 
-      if (e.data || e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' || !domObserver) {
-        var currentSelection = editor._latestEditorState.getSelection();
+        var focusKey = selectionState.focusKey;
 
-        if (!(e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space')) {
-          var focusOffset = currentSelection.getFocusOffset();
-          currentSelection = currentSelection.merge({
-            anchorOffset: focusOffset - e.data.length < 0 ? focusOffset : focusOffset - e.data.length,
-            focusOffset: focusOffset - e.data.length < 0 ? focusOffset : focusOffset - e.data.length
-          });
-          var newEditorState = EditorState.forceSelection(editor._latestEditorState, currentSelection);
-          editor.update(newEditorState);
-        }
+        var contentState = editor._latestEditorState.getCurrentContent();
 
-        mutations.forEach(function (composedChars, offsetKey) {
-          console.log('composedChars======', composedChars);
-          editOnBeforeInput2(editor, e, composedChars);
-        });
-        stillComposing = false;
-        domObserver = null;
-        resolved = true;
-        return;
-      }
+        var block = contentState.getBlockForKey(focusKey);
+        var blockText = block.getText();
+        console.log('blockText======', blockText);
+        console.log('composedChars======', composedChars);
+        var chars = findDiff(composedChars, blockText);
+        editOnBeforeInput2(editor, e, chars);
+      });
+      stillComposing = false;
+      domObserver = null;
+      resolved = true;
+      return; // if (
+      //   e.data ||
+      //   (e.key === 'Process' &&
+      //     e.nativeEvent &&
+      //     e.nativeEvent.code === 'Space') ||
+      //   !domObserver
+      // ) {
+      //   let currentSelection = editor._latestEditorState.getSelection();
+      // if (
+      //   !(
+      //     e.key === 'Process' &&
+      //     e.nativeEvent &&
+      //     e.nativeEvent.code === 'Space'
+      //   )
+      // ) {
+      //   console.log('xinchao, co vao day ko');
+      //   const focusOffset = currentSelection.getFocusOffset();
+      //   currentSelection = currentSelection.merge({
+      //     anchorOffset:
+      //       focusOffset - e.data.length < 0
+      //         ? focusOffset
+      //         : focusOffset - e.data.length,
+      //     focusOffset:
+      //       focusOffset - e.data.length < 0
+      //         ? focusOffset
+      //         : focusOffset - e.data.length,
+      //   });
+      //   const newEditorState = EditorState.forceSelection(
+      //     editor._latestEditorState,
+      //     currentSelection,
+      //   );
+      //   editor.update(newEditorState);
+      // }
+      // }
     }
 
     mutations.forEach(function (composedChars, offsetKey) {
