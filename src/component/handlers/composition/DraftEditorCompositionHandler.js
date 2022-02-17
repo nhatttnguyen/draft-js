@@ -283,53 +283,53 @@ const DraftEditorCompositionHandler = {
       return;
     }
     const isMobile = checkDevice();
-    if (!isMobile) {
-      editor.update(
-        EditorState.set(editor._latestEditorState, {
-          inCompositionMode: false,
-        }),
-      );
-      if (
-        e.data ||
-        (e.key === 'Process' &&
-          e.nativeEvent &&
-          e.nativeEvent.code === 'Space') ||
-        !domObserver
-      ) {
-        let currentSelection = editor._latestEditorState.getSelection();
+    // if (!isMobile) {
+    //   editor.update(
+    //     EditorState.set(editor._latestEditorState, {
+    //       inCompositionMode: false,
+    //     }),
+    //   );
+    //   if (
+    //     e.data ||
+    //     (e.key === 'Process' &&
+    //       e.nativeEvent &&
+    //       e.nativeEvent.code === 'Space') ||
+    //     !domObserver
+    //   ) {
+    //     let currentSelection = editor._latestEditorState.getSelection();
 
-        if (
-          !(
-            e.key === 'Process' &&
-            e.nativeEvent &&
-            e.nativeEvent.code === 'Space'
-          )
-        ) {
-          const focusOffset = currentSelection.getFocusOffset();
-          currentSelection = currentSelection.merge({
-            anchorOffset:
-              focusOffset - e.data.length < 0
-                ? focusOffset
-                : focusOffset - e.data.length,
-            focusOffset:
-              focusOffset - e.data.length < 0
-                ? focusOffset
-                : focusOffset - e.data.length,
-          });
-          const newEditorState = EditorState.forceSelection(
-            editor._latestEditorState,
-            currentSelection,
-          );
-          editor.update(newEditorState);
-        }
+    //     if (
+    //       !(
+    //         e.key === 'Process' &&
+    //         e.nativeEvent &&
+    //         e.nativeEvent.code === 'Space'
+    //       )
+    //     ) {
+    //       const focusOffset = currentSelection.getFocusOffset();
+    //       currentSelection = currentSelection.merge({
+    //         anchorOffset:
+    //           focusOffset - e.data.length < 0
+    //             ? focusOffset
+    //             : focusOffset - e.data.length,
+    //         focusOffset:
+    //           focusOffset - e.data.length < 0
+    //             ? focusOffset
+    //             : focusOffset - e.data.length,
+    //       });
+    //       const newEditorState = EditorState.forceSelection(
+    //         editor._latestEditorState,
+    //         currentSelection,
+    //       );
+    //       editor.update(newEditorState);
+    //     }
 
-        editOnBeforeInput(editor, e);
-        stillComposing = false;
-        domObserver = null;
-        resolved = true;
-        return;
-      }
-    }
+    //     editOnBeforeInput(editor, e);
+    //     stillComposing = false;
+    //     domObserver = null;
+    //     resolved = true;
+    //     return;
+    //   }
+    // }
 
     const mutations = nullthrows(domObserver).stopAndFlushMutations();
     console.log('resolveComposition-mutations: ', mutations);
@@ -372,79 +372,111 @@ const DraftEditorCompositionHandler = {
 
     let contentState = editorState.getCurrentContent();
     mutations.forEach((composedChars, offsetKey) => {
-      const {blockKey, decoratorKey, leafKey} = DraftOffsetKey.decode(
-        offsetKey,
-      );
+      if (!isMobile) {
+        if (editor._pendingStateFromBeforeInput !== undefined) {
+          editor.update(editor._pendingStateFromBeforeInput);
+          editor._pendingStateFromBeforeInput = undefined;
+        }
 
-      if (
-        editorState
-          .getBlockTree(blockKey)
-          .getIn([decoratorKey, 'leaves', leafKey])
-      ) {
-        const {start, end} = editorState
-          .getBlockTree(blockKey)
-          .getIn([decoratorKey, 'leaves', leafKey]);
+        const editorState = editor._latestEditorState;
 
-        const replacementRange = editorState.getSelection().merge({
-          anchorKey: blockKey,
-          focusKey: blockKey,
-          anchorOffset: start,
-          focusOffset: end,
-          isBackward: false,
-        });
+        const chars = e.data;
 
-        const entityKey = getEntityKeyForSelection(
-          contentState,
-          replacementRange,
+        // In some cases (ex: IE ideographic space insertion) no character data
+        // is provided. There's nothing to do when this happens.
+        if (!chars) {
+          return;
+        }
+
+        // Allow the top-level component to handle the insertion manually. This is
+        // useful when triggering interesting behaviors for a character insertion,
+        // Simple examples: replacing a raw text ':)' with a smile emoji or image
+        // decorator, or setting a block to be a list item after typing '- ' at the
+        // start of the block.
+        if (
+          editor.props.handleBeforeInput &&
+          isEventHandled(
+            editor.props.handleBeforeInput(chars, editorState, e.timeStamp),
+          )
+        ) {
+          e.preventDefault();
+          return;
+        }
+      } else {
+        const {blockKey, decoratorKey, leafKey} = DraftOffsetKey.decode(
+          offsetKey,
         );
-        const currentStyle = contentState
-          .getBlockForKey(blockKey)
-          .getInlineStyleAt(start);
 
-        contentState = DraftModifier.replaceText(
-          contentState,
-          replacementRange,
-          composedChars,
-          currentStyle,
-          entityKey,
+        if (
+          editorState
+            .getBlockTree(blockKey)
+            .getIn([decoratorKey, 'leaves', leafKey])
+        ) {
+          const {start, end} = editorState
+            .getBlockTree(blockKey)
+            .getIn([decoratorKey, 'leaves', leafKey]);
+
+          const replacementRange = editorState.getSelection().merge({
+            anchorKey: blockKey,
+            focusKey: blockKey,
+            anchorOffset: start,
+            focusOffset: end,
+            isBackward: false,
+          });
+
+          const entityKey = getEntityKeyForSelection(
+            contentState,
+            replacementRange,
+          );
+          const currentStyle = contentState
+            .getBlockForKey(blockKey)
+            .getInlineStyleAt(start);
+
+          contentState = DraftModifier.replaceText(
+            contentState,
+            replacementRange,
+            composedChars,
+            currentStyle,
+            entityKey,
+          );
+          console.log('resolveComposition-contentState:', contentState);
+          const block = contentState.getBlockForKey(blockKey);
+          const blockText = block.getText();
+          const plainText = contentState.getPlainText();
+          console.log('resolveComposition-plainText:', plainText);
+          console.log('resolveComposition-blockText:', blockText);
+          // We need to update the editorState so the leaf node ranges are properly
+          // updated and multiple mutations are correctly applied.
+          editorState = EditorState.set(editorState, {
+            currentContent: contentState,
+          });
+        }
+
+        // When we apply the text changes to the ContentState, the selection always
+        // goes to the end of the field, but it should just stay where it is
+        // after compositionEnd.
+        const documentSelection = getDraftEditorSelection(
+          editorState,
+          getContentEditableContainer(editor),
         );
-        console.log('resolveComposition-contentState:', contentState);
-        const block = contentState.getBlockForKey(blockKey);
-        const blockText = block.getText();
-        const plainText = contentState.getPlainText();
-        console.log('resolveComposition-plainText:', plainText);
-        console.log('resolveComposition-blockText:', blockText);
-        // We need to update the editorState so the leaf node ranges are properly
-        // updated and multiple mutations are correctly applied.
-        editorState = EditorState.set(editorState, {
-          currentContent: contentState,
-        });
+        console.log('resolveComposition-documentSelection"', documentSelection);
+        const compositionEndSelectionState = documentSelection.selectionState;
+        editor.restoreEditorDOM();
+
+        const editorStateWithUpdatedSelection = EditorState.acceptSelection(
+          editorState,
+          compositionEndSelectionState,
+        );
+
+        editor.update(
+          EditorState.push(
+            editorStateWithUpdatedSelection,
+            contentState,
+            'insert-characters',
+          ),
+        );
       }
     });
-
-    // When we apply the text changes to the ContentState, the selection always
-    // goes to the end of the field, but it should just stay where it is
-    // after compositionEnd.
-    const documentSelection = getDraftEditorSelection(
-      editorState,
-      getContentEditableContainer(editor),
-    );
-    console.log('resolveComposition-documentSelection"', documentSelection);
-    const compositionEndSelectionState = documentSelection.selectionState;
-    editor.restoreEditorDOM();
-
-    const editorStateWithUpdatedSelection = EditorState.acceptSelection(
-      editorState,
-      compositionEndSelectionState,
-    );
-
-    editor.update(
-      EditorState.push(
-        editorStateWithUpdatedSelection,
-        contentState,
-        'insert-characters',
-      ),
-    );
   },
 };
 
