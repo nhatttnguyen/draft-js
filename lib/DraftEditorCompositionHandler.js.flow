@@ -8,26 +8,33 @@
  * @flow strict-local
  * @emails oncall+draft_js
  */
-
 'use strict';
 
-import type DraftEditor from 'DraftEditor.react';
+import type DraftEditor from "./DraftEditor.react";
 
-const DOMObserver = require('DOMObserver');
-const DraftModifier = require('DraftModifier');
-const DraftOffsetKey = require('DraftOffsetKey');
-const EditorState = require('EditorState');
-const Keys = require('Keys');
-const UserAgent = require('UserAgent');
+const DOMObserver = require("./DOMObserver");
 
-const editOnSelect = require('editOnSelect');
-const getContentEditableContainer = require('getContentEditableContainer');
-const getDraftEditorSelection = require('getDraftEditorSelection');
-const getEntityKeyForSelection = require('getEntityKeyForSelection');
-const nullthrows = require('nullthrows');
+const DraftModifier = require("./DraftModifier");
+
+const DraftOffsetKey = require("./DraftOffsetKey");
+
+const EditorState = require("./EditorState");
+
+const Keys = require("fbjs/lib/Keys");
+
+const UserAgent = require("fbjs/lib/UserAgent");
+
+const editOnSelect = require("./editOnSelect");
+
+const getContentEditableContainer = require("./getContentEditableContainer");
+
+const getDraftEditorSelection = require("./getDraftEditorSelection");
+
+const getEntityKeyForSelection = require("./getEntityKeyForSelection");
+
+const nullthrows = require("fbjs/lib/nullthrows");
 
 const isIE = UserAgent.isBrowser('IE');
-
 /**
  * Millisecond delay to allow `compositionstart` to fire again upon
  * `compositionend`.
@@ -38,14 +45,15 @@ const isIE = UserAgent.isBrowser('IE');
  * leads to composed characters being resolved and re-render occurring
  * sooner than we want.
  */
-const RESOLVE_DELAY = 20;
 
+const RESOLVE_DELAY = 20;
 /**
  * A handful of variables used to track the current composition and its
  * resolution status. These exist at the module level because it is not
  * possible to have compositions occurring in multiple editors simultaneously,
  * and it simplifies state management with respect to the DraftEditor component.
  */
+
 let resolved = false;
 let stillComposing = false;
 let domObserver = null;
@@ -107,9 +115,12 @@ const DraftEditorCompositionHandler = {
       // backspace in 2-Set Korean), we should immediately resolve the
       // composition and reinterpret the key press in edit mode.
       DraftEditorCompositionHandler.resolveComposition(editor);
+
       editor._onKeyDown(e);
+
       return;
     }
+
     if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
       e.preventDefault();
     }
@@ -145,6 +156,7 @@ const DraftEditorCompositionHandler = {
   resolveComposition(editor: DraftEditor): void {
     console.log('resolveComposition===================');
     console.log('resolveComposition-stillComposing', stillComposing);
+
     if (stillComposing) {
       return;
     }
@@ -152,19 +164,15 @@ const DraftEditorCompositionHandler = {
     const mutations = nullthrows(domObserver).stopAndFlushMutations();
     domObserver = null;
     resolved = true;
-
     let editorState = EditorState.set(editor._latestEditorState, {
-      inCompositionMode: false,
+      inCompositionMode: false
     });
-
     editor.exitCurrentMode();
 
     if (!mutations.size) {
       editor.update(editorState);
       return;
-    }
-
-    // TODO, check if Facebook still needs this flag or if it could be removed.
+    } // TODO, check if Facebook still needs this flag or if it could be removed.
     // Since there can be multiple mutations providing a `composedChars` doesn't
     // apply well on this new model.
     // if (
@@ -181,85 +189,60 @@ const DraftEditorCompositionHandler = {
     //   return;
     // }
 
+
     let contentState = editorState.getCurrentContent();
     const selectionState1 = editorState.getSelection();
-    const {focusKey} = selectionState1;
+    const {
+      focusKey
+    } = selectionState1;
     let block1 = contentState.getBlockForKey(focusKey);
     let blockText = block1.getText();
     console.log('resolveComposition-blockText-beforeForEach', blockText);
-
     mutations.forEach((composedChars, offsetKey) => {
       console.log('resolveComposition-offsetKey', offsetKey);
       console.log('resolveComposition-composedChars', composedChars);
-      const {blockKey, decoratorKey, leafKey} = DraftOffsetKey.decode(
-        offsetKey,
-      );
-
-      const {start, end} = editorState
-        .getBlockTree(blockKey)
-        .getIn([decoratorKey, 'leaves', leafKey]);
-
+      const {
+        blockKey,
+        decoratorKey,
+        leafKey
+      } = DraftOffsetKey.decode(offsetKey);
+      const {
+        start,
+        end
+      } = editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey]);
       const replacementRange = editorState.getSelection().merge({
         anchorKey: blockKey,
         focusKey: blockKey,
         anchorOffset: start,
         focusOffset: end,
-        isBackward: false,
+        isBackward: false
       });
-
-      const entityKey = getEntityKeyForSelection(
-        contentState,
-        replacementRange,
-      );
-      const currentStyle = contentState
-        .getBlockForKey(blockKey)
-        .getInlineStyleAt(start);
-
-      contentState = DraftModifier.replaceText(
-        contentState,
-        replacementRange,
-        composedChars,
-        currentStyle,
-        entityKey,
-      );
-      // We need to update the editorState so the leaf node ranges are properly
+      const entityKey = getEntityKeyForSelection(contentState, replacementRange);
+      const currentStyle = contentState.getBlockForKey(blockKey).getInlineStyleAt(start);
+      contentState = DraftModifier.replaceText(contentState, replacementRange, composedChars, currentStyle, entityKey); // We need to update the editorState so the leaf node ranges are properly
       // updated and multiple mutations are correctly applied.
+
       editorState = EditorState.set(editorState, {
-        currentContent: contentState,
+        currentContent: contentState
       });
       block1 = contentState.getBlockForKey(focusKey);
       blockText = block1.getText();
       console.log('resolveComposition-blockText-afterForEach', blockText);
-    });
-
-    // When we apply the text changes to the ContentState, the selection always
+    }); // When we apply the text changes to the ContentState, the selection always
     // goes to the end of the field, but it should just stay where it is
     // after compositionEnd.
-    const documentSelection = getDraftEditorSelection(
-      editorState,
-      getContentEditableContainer(editor),
-    );
+
+    const documentSelection = getDraftEditorSelection(editorState, getContentEditableContainer(editor));
     const compositionEndSelectionState = documentSelection.selectionState;
-
-    editor.restoreEditorDOM();
-
-    // See:
+    editor.restoreEditorDOM(); // See:
     // - https://github.com/facebook/draft-js/issues/2093
     // - https://github.com/facebook/draft-js/pull/2094
     // Apply this fix only in IE for now. We can test it in
     // other browsers in the future to ensure no regressions
-    const editorStateWithUpdatedSelection = isIE
-      ? EditorState.forceSelection(editorState, compositionEndSelectionState)
-      : EditorState.acceptSelection(editorState, compositionEndSelectionState);
 
-    editor.update(
-      EditorState.push(
-        editorStateWithUpdatedSelection,
-        contentState,
-        'insert-characters',
-      ),
-    );
-  },
+    const editorStateWithUpdatedSelection = isIE ? EditorState.forceSelection(editorState, compositionEndSelectionState) : EditorState.acceptSelection(editorState, compositionEndSelectionState);
+    editor.update(EditorState.push(editorStateWithUpdatedSelection, contentState, 'insert-characters'));
+  }
+
 };
-
 module.exports = DraftEditorCompositionHandler;
