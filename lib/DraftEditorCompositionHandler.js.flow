@@ -368,11 +368,10 @@ const DraftEditorCompositionHandler = {
           editor._pendingStateFromBeforeInput = undefined;
         }
 
-        const editorState = editor._latestEditorState;
-        const chars = e.data; // In some cases (ex: IE ideographic space insertion) no character data
+        const editorState = editor._latestEditorState; // In some cases (ex: IE ideographic space insertion) no character data
         // is provided. There's nothing to do when this happens.
 
-        if (!chars) {
+        if (!composedChars) {
           return;
         } // Allow the top-level component to handle the insertion manually. This is
         // useful when triggering interesting behaviors for a character insertion,
@@ -381,7 +380,7 @@ const DraftEditorCompositionHandler = {
         // start of the block.
 
 
-        if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e.timeStamp))) {
+        if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(composedChars, editorState, e.timeStamp))) {
           e.preventDefault();
           return;
         }

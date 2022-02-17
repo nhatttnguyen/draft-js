@@ -382,11 +382,9 @@ const DraftEditorCompositionHandler = {
 
         const editorState = editor._latestEditorState;
 
-        const chars = e.data;
-
         // In some cases (ex: IE ideographic space insertion) no character data
         // is provided. There's nothing to do when this happens.
-        if (!chars) {
+        if (!composedChars) {
           return;
         }
 
@@ -398,7 +396,11 @@ const DraftEditorCompositionHandler = {
         if (
           editor.props.handleBeforeInput &&
           isEventHandled(
-            editor.props.handleBeforeInput(chars, editorState, e.timeStamp),
+            editor.props.handleBeforeInput(
+              composedChars,
+              editorState,
+              e.timeStamp,
+            ),
           )
         ) {
           e.preventDefault();
