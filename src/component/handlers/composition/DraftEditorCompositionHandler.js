@@ -359,6 +359,9 @@ const DraftEditorCompositionHandler = {
           return;
         }
       });
+      stillComposing = false;
+      domObserver = null;
+      resolved = true;
       return;
     }
 
