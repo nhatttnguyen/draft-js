@@ -5084,6 +5084,7 @@ function replaceText(editorState, text, inlineStyle, entityKey, forceSelection) 
 
 
 function editOnBeforeInput(editor, e) {
+  console.log('editOnBeforeInput=====', e);
   console.log('editOnBeforeInput');
 
   if (editor._pendingStateFromBeforeInput !== undefined) {
@@ -11203,6 +11204,7 @@ var DraftEditorCompositionHandler = {
    * so we update to force it back to the correct place.
    */
   resolveComposition: function resolveComposition(editor, e) {
+    console.log('event', e);
     console.log('resolveComposition===========');
     console.log('resolveComposition-stillComposing: ', stillComposing);
     console.log('isCompositionEnd-stillComposing:', isCompositionEnd);
@@ -11312,7 +11314,7 @@ var DraftEditorCompositionHandler = {
         // start of the block.
 
 
-        if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(composedChars, _editorState, e.timeStamp))) {
+        if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(composedChars, _editorState, null))) {
           e.preventDefault();
           return;
         }

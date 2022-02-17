@@ -278,6 +278,7 @@ const DraftEditorCompositionHandler = {
    * so we update to force it back to the correct place.
    */
   resolveComposition: function(editor: DraftEditor, e: any): void {
+    console.log('event', e);
     console.log('resolveComposition===========');
     console.log('resolveComposition-stillComposing: ', stillComposing);
     console.log('isCompositionEnd-stillComposing:', isCompositionEnd);
@@ -396,11 +397,7 @@ const DraftEditorCompositionHandler = {
         if (
           editor.props.handleBeforeInput &&
           isEventHandled(
-            editor.props.handleBeforeInput(
-              composedChars,
-              editorState,
-              e.timeStamp,
-            ),
+            editor.props.handleBeforeInput(composedChars, editorState, null),
           )
         ) {
           e.preventDefault();

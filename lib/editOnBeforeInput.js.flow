@@ -65,6 +65,7 @@ function replaceText(editorState: EditorState, text: string, inlineStyle: DraftI
 
 
 function editOnBeforeInput(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+  console.log('editOnBeforeInput=====', e);
   console.log('editOnBeforeInput');
 
   if (editor._pendingStateFromBeforeInput !== undefined) {
