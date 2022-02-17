@@ -27,6 +27,7 @@ const nullthrows = require('nullthrows');
 const editOnBeforeInput = require('editOnBeforeInput');
 const editOnKeyDown = require('editOnKeyDown');
 const keyCommandPlainBackspace = require('keyCommandPlainBackspace');
+const isEventHandled = require('isEventHandled');
 
 /**
  * Millisecond delay to allow `compositionstart` to fire again upon
@@ -159,12 +160,13 @@ const DraftEditorCompositionHandler = {
     stillComposing = false;
     console.log('onCompositionEnd-stillComposing', stillComposing);
     isCompositionEnd = true;
-    e.persist();
+    // e.persist();
 
-    if (!resolved) {
-      isCompositionEnd = true;
-      DraftEditorCompositionHandler.resolveComposition(editor, e);
-    }
+    setTimeout(() => {
+      if (!resolved) {
+        DraftEditorCompositionHandler.resolveComposition(editor);
+      }
+    }, RESOLVE_DELAY);
   },
 
   onSelect: editOnSelect,

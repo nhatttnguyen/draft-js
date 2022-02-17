@@ -15,7 +15,7 @@
 		exports["Draft"] = factory(require("immutable"), require("react"), require("react-dom"));
 	else
 		root["Draft"] = factory(root["Immutable"], root["React"], root["ReactDOM"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_27__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_28__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -174,7 +174,7 @@ var ContentState = __webpack_require__(31);
 
 var EditorBidiService = __webpack_require__(90);
 
-var SelectionState = __webpack_require__(23);
+var SelectionState = __webpack_require__(24);
 
 var Immutable = __webpack_require__(0);
 
@@ -741,7 +741,7 @@ var applyEntityToContentState = __webpack_require__(80);
 
 var getCharacterRemovalRange = __webpack_require__(82);
 
-var getContentStateFragment = __webpack_require__(21);
+var getContentStateFragment = __webpack_require__(22);
 
 var Immutable = __webpack_require__(0);
 
@@ -2352,6 +2352,33 @@ module.exports = findRangesImmutable;
  */
 
 
+/**
+ * Utility method for determining whether or not the value returned
+ * from a handler indicates that it was handled.
+ */
+function isEventHandled(value) {
+  return value === 'handled' || value === true;
+}
+
+module.exports = isEventHandled;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
 var DraftModifier = __webpack_require__(3);
 
 var gkx = __webpack_require__(12);
@@ -2416,7 +2443,7 @@ function removeTextWithStrategy(editorState, strategy, direction) {
 module.exports = removeTextWithStrategy;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2481,7 +2508,7 @@ var getContentStateFragment = function getContentStateFragment(contentState, sel
 module.exports = getContentStateFragment;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2684,7 +2711,7 @@ var DraftEntity = {
 module.exports = DraftEntity;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2820,7 +2847,7 @@ function (_SelectionStateRecord) {
 module.exports = SelectionState;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2936,7 +2963,7 @@ var UnicodeBidiDirection = {
 module.exports = UnicodeBidiDirection;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2977,7 +3004,7 @@ function findAncestorOffsetKey(node) {
 module.exports = findAncestorOffsetKey;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3016,37 +3043,10 @@ module.exports = {
 };
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_27__;
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @format
- * 
- * @emails oncall+draft_js
- */
-
-
-/**
- * Utility method for determining whether or not the value returned
- * from a handler indicates that it was handled.
- */
-function isEventHandled(value) {
-  return value === 'handled' || value === true;
-}
-
-module.exports = isEventHandled;
+module.exports = __WEBPACK_EXTERNAL_MODULE_28__;
 
 /***/ }),
 /* 29 */
@@ -3196,9 +3196,9 @@ var ContentBlock = __webpack_require__(13);
 
 var ContentBlockNode = __webpack_require__(6);
 
-var DraftEntity = __webpack_require__(22);
+var DraftEntity = __webpack_require__(23);
 
-var SelectionState = __webpack_require__(23);
+var SelectionState = __webpack_require__(24);
 
 var generateRandomKey = __webpack_require__(9);
 
@@ -3397,7 +3397,7 @@ module.exports = ContentState;
  */
 
 
-var UnicodeBidiDirection = __webpack_require__(24);
+var UnicodeBidiDirection = __webpack_require__(25);
 
 var invariant = __webpack_require__(1);
 
@@ -3866,7 +3866,7 @@ var UnicodeUtils = __webpack_require__(16);
 
 var moveSelectionBackward = __webpack_require__(36);
 
-var removeTextWithStrategy = __webpack_require__(20);
+var removeTextWithStrategy = __webpack_require__(21);
 /**
  * Remove the selected range. If the cursor is collapsed, remove the preceding
  * character. This operation is Unicode-aware, so removing a single character
@@ -4681,7 +4681,7 @@ module.exports = {
  */
 
 
-var ReactDOM = __webpack_require__(27);
+var ReactDOM = __webpack_require__(28);
 
 var invariant = __webpack_require__(1);
 
@@ -4751,7 +4751,7 @@ module.exports = getDraftEditorSelection;
  */
 
 
-var findAncestorOffsetKey = __webpack_require__(25);
+var findAncestorOffsetKey = __webpack_require__(26);
 
 var getSelectionOffsetKeyForNode = __webpack_require__(49);
 
@@ -5040,7 +5040,7 @@ var UserAgent = __webpack_require__(7);
 
 var getEntityKeyForSelection = __webpack_require__(34);
 
-var isEventHandled = __webpack_require__(28);
+var isEventHandled = __webpack_require__(20);
 
 var isSelectionAtLeafStart = __webpack_require__(102);
 
@@ -5262,13 +5262,13 @@ var EditorState = __webpack_require__(2);
 
 var KeyBindingUtil = __webpack_require__(35);
 
-var Keys = __webpack_require__(26);
+var Keys = __webpack_require__(27);
 
 var SecondaryClipboard = __webpack_require__(107);
 
 var UserAgent = __webpack_require__(7);
 
-var isEventHandled = __webpack_require__(28);
+var isEventHandled = __webpack_require__(20);
 
 var keyCommandBackspaceToStartOfLine = __webpack_require__(108);
 
@@ -6065,7 +6065,7 @@ var Style = __webpack_require__(29);
 
 var UnicodeBidi = __webpack_require__(32);
 
-var UnicodeBidiDirection = __webpack_require__(24);
+var UnicodeBidiDirection = __webpack_require__(25);
 
 var cx = __webpack_require__(14);
 
@@ -6965,7 +6965,7 @@ module.exports = getTextContentFromFiles;
  */
 
 
-var getContentStateFragment = __webpack_require__(21);
+var getContentStateFragment = __webpack_require__(22);
 
 function getFragmentFromSelection(editorState) {
   var selectionState = editorState.getSelection();
@@ -7012,7 +7012,7 @@ var ContentBlockNode = __webpack_require__(6);
 
 var DefaultDraftBlockRenderMap = __webpack_require__(33);
 
-var DraftEntity = __webpack_require__(22);
+var DraftEntity = __webpack_require__(23);
 
 var URI = __webpack_require__(161);
 
@@ -8104,7 +8104,7 @@ module.exports = RichTextEditorUtil;
 
 var KeyBindingUtil = __webpack_require__(35);
 
-var Keys = __webpack_require__(26);
+var Keys = __webpack_require__(27);
 
 var UserAgent = __webpack_require__(7);
 
@@ -8297,7 +8297,7 @@ var DraftEditor = __webpack_require__(94);
 
 var DraftEditorBlock = __webpack_require__(67);
 
-var DraftEntity = __webpack_require__(22);
+var DraftEntity = __webpack_require__(23);
 
 var DraftModifier = __webpack_require__(3);
 
@@ -8311,7 +8311,7 @@ var RawDraftContentState = __webpack_require__(165);
 
 var RichTextEditorUtil = __webpack_require__(74);
 
-var SelectionState = __webpack_require__(23);
+var SelectionState = __webpack_require__(24);
 
 var convertFromDraftStateToRaw = __webpack_require__(166);
 
@@ -9899,7 +9899,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var UnicodeBidi = __webpack_require__(32);
 
-var UnicodeBidiDirection = __webpack_require__(24);
+var UnicodeBidiDirection = __webpack_require__(25);
 
 var invariant = __webpack_require__(1);
 
@@ -10312,7 +10312,7 @@ var EditorState = __webpack_require__(2);
 
 var React = __webpack_require__(8);
 
-var ReactDOM = __webpack_require__(27);
+var ReactDOM = __webpack_require__(28);
 
 var Scroll = __webpack_require__(40);
 
@@ -10953,7 +10953,7 @@ var DraftOffsetKey = __webpack_require__(11);
 
 var EditorState = __webpack_require__(2);
 
-var Keys = __webpack_require__(26);
+var Keys = __webpack_require__(27);
 
 var editOnSelect = __webpack_require__(50);
 
@@ -10970,6 +10970,8 @@ var editOnBeforeInput = __webpack_require__(56);
 var editOnKeyDown = __webpack_require__(57);
 
 var keyCommandPlainBackspace = __webpack_require__(38);
+
+var isEventHandled = __webpack_require__(20);
 /**
  * Millisecond delay to allow `compositionstart` to fire again upon
  * `compositionend`.
@@ -11093,13 +11095,13 @@ var DraftEditorCompositionHandler = {
     resolved = false;
     stillComposing = false;
     console.log('onCompositionEnd-stillComposing', stillComposing);
-    isCompositionEnd = true;
-    e.persist();
+    isCompositionEnd = true; // e.persist();
 
-    if (!resolved) {
-      isCompositionEnd = true;
-      DraftEditorCompositionHandler.resolveComposition(editor, e);
-    }
+    setTimeout(function () {
+      if (!resolved) {
+        DraftEditorCompositionHandler.resolveComposition(editor);
+      }
+    }, RESOLVE_DELAY);
   },
   onSelect: editOnSelect,
   onBeforeInput: function onBeforeInput(editor, e) {
@@ -11385,7 +11387,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var UserAgent = __webpack_require__(7);
 
-var findAncestorOffsetKey = __webpack_require__(25);
+var findAncestorOffsetKey = __webpack_require__(26);
 
 var Immutable = __webpack_require__(0);
 
@@ -13462,7 +13464,7 @@ process.umask = function() { return 0; };
  */
 
 
-var Keys = __webpack_require__(26);
+var Keys = __webpack_require__(27);
 
 function isSoftNewlineEvent(e) {
   return e.which === Keys.RETURN && (e.getModifierState('Shift') || e.getModifierState('Alt') || e.getModifierState('Control'));
@@ -13491,7 +13493,7 @@ var DraftModifier = __webpack_require__(3);
 
 var EditorState = __webpack_require__(2);
 
-var getContentStateFragment = __webpack_require__(21);
+var getContentStateFragment = __webpack_require__(22);
 
 var nullthrows = __webpack_require__(4);
 
@@ -13574,7 +13576,7 @@ var getDraftEditorSelectionWithNodes = __webpack_require__(54);
 
 var moveSelectionBackward = __webpack_require__(36);
 
-var removeTextWithStrategy = __webpack_require__(20);
+var removeTextWithStrategy = __webpack_require__(21);
 
 function keyCommandBackspaceToStartOfLine(editorState) {
   var afterRemoval = removeTextWithStrategy(editorState, function (strategyState) {
@@ -13825,7 +13827,7 @@ var EditorState = __webpack_require__(2);
 
 var moveSelectionBackward = __webpack_require__(36);
 
-var removeTextWithStrategy = __webpack_require__(20);
+var removeTextWithStrategy = __webpack_require__(21);
 /**
  * Delete the word that is left of the cursor, as well as any spaces or
  * punctuation after the word.
@@ -13917,7 +13919,7 @@ var EditorState = __webpack_require__(2);
 
 var moveSelectionForward = __webpack_require__(61);
 
-var removeTextWithStrategy = __webpack_require__(20);
+var removeTextWithStrategy = __webpack_require__(21);
 /**
  * Delete the word that is right of the cursor, as well as any spaces or
  * punctuation before the word.
@@ -14080,7 +14082,7 @@ var UnicodeUtils = __webpack_require__(16);
 
 var moveSelectionForward = __webpack_require__(61);
 
-var removeTextWithStrategy = __webpack_require__(20);
+var removeTextWithStrategy = __webpack_require__(21);
 /**
  * Remove the selected range. If the cursor is collapsed, remove the following
  * character. This operation is Unicode-aware, so removing a single character
@@ -14129,7 +14131,7 @@ var DraftModifier = __webpack_require__(3);
 
 var EditorState = __webpack_require__(2);
 
-var getContentStateFragment = __webpack_require__(21);
+var getContentStateFragment = __webpack_require__(22);
 /**
  * Transpose the characters on either side of a collapsed cursor, or
  * if the cursor is at the end of the block, transpose the last two
@@ -14492,7 +14494,7 @@ var DraftOffsetKey = __webpack_require__(11);
 
 var React = __webpack_require__(8);
 
-var ReactDOM = __webpack_require__(27);
+var ReactDOM = __webpack_require__(28);
 
 var Scroll = __webpack_require__(40);
 
@@ -14934,7 +14936,7 @@ var React = __webpack_require__(8);
 
 var UnicodeBidi = __webpack_require__(32);
 
-var UnicodeBidiDirection = __webpack_require__(24);
+var UnicodeBidiDirection = __webpack_require__(25);
 
 var DraftEditorDecoratedLeaves =
 /*#__PURE__*/
@@ -16577,15 +16579,15 @@ var DraftModifier = __webpack_require__(3);
 
 var EditorState = __webpack_require__(2);
 
-var ReactDOM = __webpack_require__(27);
+var ReactDOM = __webpack_require__(28);
 
-var findAncestorOffsetKey = __webpack_require__(25);
+var findAncestorOffsetKey = __webpack_require__(26);
 
 var getTextContentFromFiles = __webpack_require__(70);
 
 var getUpdatedSelectionState = __webpack_require__(55);
 
-var isEventHandled = __webpack_require__(28);
+var isEventHandled = __webpack_require__(20);
 
 var nullthrows = __webpack_require__(4);
 /**
@@ -17260,7 +17262,7 @@ var UserAgent = __webpack_require__(7);
 var _require = __webpack_require__(158),
     notEmptyKey = _require.notEmptyKey;
 
-var findAncestorOffsetKey = __webpack_require__(25);
+var findAncestorOffsetKey = __webpack_require__(26);
 
 var keyCommandPlainBackspace = __webpack_require__(38);
 
@@ -17502,7 +17504,7 @@ var getEntityKeyForSelection = __webpack_require__(34);
 
 var getTextContentFromFiles = __webpack_require__(70);
 
-var isEventHandled = __webpack_require__(28);
+var isEventHandled = __webpack_require__(20);
 
 var splitTextIntoTextBlocks = __webpack_require__(163);
 /**
@@ -18189,13 +18191,13 @@ var ContentBlockNode = __webpack_require__(6);
 
 var ContentState = __webpack_require__(31);
 
-var DraftEntity = __webpack_require__(22);
+var DraftEntity = __webpack_require__(23);
 
 var DraftTreeAdapter = __webpack_require__(170);
 
 var DraftTreeInvariants = __webpack_require__(171);
 
-var SelectionState = __webpack_require__(23);
+var SelectionState = __webpack_require__(24);
 
 var createCharacterList = __webpack_require__(172);
 
