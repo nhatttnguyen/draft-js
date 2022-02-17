@@ -160,7 +160,7 @@ const DraftEditorCompositionHandler = {
     stillComposing = false;
     console.log('onCompositionEnd-stillComposing', stillComposing);
     isCompositionEnd = true;
-    // e.persist();
+    e.persist();
 
     setTimeout(() => {
       if (!resolved) {
@@ -277,65 +277,17 @@ const DraftEditorCompositionHandler = {
    * Resetting innerHTML will move focus to the beginning of the editor,
    * so we update to force it back to the correct place.
    */
+
   resolveComposition: function(editor: DraftEditor, e: any): void {
     console.log('event', e);
     console.log('resolveComposition===========');
     console.log('resolveComposition-stillComposing: ', stillComposing);
-    console.log('isCompositionEnd-stillComposing:', isCompositionEnd);
     if (stillComposing) {
       return;
     }
     const isMobile = checkDevice();
-    // if (!isMobile) {
-    //   editor.update(
-    //     EditorState.set(editor._latestEditorState, {
-    //       inCompositionMode: false,
-    //     }),
-    //   );
-    //   if (
-    //     e.data ||
-    //     (e.key === 'Process' &&
-    //       e.nativeEvent &&
-    //       e.nativeEvent.code === 'Space') ||
-    //     !domObserver
-    //   ) {
-    //     let currentSelection = editor._latestEditorState.getSelection();
-
-    //     if (
-    //       !(
-    //         e.key === 'Process' &&
-    //         e.nativeEvent &&
-    //         e.nativeEvent.code === 'Space'
-    //       )
-    //     ) {
-    //       const focusOffset = currentSelection.getFocusOffset();
-    //       currentSelection = currentSelection.merge({
-    //         anchorOffset:
-    //           focusOffset - e.data.length < 0
-    //             ? focusOffset
-    //             : focusOffset - e.data.length,
-    //         focusOffset:
-    //           focusOffset - e.data.length < 0
-    //             ? focusOffset
-    //             : focusOffset - e.data.length,
-    //       });
-    //       const newEditorState = EditorState.forceSelection(
-    //         editor._latestEditorState,
-    //         currentSelection,
-    //       );
-    //       editor.update(newEditorState);
-    //     }
-
-    //     editOnBeforeInput(editor, e);
-    //     stillComposing = false;
-    //     domObserver = null;
-    //     resolved = true;
-    //     return;
-    //   }
-    // }
 
     const mutations = nullthrows(domObserver).stopAndFlushMutations();
-    console.log('resolveComposition-mutations: ', mutations);
     domObserver = null;
     resolved = true;
 
@@ -374,8 +326,10 @@ const DraftEditorCompositionHandler = {
     //       );
 
     let contentState = editorState.getCurrentContent();
-    mutations.forEach((composedChars, offsetKey) => {
-      if (!isMobile) {
+
+    if (!isMobile) {
+      mutations.forEach((composedChars, offsetKey) => {
+        console.log('composedChars======', composedChars);
         if (editor._pendingStateFromBeforeInput !== undefined) {
           editor.update(editor._pendingStateFromBeforeInput);
           editor._pendingStateFromBeforeInput = undefined;
@@ -400,84 +354,81 @@ const DraftEditorCompositionHandler = {
             editor.props.handleBeforeInput(composedChars, editorState, null),
           )
         ) {
+          console.log('bị prevent default======');
           e.preventDefault();
           return;
         }
-      } else {
-        const {blockKey, decoratorKey, leafKey} = DraftOffsetKey.decode(
-          offsetKey,
+      });
+      return;
+    }
+
+    mutations.forEach((composedChars, offsetKey) => {
+      const {blockKey, decoratorKey, leafKey} = DraftOffsetKey.decode(
+        offsetKey,
+      );
+
+      if (
+        editorState
+          .getBlockTree(blockKey)
+          .getIn([decoratorKey, 'leaves', leafKey])
+      ) {
+        const {start, end} = editorState
+          .getBlockTree(blockKey)
+          .getIn([decoratorKey, 'leaves', leafKey]);
+
+        const replacementRange = editorState.getSelection().merge({
+          anchorKey: blockKey,
+          focusKey: blockKey,
+          anchorOffset: start,
+          focusOffset: end,
+          isBackward: false,
+        });
+
+        const entityKey = getEntityKeyForSelection(
+          contentState,
+          replacementRange,
         );
+        const currentStyle = contentState
+          .getBlockForKey(blockKey)
+          .getInlineStyleAt(start);
 
-        if (
-          editorState
-            .getBlockTree(blockKey)
-            .getIn([decoratorKey, 'leaves', leafKey])
-        ) {
-          const {start, end} = editorState
-            .getBlockTree(blockKey)
-            .getIn([decoratorKey, 'leaves', leafKey]);
-
-          const replacementRange = editorState.getSelection().merge({
-            anchorKey: blockKey,
-            focusKey: blockKey,
-            anchorOffset: start,
-            focusOffset: end,
-            isBackward: false,
-          });
-
-          const entityKey = getEntityKeyForSelection(
-            contentState,
-            replacementRange,
-          );
-          const currentStyle = contentState
-            .getBlockForKey(blockKey)
-            .getInlineStyleAt(start);
-
-          contentState = DraftModifier.replaceText(
-            contentState,
-            replacementRange,
-            composedChars,
-            currentStyle,
-            entityKey,
-          );
-          console.log('resolveComposition-contentState:', contentState);
-          const block = contentState.getBlockForKey(blockKey);
-          const blockText = block.getText();
-          const plainText = contentState.getPlainText();
-          console.log('resolveComposition-plainText:', plainText);
-          console.log('resolveComposition-blockText:', blockText);
-          // We need to update the editorState so the leaf node ranges are properly
-          // updated and multiple mutations are correctly applied.
-          editorState = EditorState.set(editorState, {
-            currentContent: contentState,
-          });
-        }
-
-        // When we apply the text changes to the ContentState, the selection always
-        // goes to the end of the field, but it should just stay where it is
-        // after compositionEnd.
-        const documentSelection = getDraftEditorSelection(
-          editorState,
-          getContentEditableContainer(editor),
+        contentState = DraftModifier.replaceText(
+          contentState,
+          replacementRange,
+          composedChars,
+          currentStyle,
+          entityKey,
         );
-        console.log('resolveComposition-documentSelection"', documentSelection);
-        const compositionEndSelectionState = documentSelection.selectionState;
-        editor.restoreEditorDOM();
-
-        const editorStateWithUpdatedSelection = EditorState.acceptSelection(
-          editorState,
-          compositionEndSelectionState,
-        );
-
-        editor.update(
-          EditorState.push(
-            editorStateWithUpdatedSelection,
-            contentState,
-            'insert-characters',
-          ),
-        );
+        // We need to update the editorState so the leaf node ranges are properly
+        // updated and multiple mutations are correctly applied.
+        editorState = EditorState.set(editorState, {
+          currentContent: contentState,
+        });
       }
     });
+
+    // When we apply the text changes to the ContentState, the selection always
+    // goes to the end of the field, but it should just stay where it is
+    // after compositionEnd.
+    const documentSelection = getDraftEditorSelection(
+      editorState,
+      getContentEditableContainer(editor),
+    );
+    const compositionEndSelectionState = documentSelection.selectionState;
+    editor.restoreEditorDOM();
+
+    const editorStateWithUpdatedSelection = EditorState.acceptSelection(
+      editorState,
+      compositionEndSelectionState,
+    );
+
+    editor.update(
+      EditorState.push(
+        editorStateWithUpdatedSelection,
+        contentState,
+        'insert-characters',
+      ),
+    );
   },
 };
 
