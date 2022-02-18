@@ -81,8 +81,7 @@ function editOnBeforeInput(
   editor: DraftEditor,
   e: SyntheticInputEvent<>,
 ): void {
-  console.log('editOnBeforeInput=====', e);
-  console.log('editOnBeforeInput');
+  console.log('editOnBeforeInput=====');
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;

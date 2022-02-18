@@ -67,12 +67,17 @@ function checkDevice(): boolean {
   return isMobile;
 }
 
-function findDiff(str1, str2) {
-  let diff = '';
-  str2.split('').forEach(function(val, i) {
-    if (val != str1.charAt(i)) diff += val;
-  });
-  return diff;
+function getDifference(a, b) {
+  var i = 0;
+  var j = 0;
+  var result = '';
+
+  while (j < b.length) {
+    if (a[i] != b[j] || i == a.length) result += b[j];
+    else i++;
+    j++;
+  }
+  return result;
 }
 
 const DraftEditorCompositionHandler = {
@@ -165,17 +170,17 @@ const DraftEditorCompositionHandler = {
    */
   onCompositionEnd: function(editor: DraftEditor, e: any): void {
     console.log('onCompositionEnd======');
-    resolved = false;
-    stillComposing = false;
-    console.log('onCompositionEnd-stillComposing', stillComposing);
-    isCompositionEnd = true;
-    e.persist();
+    // resolved = false;
+    // stillComposing = false;
+    // console.log('onCompositionEnd-stillComposing', stillComposing);
+    // isCompositionEnd = true;
+    // e.persist();
 
-    setTimeout(() => {
-      if (!resolved) {
-        DraftEditorCompositionHandler.resolveComposition(editor, e);
-      }
-    }, RESOLVE_DELAY);
+    // setTimeout(() => {
+    //   if (!resolved) {
+    //     DraftEditorCompositionHandler.resolveComposition(editor, e);
+    //   }
+    // }, RESOLVE_DELAY);
   },
 
   onSelect: editOnSelect,
@@ -187,6 +192,17 @@ const DraftEditorCompositionHandler = {
     if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
       editOnBeforeInput(editor, e);
     }
+    resolved = false;
+    stillComposing = false;
+    console.log('onCompositionEnd-stillComposing', stillComposing);
+    isCompositionEnd = true;
+    e.persist();
+
+    setTimeout(() => {
+      if (!resolved) {
+        DraftEditorCompositionHandler.resolveComposition(editor, e);
+      }
+    }, RESOLVE_DELAY);
   },
 
   /**
@@ -351,7 +367,8 @@ const DraftEditorCompositionHandler = {
         const blockText = block.getText();
         console.log('blockText======', blockText);
         console.log('composedChars======', composedChars);
-        const chars = findDiff(composedChars, blockText);
+        const chars = getDifference(composedChars, blockText);
+        console.log('chars', chars);
         editOnBeforeInput2(editor, e, chars);
       });
       stillComposing = false;

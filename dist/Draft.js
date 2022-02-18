@@ -5084,8 +5084,7 @@ function replaceText(editorState, text, inlineStyle, entityKey, forceSelection) 
 
 
 function editOnBeforeInput(editor, e) {
-  console.log('editOnBeforeInput=====', e);
-  console.log('editOnBeforeInput');
+  console.log('editOnBeforeInput=====');
 
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
@@ -11081,12 +11080,17 @@ function checkDevice() {
   return isMobile;
 }
 
-function findDiff(str1, str2) {
-  var diff = '';
-  str2.split('').forEach(function (val, i) {
-    if (val != str1.charAt(i)) diff += val;
-  });
-  return diff;
+function getDifference(a, b) {
+  var i = 0;
+  var j = 0;
+  var result = '';
+
+  while (j < b.length) {
+    if (a[i] != b[j] || i == a.length) result += b[j];else i++;
+    j++;
+  }
+
+  return result;
 }
 
 var DraftEditorCompositionHandler = {
@@ -11171,7 +11175,26 @@ var DraftEditorCompositionHandler = {
    * Google Input Tools on Windows 8.1 fires `compositionend` three times.
    */
   onCompositionEnd: function onCompositionEnd(editor, e) {
-    console.log('onCompositionEnd======');
+    console.log('onCompositionEnd======'); // resolved = false;
+    // stillComposing = false;
+    // console.log('onCompositionEnd-stillComposing', stillComposing);
+    // isCompositionEnd = true;
+    // e.persist();
+    // setTimeout(() => {
+    //   if (!resolved) {
+    //     DraftEditorCompositionHandler.resolveComposition(editor, e);
+    //   }
+    // }, RESOLVE_DELAY);
+  },
+  onSelect: editOnSelect,
+  onBeforeInput: function onBeforeInput(editor, e) {
+    console.log('onBeforeInput================='); // editOnBeforeInput(editor, e);
+    // handle when user not typing IME
+
+    if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
+      editOnBeforeInput(editor, e);
+    }
+
     resolved = false;
     stillComposing = false;
     console.log('onCompositionEnd-stillComposing', stillComposing);
@@ -11182,15 +11205,6 @@ var DraftEditorCompositionHandler = {
         DraftEditorCompositionHandler.resolveComposition(editor, e);
       }
     }, RESOLVE_DELAY);
-  },
-  onSelect: editOnSelect,
-  onBeforeInput: function onBeforeInput(editor, e) {
-    console.log('onBeforeInput================='); // editOnBeforeInput(editor, e);
-    // handle when user not typing IME
-
-    if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
-      editOnBeforeInput(editor, e);
-    }
   },
 
   /**
@@ -11343,7 +11357,8 @@ var DraftEditorCompositionHandler = {
         var blockText = block.getText();
         console.log('blockText======', blockText);
         console.log('composedChars======', composedChars);
-        var chars = findDiff(composedChars, blockText);
+        var chars = getDifference(composedChars, blockText);
+        console.log('chars', chars);
         editOnBeforeInput2(editor, e, chars);
       });
       stillComposing = false;
@@ -14305,8 +14320,8 @@ function replaceText(editorState, text, inlineStyle, entityKey, forceSelection) 
 
 
 function editOnBeforeInput2(editor, e, chars) {
-  console.log('editOnBeforeInput2=====', e);
-  console.log('editOnBeforeInput2');
+  console.log('editOnBeforeInput2=====');
+  console.log('editOnBeforeInput2=====editor._pendingStateFromBeforeInput', editor._pendingStateFromBeforeInput);
 
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
@@ -14324,10 +14339,11 @@ function editOnBeforeInput2(editor, e, chars) {
   if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e.timeStamp))) {
     e.preventDefault();
     return;
-  } // If selection is collapsed, conditionally allow native behavior. This
+  }
+
+  console.log('neu no vao day la sai r'); // If selection is collapsed, conditionally allow native behavior. This
   // reduces re-renders and preserves spellcheck highlighting. If the selection
   // is not collapsed, we will re-render.
-
 
   var selection = editorState.getSelection();
   var selectionStart = selection.getStartOffset();
