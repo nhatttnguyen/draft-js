@@ -67,6 +67,7 @@ let domObserver = null;
 let isCompositionEnd = true;
 let isOnBeforeInput = false;
 let compositionStartFocusOffset;
+let isNewOrIsResolved = true;
 
 function startDOMObserver(editor: DraftEditor) {
   if (!domObserver) {
@@ -101,9 +102,11 @@ const DraftEditorCompositionHandler = {
   onCompositionStart: function (editor: DraftEditor, e: any): void {
     console.log('onCompositionStart======');
     isCompositionEnd = false;
-    console.log('onCompositionStart-stillComposing======', stillComposing);
+    console.log('onCompositionStart-stillComposing======', stillComposing); // console.log('onCompositionStart-resolved', resolved);
 
-    if (stillComposing === false) {
+    console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
+
+    if (isNewOrIsResolved === true) {
       console.log('onCompositionStart-set lai compositionStartFocusOffset');
 
       let currentSelection = editor._latestEditorState.getSelection();
@@ -194,6 +197,7 @@ const DraftEditorCompositionHandler = {
   onCompositionEnd: function (editor: DraftEditor, e: any): void {
     console.log('onCompositionEnd======');
     resolved = false;
+    isNewOrIsResolved = false;
     stillComposing = false;
     console.log('onCompositionEnd-stillComposing', stillComposing);
     isCompositionEnd = true;
@@ -223,6 +227,7 @@ const DraftEditorCompositionHandler = {
     stillComposing = false;
     console.log('onCompositionEnd-stillComposing', stillComposing);
     isCompositionEnd = true;
+    isNewOrIsResolved = false;
     e.persist();
     setTimeout(() => {
       if (!resolved) {
@@ -356,6 +361,7 @@ const DraftEditorCompositionHandler = {
     const mutations = nullthrows(domObserver).stopAndFlushMutations();
     domObserver = null;
     resolved = true;
+    isNewOrIsResolved = true;
     let editorState = EditorState.set(editor._latestEditorState, {
       inCompositionMode: false
     });
