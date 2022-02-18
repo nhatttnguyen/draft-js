@@ -108,10 +108,13 @@ function editOnBeforeInput2(
       editor.props.handleBeforeInput(chars, editorState, e.timeStamp),
     )
   ) {
+    console.log('editOnBeforeInput2-da handle before input');
     e.preventDefault();
     return;
   }
-  console.log('neu no vao day la sai r');
+  console.log(
+    '=================editOnBeforeInput2-neu no vao day la sai r=========================',
+  );
 
   // If selection is collapsed, conditionally allow native behavior. This
   // reduces re-renders and preserves spellcheck highlighting. If the selection

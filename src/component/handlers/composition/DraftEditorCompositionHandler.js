@@ -52,7 +52,7 @@ let resolved = false;
 let stillComposing = false;
 let domObserver = null;
 let isCompositionEnd = true;
-
+let isOnBeforeInput = false;
 function startDOMObserver(editor: DraftEditor) {
   if (!domObserver) {
     domObserver = new DOMObserver(getContentEditableContainer(editor));
@@ -170,23 +170,26 @@ const DraftEditorCompositionHandler = {
    */
   onCompositionEnd: function(editor: DraftEditor, e: any): void {
     console.log('onCompositionEnd======');
-    // resolved = false;
-    // stillComposing = false;
-    // console.log('onCompositionEnd-stillComposing', stillComposing);
-    // isCompositionEnd = true;
-    // e.persist();
-
-    // setTimeout(() => {
-    //   if (!resolved) {
-    //     DraftEditorCompositionHandler.resolveComposition(editor, e);
-    //   }
-    // }, RESOLVE_DELAY);
+    resolved = false;
+    stillComposing = false;
+    console.log('onCompositionEnd-stillComposing', stillComposing);
+    isCompositionEnd = true;
+    e.persist();
+    console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
+    if (!isOnBeforeInput) {
+      setTimeout(() => {
+        if (!resolved) {
+          DraftEditorCompositionHandler.resolveComposition(editor, e);
+        }
+      }, RESOLVE_DELAY);
+    }
   },
 
   onSelect: editOnSelect,
 
   onBeforeInput(editor: DraftEditor, e: any) {
     console.log('onBeforeInput=================');
+    isOnBeforeInput = true;
     // editOnBeforeInput(editor, e);
     // handle when user not typing IME
     if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
@@ -374,6 +377,7 @@ const DraftEditorCompositionHandler = {
       stillComposing = false;
       domObserver = null;
       resolved = true;
+      isOnBeforeInput = false;
       return;
 
       // if (

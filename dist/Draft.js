@@ -11067,6 +11067,7 @@ var resolved = false;
 var stillComposing = false;
 var domObserver = null;
 var isCompositionEnd = true;
+var isOnBeforeInput = false;
 
 function startDOMObserver(editor) {
   if (!domObserver) {
@@ -11175,20 +11176,26 @@ var DraftEditorCompositionHandler = {
    * Google Input Tools on Windows 8.1 fires `compositionend` three times.
    */
   onCompositionEnd: function onCompositionEnd(editor, e) {
-    console.log('onCompositionEnd======'); // resolved = false;
-    // stillComposing = false;
-    // console.log('onCompositionEnd-stillComposing', stillComposing);
-    // isCompositionEnd = true;
-    // e.persist();
-    // setTimeout(() => {
-    //   if (!resolved) {
-    //     DraftEditorCompositionHandler.resolveComposition(editor, e);
-    //   }
-    // }, RESOLVE_DELAY);
+    console.log('onCompositionEnd======');
+    resolved = false;
+    stillComposing = false;
+    console.log('onCompositionEnd-stillComposing', stillComposing);
+    isCompositionEnd = true;
+    e.persist();
+    console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
+
+    if (!isOnBeforeInput) {
+      setTimeout(function () {
+        if (!resolved) {
+          DraftEditorCompositionHandler.resolveComposition(editor, e);
+        }
+      }, RESOLVE_DELAY);
+    }
   },
   onSelect: editOnSelect,
   onBeforeInput: function onBeforeInput(editor, e) {
-    console.log('onBeforeInput================='); // editOnBeforeInput(editor, e);
+    console.log('onBeforeInput=================');
+    isOnBeforeInput = true; // editOnBeforeInput(editor, e);
     // handle when user not typing IME
 
     if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
@@ -11364,6 +11371,7 @@ var DraftEditorCompositionHandler = {
       stillComposing = false;
       domObserver = null;
       resolved = true;
+      isOnBeforeInput = false;
       return; // if (
       //   e.data ||
       //   (e.key === 'Process' &&
@@ -14337,11 +14345,12 @@ function editOnBeforeInput2(editor, e, chars) {
   // start of the block.
 
   if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e.timeStamp))) {
+    console.log('editOnBeforeInput2-da handle before input');
     e.preventDefault();
     return;
   }
 
-  console.log('neu no vao day la sai r'); // If selection is collapsed, conditionally allow native behavior. This
+  console.log('=================editOnBeforeInput2-neu no vao day la sai r========================='); // If selection is collapsed, conditionally allow native behavior. This
   // reduces re-renders and preserves spellcheck highlighting. If the selection
   // is not collapsed, we will re-render.
 
