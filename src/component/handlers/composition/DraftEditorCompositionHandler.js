@@ -447,14 +447,8 @@ const DraftEditorCompositionHandler = {
               focusOffset - chars.length + 1,
             );
             currentSelection = currentSelection.merge({
-              anchorOffset:
-                focusOffset - chars.length < 0
-                  ? focusOffset
-                  : focusOffset - chars.length + 1,
-              focusOffset:
-                focusOffset - chars.length < 0
-                  ? focusOffset
-                  : focusOffset - chars.length + 1,
+              anchorOffset: focusOffset,
+              focusOffset: focusOffset,
             });
             const newEditorState = EditorState.forceSelection(
               editor._latestEditorState,
