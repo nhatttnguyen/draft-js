@@ -53,6 +53,7 @@ let stillComposing = false;
 let domObserver = null;
 let isCompositionEnd = true;
 let isOnBeforeInput = false;
+let compositionStartFocusOffset;
 function startDOMObserver(editor: DraftEditor) {
   if (!domObserver) {
     domObserver = new DOMObserver(getContentEditableContainer(editor));
@@ -88,6 +89,10 @@ const DraftEditorCompositionHandler = {
   onCompositionStart: function(editor: DraftEditor, e: any): void {
     console.log('onCompositionStart======');
     isCompositionEnd = false;
+    if (!stillComposing) {
+      let currentSelection = editor._latestEditorState.getSelection();
+      compositionStartFocusOffset = currentSelection.getFocusOffset();
+    }
     stillComposing = true;
     const isMobile = checkDevice();
     let editorState = editor._latestEditorState;
@@ -446,9 +451,14 @@ const DraftEditorCompositionHandler = {
               'focusOffset - chars.length + 1',
               focusOffset - chars.length + 1,
             );
+            console.log(
+              'compositionStartFocusOffset',
+              compositionStartFocusOffset,
+            );
             currentSelection = currentSelection.merge({
-              anchorOffset: focusOffset,
-              focusOffset: focusOffset,
+              anchorOffset: compositionStartFocusOffset,
+
+              focusOffset: compositionStartFocusOffset,
             });
             const newEditorState = EditorState.forceSelection(
               editor._latestEditorState,
