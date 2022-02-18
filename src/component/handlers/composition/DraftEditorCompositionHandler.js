@@ -441,15 +441,20 @@ const DraftEditorCompositionHandler = {
           ) {
             console.log('xinchao, co vao day ko');
             const focusOffset = currentSelection.getFocusOffset();
+            console.log('focusOffset', focusOffset);
+            console.log(
+              'focusOffset - chars.length + 1',
+              focusOffset - chars.length + 1,
+            );
             currentSelection = currentSelection.merge({
               anchorOffset:
                 focusOffset - chars.length < 0
                   ? focusOffset
-                  : focusOffset - chars.length,
+                  : focusOffset - chars.length + 1,
               focusOffset:
                 focusOffset - chars.length < 0
                   ? focusOffset
-                  : focusOffset - chars.length,
+                  : focusOffset - chars.length + 1,
             });
             const newEditorState = EditorState.forceSelection(
               editor._latestEditorState,
