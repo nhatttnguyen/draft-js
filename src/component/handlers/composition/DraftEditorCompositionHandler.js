@@ -89,9 +89,15 @@ const DraftEditorCompositionHandler = {
   onCompositionStart: function(editor: DraftEditor, e: any): void {
     console.log('onCompositionStart======');
     isCompositionEnd = false;
-    if (!stillComposing) {
+    console.log('onCompositionStart-stillComposing======', stillComposing);
+    if (stillComposing === false) {
+      console.log('onCompositionStart-set lai compositionStartFocusOffset');
       let currentSelection = editor._latestEditorState.getSelection();
       compositionStartFocusOffset = currentSelection.getFocusOffset();
+      console.log(
+        'onCompositionStart-compositionStartFocusOffset',
+        compositionStartFocusOffset,
+      );
     }
     stillComposing = true;
     const isMobile = checkDevice();

@@ -11103,11 +11103,15 @@ var DraftEditorCompositionHandler = {
   onCompositionStart: function onCompositionStart(editor, e) {
     console.log('onCompositionStart======');
     isCompositionEnd = false;
+    console.log('onCompositionStart-stillComposing======', stillComposing);
 
-    if (!stillComposing) {
+    if (stillComposing === false) {
+      console.log('onCompositionStart-set lai compositionStartFocusOffset');
+
       var currentSelection = editor._latestEditorState.getSelection();
 
       compositionStartFocusOffset = currentSelection.getFocusOffset();
+      console.log('onCompositionStart-compositionStartFocusOffset', compositionStartFocusOffset);
     }
 
     stillComposing = true;
