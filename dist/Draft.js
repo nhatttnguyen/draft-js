@@ -11221,59 +11221,82 @@ var DraftEditorCompositionHandler = {
    */
   onKeyDown: function onKeyDown(editor, e) {
     console.log('onKeyDown==========');
-    var editorState = editor._latestEditorState;
-    var isMobile = checkDevice();
 
-    if (!isMobile) {
-      if (e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' && !stillComposing) {
-        var timeStamp = e.timeStamp;
-        setTimeout(function () {
-          editor.props.handleBeforeInput && editor.props.handleBeforeInput('　', editorState, timeStamp);
-        }, 0);
-      }
+    if (!stillComposing) {
+      console.log('onKeyDown-stillComposing', stillComposing); // If a keydown event is received after compositionend but before the
+      // 20ms timer expires (ex: type option-E then backspace, or type A then
+      // backspace in 2-Set Korean), we should immediately resolve the
+      // composition and reinterpret the key press in edit mode.
 
-      if (domObserver && !(e.key === 'Process' && e.nativeEvent && (e.nativeEvent.code === 'Space' || e.nativeEvent.code === 'Enter') && stillComposing)) {
-        editOnKeyDown(editor, e);
+      DraftEditorCompositionHandler.resolveComposition(editor);
 
-        if (e.key === 'Backspace') {
-          keyCommandPlainBackspace(editorState);
-        } // if (!stillComposing) {
-        // If a keydown event is received after compositionend but before the
-        // 20ms timer expires (ex: type option-E then backspace, or type A then
-        // backspace in 2-Set Korean), we should immediately resolve the
-        // composition and reinterpret the key press in edit mode.
-        // editor._onKeyDown(e);
-        //   return;
-        // }
+      editor._onKeyDown(e);
 
-      } else {
-        if (e.key === 'Backspace') {
-          keyCommandPlainBackspace(editorState);
-        }
-
-        if (!stillComposing) {
-          editOnKeyDown(editor, e);
-        }
-
-        return;
-      }
-    } else {
-      if (!stillComposing) {
-        // If a keydown event is received after compositionend but before the
-        // 20ms timer expires (ex: type option-E then backspace, or type A then
-        // backspace in 2-Set Korean), we should immediately resolve the
-        // composition and reinterpret the key press in edit mode.
-        DraftEditorCompositionHandler.resolveComposition(editor);
-
-        editor._onKeyDown(e);
-
-        return;
-      }
+      return;
     }
 
     if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
       e.preventDefault();
-    }
+    } // const editorState = editor._latestEditorState;
+    // const isMobile = checkDevice();
+    // if (!isMobile) {
+    //   if (
+    //     e.key === 'Process' &&
+    //     e.nativeEvent &&
+    //     e.nativeEvent.code === 'Space' &&
+    //     !stillComposing
+    //   ) {
+    //     const timeStamp = e.timeStamp;
+    //     setTimeout(() => {
+    //       editor.props.handleBeforeInput &&
+    //         editor.props.handleBeforeInput('　', editorState, timeStamp);
+    //     }, 0);
+    //   }
+    //   if (
+    //     domObserver &&
+    //     !(
+    //       e.key === 'Process' &&
+    //       e.nativeEvent &&
+    //       (e.nativeEvent.code === 'Space' || e.nativeEvent.code === 'Enter') &&
+    //       stillComposing
+    //     )
+    //   ) {
+    //     editOnKeyDown(editor, e);
+    //     if (e.key === 'Backspace') {
+    //       keyCommandPlainBackspace(editorState);
+    //     }
+    //     // if (!stillComposing) {
+    //     // If a keydown event is received after compositionend but before the
+    //     // 20ms timer expires (ex: type option-E then backspace, or type A then
+    //     // backspace in 2-Set Korean), we should immediately resolve the
+    //     // composition and reinterpret the key press in edit mode.
+    //     // editor._onKeyDown(e);
+    //     //   return;
+    //     // }
+    //   } else {
+    //     if (e.key === 'Backspace') {
+    //       keyCommandPlainBackspace(editorState);
+    //     }
+    //     if (!stillComposing) {
+    //       editOnKeyDown(editor, e);
+    //     }
+    //     return;
+    //   }
+    // } else {
+    //   if (!stillComposing) {
+    //     // If a keydown event is received after compositionend but before the
+    //     // 20ms timer expires (ex: type option-E then backspace, or type A then
+    //     // backspace in 2-Set Korean), we should immediately resolve the
+    //     // composition and reinterpret the key press in edit mode.
+    //     DraftEditorCompositionHandler.resolveComposition(editor);
+    //     editor._onKeyDown(e);
+    //     return;
+    //   }
+    // }
+    // if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
+    //   e.preventDefault();
+    // }
+
   },
 
   /**
@@ -11347,64 +11370,66 @@ var DraftEditorCompositionHandler = {
     //       );
 
 
-    var contentState = editorState.getCurrentContent(); // if (!isMobile) {
-    //   editor.update(
-    //     EditorState.set(editor._latestEditorState, {
-    //       inCompositionMode: false,
-    //     }),
-    //   );
-    //   mutations.forEach((composedChars, offsetKey) => {
-    //     let selectionState = editor._latestEditorState.getSelection();
-    //     const {focusKey} = selectionState;
-    //     const contentState = editor._latestEditorState.getCurrentContent();
-    //     const block = contentState.getBlockForKey(focusKey);
-    //     const blockText = block.getText();
-    //     console.log('blockText======', blockText);
-    //     console.log('composedChars======', composedChars);
-    //     const chars = getDifference(blockText, String(composedChars));
-    //     console.log('chars', chars);
-    //     editOnBeforeInput2(editor, e, chars);
-    //   });
-    //   stillComposing = false;
-    //   domObserver = null;
-    //   resolved = true;
-    //   isOnBeforeInput = false;
-    //   return;
-    //   // if (
-    //   //   e.data ||
-    //   //   (e.key === 'Process' &&
-    //   //     e.nativeEvent &&
-    //   //     e.nativeEvent.code === 'Space') ||
-    //   //   !domObserver
-    //   // ) {
-    //   //   let currentSelection = editor._latestEditorState.getSelection();
-    //   // if (
-    //   //   !(
-    //   //     e.key === 'Process' &&
-    //   //     e.nativeEvent &&
-    //   //     e.nativeEvent.code === 'Space'
-    //   //   )
-    //   // ) {
-    //   //   console.log('xinchao, co vao day ko');
-    //   //   const focusOffset = currentSelection.getFocusOffset();
-    //   //   currentSelection = currentSelection.merge({
-    //   //     anchorOffset:
-    //   //       focusOffset - e.data.length < 0
-    //   //         ? focusOffset
-    //   //         : focusOffset - e.data.length,
-    //   //     focusOffset:
-    //   //       focusOffset - e.data.length < 0
-    //   //         ? focusOffset
-    //   //         : focusOffset - e.data.length,
-    //   //   });
-    //   //   const newEditorState = EditorState.forceSelection(
-    //   //     editor._latestEditorState,
-    //   //     currentSelection,
-    //   //   );
-    //   //   editor.update(newEditorState);
-    //   // }
-    //   // }
-    // }
+    var contentState = editorState.getCurrentContent();
+
+    if (!isMobile) {
+      editor.update(EditorState.set(editor._latestEditorState, {
+        inCompositionMode: false
+      }));
+      mutations.forEach(function (composedChars, offsetKey) {
+        var selectionState = editor._latestEditorState.getSelection();
+
+        var focusKey = selectionState.focusKey;
+
+        var contentState = editor._latestEditorState.getCurrentContent();
+
+        var block = contentState.getBlockForKey(focusKey);
+        var blockText = block.getText();
+        console.log('blockText======', blockText);
+        console.log('composedChars======', composedChars);
+        var chars = getDifference(blockText, String(composedChars));
+        console.log('chars', chars);
+        editOnBeforeInput2(editor, e, chars);
+      });
+      stillComposing = false;
+      domObserver = null;
+      resolved = true;
+      isOnBeforeInput = false;
+      return; // if (
+      //   e.data ||
+      //   (e.key === 'Process' &&
+      //     e.nativeEvent &&
+      //     e.nativeEvent.code === 'Space') ||
+      //   !domObserver
+      // ) {
+      //   let currentSelection = editor._latestEditorState.getSelection();
+      // if (
+      //   !(
+      //     e.key === 'Process' &&
+      //     e.nativeEvent &&
+      //     e.nativeEvent.code === 'Space'
+      //   )
+      // ) {
+      //   console.log('xinchao, co vao day ko');
+      //   const focusOffset = currentSelection.getFocusOffset();
+      //   currentSelection = currentSelection.merge({
+      //     anchorOffset:
+      //       focusOffset - e.data.length < 0
+      //         ? focusOffset
+      //         : focusOffset - e.data.length,
+      //     focusOffset:
+      //       focusOffset - e.data.length < 0
+      //         ? focusOffset
+      //         : focusOffset - e.data.length,
+      //   });
+      //   const newEditorState = EditorState.forceSelection(
+      //     editor._latestEditorState,
+      //     currentSelection,
+      //   );
+      //   editor.update(newEditorState);
+      // }
+      // }
+    }
 
     mutations.forEach(function (composedChars, offsetKey) {
       var _DraftOffsetKey$decod = DraftOffsetKey.decode(offsetKey),
