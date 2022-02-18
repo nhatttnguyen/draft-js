@@ -108,23 +108,25 @@ const DraftEditorCompositionHandler = {
     //   editor.update(newEditorState);
     // }
 
-    if (
-      (isMobile && selection.getFocusKey() !== selection.getAnchorKey()) ||
-      !isMobile
-    ) {
-      editor.update(EditorState.set(editorState, {inCompositionMode: true}));
+    // if (
+    //   (isMobile && selection.getFocusKey() !== selection.getAnchorKey()) ||
+    //   !isMobile
+    // ) {
+    //   editor.update(EditorState.set(editorState, {inCompositionMode: true}));
 
-      const contentState = editorState.getCurrentContent();
-      if (!selection.isCollapsed()) {
-        editor.props.handleBeforeReplaceText(editorState);
-        const updatedContentState = DraftModifier.removeRange(
-          contentState,
-          selection,
-          'forward',
-        );
-        EditorState.push(editorState, updatedContentState, 'remove-range');
-      }
-    }
+    //   const contentState = editorState.getCurrentContent();
+    //   if (!selection.isCollapsed()) {
+    //     editor.props.handleBeforeReplaceText(editorState);
+    //     const updatedContentState = DraftModifier.removeRange(
+    //       contentState,
+    //       selection,
+    //       'forward',
+    //     );
+    //     EditorState.push(editorState, updatedContentState, 'remove-range');
+    //   }
+    // }
+    editor.update(EditorState.set(editorState, {inCompositionMode: true}));
+
     startDOMObserver(editor);
   },
 
