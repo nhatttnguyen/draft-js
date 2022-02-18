@@ -101,6 +101,7 @@ const DraftEditorCompositionHandler = {
         'onCompositionStart-compositionStartFocusOffset',
         compositionStartFocusOffset,
       );
+      isNewOrIsResolved = false;
     }
     stillComposing = true;
     const isMobile = checkDevice();

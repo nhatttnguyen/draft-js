@@ -482,6 +482,7 @@ class DraftEditor extends React.Component<DraftEditorProps, State> {
    */
 
   setMode: (DraftEditorModes) => void = (mode: DraftEditorModes): void => {
+    console.log('DraftEditorModes========');
     const {
       onPaste,
       onCut,

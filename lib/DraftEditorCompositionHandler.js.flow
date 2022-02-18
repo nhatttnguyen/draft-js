@@ -113,6 +113,7 @@ const DraftEditorCompositionHandler = {
 
       compositionStartFocusOffset = currentSelection.getFocusOffset();
       console.log('onCompositionStart-compositionStartFocusOffset', compositionStartFocusOffset);
+      isNewOrIsResolved = false;
     }
 
     stillComposing = true;

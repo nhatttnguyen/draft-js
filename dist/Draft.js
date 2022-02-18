@@ -10645,6 +10645,7 @@ function (_React$Component2) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "setMode", function (mode) {
+      console.log('DraftEditorModes========');
       var _this$props = _this.props,
           onPaste = _this$props.onPaste,
           onCut = _this$props.onCut,
@@ -11115,6 +11116,7 @@ var DraftEditorCompositionHandler = {
 
       compositionStartFocusOffset = currentSelection.getFocusOffset();
       console.log('onCompositionStart-compositionStartFocusOffset', compositionStartFocusOffset);
+      isNewOrIsResolved = false;
     }
 
     stillComposing = true;
