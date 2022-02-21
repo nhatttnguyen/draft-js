@@ -109,6 +109,11 @@ function editOnBeforeInput2(
     )
   ) {
     console.log('editOnBeforeInput2-da handle before input');
+    editor.update(
+      EditorState.set(editor._latestEditorState, {
+        inCompositionMode: false,
+      }),
+    );
     e.preventDefault();
     return;
   }

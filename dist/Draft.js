@@ -14386,6 +14386,9 @@ function editOnBeforeInput2(editor, e, chars) {
 
   if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e.timeStamp))) {
     console.log('editOnBeforeInput2-da handle before input');
+    editor.update(EditorState.set(editor._latestEditorState, {
+      inCompositionMode: false
+    }));
     e.preventDefault();
     return;
   }
