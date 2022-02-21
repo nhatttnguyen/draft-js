@@ -11069,7 +11069,7 @@ var stillComposing = false;
 var domObserver = null;
 var isOnBeforeInput = false;
 var compositionStartFocusOffset;
-var compositionStarAnchorOffset;
+var compositionStartAnchorOffset;
 var isNewOrIsResolved = true;
 
 function startDOMObserver(editor) {
@@ -11133,7 +11133,7 @@ var DraftEditorCompositionHandler = {
 
       console.log('onCompositionStart-selectionState.isCollapsed()', currentSelection.isCollapsed());
       compositionStartFocusOffset = currentSelection.getFocusOffset();
-      compositionStarAnchorOffset = currentSelection.geAnchorOffset();
+      compositionStartAnchorOffset = currentSelection.getAnchorOffset();
       console.log('onCompositionStart-compositionStartFocusOffset', compositionStartFocusOffset);
       isNewOrIsResolved = false;
     }
@@ -11440,7 +11440,7 @@ var DraftEditorCompositionHandler = {
             console.log('focusOffset - chars.length + 1', _focusOffset - chars.length + 1);
             console.log('compositionStartFocusOffset', compositionStartFocusOffset);
             _currentSelection = _currentSelection.merge({
-              anchorOffset: compositionStarAnchorOffset,
+              anchorOffset: compositionStartAnchorOffset,
               focusOffset: compositionStartFocusOffset
             });
 
