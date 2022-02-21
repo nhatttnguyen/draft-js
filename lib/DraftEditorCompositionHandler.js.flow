@@ -104,6 +104,23 @@ const DraftEditorCompositionHandler = {
 
     console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
 
+    if (isMobile && selection.getFocusKey() !== selection.getAnchorKey() || !isMobile) {
+      editor.update(EditorState.set(editorState, {
+        inCompositionMode: true
+      }));
+      const contentState = editorState.getCurrentContent();
+
+      if (!selection.isCollapsed()) {
+        editor.props.handleBeforeReplaceText(editorState);
+        const updatedContentState = DraftModifier.removeRange(contentState, selection, 'forward');
+        EditorState.push(editorState, updatedContentState, 'remove-range');
+      }
+    }
+
+    const isMobile = checkDevice();
+    let editorState = editor._latestEditorState;
+    const selection = editorState.getSelection();
+
     if (isNewOrIsResolved === true) {
       console.log('onCompositionStart-set lai compositionStartFocusOffset');
 
@@ -115,10 +132,7 @@ const DraftEditorCompositionHandler = {
       isNewOrIsResolved = false;
     }
 
-    stillComposing = true;
-    const isMobile = checkDevice();
-    let editorState = editor._latestEditorState;
-    const selection = editorState.getSelection(); // if (isMobile && selection.getIsBackward()) {
+    stillComposing = true; // if (isMobile && selection.getIsBackward()) {
     //   const updateSelection = selection.merge({
     //     anchorKey: selection.getFocusKey(),
     //     anchorOffset: selection.getFocusOffset(),
@@ -132,19 +146,6 @@ const DraftEditorCompositionHandler = {
     //   );
     //   editor.update(newEditorState);
     // }
-
-    if (isMobile && selection.getFocusKey() !== selection.getAnchorKey() || !isMobile) {
-      editor.update(EditorState.set(editorState, {
-        inCompositionMode: true
-      }));
-      const contentState = editorState.getCurrentContent();
-
-      if (!selection.isCollapsed()) {
-        editor.props.handleBeforeReplaceText(editorState);
-        const updatedContentState = DraftModifier.removeRange(contentState, selection, 'forward');
-        EditorState.push(editorState, updatedContentState, 'remove-range');
-      }
-    }
 
     editor.update(EditorState.set(editorState, {
       inCompositionMode: true
@@ -430,7 +431,6 @@ const DraftEditorCompositionHandler = {
           let currentSelection = editor._latestEditorState.getSelection();
 
           if (!(e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space')) {
-            console.log('xinchao, co vao day ko');
             const focusOffset = currentSelection.getFocusOffset();
             console.log('focusOffset', focusOffset);
             console.log('focusOffset - chars.length + 1', focusOffset - chars.length + 1);

@@ -91,41 +91,6 @@ const DraftEditorCompositionHandler = {
     console.log('onCompositionStart-stillComposing======', stillComposing);
     // console.log('onCompositionStart-resolved', resolved);
     console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
-
-    if (isNewOrIsResolved === true) {
-      console.log('onCompositionStart-set lai compositionStartFocusOffset');
-      let currentSelection = editor._latestEditorState.getSelection();
-      console.log(
-        'onCompositionStart-selectionState.isCollapsed()',
-        currentSelection.isCollapsed(),
-      );
-      compositionStartFocusOffset = currentSelection.getFocusOffset();
-      console.log(
-        'onCompositionStart-compositionStartFocusOffset',
-        compositionStartFocusOffset,
-      );
-      isNewOrIsResolved = false;
-    }
-    stillComposing = true;
-    const isMobile = checkDevice();
-    let editorState = editor._latestEditorState;
-    const selection = editorState.getSelection();
-
-    // if (isMobile && selection.getIsBackward()) {
-    //   const updateSelection = selection.merge({
-    //     anchorKey: selection.getFocusKey(),
-    //     anchorOffset: selection.getFocusOffset(),
-    //     focusKey: selection.getAnchorKey(),
-    //     focusOffset: selection.getAnchorOffset(),
-    //     isBackward: false,
-    //   });
-    //   const newEditorState = EditorState.forceSelection(
-    //     editorState,
-    //     updateSelection,
-    //   );
-    //   editor.update(newEditorState);
-    // }
-
     if (
       (isMobile && selection.getFocusKey() !== selection.getAnchorKey()) ||
       !isMobile
@@ -143,6 +108,41 @@ const DraftEditorCompositionHandler = {
         EditorState.push(editorState, updatedContentState, 'remove-range');
       }
     }
+    const isMobile = checkDevice();
+    let editorState = editor._latestEditorState;
+    const selection = editorState.getSelection();
+
+    if (isNewOrIsResolved === true) {
+      console.log('onCompositionStart-set lai compositionStartFocusOffset');
+      let currentSelection = editor._latestEditorState.getSelection();
+      console.log(
+        'onCompositionStart-selectionState.isCollapsed()',
+        currentSelection.isCollapsed(),
+      );
+      compositionStartFocusOffset = currentSelection.getFocusOffset();
+      console.log(
+        'onCompositionStart-compositionStartFocusOffset',
+        compositionStartFocusOffset,
+      );
+      isNewOrIsResolved = false;
+    }
+    stillComposing = true;
+
+    // if (isMobile && selection.getIsBackward()) {
+    //   const updateSelection = selection.merge({
+    //     anchorKey: selection.getFocusKey(),
+    //     anchorOffset: selection.getFocusOffset(),
+    //     focusKey: selection.getAnchorKey(),
+    //     focusOffset: selection.getAnchorOffset(),
+    //     isBackward: false,
+    //   });
+    //   const newEditorState = EditorState.forceSelection(
+    //     editorState,
+    //     updateSelection,
+    //   );
+    //   editor.update(newEditorState);
+    // }
+
     editor.update(EditorState.set(editorState, {inCompositionMode: true}));
 
     startDOMObserver(editor);
@@ -459,7 +459,6 @@ const DraftEditorCompositionHandler = {
               e.nativeEvent.code === 'Space'
             )
           ) {
-            console.log('xinchao, co vao day ko');
             const focusOffset = currentSelection.getFocusOffset();
             console.log('focusOffset', focusOffset);
             console.log(
