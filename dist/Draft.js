@@ -11070,6 +11070,7 @@ var domObserver = null;
 var isOnBeforeInput = false;
 var compositionStartFocusOffset;
 var compositionStartAnchorOffset;
+var compositionStartIsBackward;
 var isNewOrIsResolved = true;
 
 function startDOMObserver(editor) {
@@ -11135,6 +11136,7 @@ var DraftEditorCompositionHandler = {
       compositionStartFocusOffset = currentSelection.getFocusOffset();
       compositionStartAnchorOffset = currentSelection.getAnchorOffset();
       console.log('onCompositionStart-compositionStartFocusOffset', compositionStartFocusOffset);
+      compositionStartIsBackward = currentSelection.getIsBackward();
       isNewOrIsResolved = false;
     }
 
@@ -11441,7 +11443,8 @@ var DraftEditorCompositionHandler = {
             console.log('compositionStartFocusOffset', compositionStartFocusOffset);
             _currentSelection = _currentSelection.merge({
               anchorOffset: compositionStartAnchorOffset,
-              focusOffset: compositionStartFocusOffset
+              focusOffset: compositionStartFocusOffset,
+              isBackward: compositionStartIsBackward
             });
 
             var _newEditorState = EditorState.forceSelection(editor._latestEditorState, _currentSelection);

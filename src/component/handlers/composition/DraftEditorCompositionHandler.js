@@ -54,6 +54,7 @@ let domObserver = null;
 let isOnBeforeInput = false;
 let compositionStartFocusOffset;
 let compositionStartAnchorOffset;
+let compositionStartIsBackward;
 let isNewOrIsResolved = true;
 function startDOMObserver(editor: DraftEditor) {
   if (!domObserver) {
@@ -126,6 +127,7 @@ const DraftEditorCompositionHandler = {
         'onCompositionStart-compositionStartFocusOffset',
         compositionStartFocusOffset,
       );
+      compositionStartIsBackward = currentSelection.getIsBackward();
       isNewOrIsResolved = false;
     }
     stillComposing = true;
@@ -474,6 +476,7 @@ const DraftEditorCompositionHandler = {
             currentSelection = currentSelection.merge({
               anchorOffset: compositionStartAnchorOffset,
               focusOffset: compositionStartFocusOffset,
+              isBackward: compositionStartIsBackward,
             });
             const newEditorState = EditorState.forceSelection(
               editor._latestEditorState,
