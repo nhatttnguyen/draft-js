@@ -364,16 +364,16 @@ const DraftEditorCompositionHandler = {
     resolved = true;
     isNewOrIsResolved = true;
 
-    let editorState = EditorState.set(editor._latestEditorState, {
-      inCompositionMode: false,
-    });
-
+    // let editorState = EditorState.set(editor._latestEditorState, {
+    //   inCompositionMode: false,
+    // });
+    let editorState = editor._latestEditorState;
     editor.exitCurrentMode();
 
-    if (!mutations.size) {
-      editor.update(editorState);
-      return;
-    }
+    // if (!mutations.size) {
+    //   editor.update(editorState);
+    //   return;
+    // }
 
     // TODO, check if Facebook still needs this flag or if it could be removed.
     // Since there can be multiple mutations providing a `composedChars` doesn't
@@ -401,46 +401,12 @@ const DraftEditorCompositionHandler = {
     let contentState = editorState.getCurrentContent();
 
     if (!isMobile) {
-      editor.update(
-        EditorState.set(editor._latestEditorState, {
-          inCompositionMode: false,
-        }),
-      );
-      if (
-        e.data ||
-        (e.key === 'Process' &&
-          e.nativeEvent &&
-          e.nativeEvent.code === 'Space') ||
-        !domObserver
-      ) {
-        let currentSelection = editor._latestEditorState.getSelection();
+      // editor.update(
+      //   EditorState.set(editor._latestEditorState, {
+      //     inCompositionMode: false,
+      //   }),
+      // );
 
-        if (
-          !(
-            e.key === 'Process' &&
-            e.nativeEvent &&
-            e.nativeEvent.code === 'Space'
-          )
-        ) {
-          console.log('xinchao, co vao day ko');
-          const focusOffset = currentSelection.getFocusOffset();
-          currentSelection = currentSelection.merge({
-            anchorOffset:
-              focusOffset - e.data.length < 0
-                ? focusOffset
-                : focusOffset - e.data.length,
-            focusOffset:
-              focusOffset - e.data.length < 0
-                ? focusOffset
-                : focusOffset - e.data.length,
-          });
-          const newEditorState = EditorState.forceSelection(
-            editor._latestEditorState,
-            currentSelection,
-          );
-          editor.update(newEditorState);
-        }
-      }
       mutations.forEach((composedChars, offsetKey) => {
         let selectionState = editor._latestEditorState.getSelection();
         const {focusKey} = selectionState;
@@ -491,7 +457,7 @@ const DraftEditorCompositionHandler = {
           }
         }
 
-        editOnBeforeInput2(editor, e, chars);
+        editOnBeforeInput2(editor, e, composedChars);
       });
       stillComposing = false;
       domObserver = null;
