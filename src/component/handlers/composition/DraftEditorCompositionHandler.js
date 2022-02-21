@@ -53,6 +53,7 @@ let stillComposing = false;
 let domObserver = null;
 let isOnBeforeInput = false;
 let compositionStartFocusOffset;
+let compositionStarAnchorOffset;
 let isNewOrIsResolved = true;
 function startDOMObserver(editor: DraftEditor) {
   if (!domObserver) {
@@ -91,26 +92,26 @@ const DraftEditorCompositionHandler = {
     console.log('onCompositionStart-stillComposing======', stillComposing);
     // console.log('onCompositionStart-resolved', resolved);
     console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
-    if (
-      (isMobile && selection.getFocusKey() !== selection.getAnchorKey()) ||
-      !isMobile
-    ) {
-      editor.update(EditorState.set(editorState, {inCompositionMode: true}));
-
-      const contentState = editorState.getCurrentContent();
-      if (!selection.isCollapsed()) {
-        editor.props.handleBeforeReplaceText(editorState);
-        const updatedContentState = DraftModifier.removeRange(
-          contentState,
-          selection,
-          'forward',
-        );
-        EditorState.push(editorState, updatedContentState, 'remove-range');
-      }
-    }
     const isMobile = checkDevice();
     let editorState = editor._latestEditorState;
     const selection = editorState.getSelection();
+    // if (
+    //   (isMobile && selection.getFocusKey() !== selection.getAnchorKey()) ||
+    //   !isMobile
+    // ) {
+    //   editor.update(EditorState.set(editorState, {inCompositionMode: true}));
+
+    //   const contentState = editorState.getCurrentContent();
+    //   if (!selection.isCollapsed()) {
+    //     editor.props.handleBeforeReplaceText(editorState);
+    //     const updatedContentState = DraftModifier.removeRange(
+    //       contentState,
+    //       selection,
+    //       'forward',
+    //     );
+    //     EditorState.push(editorState, updatedContentState, 'remove-range');
+    //   }
+    // }
 
     if (isNewOrIsResolved === true) {
       console.log('onCompositionStart-set lai compositionStartFocusOffset');
@@ -120,6 +121,7 @@ const DraftEditorCompositionHandler = {
         currentSelection.isCollapsed(),
       );
       compositionStartFocusOffset = currentSelection.getFocusOffset();
+      compositionStarAnchorOffset = currentSelection.geAnchorOffset();
       console.log(
         'onCompositionStart-compositionStartFocusOffset',
         compositionStartFocusOffset,
@@ -470,7 +472,7 @@ const DraftEditorCompositionHandler = {
               compositionStartFocusOffset,
             );
             currentSelection = currentSelection.merge({
-              anchorOffset: compositionStartFocusOffset,
+              anchorOffset: compositionStarAnchorOffset,
               focusOffset: compositionStartFocusOffset,
             });
             const newEditorState = EditorState.forceSelection(
