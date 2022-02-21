@@ -51,7 +51,6 @@ const RESOLVE_DELAY = 20;
 let resolved = false;
 let stillComposing = false;
 let domObserver = null;
-let isCompositionEnd = true;
 let isOnBeforeInput = false;
 let compositionStartFocusOffset;
 let isNewOrIsResolved = true;
@@ -89,13 +88,17 @@ const DraftEditorCompositionHandler = {
    */
   onCompositionStart: function(editor: DraftEditor, e: any): void {
     console.log('onCompositionStart======');
-    isCompositionEnd = false;
     console.log('onCompositionStart-stillComposing======', stillComposing);
     // console.log('onCompositionStart-resolved', resolved);
     console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
+
     if (isNewOrIsResolved === true) {
       console.log('onCompositionStart-set lai compositionStartFocusOffset');
       let currentSelection = editor._latestEditorState.getSelection();
+      console.log(
+        'onCompositionStart-selectionState.isCollapsed()',
+        currentSelection.isCollapsed(),
+      );
       compositionStartFocusOffset = currentSelection.getFocusOffset();
       console.log(
         'onCompositionStart-compositionStartFocusOffset',
@@ -123,23 +126,23 @@ const DraftEditorCompositionHandler = {
     //   editor.update(newEditorState);
     // }
 
-    // if (
-    //   (isMobile && selection.getFocusKey() !== selection.getAnchorKey()) ||
-    //   !isMobile
-    // ) {
-    //   editor.update(EditorState.set(editorState, {inCompositionMode: true}));
+    if (
+      (isMobile && selection.getFocusKey() !== selection.getAnchorKey()) ||
+      !isMobile
+    ) {
+      editor.update(EditorState.set(editorState, {inCompositionMode: true}));
 
-    //   const contentState = editorState.getCurrentContent();
-    //   if (!selection.isCollapsed()) {
-    //     editor.props.handleBeforeReplaceText(editorState);
-    //     const updatedContentState = DraftModifier.removeRange(
-    //       contentState,
-    //       selection,
-    //       'forward',
-    //     );
-    //     EditorState.push(editorState, updatedContentState, 'remove-range');
-    //   }
-    // }
+      const contentState = editorState.getCurrentContent();
+      if (!selection.isCollapsed()) {
+        editor.props.handleBeforeReplaceText(editorState);
+        const updatedContentState = DraftModifier.removeRange(
+          contentState,
+          selection,
+          'forward',
+        );
+        EditorState.push(editorState, updatedContentState, 'remove-range');
+      }
+    }
     editor.update(EditorState.set(editorState, {inCompositionMode: true}));
 
     startDOMObserver(editor);
@@ -191,7 +194,6 @@ const DraftEditorCompositionHandler = {
     isNewOrIsResolved = false;
     stillComposing = false;
     console.log('onCompositionEnd-stillComposing', stillComposing);
-    isCompositionEnd = true;
     e.persist();
     console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
     if (!isOnBeforeInput) {
@@ -216,7 +218,6 @@ const DraftEditorCompositionHandler = {
     resolved = false;
     stillComposing = false;
     console.log('onCompositionEnd-stillComposing', stillComposing);
-    isCompositionEnd = true;
     isNewOrIsResolved = false;
 
     e.persist();
@@ -471,7 +472,6 @@ const DraftEditorCompositionHandler = {
             );
             currentSelection = currentSelection.merge({
               anchorOffset: compositionStartFocusOffset,
-
               focusOffset: compositionStartFocusOffset,
             });
             const newEditorState = EditorState.forceSelection(
