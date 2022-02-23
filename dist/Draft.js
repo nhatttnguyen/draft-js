@@ -11171,8 +11171,8 @@ var DraftEditorCompositionHandler = {
    */
   onCompositionUpdate: function onCompositionUpdate(editor, e) {
     console.log('onCompositionUpdate======');
-    var editorState = editor._latestEditorState; // editOnBeforeInput(editor, e);
-
+    console.log('onCompositionUpdate-event.data======', e.data);
+    var editorState = editor._latestEditorState;
     var selection = editorState.getSelection();
     var contentState = editorState.getCurrentContent(); // if (!selection.isCollapsed()) {
     //   editor.props.handleBeforeReplaceText(editorState);
