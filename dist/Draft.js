@@ -11590,21 +11590,18 @@ function () {
 
     var mutations = this.mutations;
     this.mutations = Map();
+    console.log('mutations', mutations);
     return mutations;
   };
 
   _proto.getObserverRecord = function getObserverRecord() {
-    var observer = this.observer;
-
-    if (observer) {
-      this.registerMutations(observer.takeRecords());
-      console.log('getObserverRecord-observer.takeRecords()', observer.takeRecords());
-      observer.disconnect();
-    } else {
-      /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
-       * by Flow's standard library */
-      this.container.removeEventListener('DOMCharacterDataModified', this.onCharData);
-    }
+    var mutations = this.mutations;
+    this.mutations = Map();
+    console.log('getObserverRecord-mutations', mutations);
+    mutations.forEach(function (composedChars, offsetKey) {
+      console.log('composedChars', composedChars);
+      return composedChars;
+    });
   };
 
   _proto.registerMutations = function registerMutations(mutations) {
