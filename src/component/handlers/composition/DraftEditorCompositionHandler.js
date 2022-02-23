@@ -167,6 +167,7 @@ const DraftEditorCompositionHandler = {
     let editorState = editor._latestEditorState;
     const selection = editorState.getSelection();
     const contentState = editorState.getCurrentContent();
+    nullthrows(domObserver).getObserverRecord();
     // if (!selection.isCollapsed()) {
     //   editor.props.handleBeforeReplaceText(editorState);
     //   const updatedContentState = DraftModifier.removeRange(

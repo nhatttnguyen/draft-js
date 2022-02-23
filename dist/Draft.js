@@ -11174,7 +11174,8 @@ var DraftEditorCompositionHandler = {
     console.log('onCompositionUpdate-event.data======', e.data);
     var editorState = editor._latestEditorState;
     var selection = editorState.getSelection();
-    var contentState = editorState.getCurrentContent(); // if (!selection.isCollapsed()) {
+    var contentState = editorState.getCurrentContent();
+    nullthrows(domObserver).getObserverRecord(); // if (!selection.isCollapsed()) {
     //   editor.props.handleBeforeReplaceText(editorState);
     //   const updatedContentState = DraftModifier.removeRange(
     //     contentState,
@@ -11579,6 +11580,7 @@ function () {
 
     if (observer) {
       this.registerMutations(observer.takeRecords());
+      console.log('observer.takeRecords()', observer.takeRecords());
       observer.disconnect();
     } else {
       /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
@@ -11589,6 +11591,20 @@ function () {
     var mutations = this.mutations;
     this.mutations = Map();
     return mutations;
+  };
+
+  _proto.getObserverRecord = function getObserverRecord() {
+    var observer = this.observer;
+
+    if (observer) {
+      this.registerMutations(observer.takeRecords());
+      console.log('getObserverRecord-observer.takeRecords()', observer.takeRecords());
+      observer.disconnect();
+    } else {
+      /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
+       * by Flow's standard library */
+      this.container.removeEventListener('DOMCharacterDataModified', this.onCharData);
+    }
   };
 
   _proto.registerMutations = function registerMutations(mutations) {
