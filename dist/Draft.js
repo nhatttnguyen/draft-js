@@ -11421,6 +11421,7 @@ var DraftEditorCompositionHandler = {
         console.log('composedChars======', composedChars);
         var chars = getDifference(blockText, String(composedChars));
         console.log('chars', chars);
+        console.log('e.data', e.data);
 
         if (e.data || e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' || !domObserver) {
           var currentSelection = editor._latestEditorState.getSelection();
@@ -11438,6 +11439,13 @@ var DraftEditorCompositionHandler = {
             var newEditorState = EditorState.forceSelection(editor._latestEditorState, currentSelection);
             editor.update(newEditorState);
           }
+        }
+
+        if (!composedChars) {
+          editor.update(EditorState.set(editor._latestEditorState, {
+            inCompositionMode: false
+          }));
+          editOnBeforeInput2(editor, e, e.data);
         }
 
         editOnBeforeInput2(editor, e, composedChars);

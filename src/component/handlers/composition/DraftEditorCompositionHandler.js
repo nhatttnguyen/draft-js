@@ -419,6 +419,7 @@ const DraftEditorCompositionHandler = {
         console.log('composedChars======', composedChars);
         const chars = getDifference(blockText, String(composedChars));
         console.log('chars', chars);
+        console.log('e.data', e.data);
         if (
           e.data ||
           (e.key === 'Process' &&
@@ -457,7 +458,14 @@ const DraftEditorCompositionHandler = {
             editor.update(newEditorState);
           }
         }
-
+        if (!composedChars) {
+          editor.update(
+            EditorState.set(editor._latestEditorState, {
+              inCompositionMode: false,
+            }),
+          );
+          editOnBeforeInput2(editor, e, e.data);
+        }
         editOnBeforeInput2(editor, e, composedChars);
       });
       stillComposing = false;
