@@ -11104,10 +11104,15 @@ var DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionStart: function onCompositionStart(editor, e) {
-    console.log('onCompositionStart======');
-    console.log('onCompositionStart-stillComposing======', stillComposing); // console.log('onCompositionStart-resolved', resolved);
+    console.log('onCompositionStart======'); // console.log('onCompositionStart-stillComposing======', stillComposing);
 
-    console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
+    if (stillComposing) {
+      console.log('onCompositionStart-stillComposing======', stillComposing);
+      nullthrows(domObserver).getObserverRecord();
+    } // console.log('onCompositionStart-resolved', resolved);
+    // console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
+
+
     var isMobile = checkDevice();
     var editorState = editor._latestEditorState;
     var selection = editorState.getSelection(); // if (
@@ -11134,12 +11139,18 @@ var DraftEditorCompositionHandler = {
     if (isNewOrIsResolved === true) {
       console.log('onCompositionStart-set lai compositionStartFocusOffset');
 
-      var currentSelection = editor._latestEditorState.getSelection();
+      var currentSelection = editor._latestEditorState.getSelection(); // console.log(
+      //   'onCompositionStart-selectionState.isCollapsed()',
+      //   currentSelection.isCollapsed(),
+      // );
 
-      console.log('onCompositionStart-selectionState.isCollapsed()', currentSelection.isCollapsed());
+
       compositionStartFocusOffset = currentSelection.getFocusOffset();
-      compositionStartAnchorOffset = currentSelection.getAnchorOffset();
-      console.log('onCompositionStart-compositionStartFocusOffset', compositionStartFocusOffset);
+      compositionStartAnchorOffset = currentSelection.getAnchorOffset(); // console.log(
+      //   'onCompositionStart-compositionStartFocusOffset',
+      //   compositionStartFocusOffset,
+      // );
+
       compositionStartIsBackward = currentSelection.getIsBackward();
       isNewOrIsResolved = false;
     }
@@ -11209,10 +11220,9 @@ var DraftEditorCompositionHandler = {
     console.log('onCompositionEnd======');
     resolved = false;
     isNewOrIsResolved = false;
-    stillComposing = false;
-    console.log('onCompositionEnd-stillComposing', stillComposing);
-    e.persist();
-    console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
+    stillComposing = false; // console.log('onCompositionEnd-stillComposing', stillComposing);
+
+    e.persist(); // console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
 
     if (!isOnBeforeInput) {
       setTimeout(function () {
@@ -11234,7 +11244,7 @@ var DraftEditorCompositionHandler = {
 
     resolved = false;
     stillComposing = false;
-    console.log('onCompositionEnd-stillComposing', stillComposing);
+    console.log('onBeforeInput-stillComposing', stillComposing);
     isNewOrIsResolved = false;
     e.persist();
     setTimeout(function () {
@@ -11357,7 +11367,6 @@ var DraftEditorCompositionHandler = {
    * so we update to force it back to the correct place.
    */
   resolveComposition: function resolveComposition(editor, e) {
-    console.log('event', e);
     console.log('resolveComposition===========');
     console.log('resolveComposition-stillComposing: ', stillComposing);
 
@@ -11416,21 +11425,25 @@ var DraftEditorCompositionHandler = {
         var contentState = editor._latestEditorState.getCurrentContent();
 
         var block = contentState.getBlockForKey(focusKey);
-        var blockText = block.getText();
-        console.log('blockText======', blockText);
-        console.log('composedChars======', composedChars);
-        var chars = getDifference(blockText, String(composedChars));
-        console.log('chars', chars);
-        console.log('e.data', e.data);
+        var blockText = block.getText(); // console.log('blockText======', blockText);
+
+        console.log('resolveComposition-composedChars======', composedChars);
+        var chars = getDifference(blockText, String(composedChars)); // console.log('chars', chars);
 
         if (e.data || e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' || !domObserver) {
           var currentSelection = editor._latestEditorState.getSelection();
 
           if (!(e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space')) {
-            var focusOffset = currentSelection.getFocusOffset();
-            console.log('focusOffset', focusOffset);
-            console.log('focusOffset - chars.length + 1', focusOffset - chars.length + 1);
-            console.log('compositionStartFocusOffset', compositionStartFocusOffset);
+            var focusOffset = currentSelection.getFocusOffset(); // console.log('focusOffset', focusOffset);
+            // console.log(
+            //   'focusOffset - chars.length + 1',
+            //   focusOffset - chars.length + 1,
+            // );
+            // console.log(
+            //   'compositionStartFocusOffset',
+            //   compositionStartFocusOffset,
+            // );
+
             currentSelection = currentSelection.merge({
               anchorOffset: compositionStartAnchorOffset,
               focusOffset: compositionStartFocusOffset,
@@ -11442,13 +11455,14 @@ var DraftEditorCompositionHandler = {
         }
 
         if (!composedChars) {
+          console.log('resolveComposition-e.data', e.data);
           editor.update(EditorState.set(editor._latestEditorState, {
             inCompositionMode: false
           }));
           editOnBeforeInput2(editor, e, e.data);
+        } else {
+          editOnBeforeInput2(editor, e, composedChars);
         }
-
-        editOnBeforeInput2(editor, e, composedChars);
       });
       stillComposing = false;
       domObserver = null;
