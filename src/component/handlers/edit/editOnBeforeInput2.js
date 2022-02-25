@@ -105,7 +105,11 @@ function editOnBeforeInput2(
   if (
     editor.props.handleBeforeInput &&
     isEventHandled(
-      editor.props.handleBeforeInput(chars, editorState, e.timeStamp),
+      editor.props.handleBeforeInput(
+        chars,
+        editorState,
+        e ? e.timeStamp : null,
+      ),
     )
   ) {
     console.log('editOnBeforeInput2-da handle before input');

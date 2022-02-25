@@ -81,7 +81,7 @@ function editOnBeforeInput2(editor: DraftEditor, e: SyntheticInputEvent<>, chars
   // decorator, or setting a block to be a list item after typing '- ' at the
   // start of the block.
 
-  if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e.timeStamp))) {
+  if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e ? e.timeStamp : null))) {
     console.log('editOnBeforeInput2-da handle before input');
     editor.update(EditorState.set(editor._latestEditorState, {
       inCompositionMode: false
