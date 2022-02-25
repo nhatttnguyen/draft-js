@@ -404,7 +404,7 @@ const DraftEditorCompositionHandler = {
 
     let contentState = editorState.getCurrentContent();
 
-    if (!isMobile && e) {
+    if (!isMobile) {
       // editor.update(
       //   EditorState.set(editor._latestEditorState, {
       //     inCompositionMode: false,
@@ -422,30 +422,45 @@ const DraftEditorCompositionHandler = {
         console.log('resolveComposition-composedChars======', composedChars);
         const chars = getDifference(blockText, String(composedChars));
         // console.log('chars', chars);
+        if (
+          e &&
+          (e.data ||
+            (e.key === 'Process' &&
+              e.nativeEvent &&
+              e.nativeEvent.code === 'Space') ||
+            !domObserver)
+        ) {
+          let currentSelection = editor._latestEditorState.getSelection();
 
-        let currentSelection = editor._latestEditorState.getSelection();
-
-        const focusOffset = currentSelection.getFocusOffset();
-        // console.log('focusOffset', focusOffset);
-        // console.log(
-        //   'focusOffset - chars.length + 1',
-        //   focusOffset - chars.length + 1,
-        // );
-        // console.log(
-        //   'compositionStartFocusOffset',
-        //   compositionStartFocusOffset,
-        // );
-        currentSelection = currentSelection.merge({
-          anchorOffset: compositionStartAnchorOffset,
-          focusOffset: compositionStartFocusOffset,
-          isBackward: compositionStartIsBackward,
-        });
-        const newEditorState = EditorState.forceSelection(
-          editor._latestEditorState,
-          currentSelection,
-        );
-        editor.update(newEditorState);
-
+          if (
+            !(
+              e.key === 'Process' &&
+              e.nativeEvent &&
+              e.nativeEvent.code === 'Space'
+            )
+          ) {
+            const focusOffset = currentSelection.getFocusOffset();
+            // console.log('focusOffset', focusOffset);
+            // console.log(
+            //   'focusOffset - chars.length + 1',
+            //   focusOffset - chars.length + 1,
+            // );
+            // console.log(
+            //   'compositionStartFocusOffset',
+            //   compositionStartFocusOffset,
+            // );
+            currentSelection = currentSelection.merge({
+              anchorOffset: compositionStartAnchorOffset,
+              focusOffset: compositionStartFocusOffset,
+              isBackward: compositionStartIsBackward,
+            });
+            const newEditorState = EditorState.forceSelection(
+              editor._latestEditorState,
+              currentSelection,
+            );
+            editor.update(newEditorState);
+          }
+        }
         if (!composedChars) {
           console.log('resolveComposition-e.data', e.data);
 

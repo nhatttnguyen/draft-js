@@ -11411,7 +11411,7 @@ var DraftEditorCompositionHandler = {
 
     var contentState = editorState.getCurrentContent();
 
-    if (!isMobile && e) {
+    if (!isMobile) {
       // editor.update(
       //   EditorState.set(editor._latestEditorState, {
       //     inCompositionMode: false,
@@ -11430,25 +11430,29 @@ var DraftEditorCompositionHandler = {
         console.log('resolveComposition-composedChars======', composedChars);
         var chars = getDifference(blockText, String(composedChars)); // console.log('chars', chars);
 
-        var currentSelection = editor._latestEditorState.getSelection();
+        if (e && (e.data || e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' || !domObserver)) {
+          var currentSelection = editor._latestEditorState.getSelection();
 
-        var focusOffset = currentSelection.getFocusOffset(); // console.log('focusOffset', focusOffset);
-        // console.log(
-        //   'focusOffset - chars.length + 1',
-        //   focusOffset - chars.length + 1,
-        // );
-        // console.log(
-        //   'compositionStartFocusOffset',
-        //   compositionStartFocusOffset,
-        // );
+          if (!(e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space')) {
+            var focusOffset = currentSelection.getFocusOffset(); // console.log('focusOffset', focusOffset);
+            // console.log(
+            //   'focusOffset - chars.length + 1',
+            //   focusOffset - chars.length + 1,
+            // );
+            // console.log(
+            //   'compositionStartFocusOffset',
+            //   compositionStartFocusOffset,
+            // );
 
-        currentSelection = currentSelection.merge({
-          anchorOffset: compositionStartAnchorOffset,
-          focusOffset: compositionStartFocusOffset,
-          isBackward: compositionStartIsBackward
-        });
-        var newEditorState = EditorState.forceSelection(editor._latestEditorState, currentSelection);
-        editor.update(newEditorState);
+            currentSelection = currentSelection.merge({
+              anchorOffset: compositionStartAnchorOffset,
+              focusOffset: compositionStartFocusOffset,
+              isBackward: compositionStartIsBackward
+            });
+            var newEditorState = EditorState.forceSelection(editor._latestEditorState, currentSelection);
+            editor.update(newEditorState);
+          }
+        }
 
         if (!composedChars) {
           console.log('resolveComposition-e.data', e.data);
