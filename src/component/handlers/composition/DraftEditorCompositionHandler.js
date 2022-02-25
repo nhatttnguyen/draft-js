@@ -404,7 +404,7 @@ const DraftEditorCompositionHandler = {
 
     let contentState = editorState.getCurrentContent();
 
-    if (!isMobile) {
+    if (!isMobile && e) {
       // editor.update(
       //   EditorState.set(editor._latestEditorState, {
       //     inCompositionMode: false,
