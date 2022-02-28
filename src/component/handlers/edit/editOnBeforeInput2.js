@@ -82,11 +82,6 @@ function editOnBeforeInput2(
   e: SyntheticInputEvent<>,
   chars,
 ): void {
-  console.log('editOnBeforeInput2=====');
-  console.log(
-    'editOnBeforeInput2=====editor._pendingStateFromBeforeInput',
-    editor._pendingStateFromBeforeInput,
-  );
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;
@@ -112,7 +107,6 @@ function editOnBeforeInput2(
       ),
     )
   ) {
-    console.log('editOnBeforeInput2-da handle before input');
     editor.update(
       EditorState.set(editor._latestEditorState, {
         inCompositionMode: false,
@@ -121,9 +115,6 @@ function editOnBeforeInput2(
     e.preventDefault();
     return;
   }
-  console.log(
-    '=================editOnBeforeInput2-neu no vao day la sai r=========================',
-  );
 
   // If selection is collapsed, conditionally allow native behavior. This
   // reduces re-renders and preserves spellcheck highlighting. If the selection

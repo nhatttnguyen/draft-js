@@ -80,7 +80,6 @@ class DOMObserver {
     const {observer} = this;
     if (observer) {
       this.registerMutations(observer.takeRecords());
-      console.log('observer.takeRecords()', observer.takeRecords());
       observer.disconnect();
     } else {
       /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
@@ -93,14 +92,12 @@ class DOMObserver {
     const mutations = this.mutations;
 
     this.mutations = Map();
-    console.log('mutations', mutations);
     return mutations;
   }
 
   getObserverRecord() {
     const mutations = this.mutations;
     this.mutations = Map();
-    console.log('getObserverRecord-mutations', mutations);
     mutations.forEach((composedChars, offsetKey) => {
       console.log('composedChars', composedChars);
       return composedChars;

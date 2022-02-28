@@ -10645,7 +10645,6 @@ function (_React$Component2) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "setMode", function (mode) {
-      console.log('DraftEditorModes========');
       var _this$props = _this.props,
           onPaste = _this$props.onPaste,
           onCut = _this$props.onCut,
@@ -11104,15 +11103,6 @@ var DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionStart: function onCompositionStart(editor, e) {
-    console.log('onCompositionStart======'); // console.log('onCompositionStart-stillComposing======', stillComposing);
-
-    if (stillComposing) {
-      console.log('onCompositionStart-stillComposing======', stillComposing);
-      nullthrows(domObserver).getObserverRecord();
-    } // console.log('onCompositionStart-resolved', resolved);
-    // console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
-
-
     var isMobile = checkDevice();
     var editorState = editor._latestEditorState;
     var selection = editorState.getSelection(); // if (
@@ -11137,20 +11127,10 @@ var DraftEditorCompositionHandler = {
     // }
 
     if (isNewOrIsResolved === true) {
-      console.log('onCompositionStart-set lai compositionStartFocusOffset');
-
-      var currentSelection = editor._latestEditorState.getSelection(); // console.log(
-      //   'onCompositionStart-selectionState.isCollapsed()',
-      //   currentSelection.isCollapsed(),
-      // );
-
+      var currentSelection = editor._latestEditorState.getSelection();
 
       compositionStartFocusOffset = currentSelection.getFocusOffset();
-      compositionStartAnchorOffset = currentSelection.getAnchorOffset(); // console.log(
-      //   'onCompositionStart-compositionStartFocusOffset',
-      //   compositionStartFocusOffset,
-      // );
-
+      compositionStartAnchorOffset = currentSelection.getAnchorOffset();
       compositionStartIsBackward = currentSelection.getIsBackward();
       isNewOrIsResolved = false;
     }
@@ -11181,12 +11161,9 @@ var DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionUpdate: function onCompositionUpdate(editor, e) {
-    console.log('onCompositionUpdate======');
-    console.log('onCompositionUpdate-event.data======', e.data);
     var editorState = editor._latestEditorState;
     var selection = editorState.getSelection();
-    var contentState = editorState.getCurrentContent();
-    nullthrows(domObserver).getObserverRecord(); // if (!selection.isCollapsed()) {
+    var contentState = editorState.getCurrentContent(); // if (!selection.isCollapsed()) {
     //   editor.props.handleBeforeReplaceText(editorState);
     //   const updatedContentState = DraftModifier.removeRange(
     //     contentState,
@@ -11217,12 +11194,10 @@ var DraftEditorCompositionHandler = {
    * Google Input Tools on Windows 8.1 fires `compositionend` three times.
    */
   onCompositionEnd: function onCompositionEnd(editor, e) {
-    console.log('onCompositionEnd======');
     resolved = false;
     isNewOrIsResolved = false;
-    stillComposing = false; // console.log('onCompositionEnd-stillComposing', stillComposing);
-
-    e.persist(); // console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
+    stillComposing = false;
+    e.persist();
 
     if (!isOnBeforeInput) {
       setTimeout(function () {
@@ -11234,7 +11209,6 @@ var DraftEditorCompositionHandler = {
   },
   onSelect: editOnSelect,
   onBeforeInput: function onBeforeInput(editor, e) {
-    console.log('onBeforeInput=================');
     isOnBeforeInput = true; // editOnBeforeInput(editor, e);
     // handle when user not typing IME
 
@@ -11244,7 +11218,6 @@ var DraftEditorCompositionHandler = {
 
     resolved = false;
     stillComposing = false;
-    console.log('onBeforeInput-stillComposing', stillComposing);
     isNewOrIsResolved = false;
     e.persist();
     setTimeout(function () {
@@ -11260,14 +11233,11 @@ var DraftEditorCompositionHandler = {
    * doesn't move, otherwise it will jump back noticeably on re-render.
    */
   onKeyDown: function onKeyDown(editor, e) {
-    console.log('onKeyDown==========');
-
     if (!stillComposing) {
-      console.log('onKeyDown-stillComposing', stillComposing); // If a keydown event is received after compositionend but before the
+      // If a keydown event is received after compositionend but before the
       // 20ms timer expires (ex: type option-E then backspace, or type A then
       // backspace in 2-Set Korean), we should immediately resolve the
       // composition and reinterpret the key press in edit mode.
-
       DraftEditorCompositionHandler.resolveComposition(editor);
 
       editor._onKeyDown(e);
@@ -11367,9 +11337,6 @@ var DraftEditorCompositionHandler = {
    * so we update to force it back to the correct place.
    */
   resolveComposition: function resolveComposition(editor, e) {
-    console.log('resolveComposition===========');
-    console.log('resolveComposition-stillComposing: ', stillComposing);
-
     if (stillComposing) {
       return;
     }
@@ -11418,32 +11385,10 @@ var DraftEditorCompositionHandler = {
       //   }),
       // );
       mutations.forEach(function (composedChars, offsetKey) {
-        var selectionState = editor._latestEditorState.getSelection();
-
-        var focusKey = selectionState.focusKey;
-
-        var contentState = editor._latestEditorState.getCurrentContent();
-
-        var block = contentState.getBlockForKey(focusKey);
-        var blockText = block.getText(); // console.log('blockText======', blockText);
-
-        console.log('resolveComposition-composedChars======', composedChars);
-        var chars = getDifference(blockText, String(composedChars)); // console.log('chars', chars);
-
         if (e && (e.data || e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' || !domObserver)) {
           var currentSelection = editor._latestEditorState.getSelection();
 
           if (!(e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space')) {
-            var focusOffset = currentSelection.getFocusOffset(); // console.log('focusOffset', focusOffset);
-            // console.log(
-            //   'focusOffset - chars.length + 1',
-            //   focusOffset - chars.length + 1,
-            // );
-            // console.log(
-            //   'compositionStartFocusOffset',
-            //   compositionStartFocusOffset,
-            // );
-
             currentSelection = currentSelection.merge({
               anchorOffset: compositionStartAnchorOffset,
               focusOffset: compositionStartFocusOffset,
@@ -11455,7 +11400,6 @@ var DraftEditorCompositionHandler = {
         }
 
         if (!composedChars) {
-          console.log('resolveComposition-e.data', e.data);
           editor.update(EditorState.set(editor._latestEditorState, {
             inCompositionMode: false
           }));
@@ -11602,7 +11546,6 @@ function () {
 
     if (observer) {
       this.registerMutations(observer.takeRecords());
-      console.log('observer.takeRecords()', observer.takeRecords());
       observer.disconnect();
     } else {
       /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
@@ -11612,14 +11555,12 @@ function () {
 
     var mutations = this.mutations;
     this.mutations = Map();
-    console.log('mutations', mutations);
     return mutations;
   };
 
   _proto.getObserverRecord = function getObserverRecord() {
     var mutations = this.mutations;
     this.mutations = Map();
-    console.log('getObserverRecord-mutations', mutations);
     mutations.forEach(function (composedChars, offsetKey) {
       console.log('composedChars', composedChars);
       return composedChars;
@@ -14403,9 +14344,6 @@ function replaceText(editorState, text, inlineStyle, entityKey, forceSelection) 
 
 
 function editOnBeforeInput2(editor, e, chars) {
-  console.log('editOnBeforeInput2=====');
-  console.log('editOnBeforeInput2=====editor._pendingStateFromBeforeInput', editor._pendingStateFromBeforeInput);
-
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;
@@ -14420,17 +14358,15 @@ function editOnBeforeInput2(editor, e, chars) {
   // start of the block.
 
   if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e ? e.timeStamp : null))) {
-    console.log('editOnBeforeInput2-da handle before input');
     editor.update(EditorState.set(editor._latestEditorState, {
       inCompositionMode: false
     }));
     e.preventDefault();
     return;
-  }
-
-  console.log('=================editOnBeforeInput2-neu no vao day la sai r========================='); // If selection is collapsed, conditionally allow native behavior. This
+  } // If selection is collapsed, conditionally allow native behavior. This
   // reduces re-renders and preserves spellcheck highlighting. If the selection
   // is not collapsed, we will re-render.
+
 
   var selection = editorState.getSelection();
   var selectionStart = selection.getStartOffset();
