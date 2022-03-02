@@ -108,10 +108,18 @@ function editOnKeyDown(editor: DraftEditor, e: SyntheticKeyboardEvent<>): void {
       e.preventDefault();
       // The top-level component may manually handle newline insertion. If
       // no special handling is performed, fall through to command handling.
+      if (editor._latestEditorState.isInCompositionMode()) {
+        console.log(
+          'editOnKeyDown-editor._latestEditorState.isInCompositionMode()',
+          editor._latestEditorState.isInCompositionMode(),
+        );
+        return;
+      }
       if (
         editor.props.handleReturn &&
         isEventHandled(editor.props.handleReturn(e, editorState))
       ) {
+        console.log('editOnKeyDown-co vao day ko');
         return;
       }
       break;
