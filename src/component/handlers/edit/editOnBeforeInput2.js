@@ -118,7 +118,7 @@ function editOnBeforeInput2(
         inCompositionMode: false,
       }),
     );
-    e.preventDefault();
+    if (e) e.preventDefault();
     return;
   }
   console.log(

@@ -86,7 +86,7 @@ function editOnBeforeInput2(editor: DraftEditor, e: SyntheticInputEvent<>, chars
     editor.update(EditorState.set(editor._latestEditorState, {
       inCompositionMode: false
     }));
-    e.preventDefault();
+    if (e) e.preventDefault();
     return;
   }
 

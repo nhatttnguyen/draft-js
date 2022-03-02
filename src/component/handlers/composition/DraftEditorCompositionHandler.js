@@ -356,6 +356,7 @@ const DraftEditorCompositionHandler = {
    */
 
   resolveComposition: function(editor: DraftEditor, e: any): void {
+    console.log('resolveComposition-event==========', e);
     console.log('resolveComposition===========');
     console.log('resolveComposition-stillComposing: ', stillComposing);
     if (stillComposing) {

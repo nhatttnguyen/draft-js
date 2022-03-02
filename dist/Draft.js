@@ -11367,6 +11367,7 @@ var DraftEditorCompositionHandler = {
    * so we update to force it back to the correct place.
    */
   resolveComposition: function resolveComposition(editor, e) {
+    console.log('resolveComposition-event==========', e);
     console.log('resolveComposition===========');
     console.log('resolveComposition-stillComposing: ', stillComposing);
 
@@ -14424,7 +14425,7 @@ function editOnBeforeInput2(editor, e, chars) {
     editor.update(EditorState.set(editor._latestEditorState, {
       inCompositionMode: false
     }));
-    e.preventDefault();
+    if (e) e.preventDefault();
     return;
   }
 
