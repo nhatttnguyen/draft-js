@@ -5435,6 +5435,7 @@ function editOnKeyDown(editor, e) {
 
   switch (keyCode) {
     case Keys.RETURN:
+      console.log('vao editOnKeyDown RETURN');
       e.preventDefault(); // The top-level component may manually handle newline insertion. If
       // no special handling is performed, fall through to command handling.
 
@@ -11182,7 +11183,7 @@ var DraftEditorCompositionHandler = {
    */
   onCompositionUpdate: function onCompositionUpdate(editor, e) {
     console.log('onCompositionUpdate======');
-    console.log('onCompositionUpdate-event.data======', e.data);
+    if (e) console.log('onCompositionUpdate-event.data======', e.data);
     var editorState = editor._latestEditorState;
     var selection = editorState.getSelection();
     var contentState = editorState.getCurrentContent();
@@ -11275,6 +11276,11 @@ var DraftEditorCompositionHandler = {
       return;
     }
 
+    if (e.which === Keys.RETURN) {
+      console.log('e.which', e.which);
+      e.preventDefault();
+    }
+
     if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
       e.preventDefault();
     } // const editorState = editor._latestEditorState;
@@ -11347,6 +11353,7 @@ var DraftEditorCompositionHandler = {
    */
   onKeyPress: function onKeyPress(editor, e) {
     if (e.which === Keys.RETURN) {
+      console.log('onKeyPress-e.which', e.which);
       e.preventDefault();
     }
   },
@@ -11455,8 +11462,8 @@ var DraftEditorCompositionHandler = {
           }
         }
 
-        if (!composedChars) {
-          console.log('resolveComposition-e.data', e.data);
+        if (!composedChars && e) {
+          console.log('resolveComposition-event.data======', e.data);
           editor.update(EditorState.set(editor._latestEditorState, {
             inCompositionMode: false
           }));
@@ -14422,10 +14429,33 @@ function editOnBeforeInput2(editor, e, chars) {
 
   if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e ? e.timeStamp : null))) {
     console.log('editOnBeforeInput2-da handle before input');
-    editor.update(EditorState.set(editor._latestEditorState, {
-      inCompositionMode: false
-    }));
+    var _editorState = editor._latestEditorState;
+
+    var selectionState = _editorState.getSelection();
+
+    var focusKey = selectionState.focusKey,
+        focusOffset = selectionState.focusOffset; // console.log('onChange-focusOffset', focusOffset);
+
+    var contentState = _editorState.getCurrentContent();
+
+    var block = contentState.getBlockForKey(focusKey);
+    var blockText = block.getText();
+    console.log('editOnBeforeInput2-blockText', blockText);
     if (e) e.preventDefault();
+    setTimeout(function () {
+      var editorState = editor._latestEditorState;
+      var selectionState = editorState.getSelection();
+      var focusKey = selectionState.focusKey,
+          focusOffset = selectionState.focusOffset; // console.log('onChange-focusOffset', focusOffset);
+
+      var contentState = editorState.getCurrentContent();
+      var block = contentState.getBlockForKey(focusKey);
+      var blockText = block.getText();
+      console.log('editOnBeforeInput2-sau 30ms-blockText', blockText);
+      editor.update(EditorState.set(editor._latestEditorState, {
+        inCompositionMode: false
+      }));
+    }, 30);
     return;
   }
 

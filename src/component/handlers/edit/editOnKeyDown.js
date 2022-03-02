@@ -104,6 +104,7 @@ function editOnKeyDown(editor: DraftEditor, e: SyntheticKeyboardEvent<>): void {
   }
   switch (keyCode) {
     case Keys.RETURN:
+      console.log('vao editOnKeyDown RETURN');
       e.preventDefault();
       // The top-level component may manually handle newline insertion. If
       // no special handling is performed, fall through to command handling.

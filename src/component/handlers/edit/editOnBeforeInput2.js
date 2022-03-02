@@ -113,12 +113,34 @@ function editOnBeforeInput2(
     )
   ) {
     console.log('editOnBeforeInput2-da handle before input');
-    editor.update(
-      EditorState.set(editor._latestEditorState, {
-        inCompositionMode: false,
-      }),
-    );
+    const editorState = editor._latestEditorState;
+    const selectionState = editorState.getSelection();
+    const {focusKey, focusOffset} = selectionState;
+    // console.log('onChange-focusOffset', focusOffset);
+    const contentState = editorState.getCurrentContent();
+
+    const block = contentState.getBlockForKey(focusKey);
+    const blockText = block.getText();
+    console.log('editOnBeforeInput2-blockText', blockText);
+
     if (e) e.preventDefault();
+    setTimeout(() => {
+      const editorState = editor._latestEditorState;
+      const selectionState = editorState.getSelection();
+      const {focusKey, focusOffset} = selectionState;
+      // console.log('onChange-focusOffset', focusOffset);
+      const contentState = editorState.getCurrentContent();
+
+      const block = contentState.getBlockForKey(focusKey);
+      const blockText = block.getText();
+      console.log('editOnBeforeInput2-sau 30ms-blockText', blockText);
+      editor.update(
+        EditorState.set(editor._latestEditorState, {
+          inCompositionMode: false,
+        }),
+      );
+    }, 30);
+
     return;
   }
   console.log(

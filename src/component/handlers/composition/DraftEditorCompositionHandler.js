@@ -167,7 +167,7 @@ const DraftEditorCompositionHandler = {
    */
   onCompositionUpdate: function(editor: DraftEditor, e: any): void {
     console.log('onCompositionUpdate======');
-    console.log('onCompositionUpdate-event.data======', e.data);
+    if (e) console.log('onCompositionUpdate-event.data======', e.data);
     let editorState = editor._latestEditorState;
     const selection = editorState.getSelection();
     const contentState = editorState.getCurrentContent();
@@ -260,6 +260,10 @@ const DraftEditorCompositionHandler = {
       editor._onKeyDown(e);
       return;
     }
+    if (e.which === Keys.RETURN) {
+      console.log('e.which', e.which);
+      e.preventDefault();
+    }
     if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
       e.preventDefault();
     }
@@ -335,6 +339,7 @@ const DraftEditorCompositionHandler = {
    */
   onKeyPress: function(editor: DraftEditor, e: any): void {
     if (e.which === Keys.RETURN) {
+      console.log('onKeyPress-e.which', e.which);
       e.preventDefault();
     }
   },
@@ -462,8 +467,8 @@ const DraftEditorCompositionHandler = {
             editor.update(newEditorState);
           }
         }
-        if (!composedChars) {
-          console.log('resolveComposition-e.data', e.data);
+        if (!composedChars && e) {
+          console.log('resolveComposition-event.data======', e.data);
 
           editor.update(
             EditorState.set(editor._latestEditorState, {
