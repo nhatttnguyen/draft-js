@@ -349,6 +349,25 @@ const DraftEditorCompositionHandler = {
     }
   },
 
+  onMouseDown: function(editor: DraftEditor, e: any): void {
+    console.log('onMouseDown===================');
+    if (editor._latestEditorState.isInCompositionMode()) {
+      resolved = false;
+      stillComposing = false;
+      console.log('onMouseDown-stillComposing', stillComposing);
+      isNewOrIsResolved = false;
+
+      e.persist();
+
+      setTimeout(() => {
+        if (!resolved) {
+          console.log('onMouseDown-goi resolveComposition -resolved', resolved);
+          DraftEditorCompositionHandler.resolveComposition(editor, e);
+        }
+      }, RESOLVE_DELAY);
+    }
+  },
+
   /**
    * Attempt to insert composed characters into the document.
    *
