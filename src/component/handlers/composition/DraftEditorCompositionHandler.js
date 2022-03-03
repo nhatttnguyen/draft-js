@@ -89,6 +89,8 @@ const DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionStart: function(editor: DraftEditor, e: any): void {
+    isOnBeforeInput = false;
+
     console.log('onCompositionStart======');
     // console.log('onCompositionStart-stillComposing======', stillComposing);
     if (stillComposing) {
@@ -367,6 +369,11 @@ const DraftEditorCompositionHandler = {
     console.log('resolveComposition-event==========', e);
     console.log('resolveComposition===========');
     console.log('resolveComposition-stillComposing: ', stillComposing);
+    isOnBeforeInput = false;
+    console.log(
+      'resolveComposition-isOnBeforeInput sau khi set lai false:',
+      isOnBeforeInput,
+    );
     if (stillComposing) {
       return;
     }
@@ -376,11 +383,6 @@ const DraftEditorCompositionHandler = {
     domObserver = null;
     resolved = true;
     isNewOrIsResolved = true;
-    isOnBeforeInput = false;
-    console.log(
-      'resolveComposition-isOnBeforeInput sau khi set lai false:',
-      isOnBeforeInput,
-    );
 
     // let editorState = EditorState.set(editor._latestEditorState, {
     //   inCompositionMode: false,
