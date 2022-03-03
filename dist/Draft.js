@@ -11723,12 +11723,12 @@ function () {
       console.log('DOM-childList-target.textContent', target.textContent);
       console.log('DOM-childList-removedNodes', removedNodes);
 
-      if (removedNodes && removedNodes.length) {
-        return '';
-      }
-
       if (target.textContent !== '') {
         return target.textContent;
+      }
+
+      if (removedNodes && removedNodes.length) {
+        return '';
       }
     }
 
