@@ -11227,13 +11227,15 @@ var DraftEditorCompositionHandler = {
     console.log('onCompositionEnd======');
     resolved = false;
     isNewOrIsResolved = false;
-    stillComposing = false; // console.log('onCompositionEnd-stillComposing', stillComposing);
-
-    e.persist(); // console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
+    stillComposing = false;
+    console.log('onCompositionEnd-resolved', resolved);
+    e.persist();
+    console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
 
     if (!isOnBeforeInput) {
       setTimeout(function () {
         if (!resolved) {
+          console.log('onCompositionEnd-goi resolveComposition');
           DraftEditorCompositionHandler.resolveComposition(editor, e);
         }
       }, RESOLVE_DELAY);
@@ -11244,10 +11246,9 @@ var DraftEditorCompositionHandler = {
     console.log('onBeforeInput=================');
     isOnBeforeInput = true; // editOnBeforeInput(editor, e);
     // handle when user not typing IME
-
-    if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
-      editOnBeforeInput(editor, e);
-    }
+    // if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
+    //   editOnBeforeInput(editor, e);
+    // }
 
     resolved = false;
     stillComposing = false;
@@ -11256,6 +11257,7 @@ var DraftEditorCompositionHandler = {
     e.persist();
     setTimeout(function () {
       if (!resolved) {
+        console.log('onBeforeInput-goi resolveComposition -resolved', resolved);
         DraftEditorCompositionHandler.resolveComposition(editor, e);
       }
     }, RESOLVE_DELAY);
@@ -11392,7 +11394,9 @@ var DraftEditorCompositionHandler = {
     var mutations = nullthrows(domObserver).stopAndFlushMutations();
     domObserver = null;
     resolved = true;
-    isNewOrIsResolved = true; // let editorState = EditorState.set(editor._latestEditorState, {
+    isNewOrIsResolved = true;
+    isOnBeforeInput = false;
+    console.log('resolveComposition-isOnBeforeInput sau khi set lai false:', isOnBeforeInput); // let editorState = EditorState.set(editor._latestEditorState, {
     //   inCompositionMode: false,
     // });
 
@@ -11494,7 +11498,6 @@ var DraftEditorCompositionHandler = {
       stillComposing = false;
       domObserver = null;
       resolved = true;
-      isOnBeforeInput = false;
       return;
     }
 

@@ -207,12 +207,14 @@ const DraftEditorCompositionHandler = {
     resolved = false;
     isNewOrIsResolved = false;
     stillComposing = false;
-    // console.log('onCompositionEnd-stillComposing', stillComposing);
+    console.log('onCompositionEnd-resolved', resolved);
     e.persist();
-    // console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
+    console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
     if (!isOnBeforeInput) {
       setTimeout(() => {
         if (!resolved) {
+          console.log('onCompositionEnd-goi resolveComposition');
+
           DraftEditorCompositionHandler.resolveComposition(editor, e);
         }
       }, RESOLVE_DELAY);
@@ -226,9 +228,9 @@ const DraftEditorCompositionHandler = {
     isOnBeforeInput = true;
     // editOnBeforeInput(editor, e);
     // handle when user not typing IME
-    if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
-      editOnBeforeInput(editor, e);
-    }
+    // if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
+    //   editOnBeforeInput(editor, e);
+    // }
     resolved = false;
     stillComposing = false;
     console.log('onBeforeInput-stillComposing', stillComposing);
@@ -238,6 +240,7 @@ const DraftEditorCompositionHandler = {
 
     setTimeout(() => {
       if (!resolved) {
+        console.log('onBeforeInput-goi resolveComposition -resolved', resolved);
         DraftEditorCompositionHandler.resolveComposition(editor, e);
       }
     }, RESOLVE_DELAY);
@@ -373,6 +376,11 @@ const DraftEditorCompositionHandler = {
     domObserver = null;
     resolved = true;
     isNewOrIsResolved = true;
+    isOnBeforeInput = false;
+    console.log(
+      'resolveComposition-isOnBeforeInput sau khi set lai false:',
+      isOnBeforeInput,
+    );
 
     // let editorState = EditorState.set(editor._latestEditorState, {
     //   inCompositionMode: false,
@@ -496,7 +504,7 @@ const DraftEditorCompositionHandler = {
       stillComposing = false;
       domObserver = null;
       resolved = true;
-      isOnBeforeInput = false;
+
       return;
     }
 
