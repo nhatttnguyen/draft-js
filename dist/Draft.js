@@ -11721,9 +11721,14 @@ function () {
       // `DraftModifier.replaceText` will make sure the content is
       // updated properly.
       console.log('DOM-childList-target.textContent', target.textContent);
+      console.log('DOM-childList-removedNodes', removedNodes);
 
       if (removedNodes && removedNodes.length) {
         return '';
+      }
+
+      if (target.textContent !== '') {
+        return target.textContent;
       }
     }
 
