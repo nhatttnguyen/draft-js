@@ -11634,12 +11634,12 @@ function () {
 
     if (window.MutationObserver && !USE_CHAR_DATA) {
       this.observer = new window.MutationObserver(function (mutations) {
-        console.log('MutationObserver', mutations);
+        console.log('DOM-MutationObserver', mutations);
         return _this.registerMutations(mutations);
       });
     } else {
       this.onCharData = function (e) {
-        console.log('MutationObserver');
+        console.log('DOM-onCharData');
         !(e.target instanceof Node) ?  true ? invariant(false, 'Expected target to be an instance of Node') : invariant(false) : void 0;
 
         _this.registerMutation({
@@ -11701,13 +11701,14 @@ function () {
     var type = mutation.type,
         target = mutation.target,
         removedNodes = mutation.removedNodes;
+    console.log('DOM-getMutationTextContent-mutation', mutation);
 
     if (type === 'characterData') {
       // When `textContent` is '', there is a race condition that makes
       // getting the offsetKey from the target not possible.
       // These events are also followed by a `childList`, which is the one
       // we are able to retrieve the offsetKey and apply the '' text.
-      console.log('target.textContent', target.textContent);
+      console.log('DOM-characterData-target.textContent', target.textContent);
 
       if (target.textContent !== '') {
         return target.textContent;
@@ -11719,6 +11720,8 @@ function () {
       // For this case the textContent should be '' and
       // `DraftModifier.replaceText` will make sure the content is
       // updated properly.
+      console.log('DOM-childList-target.textContent', target.textContent);
+
       if (removedNodes && removedNodes.length) {
         return '';
       }
@@ -11729,9 +11732,9 @@ function () {
   };
 
   _proto.registerMutation = function registerMutation(mutation) {
-    console.log('registerMutation=========');
+    console.log('DOM-registerMutation=========');
     var textContent = this.getMutationTextContent(mutation);
-    console.log('textContent', textContent);
+    console.log('DOM-registerMutation-textContent', textContent);
 
     if (textContent != null) {
       var offsetKey = nullthrows(findAncestorOffsetKey(mutation.target));
