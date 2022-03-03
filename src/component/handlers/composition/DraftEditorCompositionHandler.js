@@ -261,7 +261,7 @@ const DraftEditorCompositionHandler = {
       return;
     }
     if (e.which === Keys.RETURN) {
-      console.log('e.which', e.which);
+      console.log('onKeyDown-e.which', e.which);
       e.preventDefault();
     }
     if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
@@ -428,6 +428,18 @@ const DraftEditorCompositionHandler = {
         console.log('resolveComposition-composedChars======', composedChars);
         const chars = getDifference(blockText, String(composedChars));
         // console.log('chars', chars);
+        let currentSelection = editor._latestEditorState.getSelection();
+        currentSelection = currentSelection.merge({
+          anchorOffset: compositionStartAnchorOffset,
+          focusOffset: compositionStartFocusOffset,
+          isBackward: compositionStartIsBackward,
+        });
+        const newEditorState = EditorState.forceSelection(
+          editor._latestEditorState,
+          currentSelection,
+        );
+        editor.update(newEditorState);
+
         if (
           e &&
           (e.data ||
@@ -436,8 +448,7 @@ const DraftEditorCompositionHandler = {
               e.nativeEvent.code === 'Space') ||
             !domObserver)
         ) {
-          let currentSelection = editor._latestEditorState.getSelection();
-
+          console.log('vao if 1');
           if (
             !(
               e.key === 'Process' &&
@@ -445,7 +456,9 @@ const DraftEditorCompositionHandler = {
               e.nativeEvent.code === 'Space'
             )
           ) {
-            const focusOffset = currentSelection.getFocusOffset();
+            console.log('vao if 2');
+
+            // const focusOffset = currentSelection.getFocusOffset();
             // console.log('focusOffset', focusOffset);
             // console.log(
             //   'focusOffset - chars.length + 1',
@@ -455,16 +468,16 @@ const DraftEditorCompositionHandler = {
             //   'compositionStartFocusOffset',
             //   compositionStartFocusOffset,
             // );
-            currentSelection = currentSelection.merge({
-              anchorOffset: compositionStartAnchorOffset,
-              focusOffset: compositionStartFocusOffset,
-              isBackward: compositionStartIsBackward,
-            });
-            const newEditorState = EditorState.forceSelection(
-              editor._latestEditorState,
-              currentSelection,
-            );
-            editor.update(newEditorState);
+            // currentSelection = currentSelection.merge({
+            //   anchorOffset: compositionStartAnchorOffset,
+            //   focusOffset: compositionStartFocusOffset,
+            //   isBackward: compositionStartIsBackward,
+            // });
+            // const newEditorState = EditorState.forceSelection(
+            //   editor._latestEditorState,
+            //   currentSelection,
+            // );
+            // editor.update(newEditorState);
           }
         }
         if (!composedChars && e) {
