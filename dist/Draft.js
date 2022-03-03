@@ -11634,10 +11634,12 @@ function () {
 
     if (window.MutationObserver && !USE_CHAR_DATA) {
       this.observer = new window.MutationObserver(function (mutations) {
+        console.log('MutationObserver', mutations);
         return _this.registerMutations(mutations);
       });
     } else {
       this.onCharData = function (e) {
+        console.log('MutationObserver');
         !(e.target instanceof Node) ?  true ? invariant(false, 'Expected target to be an instance of Node') : invariant(false) : void 0;
 
         _this.registerMutation({
@@ -11705,6 +11707,8 @@ function () {
       // getting the offsetKey from the target not possible.
       // These events are also followed by a `childList`, which is the one
       // we are able to retrieve the offsetKey and apply the '' text.
+      console.log('target.textContent', target.textContent);
+
       if (target.textContent !== '') {
         return target.textContent;
       }
@@ -11720,11 +11724,14 @@ function () {
       }
     }
 
+    console.log('vao day la mutation bi null');
     return null;
   };
 
   _proto.registerMutation = function registerMutation(mutation) {
+    console.log('registerMutation=========');
     var textContent = this.getMutationTextContent(mutation);
+    console.log('textContent', textContent);
 
     if (textContent != null) {
       var offsetKey = nullthrows(findAncestorOffsetKey(mutation.target));

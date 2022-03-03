@@ -46,11 +46,13 @@ class DOMObserver {
     this.container = container;
     this.mutations = Map();
     if (window.MutationObserver && !USE_CHAR_DATA) {
-      this.observer = new window.MutationObserver(mutations =>
-        this.registerMutations(mutations),
-      );
+      this.observer = new window.MutationObserver(mutations => {
+        console.log('MutationObserver', mutations);
+        return this.registerMutations(mutations);
+      });
     } else {
       this.onCharData = e => {
+        console.log('MutationObserver');
         invariant(
           e.target instanceof Node,
           'Expected target to be an instance of Node',
@@ -120,6 +122,7 @@ class DOMObserver {
       // getting the offsetKey from the target not possible.
       // These events are also followed by a `childList`, which is the one
       // we are able to retrieve the offsetKey and apply the '' text.
+      console.log('target.textContent', target.textContent);
       if (target.textContent !== '') {
         return target.textContent;
       }
@@ -134,11 +137,14 @@ class DOMObserver {
         return '';
       }
     }
+    console.log('vao day la mutation bi null');
     return null;
   }
 
   registerMutation(mutation: MutationRecordT): void {
+    console.log('registerMutation=========');
     const textContent = this.getMutationTextContent(mutation);
+    console.log('textContent', textContent);
     if (textContent != null) {
       const offsetKey = nullthrows(findAncestorOffsetKey(mutation.target));
       this.mutations = this.mutations.set(offsetKey, textContent);
