@@ -38,12 +38,19 @@ const onPaste = require("./editOnPaste");
 
 const onSelect = require("./editOnSelect");
 
+const DraftEditorCompositionHandler = require("./DraftEditorCompositionHandler");
+
 const isChrome = UserAgent.isBrowser('Chrome');
 
-const selectionHandler = (editor: DraftEditor) => {
+const selectionHandler = (editor: DraftEditor, e: any) => {
+  console.log('selectionHandler==============', e);
   console.log('editor._latestEditorState.isInCompositionMode()', editor._latestEditorState.isInCompositionMode());
 
   if (editor._latestEditorState.isInCompositionMode()) {
+    setTimeout(() => {
+      console.log('onMouseUp-goi resolveComposition');
+      DraftEditorCompositionHandler.resolveComposition(editor, e);
+    });
     return;
   }
 

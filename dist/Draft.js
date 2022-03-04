@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 79);
+/******/ 	return __webpack_require__(__webpack_require__.s = 80);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -168,11 +168,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var BlockTree = __webpack_require__(91);
+var BlockTree = __webpack_require__(92);
 
 var ContentState = __webpack_require__(32);
 
-var EditorBidiService = __webpack_require__(92);
+var EditorBidiService = __webpack_require__(93);
 
 var SelectionState = __webpack_require__(24);
 
@@ -735,19 +735,19 @@ module.exports = EditorState;
 
 var CharacterMetadata = __webpack_require__(6);
 
-var ContentStateInlineStyle = __webpack_require__(81);
+var ContentStateInlineStyle = __webpack_require__(82);
 
-var applyEntityToContentState = __webpack_require__(82);
+var applyEntityToContentState = __webpack_require__(83);
 
-var getCharacterRemovalRange = __webpack_require__(84);
+var getCharacterRemovalRange = __webpack_require__(85);
 
 var getContentStateFragment = __webpack_require__(22);
 
 var Immutable = __webpack_require__(0);
 
-var insertFragmentIntoContentState = __webpack_require__(87);
+var insertFragmentIntoContentState = __webpack_require__(88);
 
-var insertTextIntoContentState = __webpack_require__(88);
+var insertTextIntoContentState = __webpack_require__(89);
 
 var invariant = __webpack_require__(1);
 
@@ -755,9 +755,9 @@ var modifyBlockForContentState = __webpack_require__(44);
 
 var removeEntitiesAtEdges = __webpack_require__(42);
 
-var removeRangeFromContentState = __webpack_require__(89);
+var removeRangeFromContentState = __webpack_require__(90);
 
-var splitBlockInContentState = __webpack_require__(90);
+var splitBlockInContentState = __webpack_require__(91);
 
 var OrderedSet = Immutable.OrderedSet;
 /**
@@ -2074,7 +2074,7 @@ module.exports = isEventHandled;
 "use strict";
 
 
-var asap = __webpack_require__(70);
+var asap = __webpack_require__(71);
 
 function noop() {}
 
@@ -2979,7 +2979,7 @@ module.exports = UnicodeBidiDirection;
  */
 
 
-var getSelectionOffsetKeyForNode = __webpack_require__(49);
+var getSelectionOffsetKeyForNode = __webpack_require__(50);
 /**
  * Get the key from the node's nearest offset-aware ancestor.
  */
@@ -3797,7 +3797,7 @@ module.exports = moveSelectionBackward;
  */
 
 
-var emptyFunction = __webpack_require__(61);
+var emptyFunction = __webpack_require__(62);
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
  * This can be used to log issues in development environments in critical
@@ -4552,6 +4552,576 @@ module.exports = {
  * @emails oncall+draft_js
  */
 
+
+var DOMObserver = __webpack_require__(98);
+
+var DraftModifier = __webpack_require__(3);
+
+var DraftOffsetKey = __webpack_require__(11);
+
+var EditorState = __webpack_require__(2);
+
+var Keys = __webpack_require__(27);
+
+var editOnSelect = __webpack_require__(51);
+
+var getContentEditableContainer = __webpack_require__(53);
+
+var getDraftEditorSelection = __webpack_require__(54);
+
+var getEntityKeyForSelection = __webpack_require__(29);
+
+var nullthrows = __webpack_require__(4);
+
+var editOnBeforeInput = __webpack_require__(57);
+
+var editOnKeyDown = __webpack_require__(60);
+
+var keyCommandPlainBackspace = __webpack_require__(38);
+
+var isEventHandled = __webpack_require__(17);
+
+var editOnBeforeInput2 = __webpack_require__(119);
+/**
+ * Millisecond delay to allow `compositionstart` to fire again upon
+ * `compositionend`.
+ *
+ * This is used for Korean input to ensure that typing can continue without
+ * the editor trying to render too quickly. More specifically, Safari 7.1+
+ * triggers `compositionstart` a little slower than Chrome/FF, which
+ * leads to composed characters being resolved and re-render occurring
+ * sooner than we want.
+ */
+
+
+var RESOLVE_DELAY = 20;
+/**
+ * A handful of variables used to track the current composition and its
+ * resolution status. These exist at the module level because it is not
+ * possible to have compositions occurring in multiple editors simultaneously,
+ * and it simplifies state management with respect to the DraftEditor component.
+ */
+
+var resolved = false;
+var stillComposing = false;
+var domObserver = null;
+var isOnBeforeInput = false;
+var compositionStartFocusOffset;
+var compositionStartAnchorOffset;
+var compositionStartIsBackward;
+var isNewOrIsResolved = true;
+
+function startDOMObserver(editor) {
+  if (!domObserver) {
+    domObserver = new DOMObserver(getContentEditableContainer(editor));
+    domObserver.start();
+  }
+}
+
+function checkDevice() {
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return isMobile;
+}
+
+function getDifference(a, b) {
+  var i = 0;
+  var j = 0;
+  var result = '';
+
+  while (j < b.length) {
+    if (a[i] != b[j] || i == a.length) result += b[j];else i++;
+    j++;
+  }
+
+  return result;
+}
+
+var DraftEditorCompositionHandler = {
+  /**
+   * A `compositionstart` event has fired while we're still in composition
+   * mode. Continue the current composition session to prevent a re-render.
+   */
+  onCompositionStart: function onCompositionStart(editor, e) {
+    isOnBeforeInput = false;
+    console.log('onCompositionStart======'); // console.log('onCompositionStart-stillComposing======', stillComposing);
+
+    if (stillComposing) {
+      console.log('onCompositionStart-stillComposing======', stillComposing);
+      nullthrows(domObserver).getObserverRecord();
+    } // console.log('onCompositionStart-resolved', resolved);
+    // console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
+
+
+    var isMobile = checkDevice();
+    var editorState = editor._latestEditorState;
+    var selection = editorState.getSelection(); // if (
+    //   (isMobile && selection.getFocusKey() !== selection.getAnchorKey()) ||
+    //   !isMobile
+    // ) {
+    //   editor.update(EditorState.set(editorState, {inCompositionMode: true}));
+    //   const contentState = editorState.getCurrentContent();
+    //   if (!selection.isCollapsed()) {
+    //     console.log(
+    //       'onCompositionStart-selection.isCollapsed()',
+    //       selection.isCollapsed(),
+    //     );
+    //     editor.props.handleBeforeReplaceText(editorState);
+    //     const updatedContentState = DraftModifier.removeRange(
+    //       contentState,
+    //       selection,
+    //       'forward',
+    //     );
+    //     EditorState.push(editorState, updatedContentState, 'remove-range');
+    //   }
+    // }
+
+    if (isNewOrIsResolved === true) {
+      console.log('onCompositionStart-set lai compositionStartFocusOffset');
+
+      var currentSelection = editor._latestEditorState.getSelection(); // console.log(
+      //   'onCompositionStart-selectionState.isCollapsed()',
+      //   currentSelection.isCollapsed(),
+      // );
+
+
+      compositionStartFocusOffset = currentSelection.getFocusOffset();
+      compositionStartAnchorOffset = currentSelection.getAnchorOffset(); // console.log(
+      //   'onCompositionStart-compositionStartFocusOffset',
+      //   compositionStartFocusOffset,
+      // );
+
+      compositionStartIsBackward = currentSelection.getIsBackward();
+      isNewOrIsResolved = false;
+    }
+
+    stillComposing = true; // if (isMobile && selection.getIsBackward()) {
+    //   const updateSelection = selection.merge({
+    //     anchorKey: selection.getFocusKey(),
+    //     anchorOffset: selection.getFocusOffset(),
+    //     focusKey: selection.getAnchorKey(),
+    //     focusOffset: selection.getAnchorOffset(),
+    //     isBackward: false,
+    //   });
+    //   const newEditorState = EditorState.forceSelection(
+    //     editorState,
+    //     updateSelection,
+    //   );
+    //   editor.update(newEditorState);
+    // }
+
+    editor.update(EditorState.set(editorState, {
+      inCompositionMode: true
+    }));
+    startDOMObserver(editor);
+  },
+
+  /**
+   * A `compositionstart` event has fired while we're still in composition
+   * mode. Continue the current composition session to prevent a re-render.
+   */
+  onCompositionUpdate: function onCompositionUpdate(editor, e) {
+    console.log('onCompositionUpdate======');
+    if (e) console.log('onCompositionUpdate-event.data======', e.data);
+    var editorState = editor._latestEditorState;
+    var selection = editorState.getSelection();
+    var contentState = editorState.getCurrentContent();
+    nullthrows(domObserver).getObserverRecord(); // if (!selection.isCollapsed()) {
+    //   editor.props.handleBeforeReplaceText(editorState);
+    //   const updatedContentState = DraftModifier.removeRange(
+    //     contentState,
+    //     selection,
+    //     'forward',
+    //   );
+    //   editorState = EditorState.push(
+    //     editorState,
+    //     updatedContentState,
+    //     'remove-range',
+    //   );
+    //   editor.update(editorState);
+    // }
+  },
+
+  /**
+   * Attempt to end the current composition session.
+   *
+   * Defer handling because browser will still insert the chars into active
+   * element after `compositionend`. If a `compositionstart` event fires
+   * before `resolveComposition` executes, our composition session will
+   * continue.
+   *
+   * The `resolved` flag is useful because certain IME interfaces fire the
+   * `compositionend` event multiple times, thus queueing up multiple attempts
+   * at handling the composition. Since handling the same composition event
+   * twice could break the DOM, we only use the first event. Example: Arabic
+   * Google Input Tools on Windows 8.1 fires `compositionend` three times.
+   */
+  onCompositionEnd: function onCompositionEnd(editor, e) {
+    console.log('onCompositionEnd======');
+    resolved = false;
+    isNewOrIsResolved = false;
+    stillComposing = false;
+    console.log('onCompositionEnd-resolved', resolved);
+    e.persist(); // e.preventDefault();
+
+    console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
+
+    if (!isOnBeforeInput) {
+      setTimeout(function () {
+        if (!resolved) {
+          console.log('onCompositionEnd-goi resolveComposition');
+          DraftEditorCompositionHandler.resolveComposition(editor, e);
+        }
+      }, RESOLVE_DELAY);
+    }
+  },
+  onSelect: editOnSelect,
+  onBeforeInput: function onBeforeInput(editor, e) {
+    console.log('onBeforeInput=================');
+    isOnBeforeInput = true; // editOnBeforeInput(editor, e);
+    // handle when user not typing IME
+    // if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
+    //   editOnBeforeInput(editor, e);
+    // }
+
+    resolved = false;
+    stillComposing = false;
+    console.log('onBeforeInput-stillComposing', stillComposing);
+    isNewOrIsResolved = false;
+    e.persist(); // e.preventDefault();
+
+    setTimeout(function () {
+      if (!resolved) {
+        console.log('onBeforeInput-goi resolveComposition -resolved', resolved);
+        DraftEditorCompositionHandler.resolveComposition(editor, e);
+      }
+    }, RESOLVE_DELAY);
+  },
+
+  /**
+   * In Safari, keydown events may fire when committing compositions. If
+   * the arrow keys are used to commit, prevent default so that the cursor
+   * doesn't move, otherwise it will jump back noticeably on re-render.
+   */
+  onKeyDown: function onKeyDown(editor, e) {
+    console.log('onKeyDown==========');
+
+    if (!stillComposing) {
+      console.log('onKeyDown-stillComposing', stillComposing); // If a keydown event is received after compositionend but before the
+      // 20ms timer expires (ex: type option-E then backspace, or type A then
+      // backspace in 2-Set Korean), we should immediately resolve the
+      // composition and reinterpret the key press in edit mode.
+
+      DraftEditorCompositionHandler.resolveComposition(editor);
+
+      editor._onKeyDown(e);
+
+      return;
+    }
+
+    if (e.which === Keys.RETURN) {
+      console.log('onKeyDown-e.which', e.which);
+      e.preventDefault();
+    }
+
+    if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
+      e.preventDefault();
+    } // const editorState = editor._latestEditorState;
+    // const isMobile = checkDevice();
+    // if (!isMobile) {
+    //   if (
+    //     e.key === 'Process' &&
+    //     e.nativeEvent &&
+    //     e.nativeEvent.code === 'Space' &&
+    //     !stillComposing
+    //   ) {
+    //     const timeStamp = e.timeStamp;
+    //     setTimeout(() => {
+    //       editor.props.handleBeforeInput &&
+    //         editor.props.handleBeforeInput('　', editorState, timeStamp);
+    //     }, 0);
+    //   }
+    //   if (
+    //     domObserver &&
+    //     !(
+    //       e.key === 'Process' &&
+    //       e.nativeEvent &&
+    //       (e.nativeEvent.code === 'Space' || e.nativeEvent.code === 'Enter') &&
+    //       stillComposing
+    //     )
+    //   ) {
+    //     editOnKeyDown(editor, e);
+    //     if (e.key === 'Backspace') {
+    //       keyCommandPlainBackspace(editorState);
+    //     }
+    //     // if (!stillComposing) {
+    //     // If a keydown event is received after compositionend but before the
+    //     // 20ms timer expires (ex: type option-E then backspace, or type A then
+    //     // backspace in 2-Set Korean), we should immediately resolve the
+    //     // composition and reinterpret the key press in edit mode.
+    //     // editor._onKeyDown(e);
+    //     //   return;
+    //     // }
+    //   } else {
+    //     if (e.key === 'Backspace') {
+    //       keyCommandPlainBackspace(editorState);
+    //     }
+    //     if (!stillComposing) {
+    //       editOnKeyDown(editor, e);
+    //     }
+    //     return;
+    //   }
+    // } else {
+    //   if (!stillComposing) {
+    //     // If a keydown event is received after compositionend but before the
+    //     // 20ms timer expires (ex: type option-E then backspace, or type A then
+    //     // backspace in 2-Set Korean), we should immediately resolve the
+    //     // composition and reinterpret the key press in edit mode.
+    //     DraftEditorCompositionHandler.resolveComposition(editor);
+    //     editor._onKeyDown(e);
+    //     return;
+    //   }
+    // }
+    // if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
+    //   e.preventDefault();
+    // }
+
+  },
+
+  /**
+   * Keypress events may fire when committing compositions. In Firefox,
+   * pressing RETURN commits the composition and inserts extra newline
+   * characters that we do not want. `preventDefault` allows the composition
+   * to be committed while preventing the extra characters.
+   */
+  onKeyPress: function onKeyPress(editor, e) {
+    if (e.which === Keys.RETURN) {
+      console.log('onKeyPress-e.which', e.which);
+      e.preventDefault();
+    }
+  },
+  onMouseDown: function onMouseDown(editor, e) {
+    console.log('onMouseDown==================='); // if (editor._latestEditorState.isInCompositionMode()) {
+    //   resolved = false;
+    //   stillComposing = false;
+    //   console.log('onMouseDown-stillComposing', stillComposing);
+    //   isNewOrIsResolved = false;
+    //   e.persist();
+    //   setTimeout(() => {
+    //     if (!resolved) {
+    //       console.log('onMouseDown-goi resolveComposition -resolved', resolved);
+    //       DraftEditorCompositionHandler.resolveComposition(editor, e);
+    //     }
+    //   }, RESOLVE_DELAY);
+    // }
+  },
+  onMouseUp: function onMouseUp(editor, e) {
+    console.log('onMouseUp===================');
+
+    if (editor._latestEditorState.isInCompositionMode()) {
+      resolved = false;
+      stillComposing = false;
+      console.log('onMouseUp-stillComposing', stillComposing);
+      isNewOrIsResolved = false; // e.persist();
+      // setTimeout(() => {
+      //   if (!resolved) {
+      //     console.log('onMouseUp-goi resolveComposition -resolved', resolved);
+      //     DraftEditorCompositionHandler.resolveComposition(editor, e);
+      //   }
+      // }, RESOLVE_DELAY);
+    }
+  },
+
+  /**
+   * Attempt to insert composed characters into the document.
+   *
+   * If we are still in a composition session, do nothing. Otherwise, insert
+   * the characters into the document and terminate the composition session.
+   *
+   * If no characters were composed -- for instance, the user
+   * deleted all composed characters and committed nothing new --
+   * force a re-render. We also re-render when the composition occurs
+   * at the beginning of a leaf, to ensure that if the browser has
+   * created a new text node for the composition, we will discard it.
+   *
+   * Resetting innerHTML will move focus to the beginning of the editor,
+   * so we update to force it back to the correct place.
+   */
+  resolveComposition: function resolveComposition(editor, e) {
+    console.log('resolveComposition-event==========', e);
+    console.log('resolveComposition===========');
+    console.log('resolveComposition-stillComposing: ', stillComposing);
+    isOnBeforeInput = false;
+    console.log('resolveComposition-isOnBeforeInput sau khi set lai false:', isOnBeforeInput);
+
+    if (stillComposing) {
+      return;
+    }
+
+    var isMobile = checkDevice();
+    var mutations = nullthrows(domObserver).stopAndFlushMutations();
+    domObserver = null;
+    resolved = true;
+    isNewOrIsResolved = true; // let editorState = EditorState.set(editor._latestEditorState, {
+    //   inCompositionMode: false,
+    // });
+
+    var editorState = editor._latestEditorState;
+    editor.exitCurrentMode(); // if (!mutations.size) {
+    //   editor.update(editorState);
+    //   return;
+    // }
+    // TODO, check if Facebook still needs this flag or if it could be removed.
+    // Since there can be multiple mutations providing a `composedChars` doesn't
+    // apply well on this new model.
+    // if (
+    //   gkx('draft_handlebeforeinput_composed_text') &&
+    //   editor.props.handleBeforeInput &&
+    //   isEventHandled(
+    //     editor.props.handleBeforeInput(
+    //       composedChars,
+    //       editorState,
+    //       event.timeStamp,
+    //     ),
+    //   )
+    // ) {
+    //   return;
+    // }
+    // editor.props.handleBeforeInput(
+    //         e.data,
+    //         editorState,
+    //         e.timeStamp,
+    //       );
+
+    var contentState = editorState.getCurrentContent();
+
+    if (!isMobile) {
+      // editor.update(
+      //   EditorState.set(editor._latestEditorState, {
+      //     inCompositionMode: false,
+      //   }),
+      // );
+      mutations.forEach(function (composedChars, offsetKey) {
+        var selectionState = editor._latestEditorState.getSelection();
+
+        var focusKey = selectionState.focusKey;
+
+        var contentState = editor._latestEditorState.getCurrentContent();
+
+        var block = contentState.getBlockForKey(focusKey);
+        var blockText = block.getText(); // console.log('blockText======', blockText);
+
+        console.log('resolveComposition-composedChars======', composedChars);
+        var chars = getDifference(blockText, String(composedChars)); // console.log('chars', chars);
+
+        var currentSelection = editor._latestEditorState.getSelection();
+
+        currentSelection = currentSelection.merge({
+          anchorOffset: compositionStartAnchorOffset,
+          focusOffset: compositionStartFocusOffset,
+          isBackward: compositionStartIsBackward
+        });
+        var newEditorState = EditorState.forceSelection(editor._latestEditorState, currentSelection);
+        editor.update(newEditorState);
+
+        if (e && (e.data || e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' || !domObserver)) {
+          console.log('vao if 1');
+
+          if (!(e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space')) {
+            console.log('vao if 2'); // const focusOffset = currentSelection.getFocusOffset();
+            // console.log('focusOffset', focusOffset);
+            // console.log(
+            //   'focusOffset - chars.length + 1',
+            //   focusOffset - chars.length + 1,
+            // );
+            // console.log(
+            //   'compositionStartFocusOffset',
+            //   compositionStartFocusOffset,
+            // );
+            // currentSelection = currentSelection.merge({
+            //   anchorOffset: compositionStartAnchorOffset,
+            //   focusOffset: compositionStartFocusOffset,
+            //   isBackward: compositionStartIsBackward,
+            // });
+            // const newEditorState = EditorState.forceSelection(
+            //   editor._latestEditorState,
+            //   currentSelection,
+            // );
+            // editor.update(newEditorState);
+          }
+        }
+
+        if (!composedChars && e) {
+          console.log('resolveComposition-event.data======', e.data);
+          editor.update(EditorState.set(editor._latestEditorState, {
+            inCompositionMode: false
+          }));
+          editOnBeforeInput2(editor, e, e.data);
+        } else {
+          editOnBeforeInput2(editor, e, composedChars);
+        }
+      });
+      stillComposing = false;
+      domObserver = null;
+      resolved = true;
+      return;
+    }
+
+    mutations.forEach(function (composedChars, offsetKey) {
+      var _DraftOffsetKey$decod = DraftOffsetKey.decode(offsetKey),
+          blockKey = _DraftOffsetKey$decod.blockKey,
+          decoratorKey = _DraftOffsetKey$decod.decoratorKey,
+          leafKey = _DraftOffsetKey$decod.leafKey;
+
+      if (editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey])) {
+        var _editorState$getBlock = editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey]),
+            start = _editorState$getBlock.start,
+            end = _editorState$getBlock.end;
+
+        var replacementRange = editorState.getSelection().merge({
+          anchorKey: blockKey,
+          focusKey: blockKey,
+          anchorOffset: start,
+          focusOffset: end,
+          isBackward: false
+        });
+        var entityKey = getEntityKeyForSelection(contentState, replacementRange);
+        var currentStyle = contentState.getBlockForKey(blockKey).getInlineStyleAt(start);
+        contentState = DraftModifier.replaceText(contentState, replacementRange, composedChars, currentStyle, entityKey); // We need to update the editorState so the leaf node ranges are properly
+        // updated and multiple mutations are correctly applied.
+
+        editorState = EditorState.set(editorState, {
+          currentContent: contentState
+        });
+      }
+    }); // When we apply the text changes to the ContentState, the selection always
+    // goes to the end of the field, but it should just stay where it is
+    // after compositionEnd.
+
+    var documentSelection = getDraftEditorSelection(editorState, getContentEditableContainer(editor));
+    var compositionEndSelectionState = documentSelection.selectionState;
+    editor.restoreEditorDOM();
+    var editorStateWithUpdatedSelection = EditorState.acceptSelection(editorState, compositionEndSelectionState);
+    editor.update(EditorState.push(editorStateWithUpdatedSelection, contentState, 'insert-characters'));
+  }
+};
+module.exports = DraftEditorCompositionHandler;
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
 /**
  * Get offset key from a node or it's child nodes. Return the first offset key
  * found on the DOM tree of given node.
@@ -4580,7 +5150,7 @@ function getSelectionOffsetKeyForNode(node) {
 module.exports = getSelectionOffsetKeyForNode;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4596,13 +5166,13 @@ module.exports = getSelectionOffsetKeyForNode;
  */
 
 
-var DraftJsDebugLogging = __webpack_require__(51);
+var DraftJsDebugLogging = __webpack_require__(52);
 
 var EditorState = __webpack_require__(2);
 
-var getContentEditableContainer = __webpack_require__(52);
+var getContentEditableContainer = __webpack_require__(53);
 
-var getDraftEditorSelection = __webpack_require__(53);
+var getDraftEditorSelection = __webpack_require__(54);
 
 function editOnSelect(editor) {
   if (editor._blockSelectEvents || editor._latestEditorState !== editor.props.editorState) {
@@ -4642,7 +5212,7 @@ function editOnSelect(editor) {
 module.exports = editOnSelect;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4665,7 +5235,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4695,7 +5265,7 @@ function getContentEditableContainer(editor) {
 module.exports = getContentEditableContainer;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4711,7 +5281,7 @@ module.exports = getContentEditableContainer;
  */
 
 
-var getDraftEditorSelectionWithNodes = __webpack_require__(54);
+var getDraftEditorSelectionWithNodes = __webpack_require__(55);
 /**
  * Convert the current selection range to an anchor/focus pair of offset keys
  * and values that can be interpreted by components.
@@ -4735,7 +5305,7 @@ module.exports = getDraftEditorSelection;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4753,9 +5323,9 @@ module.exports = getDraftEditorSelection;
 
 var findAncestorOffsetKey = __webpack_require__(26);
 
-var getSelectionOffsetKeyForNode = __webpack_require__(49);
+var getSelectionOffsetKeyForNode = __webpack_require__(50);
 
-var getUpdatedSelectionState = __webpack_require__(55);
+var getUpdatedSelectionState = __webpack_require__(56);
 
 var invariant = __webpack_require__(1);
 
@@ -4928,7 +5498,7 @@ function getTextContentLength(node) {
 module.exports = getDraftEditorSelectionWithNodes;
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5016,7 +5586,7 @@ function getUpdatedSelectionState(editorState, anchorKey, anchorOffset, focusKey
 module.exports = getUpdatedSelectionState;
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5042,11 +5612,11 @@ var getEntityKeyForSelection = __webpack_require__(29);
 
 var isEventHandled = __webpack_require__(17);
 
-var isSelectionAtLeafStart = __webpack_require__(57);
+var isSelectionAtLeafStart = __webpack_require__(58);
 
 var nullthrows = __webpack_require__(4);
 
-var setImmediate = __webpack_require__(58); // When nothing is focused, Firefox regards two characters, `'` and `/`, as
+var setImmediate = __webpack_require__(59); // When nothing is focused, Firefox regards two characters, `'` and `/`, as
 // commands that should open and focus the "quickfind" search bar. This should
 // *never* happen while a contenteditable is focused, but as of v28, it
 // sometimes does, even when the keypress event target is the contenteditable.
@@ -5240,7 +5810,7 @@ module.exports = editOnBeforeInput;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5289,7 +5859,7 @@ function isSelectionAtLeafStart(editorState) {
 module.exports = isSelectionAtLeafStart;
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5309,7 +5879,7 @@ module.exports = global.setImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5543,7 +6113,7 @@ function editOnKeyDown(editor, e) {
 module.exports = editOnKeyDown;
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5614,7 +6184,7 @@ var getRangeClientRects = isChrome ? getRangeClientRectsChrome : function (range
 module.exports = getRangeClientRects;
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5658,7 +6228,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5706,7 +6276,7 @@ var DraftRemovableWord = {
 module.exports = DraftRemovableWord;
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5760,7 +6330,7 @@ function moveSelectionForward(editorState, maxDistance) {
 module.exports = moveSelectionForward;
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5932,7 +6502,7 @@ function (_React$Component) {
 module.exports = DraftEditorLeaf;
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5951,7 +6521,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5997,7 +6567,7 @@ function getActiveElement(doc)
 module.exports = getActiveElement;
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6034,7 +6604,7 @@ function getElementPosition(element) {
 module.exports = getElementPosition;
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6102,7 +6672,7 @@ getViewportDimensions.withoutScrollbars = function () {
 module.exports = getViewportDimensions;
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6129,7 +6699,7 @@ function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.crea
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var DraftEditorLeaf = __webpack_require__(64);
+var DraftEditorLeaf = __webpack_require__(65);
 
 var DraftOffsetKey = __webpack_require__(11);
 
@@ -6145,11 +6715,11 @@ var UnicodeBidiDirection = __webpack_require__(25);
 
 var cx = __webpack_require__(14);
 
-var getElementPosition = __webpack_require__(67);
+var getElementPosition = __webpack_require__(68);
 
 var getScrollPosition = __webpack_require__(31);
 
-var getViewportDimensions = __webpack_require__(68);
+var getViewportDimensions = __webpack_require__(69);
 
 var invariant = __webpack_require__(1);
 
@@ -6481,7 +7051,7 @@ function (_React$Component) {
 module.exports = DraftEditorBlock;
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6712,7 +7282,7 @@ rawAsap.makeRequestCallFromTimer = makeRequestCallFromTimer;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6730,7 +7300,7 @@ var PhotosMimeType = __webpack_require__(148);
 
 var createArrayFromMixed = __webpack_require__(149);
 
-var emptyFunction = __webpack_require__(61);
+var emptyFunction = __webpack_require__(62);
 
 var CR_LF_REGEX = new RegExp("\r\n", 'g');
 var LF_ONLY = "\n";
@@ -6933,7 +7503,7 @@ function () {
 module.exports = DataTransfer;
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7025,7 +7595,7 @@ module.exports = getTextContentFromFiles;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7056,7 +7626,7 @@ function getFragmentFromSelection(editorState) {
 module.exports = getFragmentFromSelection;
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7096,7 +7666,7 @@ var cx = __webpack_require__(14);
 
 var generateRandomKey = __webpack_require__(10);
 
-var getSafeBodyFromHTML = __webpack_require__(75);
+var getSafeBodyFromHTML = __webpack_require__(76);
 
 var gkx = __webpack_require__(12);
 
@@ -7832,7 +8402,7 @@ var convertFromHTMLToContentBlocks = function convertFromHTMLToContentBlocks(htm
 module.exports = convertFromHTMLToContentBlocks;
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7873,7 +8443,7 @@ function getSafeBodyFromHTML(html) {
 module.exports = getSafeBodyFromHTML;
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8162,7 +8732,7 @@ var RichTextEditorUtil = {
 module.exports = RichTextEditorUtil;
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8311,7 +8881,7 @@ function getDefaultKeyBinding(e) {
 module.exports = getDefaultKeyBinding;
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8338,7 +8908,7 @@ var DraftStringKey = {
 module.exports = DraftStringKey;
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8353,13 +8923,13 @@ module.exports = DraftStringKey;
  */
 
 
-var AtomicBlockUtils = __webpack_require__(80);
+var AtomicBlockUtils = __webpack_require__(81);
 
 var BlockMapBuilder = __webpack_require__(19);
 
 var CharacterMetadata = __webpack_require__(6);
 
-var CompositeDraftDecorator = __webpack_require__(95);
+var CompositeDraftDecorator = __webpack_require__(96);
 
 var ContentBlock = __webpack_require__(13);
 
@@ -8369,9 +8939,9 @@ var DefaultDraftBlockRenderMap = __webpack_require__(34);
 
 var DefaultDraftInlineStyle = __webpack_require__(48);
 
-var DraftEditor = __webpack_require__(96);
+var DraftEditor = __webpack_require__(97);
 
-var DraftEditorBlock = __webpack_require__(69);
+var DraftEditorBlock = __webpack_require__(70);
 
 var DraftEntity = __webpack_require__(23);
 
@@ -8385,7 +8955,7 @@ var KeyBindingUtil = __webpack_require__(35);
 
 var RawDraftContentState = __webpack_require__(166);
 
-var RichTextEditorUtil = __webpack_require__(76);
+var RichTextEditorUtil = __webpack_require__(77);
 
 var SelectionState = __webpack_require__(24);
 
@@ -8395,11 +8965,11 @@ var convertFromRawToDraftState = __webpack_require__(170);
 
 var generateRandomKey = __webpack_require__(10);
 
-var getDefaultKeyBinding = __webpack_require__(77);
+var getDefaultKeyBinding = __webpack_require__(78);
 
 var getVisibleSelectionRect = __webpack_require__(176);
 
-var convertFromHTML = __webpack_require__(74);
+var convertFromHTML = __webpack_require__(75);
 
 var DraftPublic = {
   Editor: DraftEditor,
@@ -8430,7 +9000,7 @@ var DraftPublic = {
 module.exports = DraftPublic;
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8470,7 +9040,7 @@ var gkx = __webpack_require__(12);
 
 var Immutable = __webpack_require__(0);
 
-var moveBlockInContentState = __webpack_require__(94);
+var moveBlockInContentState = __webpack_require__(95);
 
 var experimentalTreeDataSupport = gkx('draft_tree_data_support');
 var ContentBlockRecord = experimentalTreeDataSupport ? ContentBlockNode : ContentBlock;
@@ -8555,7 +9125,7 @@ var AtomicBlockUtils = {
 module.exports = AtomicBlockUtils;
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8628,7 +9198,7 @@ function modifyInlineStyle(contentState, selectionState, inlineStyle, addOrRemov
 module.exports = ContentStateInlineStyle;
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8644,7 +9214,7 @@ module.exports = ContentStateInlineStyle;
  */
 
 
-var applyEntityToContentBlock = __webpack_require__(83);
+var applyEntityToContentBlock = __webpack_require__(84);
 
 var Immutable = __webpack_require__(0);
 
@@ -8673,7 +9243,7 @@ function applyEntityToContentState(contentState, selectionState, entityKey) {
 module.exports = applyEntityToContentState;
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8705,7 +9275,7 @@ function applyEntityToContentBlock(contentBlock, start, end, entityKey) {
 module.exports = applyEntityToContentBlock;
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8721,9 +9291,9 @@ module.exports = applyEntityToContentBlock;
  */
 
 
-var DraftEntitySegments = __webpack_require__(85);
+var DraftEntitySegments = __webpack_require__(86);
 
-var getRangesForDraftEntity = __webpack_require__(86);
+var getRangesForDraftEntity = __webpack_require__(87);
 
 var invariant = __webpack_require__(1);
 /**
@@ -8828,7 +9398,7 @@ function getEntityRemovalRange(entityMap, block, selectionState, direction, enti
 module.exports = getCharacterRemovalRange;
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8932,7 +9502,7 @@ var DraftEntitySegments = {
 module.exports = DraftEntitySegments;
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8976,7 +9546,7 @@ function getRangesForDraftEntity(block, key) {
 module.exports = getRangesForDraftEntity;
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9230,7 +9800,7 @@ var insertFragmentIntoContentState = function insertFragmentIntoContentState(con
 module.exports = insertFragmentIntoContentState;
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9288,7 +9858,7 @@ function insertTextIntoContentState(contentState, selectionState, text, characte
 module.exports = insertTextIntoContentState;
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9639,7 +10209,7 @@ var removeFromList = function removeFromList(targetList, startOffset, endOffset)
 module.exports = removeRangeFromContentState;
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9780,7 +10350,7 @@ var splitBlockInContentState = function splitBlockInContentState(contentState, s
 module.exports = splitBlockInContentState;
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9878,7 +10448,7 @@ function areEqual(a, b) {
 module.exports = BlockTree;
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9894,7 +10464,7 @@ module.exports = BlockTree;
  */
 
 
-var UnicodeBidiService = __webpack_require__(93);
+var UnicodeBidiService = __webpack_require__(94);
 
 var Immutable = __webpack_require__(0);
 
@@ -9926,7 +10496,7 @@ var EditorBidiService = {
 module.exports = EditorBidiService;
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10034,7 +10604,7 @@ function () {
 module.exports = UnicodeBidiService;
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10208,7 +10778,7 @@ var moveBlockInContentState = function moveBlockInContentState(contentState, blo
 module.exports = moveBlockInContentState;
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10337,7 +10907,7 @@ function occupySlice(targetArr, start, end, componentKey) {
 module.exports = CompositeDraftDecorator;
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10372,7 +10942,7 @@ var DefaultDraftBlockRenderMap = __webpack_require__(34);
 
 var DefaultDraftInlineStyle = __webpack_require__(48);
 
-var DraftEditorCompositionHandler = __webpack_require__(97);
+var DraftEditorCompositionHandler = __webpack_require__(49);
 
 var DraftEditorContents = __webpack_require__(120);
 
@@ -10382,7 +10952,7 @@ var DraftEditorEditHandler = __webpack_require__(150);
 
 var DraftEditorPlaceholder = __webpack_require__(165);
 
-var DraftEffects = __webpack_require__(65);
+var DraftEffects = __webpack_require__(66);
 
 var EditorState = __webpack_require__(2);
 
@@ -10400,7 +10970,7 @@ var cx = __webpack_require__(14);
 
 var generateRandomKey = __webpack_require__(10);
 
-var getDefaultKeyBinding = __webpack_require__(77);
+var getDefaultKeyBinding = __webpack_require__(78);
 
 var getScrollPosition = __webpack_require__(31);
 
@@ -11004,577 +11574,6 @@ _defineProperty(DraftEditor, "defaultProps", {
 });
 
 module.exports = DraftEditor;
-
-/***/ }),
-/* 97 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @format
- * 
- * @emails oncall+draft_js
- */
-
-
-var DOMObserver = __webpack_require__(98);
-
-var DraftModifier = __webpack_require__(3);
-
-var DraftOffsetKey = __webpack_require__(11);
-
-var EditorState = __webpack_require__(2);
-
-var Keys = __webpack_require__(27);
-
-var editOnSelect = __webpack_require__(50);
-
-var getContentEditableContainer = __webpack_require__(52);
-
-var getDraftEditorSelection = __webpack_require__(53);
-
-var getEntityKeyForSelection = __webpack_require__(29);
-
-var nullthrows = __webpack_require__(4);
-
-var editOnBeforeInput = __webpack_require__(56);
-
-var editOnKeyDown = __webpack_require__(59);
-
-var keyCommandPlainBackspace = __webpack_require__(38);
-
-var isEventHandled = __webpack_require__(17);
-
-var editOnBeforeInput2 = __webpack_require__(119);
-/**
- * Millisecond delay to allow `compositionstart` to fire again upon
- * `compositionend`.
- *
- * This is used for Korean input to ensure that typing can continue without
- * the editor trying to render too quickly. More specifically, Safari 7.1+
- * triggers `compositionstart` a little slower than Chrome/FF, which
- * leads to composed characters being resolved and re-render occurring
- * sooner than we want.
- */
-
-
-var RESOLVE_DELAY = 20;
-/**
- * A handful of variables used to track the current composition and its
- * resolution status. These exist at the module level because it is not
- * possible to have compositions occurring in multiple editors simultaneously,
- * and it simplifies state management with respect to the DraftEditor component.
- */
-
-var resolved = false;
-var stillComposing = false;
-var domObserver = null;
-var isOnBeforeInput = false;
-var compositionStartFocusOffset;
-var compositionStartAnchorOffset;
-var compositionStartIsBackward;
-var isNewOrIsResolved = true;
-
-function startDOMObserver(editor) {
-  if (!domObserver) {
-    domObserver = new DOMObserver(getContentEditableContainer(editor));
-    domObserver.start();
-  }
-}
-
-function checkDevice() {
-  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  return isMobile;
-}
-
-function getDifference(a, b) {
-  var i = 0;
-  var j = 0;
-  var result = '';
-
-  while (j < b.length) {
-    if (a[i] != b[j] || i == a.length) result += b[j];else i++;
-    j++;
-  }
-
-  return result;
-}
-
-var DraftEditorCompositionHandler = {
-  /**
-   * A `compositionstart` event has fired while we're still in composition
-   * mode. Continue the current composition session to prevent a re-render.
-   */
-  onCompositionStart: function onCompositionStart(editor, e) {
-    isOnBeforeInput = false;
-    console.log('onCompositionStart======'); // console.log('onCompositionStart-stillComposing======', stillComposing);
-
-    if (stillComposing) {
-      console.log('onCompositionStart-stillComposing======', stillComposing);
-      nullthrows(domObserver).getObserverRecord();
-    } // console.log('onCompositionStart-resolved', resolved);
-    // console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
-
-
-    var isMobile = checkDevice();
-    var editorState = editor._latestEditorState;
-    var selection = editorState.getSelection(); // if (
-    //   (isMobile && selection.getFocusKey() !== selection.getAnchorKey()) ||
-    //   !isMobile
-    // ) {
-    //   editor.update(EditorState.set(editorState, {inCompositionMode: true}));
-    //   const contentState = editorState.getCurrentContent();
-    //   if (!selection.isCollapsed()) {
-    //     console.log(
-    //       'onCompositionStart-selection.isCollapsed()',
-    //       selection.isCollapsed(),
-    //     );
-    //     editor.props.handleBeforeReplaceText(editorState);
-    //     const updatedContentState = DraftModifier.removeRange(
-    //       contentState,
-    //       selection,
-    //       'forward',
-    //     );
-    //     EditorState.push(editorState, updatedContentState, 'remove-range');
-    //   }
-    // }
-
-    if (isNewOrIsResolved === true) {
-      console.log('onCompositionStart-set lai compositionStartFocusOffset');
-
-      var currentSelection = editor._latestEditorState.getSelection(); // console.log(
-      //   'onCompositionStart-selectionState.isCollapsed()',
-      //   currentSelection.isCollapsed(),
-      // );
-
-
-      compositionStartFocusOffset = currentSelection.getFocusOffset();
-      compositionStartAnchorOffset = currentSelection.getAnchorOffset(); // console.log(
-      //   'onCompositionStart-compositionStartFocusOffset',
-      //   compositionStartFocusOffset,
-      // );
-
-      compositionStartIsBackward = currentSelection.getIsBackward();
-      isNewOrIsResolved = false;
-    }
-
-    stillComposing = true; // if (isMobile && selection.getIsBackward()) {
-    //   const updateSelection = selection.merge({
-    //     anchorKey: selection.getFocusKey(),
-    //     anchorOffset: selection.getFocusOffset(),
-    //     focusKey: selection.getAnchorKey(),
-    //     focusOffset: selection.getAnchorOffset(),
-    //     isBackward: false,
-    //   });
-    //   const newEditorState = EditorState.forceSelection(
-    //     editorState,
-    //     updateSelection,
-    //   );
-    //   editor.update(newEditorState);
-    // }
-
-    editor.update(EditorState.set(editorState, {
-      inCompositionMode: true
-    }));
-    startDOMObserver(editor);
-  },
-
-  /**
-   * A `compositionstart` event has fired while we're still in composition
-   * mode. Continue the current composition session to prevent a re-render.
-   */
-  onCompositionUpdate: function onCompositionUpdate(editor, e) {
-    console.log('onCompositionUpdate======');
-    if (e) console.log('onCompositionUpdate-event.data======', e.data);
-    var editorState = editor._latestEditorState;
-    var selection = editorState.getSelection();
-    var contentState = editorState.getCurrentContent();
-    nullthrows(domObserver).getObserverRecord(); // if (!selection.isCollapsed()) {
-    //   editor.props.handleBeforeReplaceText(editorState);
-    //   const updatedContentState = DraftModifier.removeRange(
-    //     contentState,
-    //     selection,
-    //     'forward',
-    //   );
-    //   editorState = EditorState.push(
-    //     editorState,
-    //     updatedContentState,
-    //     'remove-range',
-    //   );
-    //   editor.update(editorState);
-    // }
-  },
-
-  /**
-   * Attempt to end the current composition session.
-   *
-   * Defer handling because browser will still insert the chars into active
-   * element after `compositionend`. If a `compositionstart` event fires
-   * before `resolveComposition` executes, our composition session will
-   * continue.
-   *
-   * The `resolved` flag is useful because certain IME interfaces fire the
-   * `compositionend` event multiple times, thus queueing up multiple attempts
-   * at handling the composition. Since handling the same composition event
-   * twice could break the DOM, we only use the first event. Example: Arabic
-   * Google Input Tools on Windows 8.1 fires `compositionend` three times.
-   */
-  onCompositionEnd: function onCompositionEnd(editor, e) {
-    console.log('onCompositionEnd======');
-    resolved = false;
-    isNewOrIsResolved = false;
-    stillComposing = false;
-    console.log('onCompositionEnd-resolved', resolved);
-    e.persist(); // e.preventDefault();
-
-    console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
-
-    if (!isOnBeforeInput) {
-      setTimeout(function () {
-        if (!resolved) {
-          console.log('onCompositionEnd-goi resolveComposition');
-          DraftEditorCompositionHandler.resolveComposition(editor, e);
-        }
-      }, RESOLVE_DELAY);
-    }
-  },
-  onSelect: editOnSelect,
-  onBeforeInput: function onBeforeInput(editor, e) {
-    console.log('onBeforeInput=================');
-    isOnBeforeInput = true; // editOnBeforeInput(editor, e);
-    // handle when user not typing IME
-    // if (!domObserver && !editor._latestEditorState.isInCompositionMode()) {
-    //   editOnBeforeInput(editor, e);
-    // }
-
-    resolved = false;
-    stillComposing = false;
-    console.log('onBeforeInput-stillComposing', stillComposing);
-    isNewOrIsResolved = false;
-    e.persist(); // e.preventDefault();
-
-    setTimeout(function () {
-      if (!resolved) {
-        console.log('onBeforeInput-goi resolveComposition -resolved', resolved);
-        DraftEditorCompositionHandler.resolveComposition(editor, e);
-      }
-    }, RESOLVE_DELAY);
-  },
-
-  /**
-   * In Safari, keydown events may fire when committing compositions. If
-   * the arrow keys are used to commit, prevent default so that the cursor
-   * doesn't move, otherwise it will jump back noticeably on re-render.
-   */
-  onKeyDown: function onKeyDown(editor, e) {
-    console.log('onKeyDown==========');
-
-    if (!stillComposing) {
-      console.log('onKeyDown-stillComposing', stillComposing); // If a keydown event is received after compositionend but before the
-      // 20ms timer expires (ex: type option-E then backspace, or type A then
-      // backspace in 2-Set Korean), we should immediately resolve the
-      // composition and reinterpret the key press in edit mode.
-
-      DraftEditorCompositionHandler.resolveComposition(editor);
-
-      editor._onKeyDown(e);
-
-      return;
-    }
-
-    if (e.which === Keys.RETURN) {
-      console.log('onKeyDown-e.which', e.which);
-      e.preventDefault();
-    }
-
-    if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
-      e.preventDefault();
-    } // const editorState = editor._latestEditorState;
-    // const isMobile = checkDevice();
-    // if (!isMobile) {
-    //   if (
-    //     e.key === 'Process' &&
-    //     e.nativeEvent &&
-    //     e.nativeEvent.code === 'Space' &&
-    //     !stillComposing
-    //   ) {
-    //     const timeStamp = e.timeStamp;
-    //     setTimeout(() => {
-    //       editor.props.handleBeforeInput &&
-    //         editor.props.handleBeforeInput('　', editorState, timeStamp);
-    //     }, 0);
-    //   }
-    //   if (
-    //     domObserver &&
-    //     !(
-    //       e.key === 'Process' &&
-    //       e.nativeEvent &&
-    //       (e.nativeEvent.code === 'Space' || e.nativeEvent.code === 'Enter') &&
-    //       stillComposing
-    //     )
-    //   ) {
-    //     editOnKeyDown(editor, e);
-    //     if (e.key === 'Backspace') {
-    //       keyCommandPlainBackspace(editorState);
-    //     }
-    //     // if (!stillComposing) {
-    //     // If a keydown event is received after compositionend but before the
-    //     // 20ms timer expires (ex: type option-E then backspace, or type A then
-    //     // backspace in 2-Set Korean), we should immediately resolve the
-    //     // composition and reinterpret the key press in edit mode.
-    //     // editor._onKeyDown(e);
-    //     //   return;
-    //     // }
-    //   } else {
-    //     if (e.key === 'Backspace') {
-    //       keyCommandPlainBackspace(editorState);
-    //     }
-    //     if (!stillComposing) {
-    //       editOnKeyDown(editor, e);
-    //     }
-    //     return;
-    //   }
-    // } else {
-    //   if (!stillComposing) {
-    //     // If a keydown event is received after compositionend but before the
-    //     // 20ms timer expires (ex: type option-E then backspace, or type A then
-    //     // backspace in 2-Set Korean), we should immediately resolve the
-    //     // composition and reinterpret the key press in edit mode.
-    //     DraftEditorCompositionHandler.resolveComposition(editor);
-    //     editor._onKeyDown(e);
-    //     return;
-    //   }
-    // }
-    // if (e.which === Keys.RIGHT || e.which === Keys.LEFT) {
-    //   e.preventDefault();
-    // }
-
-  },
-
-  /**
-   * Keypress events may fire when committing compositions. In Firefox,
-   * pressing RETURN commits the composition and inserts extra newline
-   * characters that we do not want. `preventDefault` allows the composition
-   * to be committed while preventing the extra characters.
-   */
-  onKeyPress: function onKeyPress(editor, e) {
-    if (e.which === Keys.RETURN) {
-      console.log('onKeyPress-e.which', e.which);
-      e.preventDefault();
-    }
-  },
-  onMouseDown: function onMouseDown(editor, e) {
-    console.log('onMouseDown==================='); // if (editor._latestEditorState.isInCompositionMode()) {
-    //   resolved = false;
-    //   stillComposing = false;
-    //   console.log('onMouseDown-stillComposing', stillComposing);
-    //   isNewOrIsResolved = false;
-    //   e.persist();
-    //   setTimeout(() => {
-    //     if (!resolved) {
-    //       console.log('onMouseDown-goi resolveComposition -resolved', resolved);
-    //       DraftEditorCompositionHandler.resolveComposition(editor, e);
-    //     }
-    //   }, RESOLVE_DELAY);
-    // }
-  },
-  onMouseUp: function onMouseUp(editor, e) {
-    console.log('onMouseUp===================');
-
-    if (editor._latestEditorState.isInCompositionMode()) {
-      resolved = false;
-      stillComposing = false;
-      console.log('onMouseUp-stillComposing', stillComposing);
-      isNewOrIsResolved = false;
-      e.persist();
-      setTimeout(function () {
-        if (!resolved) {
-          console.log('onMouseUp-goi resolveComposition -resolved', resolved);
-          DraftEditorCompositionHandler.resolveComposition(editor, e);
-        }
-      }, RESOLVE_DELAY);
-    }
-  },
-
-  /**
-   * Attempt to insert composed characters into the document.
-   *
-   * If we are still in a composition session, do nothing. Otherwise, insert
-   * the characters into the document and terminate the composition session.
-   *
-   * If no characters were composed -- for instance, the user
-   * deleted all composed characters and committed nothing new --
-   * force a re-render. We also re-render when the composition occurs
-   * at the beginning of a leaf, to ensure that if the browser has
-   * created a new text node for the composition, we will discard it.
-   *
-   * Resetting innerHTML will move focus to the beginning of the editor,
-   * so we update to force it back to the correct place.
-   */
-  resolveComposition: function resolveComposition(editor, e) {
-    console.log('resolveComposition-event==========', e);
-    console.log('resolveComposition===========');
-    console.log('resolveComposition-stillComposing: ', stillComposing);
-    isOnBeforeInput = false;
-    console.log('resolveComposition-isOnBeforeInput sau khi set lai false:', isOnBeforeInput);
-
-    if (stillComposing) {
-      return;
-    }
-
-    var isMobile = checkDevice();
-    var mutations = nullthrows(domObserver).stopAndFlushMutations();
-    domObserver = null;
-    resolved = true;
-    isNewOrIsResolved = true; // let editorState = EditorState.set(editor._latestEditorState, {
-    //   inCompositionMode: false,
-    // });
-
-    var editorState = editor._latestEditorState;
-    editor.exitCurrentMode(); // if (!mutations.size) {
-    //   editor.update(editorState);
-    //   return;
-    // }
-    // TODO, check if Facebook still needs this flag or if it could be removed.
-    // Since there can be multiple mutations providing a `composedChars` doesn't
-    // apply well on this new model.
-    // if (
-    //   gkx('draft_handlebeforeinput_composed_text') &&
-    //   editor.props.handleBeforeInput &&
-    //   isEventHandled(
-    //     editor.props.handleBeforeInput(
-    //       composedChars,
-    //       editorState,
-    //       event.timeStamp,
-    //     ),
-    //   )
-    // ) {
-    //   return;
-    // }
-    // editor.props.handleBeforeInput(
-    //         e.data,
-    //         editorState,
-    //         e.timeStamp,
-    //       );
-
-    var contentState = editorState.getCurrentContent();
-
-    if (!isMobile) {
-      // editor.update(
-      //   EditorState.set(editor._latestEditorState, {
-      //     inCompositionMode: false,
-      //   }),
-      // );
-      mutations.forEach(function (composedChars, offsetKey) {
-        var selectionState = editor._latestEditorState.getSelection();
-
-        var focusKey = selectionState.focusKey;
-
-        var contentState = editor._latestEditorState.getCurrentContent();
-
-        var block = contentState.getBlockForKey(focusKey);
-        var blockText = block.getText(); // console.log('blockText======', blockText);
-
-        console.log('resolveComposition-composedChars======', composedChars);
-        var chars = getDifference(blockText, String(composedChars)); // console.log('chars', chars);
-
-        var currentSelection = editor._latestEditorState.getSelection();
-
-        currentSelection = currentSelection.merge({
-          anchorOffset: compositionStartAnchorOffset,
-          focusOffset: compositionStartFocusOffset,
-          isBackward: compositionStartIsBackward
-        });
-        var newEditorState = EditorState.forceSelection(editor._latestEditorState, currentSelection);
-        editor.update(newEditorState);
-
-        if (e && (e.data || e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space' || !domObserver)) {
-          console.log('vao if 1');
-
-          if (!(e.key === 'Process' && e.nativeEvent && e.nativeEvent.code === 'Space')) {
-            console.log('vao if 2'); // const focusOffset = currentSelection.getFocusOffset();
-            // console.log('focusOffset', focusOffset);
-            // console.log(
-            //   'focusOffset - chars.length + 1',
-            //   focusOffset - chars.length + 1,
-            // );
-            // console.log(
-            //   'compositionStartFocusOffset',
-            //   compositionStartFocusOffset,
-            // );
-            // currentSelection = currentSelection.merge({
-            //   anchorOffset: compositionStartAnchorOffset,
-            //   focusOffset: compositionStartFocusOffset,
-            //   isBackward: compositionStartIsBackward,
-            // });
-            // const newEditorState = EditorState.forceSelection(
-            //   editor._latestEditorState,
-            //   currentSelection,
-            // );
-            // editor.update(newEditorState);
-          }
-        }
-
-        if (!composedChars && e) {
-          console.log('resolveComposition-event.data======', e.data);
-          editor.update(EditorState.set(editor._latestEditorState, {
-            inCompositionMode: false
-          }));
-          editOnBeforeInput2(editor, e, e.data);
-        } else {
-          editOnBeforeInput2(editor, e, composedChars);
-        }
-      });
-      stillComposing = false;
-      domObserver = null;
-      resolved = true;
-      return;
-    }
-
-    mutations.forEach(function (composedChars, offsetKey) {
-      var _DraftOffsetKey$decod = DraftOffsetKey.decode(offsetKey),
-          blockKey = _DraftOffsetKey$decod.blockKey,
-          decoratorKey = _DraftOffsetKey$decod.decoratorKey,
-          leafKey = _DraftOffsetKey$decod.leafKey;
-
-      if (editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey])) {
-        var _editorState$getBlock = editorState.getBlockTree(blockKey).getIn([decoratorKey, 'leaves', leafKey]),
-            start = _editorState$getBlock.start,
-            end = _editorState$getBlock.end;
-
-        var replacementRange = editorState.getSelection().merge({
-          anchorKey: blockKey,
-          focusKey: blockKey,
-          anchorOffset: start,
-          focusOffset: end,
-          isBackward: false
-        });
-        var entityKey = getEntityKeyForSelection(contentState, replacementRange);
-        var currentStyle = contentState.getBlockForKey(blockKey).getInlineStyleAt(start);
-        contentState = DraftModifier.replaceText(contentState, replacementRange, composedChars, currentStyle, entityKey); // We need to update the editorState so the leaf node ranges are properly
-        // updated and multiple mutations are correctly applied.
-
-        editorState = EditorState.set(editorState, {
-          currentContent: contentState
-        });
-      }
-    }); // When we apply the text changes to the ContentState, the selection always
-    // goes to the end of the field, but it should just stay where it is
-    // after compositionEnd.
-
-    var documentSelection = getDraftEditorSelection(editorState, getContentEditableContainer(editor));
-    var compositionEndSelectionState = documentSelection.selectionState;
-    editor.restoreEditorDOM();
-    var editorStateWithUpdatedSelection = EditorState.acceptSelection(editorState, compositionEndSelectionState);
-    editor.update(EditorState.push(editorStateWithUpdatedSelection, contentState, 'insert-characters'));
-  }
-};
-module.exports = DraftEditorCompositionHandler;
 
 /***/ }),
 /* 98 */
@@ -13741,7 +13740,7 @@ var EditorState = __webpack_require__(2);
 
 var expandRangeToStartOfLine = __webpack_require__(109);
 
-var getDraftEditorSelectionWithNodes = __webpack_require__(54);
+var getDraftEditorSelectionWithNodes = __webpack_require__(55);
 
 var moveSelectionBackward = __webpack_require__(36);
 
@@ -13790,7 +13789,7 @@ module.exports = keyCommandBackspaceToStartOfLine;
  */
 var UnicodeUtils = __webpack_require__(16);
 
-var getRangeClientRects = __webpack_require__(60);
+var getRangeClientRects = __webpack_require__(61);
 
 var invariant = __webpack_require__(1);
 /**
@@ -13990,7 +13989,7 @@ module.exports = expandRangeToStartOfLine;
  */
 
 
-var DraftRemovableWord = __webpack_require__(62);
+var DraftRemovableWord = __webpack_require__(63);
 
 var EditorState = __webpack_require__(2);
 
@@ -14082,11 +14081,11 @@ module.exports = {
  */
 
 
-var DraftRemovableWord = __webpack_require__(62);
+var DraftRemovableWord = __webpack_require__(63);
 
 var EditorState = __webpack_require__(2);
 
-var moveSelectionForward = __webpack_require__(63);
+var moveSelectionForward = __webpack_require__(64);
 
 var removeTextWithStrategy = __webpack_require__(21);
 /**
@@ -14249,7 +14248,7 @@ var EditorState = __webpack_require__(2);
 
 var UnicodeUtils = __webpack_require__(16);
 
-var moveSelectionForward = __webpack_require__(63);
+var moveSelectionForward = __webpack_require__(64);
 
 var removeTextWithStrategy = __webpack_require__(21);
 /**
@@ -14442,11 +14441,11 @@ var getEntityKeyForSelection = __webpack_require__(29);
 
 var isEventHandled = __webpack_require__(17);
 
-var isSelectionAtLeafStart = __webpack_require__(57);
+var isSelectionAtLeafStart = __webpack_require__(58);
 
 var nullthrows = __webpack_require__(4);
 
-var setImmediate = __webpack_require__(58); // When nothing is focused, Firefox regards two characters, `'` and `/`, as
+var setImmediate = __webpack_require__(59); // When nothing is focused, Firefox regards two characters, `'` and `/`, as
 // commands that should open and focus the "quickfind" search bar. This should
 // *never* happen while a contenteditable is focused, but as of v28, it
 // sometimes does, even when the keypress event target is the contenteditable.
@@ -14917,11 +14916,11 @@ var Scroll = __webpack_require__(40);
 
 var Style = __webpack_require__(30);
 
-var getElementPosition = __webpack_require__(67);
+var getElementPosition = __webpack_require__(68);
 
 var getScrollPosition = __webpack_require__(31);
 
-var getViewportDimensions = __webpack_require__(68);
+var getViewportDimensions = __webpack_require__(69);
 
 var Immutable = __webpack_require__(0);
 
@@ -15229,7 +15228,7 @@ function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.crea
 
 var DraftEditorDecoratedLeaves = __webpack_require__(124);
 
-var DraftEditorLeaf = __webpack_require__(64);
+var DraftEditorLeaf = __webpack_require__(65);
 
 var DraftOffsetKey = __webpack_require__(11);
 
@@ -15610,13 +15609,13 @@ module.exports = isElement;
  */
 
 
-var DraftEffects = __webpack_require__(65);
+var DraftEffects = __webpack_require__(66);
 
-var DraftJsDebugLogging = __webpack_require__(51);
+var DraftJsDebugLogging = __webpack_require__(52);
 
 var containsNode = __webpack_require__(39);
 
-var getActiveElement = __webpack_require__(66);
+var getActiveElement = __webpack_require__(67);
 
 var invariant = __webpack_require__(1);
 
@@ -16216,7 +16215,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var DraftEditorBlock = __webpack_require__(69);
+var DraftEditorBlock = __webpack_require__(70);
 
 var DraftOffsetKey = __webpack_require__(11);
 
@@ -16801,7 +16800,7 @@ Promise.prototype.nodeify = function (callback, ctx) {
 
 
 // rawAsap provides everything we need except exception management.
-var rawAsap = __webpack_require__(70);
+var rawAsap = __webpack_require__(71);
 // RawTasks are recycled to reduce GC churn.
 var freeTasks = [];
 // We queue errors to ensure they are thrown in right order (FIFO).
@@ -16990,7 +16989,7 @@ module.exports = joinClasses;
  */
 
 
-var DataTransfer = __webpack_require__(71);
+var DataTransfer = __webpack_require__(72);
 
 var DraftModifier = __webpack_require__(3);
 
@@ -17000,9 +16999,9 @@ var ReactDOM = __webpack_require__(28);
 
 var findAncestorOffsetKey = __webpack_require__(26);
 
-var getTextContentFromFiles = __webpack_require__(72);
+var getTextContentFromFiles = __webpack_require__(73);
 
-var getUpdatedSelectionState = __webpack_require__(55);
+var getUpdatedSelectionState = __webpack_require__(56);
 
 var isEventHandled = __webpack_require__(17);
 
@@ -17293,7 +17292,7 @@ module.exports = createArrayFromMixed;
 
 var UserAgent = __webpack_require__(5);
 
-var onBeforeInput = __webpack_require__(56);
+var onBeforeInput = __webpack_require__(57);
 
 var onBlur = __webpack_require__(151);
 
@@ -17311,18 +17310,25 @@ var onFocus = __webpack_require__(157);
 
 var onInput = __webpack_require__(158);
 
-var onKeyDown = __webpack_require__(59);
+var onKeyDown = __webpack_require__(60);
 
 var onPaste = __webpack_require__(160);
 
-var onSelect = __webpack_require__(50);
+var onSelect = __webpack_require__(51);
+
+var DraftEditorCompositionHandler = __webpack_require__(49);
 
 var isChrome = UserAgent.isBrowser('Chrome');
 
-var selectionHandler = function selectionHandler(editor) {
+var selectionHandler = function selectionHandler(editor, e) {
+  console.log('selectionHandler==============', e);
   console.log('editor._latestEditorState.isInCompositionMode()', editor._latestEditorState.isInCompositionMode());
 
   if (editor._latestEditorState.isInCompositionMode()) {
+    setTimeout(function () {
+      console.log('onMouseUp-goi resolveComposition');
+      DraftEditorCompositionHandler.resolveComposition(editor, e);
+    });
     return;
   }
 
@@ -17372,7 +17378,7 @@ var EditorState = __webpack_require__(2);
 
 var containsNode = __webpack_require__(39);
 
-var getActiveElement = __webpack_require__(66);
+var getActiveElement = __webpack_require__(67);
 
 function editOnBlur(editor, e) {
   // In a contentEditable element, when you select a range and then click
@@ -17462,7 +17468,7 @@ module.exports = editOnCompositionStart;
  */
 
 
-var getFragmentFromSelection = __webpack_require__(73);
+var getFragmentFromSelection = __webpack_require__(74);
 /**
  * If we have a selection, create a ContentState fragment and store
  * it in our internal clipboard. Subsequent paste events will use this
@@ -17507,7 +17513,7 @@ var EditorState = __webpack_require__(2);
 
 var Style = __webpack_require__(30);
 
-var getFragmentFromSelection = __webpack_require__(73);
+var getFragmentFromSelection = __webpack_require__(74);
 
 var getScrollPosition = __webpack_require__(31);
 /**
@@ -17917,7 +17923,7 @@ var BlockMapBuilder = __webpack_require__(19);
 
 var CharacterMetadata = __webpack_require__(6);
 
-var DataTransfer = __webpack_require__(71);
+var DataTransfer = __webpack_require__(72);
 
 var DraftModifier = __webpack_require__(3);
 
@@ -17925,11 +17931,11 @@ var DraftPasteProcessor = __webpack_require__(161);
 
 var EditorState = __webpack_require__(2);
 
-var RichTextEditorUtil = __webpack_require__(76);
+var RichTextEditorUtil = __webpack_require__(77);
 
 var getEntityKeyForSelection = __webpack_require__(29);
 
-var getTextContentFromFiles = __webpack_require__(72);
+var getTextContentFromFiles = __webpack_require__(73);
 
 var isEventHandled = __webpack_require__(17);
 
@@ -18098,11 +18104,11 @@ var ContentBlock = __webpack_require__(13);
 
 var ContentBlockNode = __webpack_require__(7);
 
-var convertFromHTMLToContentBlocks = __webpack_require__(74);
+var convertFromHTMLToContentBlocks = __webpack_require__(75);
 
 var generateRandomKey = __webpack_require__(10);
 
-var getSafeBodyFromHTML = __webpack_require__(75);
+var getSafeBodyFromHTML = __webpack_require__(76);
 
 var gkx = __webpack_require__(12);
 
@@ -18360,7 +18366,7 @@ var ContentBlock = __webpack_require__(13);
 
 var ContentBlockNode = __webpack_require__(7);
 
-var DraftStringKey = __webpack_require__(78);
+var DraftStringKey = __webpack_require__(79);
 
 var encodeEntityRanges = __webpack_require__(168);
 
@@ -18487,7 +18493,7 @@ module.exports = convertFromDraftStateToRaw;
  */
 
 
-var DraftStringKey = __webpack_require__(78);
+var DraftStringKey = __webpack_require__(79);
 
 var UnicodeUtils = __webpack_require__(16);
 
@@ -19369,7 +19375,7 @@ module.exports = getVisibleSelectionRect;
  */
 
 
-var getRangeClientRects = __webpack_require__(60);
+var getRangeClientRects = __webpack_require__(61);
 
 /**
  * Like range.getBoundingClientRect() but normalizes for browser bugs.

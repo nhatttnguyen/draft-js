@@ -380,14 +380,14 @@ const DraftEditorCompositionHandler = {
       console.log('onMouseUp-stillComposing', stillComposing);
       isNewOrIsResolved = false;
 
-      e.persist();
+      // e.persist();
 
-      setTimeout(() => {
-        if (!resolved) {
-          console.log('onMouseUp-goi resolveComposition -resolved', resolved);
-          DraftEditorCompositionHandler.resolveComposition(editor, e);
-        }
-      }, RESOLVE_DELAY);
+      // setTimeout(() => {
+      //   if (!resolved) {
+      //     console.log('onMouseUp-goi resolveComposition -resolved', resolved);
+      //     DraftEditorCompositionHandler.resolveComposition(editor, e);
+      //   }
+      // }, RESOLVE_DELAY);
     }
   },
 
