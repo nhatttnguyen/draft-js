@@ -27,7 +27,7 @@ function editOnSelect(editor: DraftEditor, e: any): void {
     editor._latestEditorState.isInCompositionMode(),
   );
   if (editor._latestEditorState.isInCompositionMode()) {
-    DraftEditorCompositionHandler.fireResolveComposition(editor, e);
+    // DraftEditorCompositionHandler.fireResolveComposition(editor, e);
     return;
   }
   if (
