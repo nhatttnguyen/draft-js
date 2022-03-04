@@ -67,8 +67,10 @@ class DOMObserver {
 
   start(): void {
     if (this.observer) {
+      console.log('DOM-start-this.observer', this.observer);
       this.observer.observe(this.container, DOM_OBSERVER_OPTIONS);
     } else {
+      console.log('DOM-start-ko co observer');
       /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
        * by Flow's standard library */
       this.container.addEventListener(
@@ -81,8 +83,11 @@ class DOMObserver {
   stopAndFlushMutations(): Map<string, string> {
     const {observer} = this;
     if (observer) {
+      console.log(
+        'DOM-stopAndFlushMutations-observer.takeRecords()',
+        observer.takeRecords(),
+      );
       this.registerMutations(observer.takeRecords());
-      console.log('observer.takeRecords()', observer.takeRecords());
       observer.disconnect();
     } else {
       /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
@@ -93,9 +98,8 @@ class DOMObserver {
       );
     }
     const mutations = this.mutations;
-
     this.mutations = Map();
-    console.log('mutations', mutations);
+    // console.log('mutations', mutations);
     return mutations;
   }
 

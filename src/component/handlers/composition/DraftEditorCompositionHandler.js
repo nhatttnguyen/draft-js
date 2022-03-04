@@ -95,7 +95,7 @@ const DraftEditorCompositionHandler = {
     // console.log('onCompositionStart-stillComposing======', stillComposing);
     if (stillComposing) {
       console.log('onCompositionStart-stillComposing======', stillComposing);
-      nullthrows(domObserver).getObserverRecord();
+      // nullthrows(domObserver).getObserverRecord();
     }
     // console.log('onCompositionStart-resolved', resolved);
     // console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
@@ -173,7 +173,7 @@ const DraftEditorCompositionHandler = {
     let editorState = editor._latestEditorState;
     const selection = editorState.getSelection();
     const contentState = editorState.getCurrentContent();
-    nullthrows(domObserver).getObserverRecord();
+    // nullthrows(domObserver).getObserverRecord();
     // if (!selection.isCollapsed()) {
     //   editor.props.handleBeforeReplaceText(editorState);
     //   const updatedContentState = DraftModifier.removeRange(
@@ -371,25 +371,25 @@ const DraftEditorCompositionHandler = {
     // }
   },
 
-  onMouseUp: function(editor: DraftEditor, e: any): void {
-    console.log('onMouseUp===================');
+  // onMouseUp: function(editor: DraftEditor, e: any): void {
+  //   console.log('onMouseUp===================');
 
-    if (editor._latestEditorState.isInCompositionMode()) {
-      resolved = false;
-      stillComposing = false;
-      console.log('onMouseUp-stillComposing', stillComposing);
-      isNewOrIsResolved = false;
+  //   if (editor._latestEditorState.isInCompositionMode()) {
+  //     resolved = false;
+  //     stillComposing = false;
+  //     console.log('onMouseUp-stillComposing', stillComposing);
+  //     isNewOrIsResolved = false;
 
-      e.persist();
+  //     e.persist();
 
-      setTimeout(() => {
-        if (!resolved) {
-          console.log('onMouseUp-goi resolveComposition -resolved', resolved);
-          DraftEditorCompositionHandler.resolveComposition(editor, e);
-        }
-      }, RESOLVE_DELAY);
-    }
-  },
+  //     setTimeout(() => {
+  //       if (!resolved) {
+  //         console.log('onMouseUp-goi resolveComposition -resolved', resolved);
+  //         DraftEditorCompositionHandler.resolveComposition(editor, e);
+  //       }
+  //     }, RESOLVE_DELAY);
+  //   }
+  // },
 
   /**
    * Attempt to insert composed characters into the document.

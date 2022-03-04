@@ -4642,8 +4642,7 @@ var DraftEditorCompositionHandler = {
     console.log('onCompositionStart======'); // console.log('onCompositionStart-stillComposing======', stillComposing);
 
     if (stillComposing) {
-      console.log('onCompositionStart-stillComposing======', stillComposing);
-      nullthrows(domObserver).getObserverRecord();
+      console.log('onCompositionStart-stillComposing======', stillComposing); // nullthrows(domObserver).getObserverRecord();
     } // console.log('onCompositionStart-resolved', resolved);
     // console.log('onCompositionStart-isNewOrIsResolved', isNewOrIsResolved);
 
@@ -4720,8 +4719,8 @@ var DraftEditorCompositionHandler = {
     if (e) console.log('onCompositionUpdate-event.data======', e.data);
     var editorState = editor._latestEditorState;
     var selection = editorState.getSelection();
-    var contentState = editorState.getCurrentContent();
-    nullthrows(domObserver).getObserverRecord(); // if (!selection.isCollapsed()) {
+    var contentState = editorState.getCurrentContent(); // nullthrows(domObserver).getObserverRecord();
+    // if (!selection.isCollapsed()) {
     //   editor.props.handleBeforeReplaceText(editorState);
     //   const updatedContentState = DraftModifier.removeRange(
     //     contentState,
@@ -4910,23 +4909,22 @@ var DraftEditorCompositionHandler = {
     //   }, RESOLVE_DELAY);
     // }
   },
-  onMouseUp: function onMouseUp(editor, e) {
-    console.log('onMouseUp===================');
-
-    if (editor._latestEditorState.isInCompositionMode()) {
-      resolved = false;
-      stillComposing = false;
-      console.log('onMouseUp-stillComposing', stillComposing);
-      isNewOrIsResolved = false;
-      e.persist();
-      setTimeout(function () {
-        if (!resolved) {
-          console.log('onMouseUp-goi resolveComposition -resolved', resolved);
-          DraftEditorCompositionHandler.resolveComposition(editor, e);
-        }
-      }, RESOLVE_DELAY);
-    }
-  },
+  // onMouseUp: function(editor: DraftEditor, e: any): void {
+  //   console.log('onMouseUp===================');
+  //   if (editor._latestEditorState.isInCompositionMode()) {
+  //     resolved = false;
+  //     stillComposing = false;
+  //     console.log('onMouseUp-stillComposing', stillComposing);
+  //     isNewOrIsResolved = false;
+  //     e.persist();
+  //     setTimeout(() => {
+  //       if (!resolved) {
+  //         console.log('onMouseUp-goi resolveComposition -resolved', resolved);
+  //         DraftEditorCompositionHandler.resolveComposition(editor, e);
+  //       }
+  //     }, RESOLVE_DELAY);
+  //   }
+  // },
 
   /**
    * Attempt to insert composed characters into the document.
@@ -11649,10 +11647,13 @@ function () {
 
   _proto.start = function start() {
     if (this.observer) {
+      console.log('DOM-start-this.observer', this.observer);
       this.observer.observe(this.container, DOM_OBSERVER_OPTIONS);
     } else {
+      console.log('DOM-start-ko co observer');
       /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
        * by Flow's standard library */
+
       this.container.addEventListener('DOMCharacterDataModified', this.onCharData);
     }
   };
@@ -11661,8 +11662,8 @@ function () {
     var observer = this.observer;
 
     if (observer) {
+      console.log('DOM-stopAndFlushMutations-observer.takeRecords()', observer.takeRecords());
       this.registerMutations(observer.takeRecords());
-      console.log('observer.takeRecords()', observer.takeRecords());
       observer.disconnect();
     } else {
       /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
@@ -11671,8 +11672,8 @@ function () {
     }
 
     var mutations = this.mutations;
-    this.mutations = Map();
-    console.log('mutations', mutations);
+    this.mutations = Map(); // console.log('mutations', mutations);
+
     return mutations;
   };
 
