@@ -5544,8 +5544,6 @@ function replaceText(editorState, text, inlineStyle, entityKey, forceSelection) 
 
 
 function editOnBeforeInput(editor, e) {
-  console.log('editOnBeforeInput=====');
-
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;
@@ -5895,17 +5893,14 @@ function editOnKeyDown(editor, e) {
 
   switch (keyCode) {
     case Keys.RETURN:
-      console.log('vao editOnKeyDown RETURN');
       e.preventDefault(); // The top-level component may manually handle newline insertion. If
       // no special handling is performed, fall through to command handling.
 
       if (editor._latestEditorState.isInCompositionMode()) {
-        console.log('editOnKeyDown-editor._latestEditorState.isInCompositionMode()', editor._latestEditorState.isInCompositionMode());
         return;
       }
 
       if (editor.props.handleReturn && isEventHandled(editor.props.handleReturn(e, editorState))) {
-        console.log('editOnKeyDown-co vao day ko');
         return;
       }
 
@@ -11106,7 +11101,6 @@ function (_React$Component2) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "setMode", function (mode) {
-      console.log('DraftEditorModes========');
       var _this$props = _this.props,
           onPaste = _this$props.onPaste,
           onCut = _this$props.onCut,
@@ -14568,9 +14562,6 @@ function replaceText(editorState, text, inlineStyle, entityKey, forceSelection) 
 
 
 function editOnBeforeInput2(editor, e, chars) {
-  console.log('editOnBeforeInput2=====');
-  console.log('editOnBeforeInput2=====editor._pendingStateFromBeforeInput', editor._pendingStateFromBeforeInput);
-
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;
@@ -14585,40 +14576,17 @@ function editOnBeforeInput2(editor, e, chars) {
   // start of the block.
 
   if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e ? e.timeStamp : null))) {
-    console.log('editOnBeforeInput2-da handle before input');
-    var _editorState = editor._latestEditorState;
-
-    var selectionState = _editorState.getSelection();
-
-    var focusKey = selectionState.focusKey,
-        focusOffset = selectionState.focusOffset; // console.log('onChange-focusOffset', focusOffset);
-
-    var contentState = _editorState.getCurrentContent();
-
-    var block = contentState.getBlockForKey(focusKey);
-    var blockText = block.getText();
-    console.log('editOnBeforeInput2-blockText', blockText);
     if (e) e.preventDefault();
     setTimeout(function () {
-      var editorState = editor._latestEditorState;
-      var selectionState = editorState.getSelection();
-      var focusKey = selectionState.focusKey,
-          focusOffset = selectionState.focusOffset; // console.log('onChange-focusOffset', focusOffset);
-
-      var contentState = editorState.getCurrentContent();
-      var block = contentState.getBlockForKey(focusKey);
-      var blockText = block.getText();
-      console.log('editOnBeforeInput2-sau 30ms-blockText', blockText);
       editor.update(EditorState.set(editor._latestEditorState, {
         inCompositionMode: false
       }));
     }, 30);
     return;
-  }
-
-  console.log('=================editOnBeforeInput2-neu no vao day la sai r========================='); // If selection is collapsed, conditionally allow native behavior. This
+  } // If selection is collapsed, conditionally allow native behavior. This
   // reduces re-renders and preserves spellcheck highlighting. If the selection
   // is not collapsed, we will re-render.
+
 
   var selection = editorState.getSelection();
   var selectionStart = selection.getStartOffset();

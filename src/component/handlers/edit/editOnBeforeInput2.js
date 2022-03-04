@@ -82,11 +82,6 @@ function editOnBeforeInput2(
   e: SyntheticInputEvent<>,
   chars,
 ): void {
-  console.log('editOnBeforeInput2=====');
-  console.log(
-    'editOnBeforeInput2=====editor._pendingStateFromBeforeInput',
-    editor._pendingStateFromBeforeInput,
-  );
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;
@@ -112,28 +107,8 @@ function editOnBeforeInput2(
       ),
     )
   ) {
-    console.log('editOnBeforeInput2-da handle before input');
-    const editorState = editor._latestEditorState;
-    const selectionState = editorState.getSelection();
-    const {focusKey, focusOffset} = selectionState;
-    // console.log('onChange-focusOffset', focusOffset);
-    const contentState = editorState.getCurrentContent();
-
-    const block = contentState.getBlockForKey(focusKey);
-    const blockText = block.getText();
-    console.log('editOnBeforeInput2-blockText', blockText);
-
     if (e) e.preventDefault();
     setTimeout(() => {
-      const editorState = editor._latestEditorState;
-      const selectionState = editorState.getSelection();
-      const {focusKey, focusOffset} = selectionState;
-      // console.log('onChange-focusOffset', focusOffset);
-      const contentState = editorState.getCurrentContent();
-
-      const block = contentState.getBlockForKey(focusKey);
-      const blockText = block.getText();
-      console.log('editOnBeforeInput2-sau 30ms-blockText', blockText);
       editor.update(
         EditorState.set(editor._latestEditorState, {
           inCompositionMode: false,
@@ -143,9 +118,6 @@ function editOnBeforeInput2(
 
     return;
   }
-  console.log(
-    '=================editOnBeforeInput2-neu no vao day la sai r=========================',
-  );
 
   // If selection is collapsed, conditionally allow native behavior. This
   // reduces re-renders and preserves spellcheck highlighting. If the selection
