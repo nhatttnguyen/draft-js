@@ -5172,6 +5172,9 @@ var getContentEditableContainer = __webpack_require__(53);
 var getDraftEditorSelection = __webpack_require__(54);
 
 function editOnSelect(editor) {
+  console.log('editOnSelect==============');
+  console.log('editOnSelect-isInCompositionMode()', editor._latestEditorState.isInCompositionMode());
+
   if (editor._blockSelectEvents || editor._latestEditorState !== editor.props.editorState) {
     if (editor._blockSelectEvents) {
       var _editorState = editor.props.editorState;
