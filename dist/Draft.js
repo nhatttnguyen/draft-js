@@ -11386,11 +11386,6 @@ var DraftEditorCompositionHandler = {
   onMouseUp: function onMouseUp(editor, e) {
     console.log('onMouseUp===================');
 
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-
     if (editor._latestEditorState.isInCompositionMode()) {
       resolved = false;
       stillComposing = false;
@@ -17323,7 +17318,17 @@ var onPaste = __webpack_require__(160);
 var onSelect = __webpack_require__(50);
 
 var isChrome = UserAgent.isBrowser('Chrome');
-var selectionHandler = isChrome ? onSelect : function (e) {};
+
+var selectionHandler = function selectionHandler(editor) {
+  console.log('editor._latestEditorState.isInCompositionMode()', editor._latestEditorState.isInCompositionMode());
+
+  if (editor._latestEditorState.isInCompositionMode()) {
+    return;
+  }
+
+  isChrome ? onSelect : function (e) {};
+};
+
 var DraftEditorEditHandler = {
   onBeforeInput: onBeforeInput,
   onBlur: onBlur,

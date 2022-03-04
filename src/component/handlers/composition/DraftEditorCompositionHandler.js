@@ -373,10 +373,7 @@ const DraftEditorCompositionHandler = {
 
   onMouseUp: function(editor: DraftEditor, e: any): void {
     console.log('onMouseUp===================');
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+
     if (editor._latestEditorState.isInCompositionMode()) {
       resolved = false;
       stillComposing = false;

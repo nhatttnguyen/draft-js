@@ -30,9 +30,16 @@ const onSelect = require('editOnSelect');
 
 const isChrome = UserAgent.isBrowser('Chrome');
 
-const selectionHandler: (e: DraftEditor) => void = isChrome
-  ? onSelect
-  : e => {};
+const selectionHandler = (editor: DraftEditor) => {
+  console.log(
+    'editor._latestEditorState.isInCompositionMode()',
+    editor._latestEditorState.isInCompositionMode(),
+  );
+  if (editor._latestEditorState.isInCompositionMode()) {
+    return;
+  }
+  isChrome ? onSelect : e => {};
+};
 
 const DraftEditorEditHandler = {
   onBeforeInput,
