@@ -11230,8 +11230,8 @@ var DraftEditorCompositionHandler = {
     isNewOrIsResolved = false;
     stillComposing = false;
     console.log('onCompositionEnd-resolved', resolved);
-    e.persist();
-    e.preventDefault();
+    e.persist(); // e.preventDefault();
+
     console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
 
     if (!isOnBeforeInput) {
@@ -11256,8 +11256,8 @@ var DraftEditorCompositionHandler = {
     stillComposing = false;
     console.log('onBeforeInput-stillComposing', stillComposing);
     isNewOrIsResolved = false;
-    e.persist();
-    e.preventDefault();
+    e.persist(); // e.preventDefault();
+
     setTimeout(function () {
       if (!resolved) {
         console.log('onBeforeInput-goi resolveComposition -resolved', resolved);

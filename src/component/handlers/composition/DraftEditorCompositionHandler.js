@@ -211,7 +211,7 @@ const DraftEditorCompositionHandler = {
     stillComposing = false;
     console.log('onCompositionEnd-resolved', resolved);
     e.persist();
-    e.preventDefault();
+    // e.preventDefault();
 
     console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
     if (!isOnBeforeInput) {
@@ -241,7 +241,7 @@ const DraftEditorCompositionHandler = {
     isNewOrIsResolved = false;
 
     e.persist();
-    e.preventDefault();
+    // e.preventDefault();
 
     setTimeout(() => {
       if (!resolved) {
