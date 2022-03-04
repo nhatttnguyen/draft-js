@@ -33,17 +33,17 @@ const isChrome = UserAgent.isBrowser('Chrome');
 
 const selectionHandler = (editor: DraftEditor, e: any) => {
   console.log('selectionHandler==============', e);
-  console.log(
-    'editor._latestEditorState.isInCompositionMode()',
-    editor._latestEditorState.isInCompositionMode(),
-  );
-  if (editor._latestEditorState.isInCompositionMode()) {
-    setTimeout(() => {
-      console.log('onMouseUp-goi resolveComposition');
-      DraftEditorCompositionHandler.resolveComposition(editor, e);
-    });
-    return;
-  }
+  // console.log(
+  //   'editor._latestEditorState.isInCompositionMode()',
+  //   editor._latestEditorState.isInCompositionMode(),
+  // );
+  // if (editor._latestEditorState.isInCompositionMode()) {
+  //   setTimeout(() => {
+  //     console.log('onMouseUp-goi resolveComposition');
+  //     DraftEditorCompositionHandler.resolveComposition(editor, e);
+  //   });
+  //   return;
+  // }
   isChrome ? onSelect : e => {};
 };
 

@@ -620,6 +620,25 @@ const DraftEditorCompositionHandler = {
       ),
     );
   },
+
+  fireResolveComposition: function(editor: DraftEditor, e: any) {
+    console.log('fireResolveComposition======');
+    resolved = false;
+    isNewOrIsResolved = false;
+    stillComposing = false;
+    e.persist();
+    // e.preventDefault();
+
+    console.log('fireResolveComposition-isOnBeforeInput', isOnBeforeInput);
+    if (!isOnBeforeInput) {
+      setTimeout(() => {
+        if (!resolved) {
+          console.log('fireResolveComposition-goi resolveComposition');
+          DraftEditorCompositionHandler.resolveComposition(editor, e);
+        }
+      }, RESOLVE_DELAY);
+    }
+  },
 };
 
 module.exports = DraftEditorCompositionHandler;
