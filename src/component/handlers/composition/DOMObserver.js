@@ -47,12 +47,10 @@ class DOMObserver {
     this.mutations = Map();
     if (window.MutationObserver && !USE_CHAR_DATA) {
       this.observer = new window.MutationObserver(mutations => {
-        console.log('DOM-MutationObserver', mutations);
         return this.registerMutations(mutations);
       });
     } else {
       this.onCharData = e => {
-        console.log('DOM-onCharData');
         invariant(
           e.target instanceof Node,
           'Expected target to be an instance of Node',
@@ -67,10 +65,8 @@ class DOMObserver {
 
   start(): void {
     if (this.observer) {
-      console.log('DOM-start-this.observer', this.observer);
       this.observer.observe(this.container, DOM_OBSERVER_OPTIONS);
     } else {
-      console.log('DOM-start-ko co observer');
       /* $FlowFixMe(>=0.68.0 site=www,mobile) This event type is not defined
        * by Flow's standard library */
       this.container.addEventListener(
@@ -83,10 +79,6 @@ class DOMObserver {
   stopAndFlushMutations(): Map<string, string> {
     const {observer} = this;
     if (observer) {
-      console.log(
-        'DOM-stopAndFlushMutations-observer.takeRecords()',
-        observer.takeRecords(),
-      );
       this.registerMutations(observer.takeRecords());
       observer.disconnect();
     } else {
@@ -99,16 +91,13 @@ class DOMObserver {
     }
     const mutations = this.mutations;
     this.mutations = Map();
-    // console.log('mutations', mutations);
     return mutations;
   }
 
   getObserverRecord() {
     const mutations = this.mutations;
     this.mutations = Map();
-    console.log('getObserverRecord-mutations', mutations);
     mutations.forEach((composedChars, offsetKey) => {
-      console.log('composedChars', composedChars);
       return composedChars;
     });
   }
@@ -121,14 +110,11 @@ class DOMObserver {
 
   getMutationTextContent(mutation: MutationRecordT): ?string {
     const {type, target, removedNodes} = mutation;
-    console.log('DOM-getMutationTextContent-mutation', mutation);
     if (type === 'characterData') {
       // When `textContent` is '', there is a race condition that makes
       // getting the offsetKey from the target not possible.
       // These events are also followed by a `childList`, which is the one
       // we are able to retrieve the offsetKey and apply the '' text.
-      console.log('DOM-characterData-target.textContent', target.textContent);
-      console.log('DOM-characterData-removedNodes', removedNodes);
 
       if (target.textContent !== '') {
         return target.textContent;
@@ -140,23 +126,16 @@ class DOMObserver {
       // For this case the textContent should be '' and
       // `DraftModifier.replaceText` will make sure the content is
       // updated properly.
-      console.log('DOM-childList-target.textContent', target.textContent);
-      console.log('DOM-childList-removedNodes', removedNodes);
-      // if (target.textContent !== '') {
-      //   return target.textContent;
-      // }
+
       if (removedNodes && removedNodes.length) {
         return '';
       }
     }
-    console.log('vao day la mutation bi null');
     return null;
   }
 
   registerMutation(mutation: MutationRecordT): void {
-    console.log('DOM-registerMutation=========');
     const textContent = this.getMutationTextContent(mutation);
-    console.log('DOM-registerMutation-textContent', textContent);
     if (textContent != null) {
       const offsetKey = nullthrows(findAncestorOffsetKey(mutation.target));
       this.mutations = this.mutations.set(offsetKey, textContent);
