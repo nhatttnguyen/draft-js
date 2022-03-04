@@ -221,6 +221,7 @@ const DraftEditorCompositionHandler = {
     stillComposing = false;
     console.log('onCompositionEnd-resolved', resolved);
     e.persist();
+    e.preventDefault();
     console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
 
     if (!isOnBeforeInput) {
@@ -247,6 +248,7 @@ const DraftEditorCompositionHandler = {
     console.log('onBeforeInput-stillComposing', stillComposing);
     isNewOrIsResolved = false;
     e.persist();
+    e.preventDefault();
     setTimeout(() => {
       if (!resolved) {
         console.log('onBeforeInput-goi resolveComposition -resolved', resolved);
@@ -374,6 +376,11 @@ const DraftEditorCompositionHandler = {
   },
   onMouseUp: function (editor: DraftEditor, e: any): void {
     console.log('onMouseUp===================');
+
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
     if (editor._latestEditorState.isInCompositionMode()) {
       resolved = false;

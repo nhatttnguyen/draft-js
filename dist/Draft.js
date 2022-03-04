@@ -11231,6 +11231,7 @@ var DraftEditorCompositionHandler = {
     stillComposing = false;
     console.log('onCompositionEnd-resolved', resolved);
     e.persist();
+    e.preventDefault();
     console.log('onCompositionEnd-isOnBeforeInput', isOnBeforeInput);
 
     if (!isOnBeforeInput) {
@@ -11256,6 +11257,7 @@ var DraftEditorCompositionHandler = {
     console.log('onBeforeInput-stillComposing', stillComposing);
     isNewOrIsResolved = false;
     e.persist();
+    e.preventDefault();
     setTimeout(function () {
       if (!resolved) {
         console.log('onBeforeInput-goi resolveComposition -resolved', resolved);
@@ -11383,6 +11385,11 @@ var DraftEditorCompositionHandler = {
   },
   onMouseUp: function onMouseUp(editor, e) {
     console.log('onMouseUp===================');
+
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
     if (editor._latestEditorState.isInCompositionMode()) {
       resolved = false;
@@ -11709,6 +11716,7 @@ function () {
       // These events are also followed by a `childList`, which is the one
       // we are able to retrieve the offsetKey and apply the '' text.
       console.log('DOM-characterData-target.textContent', target.textContent);
+      console.log('DOM-characterData-removedNodes', removedNodes);
 
       if (target.textContent !== '') {
         return target.textContent;

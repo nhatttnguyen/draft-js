@@ -130,6 +130,7 @@ class DOMObserver {
       // These events are also followed by a `childList`, which is the one
       // we are able to retrieve the offsetKey and apply the '' text.
       console.log('DOM-characterData-target.textContent', target.textContent);
+      console.log('DOM-characterData-removedNodes', removedNodes);
 
       if (target.textContent !== '') {
         return target.textContent;
