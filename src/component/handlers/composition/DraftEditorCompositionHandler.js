@@ -374,21 +374,21 @@ const DraftEditorCompositionHandler = {
   onMouseUp: function(editor: DraftEditor, e: any): void {
     console.log('onMouseUp===================');
 
-    // if (editor._latestEditorState.isInCompositionMode()) {
-    //   resolved = false;
-    //   stillComposing = false;
-    //   console.log('onMouseUp-stillComposing', stillComposing);
-    //   isNewOrIsResolved = false;
+    if (editor._latestEditorState.isInCompositionMode()) {
+      resolved = false;
+      stillComposing = false;
+      console.log('onMouseUp-stillComposing', stillComposing);
+      isNewOrIsResolved = false;
 
-    // e.persist();
+      e.persist();
 
-    // setTimeout(() => {
-    //   if (!resolved) {
-    //     console.log('onMouseUp-goi resolveComposition -resolved', resolved);
-    //     DraftEditorCompositionHandler.resolveComposition(editor, e);
-    //   }
-    // }, RESOLVE_DELAY);
-    // }
+      setTimeout(() => {
+        if (!resolved) {
+          console.log('onMouseUp-goi resolveComposition -resolved', resolved);
+          DraftEditorCompositionHandler.resolveComposition(editor, e);
+        }
+      }, RESOLVE_DELAY);
+    }
   },
 
   /**

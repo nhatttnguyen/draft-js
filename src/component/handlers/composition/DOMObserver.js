@@ -138,9 +138,9 @@ class DOMObserver {
       // updated properly.
       console.log('DOM-childList-target.textContent', target.textContent);
       console.log('DOM-childList-removedNodes', removedNodes);
-      if (target.textContent !== '') {
-        return target.textContent;
-      }
+      // if (target.textContent !== '') {
+      //   return target.textContent;
+      // }
       if (removedNodes && removedNodes.length) {
         return '';
       }

@@ -162,9 +162,7 @@ module.exports = invariant;
  */
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -910,11 +908,11 @@ module.exports = nullthrows;
 
 var UserAgentData = __webpack_require__(99);
 
-var VersionRange = __webpack_require__(101);
+var VersionRange = __webpack_require__(102);
 
-var mapObject = __webpack_require__(102);
+var mapObject = __webpack_require__(103);
 
-var memoizeStringOnly = __webpack_require__(103);
+var memoizeStringOnly = __webpack_require__(104);
 /**
  * Checks to see whether `name` and `version` satisfy `query`.
  *
@@ -2514,9 +2512,7 @@ module.exports = getContentStateFragment;
 "use strict";
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -2690,7 +2686,7 @@ var DraftEntity = {
   __mergeData: function __mergeData(key, toMerge) {
     var instance = DraftEntity.__get(key);
 
-    var newData = _objectSpread({}, instance.getData(), {}, toMerge);
+    var newData = _objectSpread({}, instance.getData(), toMerge);
 
     var newInstance = instance.set('data', newData);
     instances = instances.set(key, newInstance);
@@ -3129,7 +3125,7 @@ module.exports = getEntityKeyForSelection;
  *
  * @typechecks
  */
-var getStyleProperty = __webpack_require__(130);
+var getStyleProperty = __webpack_require__(131);
 /**
  * @param {DOMNode} element [description]
  * @param {string} name Overflow style property name.
@@ -3200,9 +3196,9 @@ module.exports = Style;
  */
 
 
-var getDocumentScrollElement = __webpack_require__(134);
+var getDocumentScrollElement = __webpack_require__(135);
 
-var getUnboundedScrollPosition = __webpack_require__(135);
+var getUnboundedScrollPosition = __webpack_require__(136);
 /**
  * Gets the scroll position of the supplied element or window.
  *
@@ -3697,7 +3693,7 @@ module.exports = DefaultDraftBlockRenderMap;
 
 var UserAgent = __webpack_require__(5);
 
-var isSoftNewlineEvent = __webpack_require__(106);
+var isSoftNewlineEvent = __webpack_require__(107);
 
 var isOSX = UserAgent.isPlatform('Mac OS X');
 var KeyBindingUtil = {
@@ -3909,7 +3905,7 @@ module.exports = keyCommandPlainBackspace;
  *
  * 
  */
-var isTextNode = __webpack_require__(128);
+var isTextNode = __webpack_require__(129);
 /*eslint-disable no-bitwise */
 
 /**
@@ -4581,7 +4577,7 @@ var keyCommandPlainBackspace = __webpack_require__(38);
 
 var isEventHandled = __webpack_require__(17);
 
-var editOnBeforeInput2 = __webpack_require__(119);
+var editOnBeforeInput2 = __webpack_require__(120);
 /**
  * Millisecond delay to allow `compositionstart` to fire again upon
  * `compositionend`.
@@ -4915,19 +4911,21 @@ var DraftEditorCompositionHandler = {
     // }
   },
   onMouseUp: function onMouseUp(editor, e) {
-    console.log('onMouseUp==================='); // if (editor._latestEditorState.isInCompositionMode()) {
-    //   resolved = false;
-    //   stillComposing = false;
-    //   console.log('onMouseUp-stillComposing', stillComposing);
-    //   isNewOrIsResolved = false;
-    // e.persist();
-    // setTimeout(() => {
-    //   if (!resolved) {
-    //     console.log('onMouseUp-goi resolveComposition -resolved', resolved);
-    //     DraftEditorCompositionHandler.resolveComposition(editor, e);
-    //   }
-    // }, RESOLVE_DELAY);
-    // }
+    console.log('onMouseUp===================');
+
+    if (editor._latestEditorState.isInCompositionMode()) {
+      resolved = false;
+      stillComposing = false;
+      console.log('onMouseUp-stillComposing', stillComposing);
+      isNewOrIsResolved = false;
+      e.persist();
+      setTimeout(function () {
+        if (!resolved) {
+          console.log('onMouseUp-goi resolveComposition -resolved', resolved);
+          DraftEditorCompositionHandler.resolveComposition(editor, e);
+        }
+      }, RESOLVE_DELAY);
+    }
   },
 
   /**
@@ -5872,7 +5870,7 @@ module.exports = isSelectionAtLeafStart;
  // setimmediate adds setImmediate to the global. We want to make sure we export
 // the actual function.
 
-__webpack_require__(104);
+__webpack_require__(105);
 
 module.exports = global.setImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
@@ -5902,31 +5900,31 @@ var KeyBindingUtil = __webpack_require__(35);
 
 var Keys = __webpack_require__(27);
 
-var SecondaryClipboard = __webpack_require__(107);
+var SecondaryClipboard = __webpack_require__(108);
 
 var UserAgent = __webpack_require__(5);
 
 var isEventHandled = __webpack_require__(17);
 
-var keyCommandBackspaceToStartOfLine = __webpack_require__(108);
+var keyCommandBackspaceToStartOfLine = __webpack_require__(109);
 
-var keyCommandBackspaceWord = __webpack_require__(110);
+var keyCommandBackspaceWord = __webpack_require__(111);
 
-var keyCommandDeleteWord = __webpack_require__(112);
+var keyCommandDeleteWord = __webpack_require__(113);
 
-var keyCommandInsertNewline = __webpack_require__(113);
+var keyCommandInsertNewline = __webpack_require__(114);
 
-var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(114);
+var keyCommandMoveSelectionToEndOfBlock = __webpack_require__(115);
 
-var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(115);
+var keyCommandMoveSelectionToStartOfBlock = __webpack_require__(116);
 
 var keyCommandPlainBackspace = __webpack_require__(38);
 
-var keyCommandPlainDelete = __webpack_require__(116);
+var keyCommandPlainDelete = __webpack_require__(117);
 
-var keyCommandTransposeCharacters = __webpack_require__(117);
+var keyCommandTransposeCharacters = __webpack_require__(118);
 
-var keyCommandUndo = __webpack_require__(118);
+var keyCommandUndo = __webpack_require__(119);
 
 var isOptionKeyCommand = KeyBindingUtil.isOptionKeyCommand;
 var isChrome = UserAgent.isBrowser('Chrome');
@@ -6243,7 +6241,7 @@ module.exports = emptyFunction;
  */
 
 
-var TokenizeUtil = __webpack_require__(111);
+var TokenizeUtil = __webpack_require__(112);
 
 var punctuation = TokenizeUtil.getPunctuation(); // The apostrophe and curly single quotes behave in a curious way: when
 // surrounded on both sides by word characters, they behave as word chars; when
@@ -6353,13 +6351,13 @@ function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.crea
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var DraftEditorTextNode = __webpack_require__(125);
+var DraftEditorTextNode = __webpack_require__(126);
 
 var React = __webpack_require__(8);
 
 var invariant = __webpack_require__(1);
 
-var setDraftEditorSelection = __webpack_require__(127);
+var setDraftEditorSelection = __webpack_require__(128);
 
 /**
  * All leaf nodes in the editor are spans with single text nodes. Leaf
@@ -6580,7 +6578,7 @@ module.exports = getActiveElement;
  *
  * @typechecks
  */
-var getElementRect = __webpack_require__(133);
+var getElementRect = __webpack_require__(134);
 /**
  * Gets an element's position in pixels relative to the viewport. The returned
  * object represents the position of the element's top left corner.
@@ -6687,7 +6685,7 @@ module.exports = getViewportDimensions;
  */
 
 
-var Promise = __webpack_require__(137),
+var Promise = __webpack_require__(138),
     _assign = __webpack_require__(15);
 
 function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -7295,9 +7293,9 @@ rawAsap.makeRequestCallFromTimer = makeRequestCallFromTimer;
  *
  * @typechecks
  */
-var PhotosMimeType = __webpack_require__(148);
+var PhotosMimeType = __webpack_require__(149);
 
-var createArrayFromMixed = __webpack_require__(149);
+var createArrayFromMixed = __webpack_require__(150);
 
 var emptyFunction = __webpack_require__(62);
 
@@ -7643,9 +7641,7 @@ module.exports = getFragmentFromSelection;
 
 var _knownListItemDepthCl;
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -7659,7 +7655,7 @@ var DefaultDraftBlockRenderMap = __webpack_require__(34);
 
 var DraftEntity = __webpack_require__(23);
 
-var URI = __webpack_require__(162);
+var URI = __webpack_require__(163);
 
 var cx = __webpack_require__(14);
 
@@ -8462,7 +8458,7 @@ var DraftModifier = __webpack_require__(3);
 
 var EditorState = __webpack_require__(2);
 
-var adjustBlockDepthForContentState = __webpack_require__(163);
+var adjustBlockDepthForContentState = __webpack_require__(164);
 
 var nullthrows = __webpack_require__(4);
 
@@ -8952,21 +8948,21 @@ var EditorState = __webpack_require__(2);
 
 var KeyBindingUtil = __webpack_require__(35);
 
-var RawDraftContentState = __webpack_require__(166);
+var RawDraftContentState = __webpack_require__(167);
 
 var RichTextEditorUtil = __webpack_require__(77);
 
 var SelectionState = __webpack_require__(24);
 
-var convertFromDraftStateToRaw = __webpack_require__(167);
+var convertFromDraftStateToRaw = __webpack_require__(168);
 
-var convertFromRawToDraftState = __webpack_require__(170);
+var convertFromRawToDraftState = __webpack_require__(171);
 
 var generateRandomKey = __webpack_require__(10);
 
 var getDefaultKeyBinding = __webpack_require__(78);
 
-var getVisibleSelectionRect = __webpack_require__(176);
+var getVisibleSelectionRect = __webpack_require__(177);
 
 var convertFromHTML = __webpack_require__(75);
 
@@ -9015,9 +9011,7 @@ module.exports = DraftPublic;
  */
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -10927,9 +10921,7 @@ var _assign = __webpack_require__(15);
 
 function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -10943,13 +10935,13 @@ var DefaultDraftInlineStyle = __webpack_require__(48);
 
 var DraftEditorCompositionHandler = __webpack_require__(49);
 
-var DraftEditorContents = __webpack_require__(120);
+var DraftEditorContents = __webpack_require__(121);
 
-var DraftEditorDragHandler = __webpack_require__(147);
+var DraftEditorDragHandler = __webpack_require__(148);
 
-var DraftEditorEditHandler = __webpack_require__(150);
+var DraftEditorEditHandler = __webpack_require__(151);
 
-var DraftEditorPlaceholder = __webpack_require__(165);
+var DraftEditorPlaceholder = __webpack_require__(166);
 
 var DraftEffects = __webpack_require__(66);
 
@@ -11444,7 +11436,7 @@ function (_React$Component2) {
       blockRenderMap: blockRenderMap,
       blockRendererFn: blockRendererFn,
       blockStyleFn: blockStyleFn,
-      customStyleMap: _objectSpread({}, DefaultDraftInlineStyle, {}, customStyleMap),
+      customStyleMap: _objectSpread({}, DefaultDraftInlineStyle, customStyleMap),
       customStyleFn: customStyleFn,
       editorKey: this._editorKey,
       editorState: editorState,
@@ -11722,11 +11714,9 @@ function () {
       // `DraftModifier.replaceText` will make sure the content is
       // updated properly.
       console.log('DOM-childList-target.textContent', target.textContent);
-      console.log('DOM-childList-removedNodes', removedNodes);
-
-      if (target.textContent !== '') {
-        return target.textContent;
-      }
+      console.log('DOM-childList-removedNodes', removedNodes); // if (target.textContent !== '') {
+      //   return target.textContent;
+      // }
 
       if (removedNodes && removedNodes.length) {
         return '';
@@ -11843,12 +11833,12 @@ module.exports = uaData;
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * UAParser.js v0.7.20
+ * UAParser.js v0.7.19
  * Lightweight JavaScript-based User-Agent string parser
  * https://github.com/faisalman/ua-parser-js
  *
- * Copyright © 2012-2019 Faisal Salman <f@faisalman.com>
- * Licensed under MIT License
+ * Copyright © 2012-2016 Faisal Salman <fyzlman@gmail.com>
+ * Dual licensed under GPLv2 or MIT
  */
 
 (function (window, undefined) {
@@ -11860,7 +11850,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
     /////////////
 
 
-    var LIBVERSION  = '0.7.20',
+    var LIBVERSION  = '0.7.19',
         EMPTY       = '',
         UNKNOWN     = '?',
         FUNC_TYPE   = 'function',
@@ -11889,15 +11879,15 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
     var util = {
         extend : function (regexes, extensions) {
-            var mergedRegexes = {};
+            var margedRegexes = {};
             for (var i in regexes) {
                 if (extensions[i] && extensions[i].length % 2 === 0) {
-                    mergedRegexes[i] = extensions[i].concat(regexes[i]);
+                    margedRegexes[i] = extensions[i].concat(regexes[i]);
                 } else {
-                    mergedRegexes[i] = regexes[i];
+                    margedRegexes[i] = regexes[i];
                 }
             }
-            return mergedRegexes;
+            return margedRegexes;
         },
         has : function (str1, str2) {
           if (typeof str1 === "string") {
@@ -11927,7 +11917,14 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
         rgx : function (ua, arrays) {
 
-            var i = 0, j, k, p, q, matches, match;
+            //var result = {},
+            var i = 0, j, k, p, q, matches, match;//, args = arguments;
+
+            /*// construct object barebones
+            for (p = 0; p < args[1].length; p++) {
+                q = args[1][p];
+                result[typeof q === OBJ_TYPE ? q[0] : q] = undefined;
+            }*/
 
             // loop through all regexes maps
             while (i < arrays.length && !matches) {
@@ -11975,6 +11972,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
                 }
                 i += 2;
             }
+            // console.log(this);
+            //return this;
         },
 
         str : function (str, map) {
@@ -12089,17 +12088,14 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
             // Webkit/KHTML based
             /(rekonq)\/([\w\.]*)/i,                                             // Rekonq
-            /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon)\/([\w\.-]+)/i
-                                                                                // Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron/Iridium/PhantomJS/Bowser/QupZilla/Falkon
+            /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark)\/([\w\.-]+)/i
+                                                                                // Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron/Iridium/PhantomJS/Bowser
             ], [NAME, VERSION], [
-
-            /(konqueror)\/([\w\.]+)/i                                           // Konqueror
-            ], [[NAME, 'Konqueror'], VERSION], [
 
             /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i                         // IE11
             ], [[NAME, 'IE'], VERSION], [
 
-            /(edge|edgios|edga|edg)\/((\d+)?[\w\.]+)/i                          // Microsoft Edge
+            /(edge|edgios|edga)\/((\d+)?[\w\.]+)/i                              // Microsoft Edge
             ], [[NAME, 'Edge'], VERSION], [
 
             /(yabrowser)\/([\w\.]+)/i                                           // Yandex
@@ -12119,9 +12115,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
             /(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
             ], [[NAME, /_/g, ' '], VERSION], [
-
-            /(windowswechat qbcore)\/([\w\.]+)/i                                // WeChat Desktop for Windows Built-in Browser
-            ], [[NAME, 'WeChat(Win) Desktop'], VERSION], [
 
             /(micromessenger)\/([\w\.]+)/i                                      // WeChat
             ], [[NAME, 'WeChat'], VERSION], [
@@ -12172,9 +12165,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)*/i        // Android Browser
             ], [VERSION, [NAME, 'Android Browser']], [
 
-            /(sailfishbrowser)\/([\w\.]+)/i                                     // Sailfish Browser
-            ], [[NAME, 'Sailfish Browser'], VERSION], [
-
             /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i
                                                                                 // Chrome/OmniWeb/Arora/Tizen/Nokia
             ], [NAME, VERSION], [
@@ -12203,6 +12193,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i                     // Safari < 3.0
             ], [NAME, [VERSION, mapper.str, maps.browser.oldsafari.version]], [
 
+            /(konqueror)\/([\w\.]+)/i,                                          // Konqueror
             /(webkit|khtml)\/([\w\.]+)/i
             ], [NAME, VERSION], [
 
@@ -12225,6 +12216,117 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /(ice\s?browser)\/v?([\w\._]+)/i,                                   // ICE Browser
             /(mosaic)[\/\s]([\w\.]+)/i                                          // Mosaic
             ], [NAME, VERSION]
+
+            /* /////////////////////
+            // Media players BEGIN
+            ////////////////////////
+
+            , [
+
+            /(apple(?:coremedia|))\/((\d+)[\w\._]+)/i,                          // Generic Apple CoreMedia
+            /(coremedia) v((\d+)[\w\._]+)/i
+            ], [NAME, VERSION], [
+
+            /(aqualung|lyssna|bsplayer)\/((\d+)?[\w\.-]+)/i                     // Aqualung/Lyssna/BSPlayer
+            ], [NAME, VERSION], [
+
+            /(ares|ossproxy)\s((\d+)[\w\.-]+)/i                                 // Ares/OSSProxy
+            ], [NAME, VERSION], [
+
+            /(audacious|audimusicstream|amarok|bass|core|dalvik|gnomemplayer|music on console|nsplayer|psp-internetradioplayer|videos)\/((\d+)[\w\.-]+)/i,
+                                                                                // Audacious/AudiMusicStream/Amarok/BASS/OpenCORE/Dalvik/GnomeMplayer/MoC
+                                                                                // NSPlayer/PSP-InternetRadioPlayer/Videos
+            /(clementine|music player daemon)\s((\d+)[\w\.-]+)/i,               // Clementine/MPD
+            /(lg player|nexplayer)\s((\d+)[\d\.]+)/i,
+            /player\/(nexplayer|lg player)\s((\d+)[\w\.-]+)/i                   // NexPlayer/LG Player
+            ], [NAME, VERSION], [
+            /(nexplayer)\s((\d+)[\w\.-]+)/i                                     // Nexplayer
+            ], [NAME, VERSION], [
+
+            /(flrp)\/((\d+)[\w\.-]+)/i                                          // Flip Player
+            ], [[NAME, 'Flip Player'], VERSION], [
+
+            /(fstream|nativehost|queryseekspider|ia-archiver|facebookexternalhit)/i
+                                                                                // FStream/NativeHost/QuerySeekSpider/IA Archiver/facebookexternalhit
+            ], [NAME], [
+
+            /(gstreamer) souphttpsrc (?:\([^\)]+\)){0,1} libsoup\/((\d+)[\w\.-]+)/i
+                                                                                // Gstreamer
+            ], [NAME, VERSION], [
+
+            /(htc streaming player)\s[\w_]+\s\/\s((\d+)[\d\.]+)/i,              // HTC Streaming Player
+            /(java|python-urllib|python-requests|wget|libcurl)\/((\d+)[\w\.-_]+)/i,
+                                                                                // Java/urllib/requests/wget/cURL
+            /(lavf)((\d+)[\d\.]+)/i                                             // Lavf (FFMPEG)
+            ], [NAME, VERSION], [
+
+            /(htc_one_s)\/((\d+)[\d\.]+)/i                                      // HTC One S
+            ], [[NAME, /_/g, ' '], VERSION], [
+
+            /(mplayer)(?:\s|\/)(?:(?:sherpya-){0,1}svn)(?:-|\s)(r\d+(?:-\d+[\w\.-]+){0,1})/i
+                                                                                // MPlayer SVN
+            ], [NAME, VERSION], [
+
+            /(mplayer)(?:\s|\/|[unkow-]+)((\d+)[\w\.-]+)/i                      // MPlayer
+            ], [NAME, VERSION], [
+
+            /(mplayer)/i,                                                       // MPlayer (no other info)
+            /(yourmuze)/i,                                                      // YourMuze
+            /(media player classic|nero showtime)/i                             // Media Player Classic/Nero ShowTime
+            ], [NAME], [
+
+            /(nero (?:home|scout))\/((\d+)[\w\.-]+)/i                           // Nero Home/Nero Scout
+            ], [NAME, VERSION], [
+
+            /(nokia\d+)\/((\d+)[\w\.-]+)/i                                      // Nokia
+            ], [NAME, VERSION], [
+
+            /\s(songbird)\/((\d+)[\w\.-]+)/i                                    // Songbird/Philips-Songbird
+            ], [NAME, VERSION], [
+
+            /(winamp)3 version ((\d+)[\w\.-]+)/i,                               // Winamp
+            /(winamp)\s((\d+)[\w\.-]+)/i,
+            /(winamp)mpeg\/((\d+)[\w\.-]+)/i
+            ], [NAME, VERSION], [
+
+            /(ocms-bot|tapinradio|tunein radio|unknown|winamp|inlight radio)/i  // OCMS-bot/tap in radio/tunein/unknown/winamp (no other info)
+                                                                                // inlight radio
+            ], [NAME], [
+
+            /(quicktime|rma|radioapp|radioclientapplication|soundtap|totem|stagefright|streamium)\/((\d+)[\w\.-]+)/i
+                                                                                // QuickTime/RealMedia/RadioApp/RadioClientApplication/
+                                                                                // SoundTap/Totem/Stagefright/Streamium
+            ], [NAME, VERSION], [
+
+            /(smp)((\d+)[\d\.]+)/i                                              // SMP
+            ], [NAME, VERSION], [
+
+            /(vlc) media player - version ((\d+)[\w\.]+)/i,                     // VLC Videolan
+            /(vlc)\/((\d+)[\w\.-]+)/i,
+            /(xbmc|gvfs|xine|xmms|irapp)\/((\d+)[\w\.-]+)/i,                    // XBMC/gvfs/Xine/XMMS/irapp
+            /(foobar2000)\/((\d+)[\d\.]+)/i,                                    // Foobar2000
+            /(itunes)\/((\d+)[\d\.]+)/i                                         // iTunes
+            ], [NAME, VERSION], [
+
+            /(wmplayer)\/((\d+)[\w\.-]+)/i,                                     // Windows Media Player
+            /(windows-media-player)\/((\d+)[\w\.-]+)/i
+            ], [[NAME, /-/g, ' '], VERSION], [
+
+            /windows\/((\d+)[\w\.-]+) upnp\/[\d\.]+ dlnadoc\/[\d\.]+ (home media server)/i
+                                                                                // Windows Media Server
+            ], [VERSION, [NAME, 'Windows']], [
+
+            /(com\.riseupradioalarm)\/((\d+)[\d\.]*)/i                          // RiseUP Radio Alarm
+            ], [NAME, VERSION], [
+
+            /(rad.io)\s((\d+)[\d\.]+)/i,                                        // Rad.io
+            /(radio.(?:de|at|fr))\s((\d+)[\d\.]+)/i
+            ], [[NAME, 'rad.io'], VERSION]
+
+            //////////////////////
+            // Media players END
+            ////////////////////*/
+
         ],
 
         cpu : [[
@@ -12255,7 +12357,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
         device : [[
 
-            /\((ipad|playbook);[\w\s\),;-]+(rim|apple)/i                        // iPad/PlayBook
+            /\((ipad|playbook);[\w\s\);-]+(rim|apple)/i                         // iPad/PlayBook
             ], [MODEL, VENDOR, [TYPE, TABLET]], [
 
             /applecoremedia\/[\w\.]+ \((ipad)/                                  // iPad
@@ -12293,13 +12395,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /\(bb10;\s(\w+)/i                                                   // BlackBerry 10
             ], [MODEL, [VENDOR, 'BlackBerry'], [TYPE, MOBILE]], [
                                                                                 // Asus Tablets
-            /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7|padfone|p00c)/i
+            /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7|padfone)/i
             ], [MODEL, [VENDOR, 'Asus'], [TYPE, TABLET]], [
 
             /(sony)\s(tablet\s[ps])\sbuild\//i,                                  // Sony
             /(sony)?(?:sgp.+)\sbuild\//i
             ], [[VENDOR, 'Sony'], [MODEL, 'Xperia Tablet'], [TYPE, TABLET]], [
-            /android.+\s([c-g]\d{4}|so[-l]\w+)(?=\sbuild\/|\).+chrome\/(?![1-6]{0,1}\d\.))/i
+            /android.+\s([c-g]\d{4}|so[-l]\w+)\sbuild\//i
             ], [MODEL, [VENDOR, 'Sony'], [TYPE, MOBILE]], [
 
             /\s(ouya)\s/i,                                                      // Ouya
@@ -12315,10 +12417,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /(sprint\s(\w+))/i                                                  // Sprint Phones
             ], [[VENDOR, mapper.str, maps.device.sprint.vendor], [MODEL, mapper.str, maps.device.sprint.model], [TYPE, MOBILE]], [
 
-            /(htc)[;_\s-]+([\w\s]+(?=\)|\sbuild)|\w+)/i,                        // HTC
+            /(lenovo)\s?(S(?:5000|6000)+(?:[-][\w+]))/i                         // Lenovo tablets
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+
+            /(htc)[;_\s-]+([\w\s]+(?=\))|\w+)*/i,                               // HTC
             /(zte)-(\w*)/i,                                                     // ZTE
-            /(alcatel|geeksphone|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]*)/i
-                                                                                // Alcatel/GeeksPhone/Nexian/Panasonic/Sony
+            /(alcatel|geeksphone|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]*)/i
+                                                                                // Alcatel/GeeksPhone/Lenovo/Nexian/Panasonic/Sony
             ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
 
             /(nexus\s9)/i                                                       // HTC Nexus 9
@@ -12371,7 +12476,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /(nokia)[\s_-]?([\w-]*)/i
             ], [[VENDOR, 'Nokia'], MODEL, [TYPE, MOBILE]], [
 
-            /android[x\d\.\s;]+\s([ab][1-7]\-?[0178a]\d\d?)/i                   // Acer
+            /android\s3\.[\s\w;-]{10}(a\d{3})/i                                 // Acer
             ], [MODEL, [VENDOR, 'Acer'], [TYPE, TABLET]], [
 
             /android.+([vl]k\-?\d{3})\s+build/i                                 // LG Tablet
@@ -12385,12 +12490,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /android.+lg(\-?[\d\w]+)\s+build/i
             ], [MODEL, [VENDOR, 'LG'], [TYPE, MOBILE]], [
 
-            /(lenovo)\s?(s(?:5000|6000)(?:[\w-]+)|tab(?:[\s\w]+))/i             // Lenovo tablets
-            ], [VENDOR, MODEL, [TYPE, TABLET]], [
             /android.+(ideatab[a-z0-9\-\s]+)/i                                  // Lenovo
             ], [MODEL, [VENDOR, 'Lenovo'], [TYPE, TABLET]], [
-            /(lenovo)[_\s-]?([\w-]+)/i
-            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
 
             /linux;.+((jolla));/i                                               // Jolla
             ], [VENDOR, MODEL, [TYPE, MOBILE]], [
@@ -12410,20 +12511,19 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /android.+;\s(pixel c)[\s)]/i                                       // Google Pixel C
             ], [MODEL, [VENDOR, 'Google'], [TYPE, TABLET]], [
 
-            /android.+;\s(pixel( [23])?( xl)?)[\s)]/i                              // Google Pixel
+            /android.+;\s(pixel( [23])?( xl)?)\s/i                              // Google Pixel
             ], [MODEL, [VENDOR, 'Google'], [TYPE, MOBILE]], [
 
             /android.+;\s(\w+)\s+build\/hm\1/i,                                 // Xiaomi Hongmi 'numeric' models
             /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,               // Xiaomi Hongmi
-            /android.+(mi[\s\-_]*(?:a\d|one|one[\s_]plus|note lte)?[\s_]*(?:\d?\w?)[\s_]*(?:plus)?)\s+build/i,    
-                                                                                // Xiaomi Mi
+            /android.+(mi[\s\-_]*(?:one|one[\s_]plus|note lte)?[\s_]*(?:\d?\w?)[\s_]*(?:plus)?)\s+build/i,    // Xiaomi Mi
             /android.+(redmi[\s\-_]*(?:note)?(?:[\s_]*[\w\s]+))\s+build/i       // Redmi Phones
             ], [[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, MOBILE]], [
             /android.+(mi[\s\-_]*(?:pad)(?:[\s_]*[\w\s]+))\s+build/i            // Mi Pad tablets
             ],[[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, TABLET]], [
-            /android.+;\s(m[1-5]\snote)\sbuild/i                                // Meizu
-            ], [MODEL, [VENDOR, 'Meizu'], [TYPE, MOBILE]], [
-            /(mz)-([\w-]{2,})/i
+            /android.+;\s(m[1-5]\snote)\sbuild/i                                // Meizu Tablet
+            ], [MODEL, [VENDOR, 'Meizu'], [TYPE, TABLET]], [
+            /(mz)-([\w-]{2,})/i                                                 // Meizu Phone
             ], [[VENDOR, 'Meizu'], MODEL, [TYPE, MOBILE]], [
 
             /android.+a000(1)\s+build/i,                                        // OnePlus
@@ -12501,11 +12601,60 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /\s(mobile)(?:[;\/]|\ssafari)/i                                     // Unidentifiable Mobile
             ], [[TYPE, util.lowerize], VENDOR, MODEL], [
 
-            /[\s\/\(](smart-?tv)[;\)]/i                                         // SmartTV
-            ], [[TYPE, SMARTTV]], [
-
             /(android[\w\.\s\-]{0,9});.+build/i                                 // Generic Android Device
             ], [MODEL, [VENDOR, 'Generic']]
+
+
+        /*//////////////////////////
+            // TODO: move to string map
+            ////////////////////////////
+
+            /(C6603)/i                                                          // Sony Xperia Z C6603
+            ], [[MODEL, 'Xperia Z C6603'], [VENDOR, 'Sony'], [TYPE, MOBILE]], [
+            /(C6903)/i                                                          // Sony Xperia Z 1
+            ], [[MODEL, 'Xperia Z 1'], [VENDOR, 'Sony'], [TYPE, MOBILE]], [
+
+            /(SM-G900[F|H])/i                                                   // Samsung Galaxy S5
+            ], [[MODEL, 'Galaxy S5'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+            /(SM-G7102)/i                                                       // Samsung Galaxy Grand 2
+            ], [[MODEL, 'Galaxy Grand 2'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+            /(SM-G530H)/i                                                       // Samsung Galaxy Grand Prime
+            ], [[MODEL, 'Galaxy Grand Prime'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+            /(SM-G313HZ)/i                                                      // Samsung Galaxy V
+            ], [[MODEL, 'Galaxy V'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+            /(SM-T805)/i                                                        // Samsung Galaxy Tab S 10.5
+            ], [[MODEL, 'Galaxy Tab S 10.5'], [VENDOR, 'Samsung'], [TYPE, TABLET]], [
+            /(SM-G800F)/i                                                       // Samsung Galaxy S5 Mini
+            ], [[MODEL, 'Galaxy S5 Mini'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+            /(SM-T311)/i                                                        // Samsung Galaxy Tab 3 8.0
+            ], [[MODEL, 'Galaxy Tab 3 8.0'], [VENDOR, 'Samsung'], [TYPE, TABLET]], [
+
+            /(T3C)/i                                                            // Advan Vandroid T3C
+            ], [MODEL, [VENDOR, 'Advan'], [TYPE, TABLET]], [
+            /(ADVAN T1J\+)/i                                                    // Advan Vandroid T1J+
+            ], [[MODEL, 'Vandroid T1J+'], [VENDOR, 'Advan'], [TYPE, TABLET]], [
+            /(ADVAN S4A)/i                                                      // Advan Vandroid S4A
+            ], [[MODEL, 'Vandroid S4A'], [VENDOR, 'Advan'], [TYPE, MOBILE]], [
+
+            /(V972M)/i                                                          // ZTE V972M
+            ], [MODEL, [VENDOR, 'ZTE'], [TYPE, MOBILE]], [
+
+            /(i-mobile)\s(IQ\s[\d\.]+)/i                                        // i-mobile IQ
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+            /(IQ6.3)/i                                                          // i-mobile IQ IQ 6.3
+            ], [[MODEL, 'IQ 6.3'], [VENDOR, 'i-mobile'], [TYPE, MOBILE]], [
+            /(i-mobile)\s(i-style\s[\d\.]+)/i                                   // i-mobile i-STYLE
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+            /(i-STYLE2.1)/i                                                     // i-mobile i-STYLE 2.1
+            ], [[MODEL, 'i-STYLE 2.1'], [VENDOR, 'i-mobile'], [TYPE, MOBILE]], [
+
+            /(mobiistar touch LAI 512)/i                                        // mobiistar touch LAI 512
+            ], [[MODEL, 'Touch LAI 512'], [VENDOR, 'mobiistar'], [TYPE, MOBILE]], [
+
+            /////////////
+            // END TODO
+            ///////////*/
+
         ],
 
         engine : [[
@@ -12513,12 +12662,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             /windows.+\sedge\/([\w\.]+)/i                                       // EdgeHTML
             ], [VERSION, [NAME, 'EdgeHTML']], [
 
-            /webkit\/537\.36.+chrome\/(?!27)/i                                  // Blink
-            ], [[NAME, 'Blink']], [
-
             /(presto)\/([\w\.]+)/i,                                             // Presto
-            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i,     
-                                                                                // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m/Goanna
+            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m)\/([\w\.]+)/i,     // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m
             /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i,                          // KHTML/Tasman/Links
             /(icab)[\/\s]([23]\.[\d\.]+)/i                                      // iCab
             ], [NAME, VERSION], [
@@ -12544,8 +12689,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
             ], [[NAME, 'BlackBerry'], VERSION], [
             /(blackberry)\w*\/?([\w\.]*)/i,                                     // Blackberry
             /(tizen)[\/\s]([\w\.]+)/i,                                          // Tizen
-            /(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|sailfish|contiki)[\/\s-]?([\w\.]*)/i
-                                                                                // Android/WebOS/Palm/QNX/Bada/RIM/MeeGo/Contiki/Sailfish OS
+            /(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|contiki)[\/\s-]?([\w\.]*)/i,
+                                                                                // Android/WebOS/Palm/QNX/Bada/RIM/MeeGo/Contiki
+            /linux;.+(sailfish);/i                                              // Sailfish OS
             ], [NAME, VERSION], [
             /(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]*)/i                  // Symbian
             ], [[NAME, 'Symbian'], VERSION], [
@@ -12603,6 +12749,22 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
     /////////////////
     // Constructor
     ////////////////
+    /*
+    var Browser = function (name, version) {
+        this[NAME] = name;
+        this[VERSION] = version;
+    };
+    var CPU = function (arch) {
+        this[ARCHITECTURE] = arch;
+    };
+    var Device = function (vendor, model, type) {
+        this[VENDOR] = vendor;
+        this[MODEL] = model;
+        this[TYPE] = type;
+    };
+    var Engine = Browser;
+    var OS = Browser;
+    */
     var UAParser = function (uastring, extensions) {
 
         if (typeof uastring === 'object') {
@@ -12616,6 +12778,11 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
         var ua = uastring || ((window && window.navigator && window.navigator.userAgent) ? window.navigator.userAgent : EMPTY);
         var rgxmap = extensions ? util.extend(regexes, extensions) : regexes;
+        //var browser = new Browser();
+        //var cpu = new CPU();
+        //var device = new Device();
+        //var engine = new Engine();
+        //var os = new OS();
 
         this.getBrowser = function () {
             var browser = { name: undefined, version: undefined };
@@ -12658,6 +12825,11 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
         };
         this.setUA = function (uastring) {
             ua = uastring;
+            //browser = new Browser();
+            //cpu = new CPU();
+            //device = new Device();
+            //engine = new Engine();
+            //os = new OS();
             return this;
         };
         return this;
@@ -12691,6 +12863,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
         NAME    : NAME,
         VERSION : VERSION
     };
+    //UAParser.Utils = util;
 
     ///////////
     // Export
@@ -12703,10 +12876,39 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
         if (typeof module !== UNDEF_TYPE && module.exports) {
             exports = module.exports = UAParser;
         }
+        // TODO: test!!!!!!!!
+        /*
+        if (require && require.main === module && process) {
+            // cli
+            var jsonize = function (arr) {
+                var res = [];
+                for (var i in arr) {
+                    res.push(new UAParser(arr[i]).getResult());
+                }
+                process.stdout.write(JSON.stringify(res, null, 2) + '\n');
+            };
+            if (process.stdin.isTTY) {
+                // via args
+                jsonize(process.argv.slice(2));
+            } else {
+                // via pipe
+                var str = '';
+                process.stdin.on('readable', function() {
+                    var read = process.stdin.read();
+                    if (read !== null) {
+                        str += read;
+                    }
+                });
+                process.stdin.on('end', function () {
+                    jsonize(str.replace(/\n$/, '').split('\n'));
+                });
+            }
+        }
+        */
         exports.UAParser = UAParser;
     } else {
         // requirejs env (optional)
-        if (true) {
+        if ("function" === FUNC_TYPE && __webpack_require__(101)) {
             !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
                 return UAParser;
             }).call(exports, __webpack_require__, exports, module),
@@ -12743,6 +12945,15 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 /* 101 */
+/***/ (function(module, exports) {
+
+/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
+module.exports = __webpack_amd_options__;
+
+/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ }),
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13144,7 +13355,7 @@ var VersionRange = {
 module.exports = VersionRange;
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13200,7 +13411,7 @@ function mapObject(object, callback, context) {
 module.exports = mapObject;
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13232,7 +13443,7 @@ function memoizeStringOnly(callback) {
 module.exports = memoizeStringOnly;
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -13422,10 +13633,10 @@ module.exports = memoizeStringOnly;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(105)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(106)))
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -13615,7 +13826,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13640,7 +13851,7 @@ function isSoftNewlineEvent(e) {
 module.exports = isSoftNewlineEvent;
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13719,7 +13930,7 @@ var SecondaryClipboard = {
 module.exports = SecondaryClipboard;
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13737,7 +13948,7 @@ module.exports = SecondaryClipboard;
 
 var EditorState = __webpack_require__(2);
 
-var expandRangeToStartOfLine = __webpack_require__(109);
+var expandRangeToStartOfLine = __webpack_require__(110);
 
 var getDraftEditorSelectionWithNodes = __webpack_require__(55);
 
@@ -13770,7 +13981,7 @@ module.exports = keyCommandBackspaceToStartOfLine;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13972,7 +14183,7 @@ function expandRangeToStartOfLine(range) {
 module.exports = expandRangeToStartOfLine;
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14027,7 +14238,7 @@ function keyCommandBackspaceWord(editorState) {
 module.exports = keyCommandBackspaceWord;
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14064,7 +14275,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14115,7 +14326,7 @@ function keyCommandDeleteWord(editorState) {
 module.exports = keyCommandDeleteWord;
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14143,7 +14354,7 @@ function keyCommandInsertNewline(editorState) {
 module.exports = keyCommandInsertNewline;
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14185,7 +14396,7 @@ function keyCommandMoveSelectionToEndOfBlock(editorState) {
 module.exports = keyCommandMoveSelectionToEndOfBlock;
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14227,7 +14438,7 @@ function keyCommandMoveSelectionToStartOfBlock(editorState) {
 module.exports = keyCommandMoveSelectionToStartOfBlock;
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14278,7 +14489,7 @@ function keyCommandPlainDelete(editorState) {
 module.exports = keyCommandPlainDelete;
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14359,7 +14570,7 @@ function keyCommandTransposeCharacters(editorState) {
 module.exports = keyCommandTransposeCharacters;
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14414,7 +14625,7 @@ function keyCommandUndo(e, editorState, updateFn) {
 module.exports = keyCommandUndo;
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14662,7 +14873,7 @@ module.exports = editOnBeforeInput2;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14680,10 +14891,10 @@ module.exports = editOnBeforeInput2;
 var gkx = __webpack_require__(12);
 
 var experimentalTreeDataSupport = gkx('draft_tree_data_support');
-module.exports = experimentalTreeDataSupport ? __webpack_require__(121) : __webpack_require__(136);
+module.exports = experimentalTreeDataSupport ? __webpack_require__(122) : __webpack_require__(137);
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14710,7 +14921,7 @@ function _extends() { _extends = _assign || function (target) { for (var i = 1; 
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var DraftEditorBlockNode = __webpack_require__(122);
+var DraftEditorBlockNode = __webpack_require__(123);
 
 var DraftOffsetKey = __webpack_require__(11);
 
@@ -14870,7 +15081,7 @@ function (_React$Component) {
 module.exports = DraftEditorContentsExperimental;
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14897,13 +15108,11 @@ function _extends() { _extends = _assign || function (target) { for (var i = 1; 
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var DraftEditorNode = __webpack_require__(123);
+var DraftEditorNode = __webpack_require__(124);
 
 var DraftOffsetKey = __webpack_require__(11);
 
@@ -15204,7 +15413,7 @@ function (_React$Component) {
 module.exports = DraftEditorBlockNode;
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15225,7 +15434,7 @@ module.exports = DraftEditorBlockNode;
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
 
-var DraftEditorDecoratedLeaves = __webpack_require__(124);
+var DraftEditorDecoratedLeaves = __webpack_require__(125);
 
 var DraftEditorLeaf = __webpack_require__(65);
 
@@ -15320,7 +15529,7 @@ function (_React$Component) {
 module.exports = DraftEditorNode;
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15399,7 +15608,7 @@ function (_React$Component) {
 module.exports = DraftEditorDecoratedLeaves;
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15427,7 +15636,7 @@ var UserAgent = __webpack_require__(5);
 
 var invariant = __webpack_require__(1);
 
-var isElement = __webpack_require__(126); // In IE, spans with <br> tags render as two newlines. By rendering a span
+var isElement = __webpack_require__(127); // In IE, spans with <br> tags render as two newlines. By rendering a span
 // with only a newline character, we can be sure to render a single line.
 
 
@@ -15565,7 +15774,7 @@ function (_React$Component) {
 module.exports = DraftEditorTextNode;
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15592,7 +15801,7 @@ function isElement(node) {
 module.exports = isElement;
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15860,7 +16069,7 @@ module.exports = setDraftEditorSelection;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15874,7 +16083,7 @@ module.exports = setDraftEditorSelection;
  *
  * @typechecks
  */
-var isNode = __webpack_require__(129);
+var isNode = __webpack_require__(130);
 /**
  * @param {*} object The object to check.
  * @return {boolean} Whether or not the object is a DOM text node.
@@ -15888,7 +16097,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15916,7 +16125,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15930,9 +16139,9 @@ module.exports = isNode;
  *
  * @typechecks
  */
-var camelize = __webpack_require__(131);
+var camelize = __webpack_require__(132);
 
-var hyphenate = __webpack_require__(132);
+var hyphenate = __webpack_require__(133);
 
 function asString(value)
 /*?string*/
@@ -15986,7 +16195,7 @@ name)
 module.exports = getStyleProperty;
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16020,7 +16229,7 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16055,7 +16264,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16107,7 +16316,7 @@ function getElementRect(elem) {
 module.exports = getElementRect;
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16145,7 +16354,7 @@ function getDocumentScrollElement(doc) {
 module.exports = getDocumentScrollElement;
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16186,7 +16395,7 @@ function getUnboundedScrollPosition(scrollable) {
 module.exports = getUnboundedScrollPosition;
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16206,9 +16415,7 @@ var _assign = __webpack_require__(15);
 
 function _extends() { _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -16222,7 +16429,7 @@ var React = __webpack_require__(8);
 
 var cx = __webpack_require__(14);
 
-var joinClasses = __webpack_require__(146);
+var joinClasses = __webpack_require__(147);
 
 var nullthrows = __webpack_require__(4);
 
@@ -16457,7 +16664,7 @@ function (_React$Component) {
 module.exports = DraftEditorContents;
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16470,17 +16677,7 @@ module.exports = DraftEditorContents;
  * LICENSE file in the root directory of this source tree.
  *
  */
-module.exports = __webpack_require__(138);
-
-/***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(139)
-
+module.exports = __webpack_require__(139);
 
 /***/ }),
 /* 139 */
@@ -16489,16 +16686,26 @@ module.exports = __webpack_require__(139)
 "use strict";
 
 
-module.exports = __webpack_require__(18);
-__webpack_require__(140);
-__webpack_require__(141);
-__webpack_require__(142);
-__webpack_require__(143);
-__webpack_require__(145);
+module.exports = __webpack_require__(140)
 
 
 /***/ }),
 /* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(18);
+__webpack_require__(141);
+__webpack_require__(142);
+__webpack_require__(143);
+__webpack_require__(144);
+__webpack_require__(146);
+
+
+/***/ }),
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16518,7 +16725,7 @@ Promise.prototype.done = function (onFulfilled, onRejected) {
 
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16541,7 +16748,7 @@ Promise.prototype['finally'] = function (f) {
 
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16655,7 +16862,7 @@ Promise.prototype['catch'] = function (onRejected) {
 
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16665,7 +16872,7 @@ Promise.prototype['catch'] = function (onRejected) {
 // for node.js interop
 
 var Promise = __webpack_require__(18);
-var asap = __webpack_require__(144);
+var asap = __webpack_require__(145);
 
 module.exports = Promise;
 
@@ -16792,7 +16999,7 @@ Promise.prototype.nodeify = function (callback, ctx) {
 
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16865,7 +17072,7 @@ RawTask.prototype.call = function () {
 
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16934,7 +17141,7 @@ Promise.disableSynchronous = function() {
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16972,7 +17179,7 @@ function joinClasses(className) {
 module.exports = joinClasses;
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17122,7 +17329,7 @@ function insertTextAtSelection(editorState, selection, text) {
 module.exports = DraftEditorDragHandler;
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17153,7 +17360,7 @@ function getParts(mimeString) {
 module.exports = PhotosMimeType;
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17273,7 +17480,7 @@ function createArrayFromMixed(obj) {
 module.exports = createArrayFromMixed;
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17293,25 +17500,25 @@ var UserAgent = __webpack_require__(5);
 
 var onBeforeInput = __webpack_require__(57);
 
-var onBlur = __webpack_require__(151);
+var onBlur = __webpack_require__(152);
 
-var onCompositionStart = __webpack_require__(152);
+var onCompositionStart = __webpack_require__(153);
 
-var onCopy = __webpack_require__(153);
+var onCopy = __webpack_require__(154);
 
-var onCut = __webpack_require__(154);
+var onCut = __webpack_require__(155);
 
-var onDragOver = __webpack_require__(155);
+var onDragOver = __webpack_require__(156);
 
-var onDragStart = __webpack_require__(156);
+var onDragStart = __webpack_require__(157);
 
-var onFocus = __webpack_require__(157);
+var onFocus = __webpack_require__(158);
 
-var onInput = __webpack_require__(158);
+var onInput = __webpack_require__(159);
 
 var onKeyDown = __webpack_require__(60);
 
-var onPaste = __webpack_require__(160);
+var onPaste = __webpack_require__(161);
 
 var onSelect = __webpack_require__(51);
 
@@ -17357,7 +17564,7 @@ var DraftEditorEditHandler = {
 module.exports = DraftEditorEditHandler;
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17416,7 +17623,7 @@ module.exports = editOnBlur;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17451,7 +17658,7 @@ function editOnCompositionStart(editor, e) {
 module.exports = editOnCompositionStart;
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17490,7 +17697,7 @@ function editOnCopy(editor, e) {
 module.exports = editOnCopy;
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17563,7 +17770,7 @@ function removeFragment(editorState) {
 module.exports = editOnCut;
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17590,7 +17797,7 @@ function editOnDragOver(editor, e) {
 module.exports = editOnDragOver;
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17617,7 +17824,7 @@ function editOnDragStart(editor) {
 module.exports = editOnDragStart;
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17667,7 +17874,7 @@ function editOnFocus(editor, e) {
 module.exports = editOnFocus;
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17691,7 +17898,7 @@ var EditorState = __webpack_require__(2);
 
 var UserAgent = __webpack_require__(5);
 
-var _require = __webpack_require__(159),
+var _require = __webpack_require__(160),
     notEmptyKey = _require.notEmptyKey;
 
 var findAncestorOffsetKey = __webpack_require__(26);
@@ -17875,7 +18082,7 @@ module.exports = editOnInput;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17902,7 +18109,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17926,7 +18133,7 @@ var DataTransfer = __webpack_require__(72);
 
 var DraftModifier = __webpack_require__(3);
 
-var DraftPasteProcessor = __webpack_require__(161);
+var DraftPasteProcessor = __webpack_require__(162);
 
 var EditorState = __webpack_require__(2);
 
@@ -17938,7 +18145,7 @@ var getTextContentFromFiles = __webpack_require__(73);
 
 var isEventHandled = __webpack_require__(17);
 
-var splitTextIntoTextBlocks = __webpack_require__(164);
+var splitTextIntoTextBlocks = __webpack_require__(165);
 /**
  * Paste content.
  */
@@ -18077,7 +18284,7 @@ function areTextBlocksAndClipboardEqual(textBlocks, blockMap) {
 module.exports = editOnPaste;
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18093,9 +18300,7 @@ module.exports = editOnPaste;
  */
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -18153,7 +18358,7 @@ var DraftPasteProcessor = {
 module.exports = DraftPasteProcessor;
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18190,7 +18395,7 @@ function () {
 module.exports = URI;
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18230,7 +18435,7 @@ function adjustBlockDepthForContentState(contentState, selectionState, adjustmen
 module.exports = adjustBlockDepthForContentState;
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18255,7 +18460,7 @@ function splitTextIntoTextBlocks(text) {
 module.exports = splitTextIntoTextBlocks;
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18322,23 +18527,6 @@ function (_React$Component) {
 module.exports = DraftEditorPlaceholder;
 
 /***/ }),
-/* 166 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @format
- * 
- * @emails oncall+draft_js
- */
-
-
-/***/ }),
 /* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18355,9 +18543,24 @@ module.exports = DraftEditorPlaceholder;
  */
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/***/ }),
+/* 168 */
+/***/ (function(module, exports, __webpack_require__) {
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+"use strict";
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * 
+ * @emails oncall+draft_js
+ */
+
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -18367,9 +18570,9 @@ var ContentBlockNode = __webpack_require__(7);
 
 var DraftStringKey = __webpack_require__(79);
 
-var encodeEntityRanges = __webpack_require__(168);
+var encodeEntityRanges = __webpack_require__(169);
 
-var encodeInlineStyleRanges = __webpack_require__(169);
+var encodeInlineStyleRanges = __webpack_require__(170);
 
 var invariant = __webpack_require__(1);
 
@@ -18476,7 +18679,7 @@ var convertFromDraftStateToRaw = function convertFromDraftStateToRaw(contentStat
 module.exports = convertFromDraftStateToRaw;
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18525,7 +18728,7 @@ function encodeEntityRanges(block, storageMap) {
 module.exports = encodeEntityRanges;
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18595,7 +18798,7 @@ function encodeInlineStyleRanges(block) {
 module.exports = encodeInlineStyleRanges;
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18611,9 +18814,7 @@ module.exports = encodeInlineStyleRanges;
  */
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -18625,17 +18826,17 @@ var ContentState = __webpack_require__(32);
 
 var DraftEntity = __webpack_require__(23);
 
-var DraftTreeAdapter = __webpack_require__(171);
+var DraftTreeAdapter = __webpack_require__(172);
 
-var DraftTreeInvariants = __webpack_require__(172);
+var DraftTreeInvariants = __webpack_require__(173);
 
 var SelectionState = __webpack_require__(24);
 
-var createCharacterList = __webpack_require__(173);
+var createCharacterList = __webpack_require__(174);
 
-var decodeEntityRanges = __webpack_require__(174);
+var decodeEntityRanges = __webpack_require__(175);
 
-var decodeInlineStyleRanges = __webpack_require__(175);
+var decodeInlineStyleRanges = __webpack_require__(176);
 
 var generateRandomKey = __webpack_require__(10);
 
@@ -18829,15 +19030,13 @@ var convertFromRawToDraftState = function convertFromRawToDraftState(rawState) {
 module.exports = convertFromRawToDraftState;
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -19000,7 +19199,7 @@ var DraftTreeAdapter = {
 module.exports = DraftTreeAdapter;
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19179,7 +19378,7 @@ var DraftTreeInvariants = {
 module.exports = DraftTreeInvariants;
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19215,7 +19414,7 @@ function createCharacterList(inlineStyles, entities) {
 module.exports = createCharacterList;
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19260,7 +19459,7 @@ function decodeEntityRanges(text, ranges) {
 module.exports = decodeEntityRanges;
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19308,7 +19507,7 @@ function decodeInlineStyleRanges(text, ranges) {
 module.exports = decodeInlineStyleRanges;
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19324,7 +19523,7 @@ module.exports = decodeInlineStyleRanges;
  */
 
 
-var getRangeBoundingClientRect = __webpack_require__(177);
+var getRangeBoundingClientRect = __webpack_require__(178);
 /**
  * Return the bounding ClientRect for the visible DOM selection, if any.
  * In cases where there are no selected ranges or the bounding rect is
@@ -19358,7 +19557,7 @@ function getVisibleSelectionRect(global) {
 module.exports = getVisibleSelectionRect;
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
