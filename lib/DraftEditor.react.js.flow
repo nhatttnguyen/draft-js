@@ -23,6 +23,8 @@ const DefaultDraftInlineStyle = require("./DefaultDraftInlineStyle");
 
 const DraftEditorCompositionHandler = require("./DraftEditorCompositionHandler");
 
+console.log('DraftEditorCompositionHandler in DraftEditor.react.js', DraftEditorCompositionHandler);
+
 const DraftEditorContents = require("./DraftEditorContents.react");
 
 const DraftEditorDragHandler = require("./DraftEditorDragHandler");

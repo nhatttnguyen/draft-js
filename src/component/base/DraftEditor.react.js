@@ -20,6 +20,10 @@ import type {DraftScrollPosition} from 'DraftScrollPosition';
 const DefaultDraftBlockRenderMap = require('DefaultDraftBlockRenderMap');
 const DefaultDraftInlineStyle = require('DefaultDraftInlineStyle');
 const DraftEditorCompositionHandler = require('DraftEditorCompositionHandler');
+console.log(
+  'DraftEditorCompositionHandler in DraftEditor.react.js',
+  DraftEditorCompositionHandler,
+);
 const DraftEditorContents = require('DraftEditorContents.react');
 const DraftEditorDragHandler = require('DraftEditorDragHandler');
 const DraftEditorEditHandler = require('DraftEditorEditHandler');

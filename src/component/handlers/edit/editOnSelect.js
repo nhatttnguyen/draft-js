@@ -18,9 +18,10 @@ const EditorState = require('EditorState');
 
 const getContentEditableContainer = require('getContentEditableContainer');
 const getDraftEditorSelection = require('getDraftEditorSelection');
-const DraftEditorCompositionHandler = require('DraftEditorCompositionHandler');
+const DraftEditorCompositionHandler = require('src/component/handlers/composition/DraftEditorCompositionHandler');
 
 function editOnSelect(editor: DraftEditor, e: any): void {
+  console.log('editor', editor);
   console.log('editOnSelect=======');
   if (editor._latestEditorState.isInCompositionMode()) {
     console.log(
