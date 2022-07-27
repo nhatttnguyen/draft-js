@@ -489,6 +489,7 @@ const DraftEditorCompositionHandler = {
   },
 
   fireResolveComposition: function(editor: DraftEditor, e: any) {
+    console.log('e', e);
     resolved = false;
     isNewOrIsResolved = false;
     stillComposing = false;

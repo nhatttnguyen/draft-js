@@ -448,6 +448,7 @@ const DraftEditorCompositionHandler = {
     editor.update(EditorState.push(editorStateWithUpdatedSelection, contentState, 'insert-characters'));
   },
   fireResolveComposition: function (editor: DraftEditor, e: any) {
+    console.log('e', e);
     resolved = false;
     isNewOrIsResolved = false;
     stillComposing = false;
