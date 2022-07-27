@@ -82,6 +82,8 @@ function editOnBeforeInput2(
   e: SyntheticInputEvent<>,
   chars,
 ): void {
+  console.log('editOnBeforeInput2=========');
+  console.log('editOnBeforeInput2-chars:', chars);
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;

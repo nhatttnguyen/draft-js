@@ -4638,6 +4638,7 @@ var DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionStart: function onCompositionStart(editor, e) {
+    console.log('onCompositionStart========');
     isOnBeforeInput = false;
     var isMobile = checkDevice();
     var editorState = editor._latestEditorState;
@@ -4697,6 +4698,7 @@ var DraftEditorCompositionHandler = {
    * mode. Continue the current composition session to prevent a re-render.
    */
   onCompositionUpdate: function onCompositionUpdate(editor, e) {
+    if (e) console.log('onCompositionUpdate-event.data======', e.data);
     var editorState = editor._latestEditorState;
     var selection = editorState.getSelection();
     var contentState = editorState.getCurrentContent(); // if (!selection.isCollapsed()) {
@@ -4730,6 +4732,7 @@ var DraftEditorCompositionHandler = {
    * Google Input Tools on Windows 8.1 fires `compositionend` three times.
    */
   onCompositionEnd: function onCompositionEnd(editor, e) {
+    console.log('onCompositionEnd========');
     resolved = false;
     isNewOrIsResolved = false;
     stillComposing = false;
@@ -4745,6 +4748,7 @@ var DraftEditorCompositionHandler = {
   },
   onSelect: editOnSelect,
   onBeforeInput: function onBeforeInput(editor, e) {
+    console.log('onBeforeInput======');
     isOnBeforeInput = true;
     resolved = false;
     stillComposing = false;
@@ -4871,6 +4875,7 @@ var DraftEditorCompositionHandler = {
    * so we update to force it back to the correct place.
    */
   resolveComposition: function resolveComposition(editor, e) {
+    console.log('resolveComposition==========');
     isOnBeforeInput = false;
 
     if (stillComposing) {
@@ -4927,8 +4932,10 @@ var DraftEditorCompositionHandler = {
           editor.update(EditorState.set(editor._latestEditorState, {
             inCompositionMode: false
           }));
+          console.log('resolveComposition-e.data (not composed):', e.data);
           editOnBeforeInput2(editor, e, e.data);
         } else {
+          console.log('resolveComposition-composedChars:', composedChars);
           editOnBeforeInput2(editor, e, composedChars);
         }
       });
@@ -5061,7 +5068,10 @@ var getContentEditableContainer = __webpack_require__(53);
 var getDraftEditorSelection = __webpack_require__(54);
 
 function editOnSelect(editor, e) {
+  console.log('editOnSelect=======');
+
   if (editor._latestEditorState.isInCompositionMode()) {
+    console.log('editor._latestEditorState.isInCompositionMode()', editor._latestEditorState.isInCompositionMode());
     return;
   }
 
@@ -14562,6 +14572,9 @@ function replaceText(editorState, text, inlineStyle, entityKey, forceSelection) 
 
 
 function editOnBeforeInput2(editor, e, chars) {
+  console.log('editOnBeforeInput2=========');
+  console.log('editOnBeforeInput2-chars:', chars);
+
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;
