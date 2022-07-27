@@ -5075,6 +5075,7 @@ function editOnSelect(editor, e) {
 
   if (editor._latestEditorState.isInCompositionMode()) {
     console.log('editor._latestEditorState.isInCompositionMode()', editor._latestEditorState.isInCompositionMode());
+    console.log('DraftEditorCompositionHandler', DraftEditorCompositionHandler);
     DraftEditorCompositionHandler.fireResolveComposition(editor, e);
     return;
   }
