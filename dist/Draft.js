@@ -5074,9 +5074,7 @@ function editOnSelect(editor, e) {
   console.log('editOnSelect=======');
 
   if (editor._latestEditorState.isInCompositionMode()) {
-    console.log('editor._latestEditorState.isInCompositionMode()', editor._latestEditorState.isInCompositionMode());
-    console.log('DraftEditorCompositionHandler', DraftEditorCompositionHandler);
-    DraftEditorCompositionHandler.fireResolveComposition(editor, e);
+    console.log('editOnSelect-e', e);
     return;
   }
 
@@ -5559,6 +5557,8 @@ function replaceText(editorState, text, inlineStyle, entityKey, forceSelection) 
 
 
 function editOnBeforeInput(editor, e) {
+  console.log('editOnBeforeInput=======');
+
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;
@@ -17439,7 +17439,7 @@ var containsNode = __webpack_require__(40);
 var getActiveElement = __webpack_require__(67);
 
 function editOnBlur(editor, e) {
-  // In a contentEditable element, when you select a range and then click
+  console.log('editOnBlur======='); // In a contentEditable element, when you select a range and then click
   // another active element, this does trigger a `blur` event but will not
   // remove the DOM selection from the contenteditable.
   // This is consistent across all browsers, but we prefer that the editor
@@ -17449,6 +17449,7 @@ function editOnBlur(editor, e) {
   // opposed to clicking to another tab or window).
   // However if users wish to override this behaviour they can provide
   // a prop preserveSelectionOnBlur of `true`.
+
   if (!editor.props.preserveSelectionOnBlur && getActiveElement() === document.body) {
     var _selection = global.getSelection();
 
@@ -17499,6 +17500,7 @@ var EditorState = __webpack_require__(2);
 
 
 function editOnCompositionStart(editor, e) {
+  console.log('editOnCompositionStart======');
   editor.setMode('composite');
   editor.update(EditorState.set(editor._latestEditorState, {
     inCompositionMode: true
@@ -17697,6 +17699,7 @@ var EditorState = __webpack_require__(2);
 var UserAgent = __webpack_require__(5);
 
 function editOnFocus(editor, e) {
+  console.log('editOnFocus======');
   var editorState = editor._latestEditorState;
   var currentSelection = editorState.getSelection();
 
@@ -17796,6 +17799,8 @@ function onInputType(inputType, editorState) {
 
 
 function editOnInput(editor, e) {
+  console.log('editOnInput=========');
+
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;

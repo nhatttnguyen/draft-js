@@ -20,6 +20,7 @@ const EditorState = require("./EditorState");
 
 
 function editOnCompositionStart(editor: DraftEditor, e: SyntheticEvent<>): void {
+  console.log('editOnCompositionStart======');
   editor.setMode('composite');
   editor.update(EditorState.set(editor._latestEditorState, {
     inCompositionMode: true

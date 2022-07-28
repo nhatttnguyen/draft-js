@@ -67,6 +67,8 @@ function onInputType(inputType: string, editorState: EditorState): EditorState {
 
 
 function editOnInput(editor: DraftEditor, e: SyntheticInputEvent<>): void {
+  console.log('editOnInput=========');
+
   if (editor._pendingStateFromBeforeInput !== undefined) {
     editor.update(editor._pendingStateFromBeforeInput);
     editor._pendingStateFromBeforeInput = undefined;

@@ -23,12 +23,7 @@ const DraftEditorCompositionHandler = require('DraftEditorCompositionHandler');
 function editOnSelect(editor: DraftEditor, e: any): void {
   console.log('editOnSelect=======');
   if (editor._latestEditorState.isInCompositionMode()) {
-    console.log(
-      'editor._latestEditorState.isInCompositionMode()',
-      editor._latestEditorState.isInCompositionMode(),
-    );
-    console.log('DraftEditorCompositionHandler', DraftEditorCompositionHandler);
-    DraftEditorCompositionHandler.fireResolveComposition(editor, e);
+    console.log('editOnSelect-e', e);
     return;
   }
   if (
