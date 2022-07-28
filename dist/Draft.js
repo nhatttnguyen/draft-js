@@ -17390,7 +17390,7 @@ var DraftEditorCompositionHandler = __webpack_require__(35);
 var isChrome = UserAgent.isBrowser('Chrome');
 
 var selectionHandler = function selectionHandler(editor, e) {
-  return isChrome ? onSelect : function (e) {};
+  return function (e) {};
 };
 
 var DraftEditorEditHandler = {

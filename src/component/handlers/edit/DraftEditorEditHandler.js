@@ -31,8 +31,7 @@ const DraftEditorCompositionHandler = require('DraftEditorCompositionHandler');
 
 const isChrome = UserAgent.isBrowser('Chrome');
 
-const selectionHandler = (editor: DraftEditor, e: any) =>
-  isChrome ? onSelect : e => {};
+const selectionHandler = (editor: DraftEditor, e: any) => e => {};
 const DraftEditorEditHandler = {
   onBeforeInput,
   onBlur,
