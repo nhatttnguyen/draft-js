@@ -5074,6 +5074,8 @@ function editOnSelect(editor, e) {
   console.log('editOnSelect=======');
 
   if (editor._latestEditorState.isInCompositionMode()) {
+    e.stopPropagation();
+    e.preventDefault();
     console.log('editOnSelect-e', e);
     return;
   }
@@ -17390,7 +17392,7 @@ var DraftEditorCompositionHandler = __webpack_require__(35);
 var isChrome = UserAgent.isBrowser('Chrome');
 
 var selectionHandler = function selectionHandler(editor, e) {
-  return function (e) {};
+  return isChrome ? onSelect : function (e) {};
 };
 
 var DraftEditorEditHandler = {
