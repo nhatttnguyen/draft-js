@@ -3782,6 +3782,11 @@ var DraftEditorCompositionHandler = {
   onCompositionStart: function onCompositionStart(editor, e) {
     console.log('onCompositionStart========');
     isOnBeforeInput = false;
+
+    if (editor._latestEditorState.isInCompositionMode()) {
+      return;
+    }
+
     var isMobile = checkDevice();
     var editorState = editor._latestEditorState;
     var selection = editorState.getSelection(); // if (
