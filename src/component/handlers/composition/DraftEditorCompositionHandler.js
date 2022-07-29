@@ -57,6 +57,7 @@ let compositionStartAnchorOffset;
 let compositionStartIsBackward;
 let isNewOrIsResolved = true;
 function startDOMObserver(editor: DraftEditor) {
+  console.log('domObserver', domObserver);
   if (!domObserver) {
     domObserver = new DOMObserver(getContentEditableContainer(editor));
     domObserver.start();
@@ -91,7 +92,13 @@ const DraftEditorCompositionHandler = {
   onCompositionStart: function(editor: DraftEditor, e: any): void {
     console.log('onCompositionStart========');
     isOnBeforeInput = false;
-    if (editor._latestEditorState.isInCompositionMode()) {
+    console.log(
+      'editor._latestEditorState.isInCompositionMode()',
+      editor._latestEditorState.isInCompositionMode(),
+    );
+
+    console.log('stillComposing', stillComposing);
+    if (editor._latestEditorState.isInCompositionMode() && stillComposing) {
       return;
     }
     const isMobile = checkDevice();

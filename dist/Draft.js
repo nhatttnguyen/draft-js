@@ -3750,6 +3750,8 @@ var compositionStartIsBackward;
 var isNewOrIsResolved = true;
 
 function startDOMObserver(editor) {
+  console.log('domObserver', domObserver);
+
   if (!domObserver) {
     domObserver = new DOMObserver(getContentEditableContainer(editor));
     domObserver.start();
@@ -3782,8 +3784,10 @@ var DraftEditorCompositionHandler = {
   onCompositionStart: function onCompositionStart(editor, e) {
     console.log('onCompositionStart========');
     isOnBeforeInput = false;
+    console.log('editor._latestEditorState.isInCompositionMode()', editor._latestEditorState.isInCompositionMode());
+    console.log('stillComposing', stillComposing);
 
-    if (editor._latestEditorState.isInCompositionMode()) {
+    if (editor._latestEditorState.isInCompositionMode() && stillComposing) {
       return;
     }
 
